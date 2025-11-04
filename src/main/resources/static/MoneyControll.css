@@ -136,7 +136,20 @@ body {
     float: right;
 }
 
-.action-buttons button {
+
+.action-buttons .primary-btn {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ff5722;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+
+.action-buttons button:not(.primary-btn,.btn-close-custom,.btn-custom-save) {
     padding: 8px 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -147,11 +160,7 @@ body {
     font-weight: 500;
 }
 
-.action-buttons .primary-btn {
-    background-color: #ff5722;
-    color: #fff;
-    border-color: #ff5722;
-}
+
 
 
 
