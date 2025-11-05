@@ -1,0 +1,598 @@
+/* * --------------------------------
+ * CREP 대시보드 스타일
+ * (dashboard.css)
+ * [수정] SVG Include 방식으로 아이콘 로드
+ * --------------------------------
+ */
+
+/* === 폰트 및 기본 === */
+body {
+    font-family: 'Arimo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F9FAFB;
+    color: #0A0A0A;
+    line-height: 1.5;
+    margin: 0;
+    padding: 24px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* === 그리드 레이아웃 === */
+.dash-grid-row {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+.dash-grid-row-4 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.dash-grid-row-3 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.dash-grid-row-2 {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+.dash-grid-row-2-ratio {
+    grid-template-columns: 2fr 1fr;
+}
+.dash-grid-row-1 {
+    grid-template-columns: 1fr;
+}
+
+/* === 공통 카드 === */
+.dash-card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    border: 1.11px solid rgba(0, 0, 0, 0.10); /* 회색 테두리 */
+}
+.dash-card.channel-card {
+    border: 1.11px solid #FFEDD4; /* 주황색 테두리 */
+    display: flex;
+    flex-direction: column;
+}
+.dash-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.dash-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #0A0A0A;
+    font-size: 16px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+/* [제거] .dash-card-title img { ... } */
+
+/* "1개 연동됨" 배지 */
+.dash-card-badge {
+    color: #016630;
+    background: #DCFCE7;
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 16px;
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+/* === 채널 카드 === */
+.channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+.channel-item {
+    border-radius: 10px;
+    outline: 1.11px solid rgba(0, 0, 0, 0.10);
+    padding: 13px;
+}
+.channel-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+.channel-item-info {
+    color: #0A0A0A;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+}
+.channel-item-info span {
+    display: block;
+    color: #4A5565;
+    font-size: 12px;
+    line-height: 16px;
+}
+.channel-item-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+.channel-stat {
+    display: flex;
+    flex-direction: column;
+}
+.channel-stat-label {
+    color: #4A5565;
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 16px;
+}
+.channel-stat-value {
+    color: #F54900;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+/* "채널 추가" 버튼 */
+.btn-add-channel {
+    width: 100%;
+    margin-top: auto;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 8px;
+    outline: 1.11px solid #FFB86A;
+    color: #F54900;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.btn-add-channel:hover {
+    background-color: #FFF7ED;
+}
+
+/* === 통계 카드 === */
+.dash-stat-card {
+    display: flex;
+    flex-direction: column;
+}
+.dash-stat-card-title {
+    color: #0A0A0A;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+}
+.dash-stat-card-body {
+    margin-top: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.dash-stat-value {
+    color: #EA580C;
+    font-size: 24px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 700;
+    line-height: 32px;
+    word-break: break-all;
+}
+.dash-stat-desc {
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 16px;
+    margin-top: 4px;
+}
+.dash-stat-desc .highlight {
+    color: #EA580C;
+}
+.dash-stat-desc .label {
+    color: #64748B;
+    margin-left: 4px;
+}
+
+/* === 차트 카드 === */
+.chart-card-header {
+    margin: -24px -24px 24px -24px;
+    padding: 24px 24px 24px 24px;
+    border-bottom: 1.11px solid rgba(0, 0, 0, 0.10);
+}
+.chart-card-title {
+    color: #0A0A0A;
+    font-size: 16px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 16px;
+}
+.chart-card-subtitle {
+    color: #64748B;
+    font-size: 16px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: 8px;
+}
+.chart-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 350px;
+    background: white;
+    border-radius: 0;
+    color: #AAA;
+    font-family: 'Arimo', sans-serif;
+}
+.chart-placeholder canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* === 목록 카드 (예정된 콘텐츠, 활성 협찬) === */
+.dash-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 350px;
+    overflow-y: auto;
+}
+.dash-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.11px solid rgba(0, 0, 0, 0.10);
+    padding-bottom: 16px;
+}
+.dash-list-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.dash-list-item-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-bottom: 1.11px solid rgba(0, 0, 0, 0.10);
+    padding-bottom: 16px;
+}
+.dash-list-item-progress:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.dash-list-item-progress > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dash-list-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* [제거] .dash-list-info img { ... } */
+
+.dash-list-info-text {
+    color: #0A0A0A;
+    font-size: 16px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+}
+.dash-list-info-text span {
+    display: block;
+    color: #64748B;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+/* 진행률 바 (활성 협찬) */
+.progress-bar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 16px;
+    color: #64748B;
+}
+.progress-bar {
+    width: 100%;
+    background: rgba(3, 2, 19, 0.20);
+    border-radius: 100px;
+    height: 8px;
+    overflow: hidden;
+}
+.progress-bar-inner {
+    height: 100%;
+    background: #EA580C;
+    border-radius: 100px;
+}
+
+/* 상태 배지 (목록) */
+.dash-list-badge {
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 16px;
+    white-space: nowrap;
+    display: inline-block;
+    width: fit-content;
+}
+.dash-list-badge.editing {
+    background: #F54900;
+    color: white;
+}
+.dash-list-badge.filmed {
+    background: #ECEEF2;
+    color: #030213;
+}
+.dash-list-badge.planning {
+    background: #ECEEF2;
+    color: #030213;
+}
+.dash-list-badge.pending {
+    background: white;
+    border: 1.11px solid #E0E0E0;
+    color: #0A0A0A;
+}
+
+/* * [제거]
+ * .icon-platform, .icon-youtube, .icon-instagram, .icon-chzzk
+ * (background-image 방식 제거)
+ */
+
+.dash-list-item-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-bottom: 1.11px solid rgba(0, 0, 0, 0.10);
+    padding-bottom: 16px;
+}
+.dash-list-item-progress:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.dash-list-progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dash-list-progress-title {
+    color: #0A0A0A;
+    font-size: 16px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+}
+.dash-list-progress-amount {
+    color: #64748B;
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 16px;
+}
+.dash-list-progress-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* "연동" 카드의 전체 레이아웃 */
+.channel-card-unlinked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    min-height: 350px;
+}
+.channel-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* [제거] .channel-icon-wrapper img { ... } */
+
+.channel-icon-wrapper.yt {
+    background: #FFE2E2;
+}
+.channel-icon-wrapper.ig {
+    background: #FCE8F3;
+}
+.channel-icon-wrapper.cz {
+    background: #E0FCF2;
+}
+.channel-unlinked-title {
+    color: #0A0A0A;
+    font-size: 16px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 4px;
+}
+.channel-unlinked-desc {
+    color: #4A5565;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+}
+.btn-link-channel {
+    background: #F54900;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+/*
+ * [제거]
+ * .btn-add-channel::before, .btn-link-channel::before
+ * (::before background-image 방식 제거)
+ */
+
+
+.dash-list-item.top-content-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+.dash-list-platform-name {
+    color: #0A0A0A;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+}
+.dash-list-title {
+    color: #0A0A0A;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.dash-list-likes {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #0A0A0A;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+/* === 1. 아이콘 공통 === */
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+}
+
+/* === 2. 채널 카드 (연동 안됨) === */
+.channel-icon-wrapper .icon {
+    width: 24px;
+    height: 24px;
+}
+.channel-icon-wrapper.yt .icon-youtube { fill: #FF0000; }
+.channel-icon-wrapper.ig .icon-instagram { stroke: #C13584; fill: none; }
+.channel-icon-wrapper.cz .icon-chzzk { fill: #00FFA3; }
+
+/* === 3. 채널 카드 (연동됨) === */
+.dash-card-title .icon {
+    width: 20px;
+    height: 20px;
+}
+.dash-card-title .icon-youtube { fill: #FF0000; }
+.dash-card-title .icon-instagram { stroke: #C13584; fill: none; }
+.dash-card-title .icon-chzzk { fill: #00FFA3; }
+
+/* === 4. 버튼 아이콘 (플러스) === */
+.btn-add-channel .icon,
+.btn-link-channel .icon {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.5;
+}
+/* "채널 추가" 버튼 (주황색 선) */
+.btn-add-channel .icon {
+    stroke: #F54900;
+}
+/* "채널 연동하기" 버튼 (흰색 선) */
+.btn-link-channel .icon {
+    stroke: white;
+}
+
+/* === 5. 목록 아이콘 (플랫폼) === */
+.icon-platform-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+.icon-platform-wrapper .icon {
+    width: 16px;
+    height: 16px;
+}
+.icon-platform-wrapper.yt { background-color: #FF00001A; }
+.icon-platform-wrapper.yt .icon-youtube { fill: #FF0000; }
+
+.icon-platform-wrapper.ig { background-color: #C135841A; }
+.icon-platform-wrapper.ig .icon-instagram { stroke: #C13584; fill: none; }
+
+.icon-platform-wrapper.cz { background-color: #00FFA31A; }
+.icon-platform-wrapper.cz .icon-chzzk { fill: #00FFA3; }
+
+/* === 6. 목록 아이콘 (좋아요) === */
+.dash-list-likes .icon-like {
+    width: 12px;
+    height: 12px;
+    stroke: #F43F5E;
+    fill: #F43F5E;
+}
+
+/* === 반응형 (Mobile) === */
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+    .dash-grid-row-4,
+    .dash-grid-row-3,
+    .dash-grid-row-2,
+    .dash-grid-row-2-ratio {
+        grid-template-columns: 1fr;
+    }
+    .chart-card-header {
+        margin: -16px -16px 16px -16px;
+        padding: 16px;
+    }
+    .dash-card {
+        padding: 16px;
+    }
+}
