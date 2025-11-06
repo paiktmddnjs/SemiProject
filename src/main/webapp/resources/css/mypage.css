@@ -1,0 +1,396 @@
+/* --- 기본 설정 및 변수 --- */
+:root {
+    --primary-color: #F54900;
+    --primary-color-dark: #EA580C;
+    --text-primary: #0A0A0A;
+    --text-secondary: rgba(0, 0, 0, 0.70);
+    --text-light: rgba(0, 0, 0, 0.60);
+    --text-lighter: rgba(0, 0, 0, 0.50);
+    --text-lightest: rgba(0, 0, 0, 0.40);
+    --border-color: rgba(0, 0, 0, 0.10);
+    --divider-color: rgba(0, 0, 0, 0.20);
+    --background-color: #F9FAFB;
+    --card-background: white;
+    --status-private-bg: #7F7F7F;
+
+    /* 카테고리 배지 색상 */
+    --badge-review-color: #EA580C;
+    --badge-review-border: #EA580C;
+    --badge-entertainment-color: #FFEDD5;
+    --badge-entertainment-border: #FFEDD5;
+    --badge-communication-color: #FED7AA;
+    --badge-communication-border: #FED7AA;
+    --badge-tutorial-color: #FDBA74;
+    --badge-tutorial-border: #FDBA74;
+}
+
+body {
+    font-family: 'Arimo', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 24px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h2, h3 {
+    margin: 0;
+}
+
+/* --- 레이아웃 --- */
+.dashboard-container {
+    width: 100%;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dashboard-header {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+}
+
+.dashboard-content {
+    width: 100%;
+}
+
+/* --- 공용 컴포넌트 --- */
+.card {
+    background: var(--card-background);
+    border-radius: 14px;
+    outline: 1.11px solid var(--border-color);
+    padding: 24px;
+}
+
+.btn {
+    padding: 0 12px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Arimo', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* 버튼 안의 아이콘과 텍스트 간격은 gap으로 처리 */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--primary-color);
+    color: white;
+    height: 32px;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+/* --- 프로필 카드 --- */
+.profile-card {
+    flex: 2; /* 2:1 비율로 설정 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.profile-image-placeholder {
+    width: 200px;
+    height: 200px;
+    background-color: #1D1B20;
+    flex-shrink: 0;
+}
+
+.profile-divider {
+    width: 3px;
+    height: 200px; /* 이미지 높이에 맞게 */
+    background: var(--divider-color);
+    flex-shrink: 0;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-info h2 {
+    color: var(--text-light);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 48px;
+    margin-bottom: 8px;
+}
+
+.profile-info .email {
+    color: var(--text-lightest);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    margin: 0 0 20px 0;
+}
+
+.profile-info .user-info {
+    color: var(--text-light);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    margin: 0;
+}
+
+.profile-main .btn-secondary {
+    flex-shrink: 0;
+    align-self: flex-start; /* 상단 정렬 */
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat-box {
+    background: var(--card-background);
+    border-radius: 14px;
+    outline: 1.11px solid var(--border-color);
+    padding: 15px 20px;
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.stat-title {
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.stat-value {
+    color: var(--primary-color-dark);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+}
+
+
+/* --- 프로젝트 카드 --- */
+.project-card {
+    flex-basis: 40%; /* 기존값보다 조금 더 늘려서 공간 확보 */
+    min-width: 320px; /* 최소 너비를 지정하여 텍스트가 잘리지 않도록 함 */
+    padding: 24px;
+    display: flex;
+    justify-content: space-around; /* 내부 요소들을 균등하게 배치 */
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.project-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    /* [수정] 텍스트가 잘리지 않도록 최소 너비와 텍스트 줄바꿈 방지 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    min-width: fit-content; /* 내용물에 맞춰 최소 너비 설정 */
+}
+
+.project-divider {
+    width: 1px;
+    height: 80%; /* 디바이더 높이 조정 */
+    background-color: #E5E7EB;
+    margin: 0 24px; /* 디바이더 좌우 간격 조정 */
+}
+
+.project-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4B5563;
+    /* [수정] 텍스트가 잘리지 않도록 white-space와 overflow 제거 */
+    /* white-space: nowrap; (상위 .project-column으로 이동) */
+    /* overflow: hidden; (제거) */
+    /* text-overflow: ellipsis; (제거) */
+}
+
+
+.project-count {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.project-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #EA580C;
+    line-height: 1;
+}
+
+.project-unit {
+    font-size: 18px;
+    font-weight: 500;
+    color: #4B5563;
+}
+
+/* --- 채널 카드 (테이블) --- */
+.channels-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 10px;
+}
+
+.channels-card .card-title {
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* 작은 화면에서 스크롤 */
+}
+
+.channels-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.channels-table th,
+.channels-table td {
+    border-bottom: 1.11px solid var(--border-color);
+    padding: 10px 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.channels-table th {
+    color: var(--text-primary);
+}
+
+.channels-table td {
+    color: var(--text-primary);
+}
+
+.channels-table td,
+.channels-table th {
+    /* 테이블 컬럼 너비 (원본 HTML 기준) */
+    /* 필요에 따라 조정하세요 */
+    min-width: 130px;
+}
+.channels-table th:nth-child(1),
+.channels-table td:nth-child(1) { min-width: 250px; } /* 플랫폼 */
+.channels-table th:nth-child(2),
+.channels-table td:nth-child(2) { min-width: 410px; } /* 채널명 */
+.channels-table th:nth-child(3),
+.channels-table td:nth-child(3) { min-width: 250px; } /* 카테고리 */
+
+
+/* --- 배지 & 상태 --- */
+.badge {
+    display: inline-flex;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+/* [수정] badge-review 색상 조정 */
+.badge-review {
+    background-color: #FEE2E2; /* 연한 주황 -> 더 명확한 주황 계열로 */
+    color: #EF4444; /* 글자색 */
+}
+
+/* 나머지 뱃지 색상 (예시) */
+.badge-entertainment {
+    background-color: #DBEAFE;
+    color: #3B82F6;
+}
+
+.badge-communication {
+    background-color: #D1FAE5;
+    color: #10B981;
+}
+
+.badge-tutorial {
+    background-color: #FFEDD5;
+    color: #F97316;
+}
+
+.status-badge {
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+.status-published {
+    background-color: var(--primary-color);
+}
+.status-private {
+    background-color: var(--status-private-bg);
+}
+
+
+/* --- 아이콘 (수정) --- */
+/*
+  jsp:include로 삽입된 아이콘과 텍스트를 정렬하기 위한 래퍼(wrapper)입니다.
+  아이콘의 크기나 모양은 `icons/` 디렉토리의 개별 JSP 파일이 담당합니다.
+*/
+.icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle; /* 텍스트와 세로 중앙 정렬 */
+}
+
+/* 버튼 내 아이콘 */
+.btn .icon-wrapper {
+    /* 버튼의 gap 속성이 간격을 처리합니다. */
+}
+
+/* 테이블 - 플랫폼 아이콘 */
+.channels-table .platform-icon {
+    margin-right: 8px; /* 아이콘과 플랫폼 텍스트(YouTube 등) 사이 간격 */
+}
+
+/* 테이블 - 스탯 아이콘 */
+.channels-table .stat-icon {
+    margin-right: 4px; /* 아이콘과 숫자 사이 간격 */
+}
+
+/* 프로필 스탯 카드 내 아이콘 */
+.stat-header .icon-wrapper {
+    /* stat-header가 flex(space-between)이므로 간격 불필요 */
+}
