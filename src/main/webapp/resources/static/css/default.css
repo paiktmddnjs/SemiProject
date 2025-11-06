@@ -1,0 +1,129 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.navigator{
+    border: 1px solid black;
+}
+.body{
+    display: flex;
+    flex-direction: row;
+    background-color: #F9FAFB;
+}
+.sidebar{
+    border : 1px solid black;   
+}
+.content{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: 24px;
+    gap: 24px;
+    flex: 1;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+}
+.header_title_main{
+    font-size: 24px;
+    color: #F54900;
+}
+.button{
+    background-color: #F54900;
+    border-style: none;
+    border-radius: 8px;
+    width : 159px;
+    height: 36px;
+    margin:12px;
+    color: white;
+}
+.button:hover{
+    scale: 1.02;
+    cursor:pointer;
+}
+.tab_list{
+    width : 308px;    
+    display: flex;
+    flex-direction: row;
+    background-color: #ECECF0;
+    border-radius: 14px;
+    gap:12px;
+    font-size: 14;
+    align-items: center;
+    justify-items: center;
+}  
+.tab{
+    text-align: center;
+    width: 105px;
+    height: 30px;
+}
+.tab:hover{
+    cursor:pointer;
+}
+.choice{
+    background-color: #F54900;
+    border-style: none;
+    border-radius: 14px;
+    width: 105px;
+    height: 30px;
+    text-align: center;
+    color: white;
+} 
+.content_box{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+.box{
+    border : 1px solid rgba(0,0,0,0.5);
+    border-radius: 14px; 
+}
+.box:hover{
+    scale:1.02;
+}
+
+.box_body{
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    gap: 24px;
+    flex:1;
+}
+.title{
+    display: flex;
+    flex-direction: row;
+    gap : 10px;
+}
+.box_describe{
+    display: flex;
+    flex-direction: column;
+}
+.workspace_footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.projectmenu{
+    display: flex;
+    flex-direction: row;   
+    gap: 24px;
+}
+.footer{
+    border: 1px solid black;
+}
+select{
+    border-style: none;
+    background-color: yellow;
+    width: 120px;
+    color: blue;
+}
+
