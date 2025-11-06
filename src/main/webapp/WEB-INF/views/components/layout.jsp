@@ -25,7 +25,6 @@
     .layout {
       display: grid;
       grid-template-rows: auto auto 1fr auto; /* footer는 항상 아래 */
-      min-height: 100vh;
       grid-template-areas:
         "header"
         "sidebar"
@@ -71,6 +70,7 @@
         border-right: 1px solid var(--border);
       }
     }
+
   </style>
 </head>
 <body>
@@ -88,7 +88,7 @@
     <!-- 본문 -->
     <main class="layout__main">
 
-          <jsp:include page=""/>
+          <jsp:include page="/WEB-INF/views/dashboard.jsp"/>
 
     </main>
 

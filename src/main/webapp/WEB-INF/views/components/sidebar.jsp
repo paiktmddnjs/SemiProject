@@ -150,7 +150,7 @@
         </div>
 
         <nav class="sidebar__nav" id="sidebarNav">
-            <a class="nav-link" href="#" data-key="dashboard">
+            <a class="nav-link" href="<c:url value='/WEB-INF/views/dashboard.jsp'/>" data-key="dashboard">
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/dashboard_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">대시보드</span>
             </a>
@@ -172,7 +172,6 @@
             </a>
         </nav>
     </div>
-
 </aside>
 
 <script>
