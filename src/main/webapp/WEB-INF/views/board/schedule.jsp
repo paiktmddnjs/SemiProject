@@ -178,8 +178,9 @@
         }
 
         .eventList li{
-            width:100%;
+            width:95%;
             height:100px;
+            margin:10px auto;
             background-color:#fff7ed;
             border: 1px solid;
             border-color: #ea580c;
@@ -246,6 +247,74 @@
             padding-right:10px;
             color:white;
             font-size:80%;
+        }
+
+        .eventSemiList{
+            margin:10px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .eventSemiList li{
+            width:95%;
+            margin:10px auto;
+            background-color:#fff7ed;
+            border: 1px solid;
+            border-color: #ea580c;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .eventSemiHead{
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .eventSemiHead h3{
+            color:black;
+            margin:0 0;
+        }
+
+        .eventSemiMany{
+            margin:0 5px;
+            background-color:#fff7ed;
+            border: 1px solid;
+            border-color: #ea580c;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left:10px;
+            padding-right:10px;
+            color:#ea580c;
+            font-size:80%;
+        }
+
+        .eventSemiBody{
+            display:flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            margin: 0 0;
+            gap: 20px;
+        }
+
+        .eventSemiProgress{
+            color:orangered;
+            margin:0 0;
+        }
+
+        .eventSemiExpected{
+            color:grey;
+            margin:0 0;
+        }
+
+        .eventCompleted{
+            color:mediumseagreen;
+            margin:0 0;
         }
 
         /* 달력 div 설정 */ /*=======================================================================================================================================*/
@@ -389,28 +458,28 @@
         <div class="form-container">
             <div class="whitebox" style="width: 49%;">
                 <div class="titlebox">
-                    <div class="imageContainer" style="width:30px;"><img src="<%= request.getContextPath() %>/images/workspace.PNG" alt="체크"></div>
+                    <div class="imageContainer" style="width:30px;"><img src="<%= request.getContextPath() %>/images/workspace.PNG" alt="워크스페이스"></div>
                     <h3>워크스페이스 선택</h3>
                 </div>
                 <p>먼저 워크스페이스를 선택하세요</p>
                 <div class="buttonCollection">
-                    <button class="disactive">전체</button>
-                    <button class="activated">유튜브 채널 운영</button>
-                    <button class="disactive">소셜 미디어 마케팅</button>
-                    <button class="disactive">브랜드 협업</button>
+                    <button id="workspace-whole" class="disactive">전체</button>
+                    <button id="workspace-first" class="activated">유튜브 채널 운영</button>
+                    <button id="workspace-second" class="disactive">소셜 미디어 마케팅</button>
+                    <button id="workspace-third" class="disactive">브랜드 협업</button>
                 </div>
             </div>
             <div class="whitebox" style="width: 49%;">
                 <div class="titlebox">
-                    <div class="imageContainer" style="width:30px;"><img src="<%= request.getContextPath() %>/images/project.PNG" alt="체크"></div>
+                    <div class="imageContainer" style="width:30px;"><img src="<%= request.getContextPath() %>/images/project.PNG" alt="프로젝트"></div>
                     <h3>프로젝트 선택</h3>
                 </div>
                 <p>프로젝트 필터링</p>
                 <div class="buttonCollection">
-                    <button class="disactive">전체</button>
-                    <button class="activated">신제품 리뷰 시리즈</button>
-                    <button class="disactive">브이로그 컨텐츠</button>
-                    <button class="disactive">튜토리얼 제작</button>
+                    <button id="project-whole" class="disactive">전체</button>
+                    <button id="project-first" class="activated">신제품 리뷰 시리즈</button>
+                    <button id="project-second" class="disactive">브이로그 컨텐츠</button>
+                    <button id="project-third" class="disactive">튜토리얼 제작</button>
                 </div>
             </div>
         </div>
@@ -426,7 +495,7 @@
                         </div>
                         <div class="dataBlockText">
                             <p>진행중</p>
-                            <h1 style="color:#f54900">3건</h1>
+                            <h1 id="whole-progress" style="color:#f54900">3건</h1>
                         </div>
                     </div>
                     <div class="dataBlock" style="height:100px; width: 32%; background-color:#f9fafb;">
@@ -435,7 +504,7 @@
                         </div>
                         <div class="dataBlockText">
                             <p>예정</p>
-                            <h1 style="color:#4a5565">4건</h1>
+                            <h1 id="whole-expected" style="color:#4a5565">4건</h1>
                         </div>
                     </div>
                     <div class="dataBlock" style="height:100px; width: 32%; background-color:#f0fdf4;">
@@ -444,7 +513,7 @@
                         </div>
                         <div class="dataBlockText">
                             <p>완료</p>
-                            <h1 style="color:#00a63e">0건</h1>
+                            <h1 id="whole-completed" style="color:#00a63e">0건</h1>
                         </div>
                     </div>
                 </div>
@@ -467,6 +536,101 @@
                         </div>
                         <h3>스크립트 작성</h3>
                         <p>튜토리얼 스크립트 및 자료 준비</p>
+                    </li>
+                    <li>
+                        <div class="keywordContainer">
+                            <div class="keyword_type">유튜브 채널 운영</div>
+                            <div class="keyword_event">신제품 리뷰 시리즈</div>
+                            <div class="keyword_state">진행중</div>
+                        </div>
+                        <h3>제품 테스트</h3>
+                        <p>신제품 성능 테스트 및 데이터 수집</p>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="form-container">
+            <div class="whitebox" style="width: 49%;">
+                <div class="titlebox">
+                    <div class="imageContainer" style="width:30px;"><img src="<%= request.getContextPath() %>/images/workspace.PNG" alt="워크스페이스"></div>
+                    <h3>워크스페이스별 일청</h3>
+                </div>
+                <p>각 워크스페이스의 일정 현황</p>
+                <ol class="eventSemiList">
+                    <li>
+                        <div class="eventSemiHead">
+                            <h3>유튜브 채널 운영</h3>
+                            <div class="eventSemiMany">7건</div>
+                        </div>
+                        <div class="eventSemiBody">
+                            <div class="eventSemiProgress">진행중 : 3</div>
+                            <div class="eventSemiExpected">예정 : 4</div>
+                            <div class="eventCompleted">완료 : 0</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="eventSemiHead">
+                            <h3>소셜 미디어 마케팅</h3>
+                            <div class="eventSemiMany">2건</div>
+                        </div>
+                        <div class="eventSemiBody">
+                            <div class="eventSemiProgress">진행중 : 0</div>
+                            <div class="eventSemiExpected">예정 : 2</div>
+                            <div class="eventCompleted">완료 : 0</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="eventSemiHead">
+                            <h3>브랜드 협업</h3>
+                            <div class="eventSemiMany">2건</div>
+                        </div>
+                        <div class="eventSemiBody">
+                            <div class="eventSemiProgress">진행중 : 0</div>
+                            <div class="eventSemiExpected">예정 : 2</div>
+                            <div class="eventCompleted">완료 : 0</div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <div class="whitebox" style="width: 49%;">
+                <div class="titlebox">
+                    <div class="imageContainer" style="width:30px;"><img src="<%= request.getContextPath() %>/images/project.PNG" alt="프로젝트"></div>
+                    <h3>프로젝트별 일정</h3>
+                </div>
+                <p>Youtube 채널의 프로젝트별 일정</p>
+                <ol class="eventSemiList">
+                    <li>
+                        <div class="eventSemiHead">
+                            <h3>신제품 리뷰 시리즈</h3>
+                            <div class="eventSemiMany">3건</div>
+                        </div>
+                        <div class="eventSemiBody">
+                            <div class="eventSemiProgress">진행중 : 1</div>
+                            <div class="eventSemiExpected">예정 : 2</div>
+                            <div class="eventCompleted">완료 : 0</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="eventSemiHead">
+                            <h3>브이로그 콘텐츠</h3>
+                            <div class="eventSemiMany">2건</div>
+                        </div>
+                        <div class="eventSemiBody">
+                            <div class="eventSemiProgress">진행중 : 1</div>
+                            <div class="eventSemiExpected">예정 : 1</div>
+                            <div class="eventCompleted">완료 : 0</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="eventSemiHead">
+                            <h3>튜토리얼 제작</h3>
+                            <div class="eventSemiMany">7건</div>
+                        </div>
+                        <div class="eventSemiBody">
+                            <div class="eventSemiProgress">진행중 : 1</div>
+                            <div class="eventSemiExpected">예정 : 1</div>
+                            <div class="eventCompleted">완료 : 0</div>
+                        </div>
                     </li>
                 </ol>
             </div>
