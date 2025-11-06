@@ -77,6 +77,15 @@
       .layout__sidebar { border-right: none; border-bottom: 1px solid #e5e7eb; }
     }
   </style>
+    <%-- 1. 대시보드 전용 CSS 파일 불러오기 --%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberUpdateForm.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/contractList.css">
+    <%-- 2. Chart.js 라이브러리 불러오기 --%>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <%-- 3. Chart.js 데이터 라벨 플러그인 불러오기 --%>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
   <div class="layout">
@@ -92,8 +101,7 @@
 
     <!-- 본문 -->
     <main class="layout__main">
-      <!-- 이 영역에 각 페이지 화면만 추가하면 됩니다 -->
-      <h1>내용</h1>
+      <jsp:include page="/WEB-INF/views/mypage.jsp"/>
     </main>
 
     <!-- 푸터 -->

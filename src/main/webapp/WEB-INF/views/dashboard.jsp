@@ -1,19 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>크리에이터 대시보드</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dashboard.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-</head>
-<body>
 <%-- ====================================================== --%>
 <%-- [임시] 대시보드용 더미 데이터 (DB 연결 전 테스트용) --%>
 <%
@@ -239,7 +228,7 @@
 
     </div> <%-- .dash-grid-row-3 끝 --%>
 
-<%--             2. 통계 (4열)--%>
+    <%--             2. 통계 (4열)--%>
     <div class="dash-grid-row dash-grid-row-4">
         <div class="dash-card dash-stat-card">
             <span class="dash-stat-card-title">이번 달 총 수익</span>
@@ -282,7 +271,7 @@
         </div>
     </div>
 
-<%--         3. 수익 분석 (2열) --%>
+    <%--         3. 수익 분석 (2열) --%>
     <div class="dash-grid-row dash-grid-row-2-ratio">
         <%-- (내용 동일) --%>
         <div class="dash-card">
@@ -306,7 +295,7 @@
     </div>
 
 
-<%--         4. 콘텐츠 성과 (2열) --%>
+    <%--         4. 콘텐츠 성과 (2열) --%>
     <div class="dash-grid-row dash-grid-row-2-ratio">
 
         <%-- 4-1. "콘텐츠 성과 추이" 카드  --%>
@@ -366,7 +355,7 @@
         </div>
     </div>
 
-<%--         5. 일정 및 계약 (2열) --%>
+    <%--         5. 일정 및 계약 (2열) --%>
     <div class="dash-grid-row dash-grid-row-2">
 
         <div class="dash-card">
@@ -603,5 +592,3 @@
         }
     });
 </script>
-</body>
-</html>
