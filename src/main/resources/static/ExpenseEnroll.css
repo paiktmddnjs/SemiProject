@@ -38,7 +38,7 @@
 }
 
 .modal-title-custom {
-    color: #ff4d00; /* 주황색 제목 */
+    color: #0c17d5; /* 주황색 제목 */
     font-size: 1.25rem; /* 이미지와 유사한 크기 */
     font-weight: bold;
     margin-top : 5px;
@@ -145,7 +145,7 @@
     width: 100%;
     margin-bottom: 0px; /* 이미지의 여백에 맞게 조정 */
     padding: 12px 20px;
-    background-color: #ff4d00; /* 주황색 */
+    background-color: #0c17d5; /* 주황색 */
     border: none;
     color: white;
     font-size: 1.1rem;

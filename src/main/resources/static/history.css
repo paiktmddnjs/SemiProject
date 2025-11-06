@@ -1,0 +1,106 @@
+
+.transaction-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+}
+
+/* 헤더 스타일 */
+.section-header {
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.section-header .subtitle {
+    font-size: 14px;
+    color: #5d81c3; /* 이미지 속 푸른색 텍스트 반영 */
+    margin-bottom: 0;
+}
+
+/* 테이블 기본 스타일 */
+.table-wrapper {
+    overflow-x: auto;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0; /* 테이블 전체 상하 경계선 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* 테이블 셀 경계선 제거 */
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* 테이블 헤드 스타일 */
+thead th {
+    background-color: #ffffff;
+    color: #888888;
+    font-weight: 500;
+    text-align: left;
+    padding: 15px 12px;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 14px;
+}
+
+/* 테이블 바디 셀 스타일 */
+tbody td {
+    padding: 15px 12px;
+    color: #333333;
+    border-bottom: 1px solid #f5f5f5; /* 행 구분선 */
+    vertical-align: middle;
+}
+
+/* 마지막 행의 하단 선 제거 (선택 사항) */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* 구분(태그) 셀 스타일 */
+.tag {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+    min-width: 40px; /* 태그 너비 통일 */
+}
+
+.tag.profit {
+    background-color: #ff8c4a; /* 주황색 */
+}
+
+.tag.expense {
+    background-color: #4a8cff; /* 파란색 */
+}
+
+/* 금액 셀 스타일 */
+.amount {
+    text-align: right; /* 금액 오른쪽 정렬 */
+    font-weight: 700;
+}
+
+.amount.profit {
+    color: #ff4a4a; /* 빨간색 */
+    text-align: left;
+}
+
+.amount.expense {
+    color: #444444; /* 검은색/짙은 회색 */
+    text-align: left;
+}
+
+
+/* 상태 셀 스타일 */
+td:last-child {
+    color: #777777;
+    text-align: left;
+}
