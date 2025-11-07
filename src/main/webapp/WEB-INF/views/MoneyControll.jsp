@@ -7,7 +7,7 @@
     <title>CREP Dashboard Clone</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <link rel="stylesheet" href="MoneyControll.css" />
     <link rel="stylesheet" href="history.css" />
 
@@ -39,22 +39,22 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-title"><span>순이익</span><i class="fas fa-chart-line"></i></div>
-                    <div class="stat-value">4,020만원</div>
-                    <div class="stat-change">+29.7% 전월 대비</div>
+                    <div class="stat-value" >${netProfitAmount}만원</div>
+                    <div class="stat-change" >${netProfitChange}</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title"><span>총 수익</span><i class="fas fa-arrow-up"></i></div>
-                    <div class="stat-value">6,500만원</div>
+                    <div class="stat-value" type="currency">${ProfitAmount}만원</div>
                     <div class="stat-change">이번 달 총 수익</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title"><span>총 지출</span><i class="fas fa-arrow-down"></i></div>
-                    <div class="stat-value">2,480만원</div>
+                    <div class="stat-value">${ExpenseAmount}만원</div>
                     <div class="stat-change">이번 달 총 지출</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title"><span>수익률</span><i class="fas fa-dollar-sign"></i></div>
-                    <div class="stat-value">61.8%</div>
+                    <div class="stat-value">${ProfitPercent} %</div>
                     <div class="stat-change">순이익률</div>
                 </div>
             </div>
@@ -117,9 +117,9 @@
                     <div class="recent-revenue-item">
                         <div class="item-source">
                             <div class="tag-revenue-container">
-                                <span class="tag-revenue">수익</span> 광고 수익
+                                <span class="tag-revenue">수익</span> <span class="tag-revenue2">광고 수익</span>
                             </div>
-                            <span>YouTube 광고 수익</span>
+                            <span >YouTube 광고 수익</span>
                         </div>
                         <div class="item-amount">+450K</div>
                     </div>
@@ -399,6 +399,7 @@
             if (rightPanel) {
                 const title = rightPanel.querySelector('h3');
                 const desc = rightPanel.querySelector('p');
+                const tagContainSpans = rightPanel.querySelectorAll('.tag-revenue-container');
                 const tagSpans = rightPanel.querySelectorAll('.tag-revenue');
                 const amounts = rightPanel.querySelectorAll('.item-amount');
 

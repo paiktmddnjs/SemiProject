@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/views/MoneyControll.jsp" />
+<jsp:include page="/WEB-INF/views/components/layout.jsp" />
 
 
 </body>
