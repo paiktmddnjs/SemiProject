@@ -13,6 +13,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CREP Footer</title>
+
     <style>
         :root {
             --text-strong: #101828;
@@ -23,177 +24,180 @@
             --card: #ffffff;
             --brand: #f54900;
         }
-             /* 기본 리셋 */
-         * { box-sizing: border-box; }
-        html, body { margin: 0; padding: 0; }
-        p, h1, h2, h3, h4, h5, h6 { margin: 0; }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #f9fafb;
-            color: #364153;
+            font-family: 'Arimo', 'Noto Sans KR', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        .app { min-height: 100%; display: flex; flex-direction: column; }
-
-        /* ───── Footer ───── */
-        .footer {
-            background: #fff;
-            border-top: 1px solid #e5e7eb;
-            padding: 16px 0;
-            color: #364153;
+        main {
+            flex: 1; /* 푸터가 항상 하단에 오도록 */
         }
 
-        .footer .container {
-            max-width: 1120px;
+        footer.footer {
+            border-top: 1px solid var(--border);
+            background-color: var(--card);
+            width: 100%;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 16px;
-        }
-
-        .footer .div {
+            padding: 32px 24px;
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 16px;
+            gap: 32px;
         }
 
-        /* 브랜드 블록 */
-        .footer .container-2 .heading .text-wrapper {
-            font-weight: 700;
+        /* footer main sections grid */
+        .footer-sections {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 640px) {
+            .footer-sections {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-sections {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .section h3 {
             font-size: 16px;
-            line-height: 1.2;
-        }
-        .footer .paragraph .text-wrapper-2,
-        .footer .paragraph .text-wrapper-3 {
-            font-size: 12px;
-            line-height: 1.4;
-            color: #6a7282;
+            line-height: 24px;
+            color: var(--text-strong);
+            font-weight: bold;
+            margin-bottom: 12px;
         }
 
-        /* 각 컬럼 공통 */
-        .footer .heading .text-wrapper {
-            font-weight: 600;
-            font-size: 13px;
-            line-height: 1.2;
-            color: #101828;
-            margin-bottom: 8px;
+        .section .desc {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 12px;
         }
 
-        .footer .list {
-            display: grid;
-            gap: 6px;
+        .link-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .footer .list-item .text-wrapper-4,
-        .footer .list-item .text-wrapper-5 {
-            font-size: 12px;
-            line-height: 1.4;
-            color: #4a5565;
+        .link-list a {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 14px;
+            color: var(--text);
+            padding: 2px 0;
+            border-radius: 6px;
+            transition: color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
         }
 
-        /* 하단 저작권 */
-        .footer .container-6 {
-            border-top: 1px solid #e5e7eb;
-            margin-top: 12px;
-            padding-top: 10px;
-        }
-        .footer .container-6 .p {
-            font-size: 12px;
-            line-height: 1.4;
-            color: #6a7282;
+        .link-list a:hover {
+            color: var(--brand);
+            background-color: rgba(245, 73, 0, 0.08);
         }
 
-        /* 링크 효과 */
-        .footer [class*="link"] .text-wrapper-4,
-        .footer [class*="link"] .text-wrapper-5 { cursor: pointer; }
-        .footer [class*="link"]:hover .text-wrapper-4,
-        .footer [class*="link"]:hover .text-wrapper-5 { text-decoration: underline; }
-
-        /* 반응형 */
-        @media (max-width: 960px) {
-            .footer .div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        }
-        @media (max-width: 560px) {
-            .footer { padding: 12px 0; }
-            .footer .div { grid-template-columns: 1fr; gap: 12px; }
-            .footer .heading .text-wrapper { margin-bottom: 6px; }
+        .link-list a:active {
+            transform: scale(0.98);
         }
 
-        /* 초슬림 모드 */
-        .footer.is-compact {
-            padding: 10px 0;
+        .link-list a:focus-visible {
+            outline: 2px solid var(--brand);
+            outline-offset: 2px;
         }
-        .footer.is-compact .div { gap: 10px; }
-        .footer.is-compact .heading .text-wrapper { font-size: 12px; margin-bottom: 6px; }
-        .footer.is-compact .list { gap: 4px; }
-        .footer.is-compact .list-item .text-wrapper-4,
-        .footer.is-compact .list-item .text-wrapper-5,
-        .footer.is-compact .paragraph .text-wrapper-2,
-        .footer.is-compact .paragraph .text-wrapper-3,
-        .footer.is-compact .container-6 .p {
-            font-size: 11.5px;
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text);
         }
-        .footer.is-compact .container-6 { margin-top: 8px; padding-top: 8px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .link-list a {
+                transition: none;
+            }
+        }
     </style>
 </head>
 
 <body>
-<div class="app">
-    <footer class="footer is-compact">
-        <div class="container">
-            <div class="div">
-                <div class="container-2">
-                    <div class="heading"><div class="text-wrapper">CREP</div></div>
-                    <div class="paragraph">
-                        <div class="text-wrapper-2">1인 크리에이터를 위한</div>
-                        <div class="text-wrapper-3">통합 ERP 시스템</div>
-                    </div>
-                </div>
-                <div class="container-3">
-                    <div class="heading"><div class="text-wrapper">제품</div></div>
-                    <div class="list">
-                        <div class="list-item">
-                            <div class="link"><div class="text-wrapper-4">기능</div></div>
-                        </div>
-                        <div class="list-item">
-                            <div class="div-wrapper"><div class="text-wrapper-4">요금제</div></div>
-                        </div>
-                        <div class="list-item">
-                            <div class="link"><div class="text-wrapper-4">데모</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-4">
-                    <div class="heading"><div class="text-wrapper">지원</div></div>
-                    <div class="list">
-                        <div class="list-item">
-                            <div class="link-2"><div class="text-wrapper-4">고객센터</div></div>
-                        </div>
-                        <div class="list-item">
-                            <div class="div-wrapper"><div class="text-wrapper-4">가이드</div></div>
-                        </div>
-                        <div class="list-item">
-                            <div class="link-3"><div class="text-wrapper-5">FAQ</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-5">
-                    <div class="heading"><div class="text-wrapper">회사</div></div>
-                    <div class="list">
-                        <div class="list-item">
-                            <div class="link"><div class="text-wrapper-4">소개</div></div>
-                        </div>
-                        <div class="list-item">
-                            <div class="div-wrapper"><div class="text-wrapper-4">블로그</div></div>
-                        </div>
-                        <div class="list-item">
-                            <div class="link"><div class="text-wrapper-4">채용</div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-6"><p class="p">© 2025 CREP. All rights reserved.</p></div>
+<main>
+    <!-- 메인 콘텐츠 자리 (푸터는 항상 하단에 고정됨) -->
+</main>
+
+<footer class="footer" aria-labelledby="footer-title">
+    <div class="footer-inner">
+        <h2 id="footer-title" class="sr-only" style="position:absolute;left:-9999px;">CREP 푸터</h2>
+
+        <div class="footer-sections">
+            <!-- CREP 소개 -->
+            <section class="section" aria-labelledby="footer-crep">
+                <h3 id="footer-crep">CREP</h3>
+                <p class="desc">
+                    1인 크리에이터를 위한<br/>
+                    통합 ERP 시스템
+                </p>
+            </section>
+
+            <!-- 제품 -->
+            <nav class="section" aria-labelledby="footer-product">
+                <h3 id="footer-product">제품</h3>
+                <ul class="link-list">
+                    <li><a href="#">기능</a></li>
+                    <li><a href="#">요금제</a></li>
+                    <li><a href="#">데모</a></li>
+                </ul>
+            </nav>
+
+            <!-- 지원 -->
+            <nav class="section" aria-labelledby="footer-support">
+                <h3 id="footer-support">지원</h3>
+                <ul class="link-list">
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="#">가이드</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </nav>
+
+            <!-- 회사 -->
+            <nav class="section" aria-labelledby="footer-company">
+                <h3 id="footer-company">회사</h3>
+                <ul class="link-list">
+                    <li><a href="#">소개</a></li>
+                    <li><a href="#">블로그</a></li>
+                    <li><a href="#">채용</a></li>
+                </ul>
+            </nav>
         </div>
-    </footer>
-</div>
+
+        <div class="footer-bottom">
+            © 2025 CREP. All rights reserved.
+        </div>
+    </div>
+</footer>
 </body>
 </html>
+

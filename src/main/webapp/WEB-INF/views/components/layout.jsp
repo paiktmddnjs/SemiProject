@@ -5,109 +5,99 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title></title>
+  <title><c:out value="${pageTitle != null ? pageTitle : 'CREP'}"/></title>
   <style>
-      :root{
-          font-family: 'Arimo','Noto Sans KR',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-          --border:#e5e7eb;
-          --bg:#f9fafb;      /* 회색 배경 */
-          --panel:#fff;      /* 카드/패널(헤더, 사이드바 등) 배경 */
-          --text:#4a5565;
-          --text-strong:#101828;
-          --muted:#6a7282;
-          --card:#ffffff;
-          --brand:#f54900;
-          --header-h:72px;   /* 헤더 높이 */
-          --sb-w:260px;      /* 사이드바 폭(접힘/펼침 시 변경 가능) */
-          --footer-h:80px;   /* 푸터 높이 */
+    :root {
+      --border:#e5e7eb;
+      --bg:#f9fafb;
+      --panel:#fff;
+      --text:#111827;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    }
+
+    /* 기본 구조: header → sidebar → main → footer */
+    .layout {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto; /* footer는 항상 아래 */
+      grid-template-areas:
+        "header"
+        "sidebar"
+        "main"
+        "footer";
+    }
+
+    header.layout__header { grid-area: header; background: var(--panel); border-bottom: 1px solid var(--border); }
+    aside.layout__sidebar { grid-area: sidebar; background: var(--panel); border-bottom: 1px solid var(--border); }
+    main.layout__main { grid-area: main; background: var(--bg); padding: 24px; min-height: 0; }
+    footer.layout__footer { grid-area: footer; background: var(--panel); border-top: 1px solid var(--border); }
+
+    /* ✅ 사이드바와 메인에 불필요한 내부 스크롤 방지 */
+    .layout__sidebar, .layout__main { min-height: 0; }
+
+    /* ✅ 사이드바 JSP 내부 루트가 그리드 높이를 채우도록 */
+    .layout__sidebar > .sidebar {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* 넓은 화면: sidebar를 왼쪽에 붙이는 2열 구조 */
+    @media (min-width: 768px) {
+      .layout {
+        grid-template-columns: max-content 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+          "header header"
+          "sidebar main"
+          "footer footer";
       }
-
-      /* 기본 리셋 */
-      *{ box-sizing:border-box;
-          font-family: 'Arimo','Noto Sans KR',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      aside.layout__sidebar {
+        border-bottom: none;
+        border-right: 1px solid var(--border);
       }
-      html, body { height:100%; margin:0; }
-      html { background:var(--bg); }      /* 최상위 배경도 회색 */
-      body{
-          min-height:100vh;
-          display:flex;
-          flex-direction:column;
-          font-family:'Arimo','Noto Sans KR',sans-serif;
-          color:var(--text);
-          background:var(--bg);             /* 바디 배경 회색 고정 */
-      }
-
-    /* 헤더 */
-    header{
-      background:var(--panel);
-      border-bottom:1px solid var(--border);
-      position:sticky; top:0; z-index:100;
-      min-height:var(--header-h);
-      flex-shrink:0;
-    }
-
-    /* 메인 레이아웃 */
-    .main_wrap{
-      flex:1;
-      display:grid;
-      grid-template-columns:auto minmax(0,1fr); /* 사이드바 + 메인 */
-      grid-template-rows:1fr; /* 컨텐츠 영역만 */
-      min-height:0;
-    }
-
-    aside{
-      background:var(--panel);
-      border-right:1px solid var(--border);
-      position:sticky; top:var(--header-h);
-      height:calc(100vh - var(--header-h));
-      overflow:auto;
-    }
-
-    section{
-      background:var(--bg);
-      overflow:auto;
-    }
-    .content{
-        padding:24px;
-    }
-
-    /* 푸터 */
-    footer{
-      background:var(--panel);
-      border-top:1px solid var(--border);
-
-
-      padding:16px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:100%;
     }
 
   </style>
 </head>
-
 <body>
-  <header>
-    <jsp:include page="/WEB-INF/views/components/header.jsp"/>
-  </header>
+  <div class="layout">
+    <!-- 헤더 -->
+    <header class="layout__header">
+      <jsp:include page="/WEB-INF/views/components/header.jsp"/>
+    </header>
 
-  <div class="main_wrap">
-    <aside>
+    <!-- 사이드바 -->
+    <aside class="layout__sidebar">
       <jsp:include page="/WEB-INF/views/components/sidebar.jsp"/>
     </aside>
 
-    <section>
-      <div class="content">
-        <jsp:include page="/WEB-INF/views/dashboard.jsp"/>
-      </div>
-      <footer>
+    <!-- 본문 -->
+    <main class="layout__main">
+
+          <jsp:include page="/WEB-INF/views/dashboard.jsp"/>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="layout__footer">
+      <div class="footer-inner">
         <jsp:include page="/WEB-INF/views/components/footer.jsp"/>
-      </footer>
-    </section>
+      </div>
+    </footer>
   </div>
-
-
-
 </body>
 </html>
