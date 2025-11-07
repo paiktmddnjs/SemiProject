@@ -8,7 +8,6 @@
   <title></title>
   <style>
       :root{
-          font-family: 'Arimo','Noto Sans KR',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
           --border:#e5e7eb;
           --bg:#f9fafb;      /* 회색 배경 */
           --panel:#fff;      /* 카드/패널(헤더, 사이드바 등) 배경 */
@@ -23,9 +22,7 @@
       }
 
       /* 기본 리셋 */
-      *{ box-sizing:border-box;
-          font-family: 'Arimo','Noto Sans KR',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      }
+      *{ box-sizing:border-box; }
       html, body { height:100%; margin:0; }
       html { background:var(--bg); }      /* 최상위 배경도 회색 */
       body{
@@ -41,34 +38,19 @@
     header{
       background:var(--panel);
       border-bottom:1px solid var(--border);
-      position:sticky; top:0; z-index:100;
+      position:fixed;
+        width:100%;
       min-height:var(--header-h);
       flex-shrink:0;
+        z-index: 1000;
     }
 
-    /* 메인 레이아웃 */
-    .main_wrap{
-      flex:1;
-      display:grid;
-      grid-template-columns:auto minmax(0,1fr); /* 사이드바 + 메인 */
-      grid-template-rows:1fr; /* 컨텐츠 영역만 */
-      min-height:0;
-    }
 
-    aside{
-      background:var(--panel);
-      border-right:1px solid var(--border);
-      position:sticky; top:var(--header-h);
-      height:calc(100vh - var(--header-h));
-      overflow:auto;
-    }
+
 
     section{
       background:var(--bg);
       overflow:auto;
-    }
-    .content{
-        padding:24px;
     }
 
     /* 푸터 */
@@ -88,24 +70,12 @@
 </head>
 
 <body>
-  <header>
-    <jsp:include page="/WEB-INF/views/components/header.jsp"/>
-  </header>
-
-  <div class="main_wrap">
-    <aside>
-      <jsp:include page="/WEB-INF/views/components/sidebar.jsp"/>
-    </aside>
-
-    <section>
       <div class="content">
-        <jsp:include page="/WEB-INF/views/dashboard.jsp"/>
+        <jsp:include page="/WEB-INF/views/Landing_Page.jsp"/>
       </div>
       <footer>
         <jsp:include page="/WEB-INF/views/components/footer.jsp"/>
       </footer>
-    </section>
-  </div>
 
 
 

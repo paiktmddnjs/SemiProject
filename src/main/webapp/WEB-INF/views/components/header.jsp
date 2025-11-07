@@ -21,6 +21,7 @@
             --ring:#9ca3af;
             --brand:#f54900;
             --shadow:0 1px 3px rgba(0,0,0,.1), 0 1px 2px -1px rgba(0,0,0,.1);
+            font-family: 'Arimo','Noto Sans KR',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
