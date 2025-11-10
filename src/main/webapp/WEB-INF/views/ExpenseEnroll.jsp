@@ -179,7 +179,7 @@
         </div>
 
         <!-- 폼 영역 -->
-        <form id="newExpenseForm" onsubmit="event.preventDefault(); submitNewExpense();">
+        <form id="newExpenseForm" action="${pageContext.request.contextPath}/insert.e" method="post">
 
             <div class="form-group">
                 <label for="expenseCategory">카테고리</label>
@@ -193,18 +193,18 @@
 
             <div class="form-group">
                 <label for="expenseDescription">내역</label>
-                <input type="text" class="custom-form-control2" id="expenseDescription" name="description" placeholder="지출 내역을 입력하세요" required>
+                <input type="text" class="custom-form-control2" id="expenseDescription" name="finacialName" placeholder="지출 내역을 입력하세요" required>
             </div>
 
             <div class="form-group">
                 <label for="expenseAmount">금액 (원)</label>
-                <input type="number" class="custom-form-control3" id="expenseAmount" name="amount" placeholder="100000" min="0" required>
+                <input type="number" class="custom-form-control3" id="expenseAmount" name="finacialAmount" placeholder="100000" min="0" required>
             </div>
 
             <div class="form-group" style="margin-bottom: 30px;">
                 <label for="expenseDate">날짜</label>
                 <!-- ⚠️ JS 코드에 맞게 name="ExpenseDate" 로 수정 -->
-                <input type="date" class="custom-form-control4" id="expenseDate" name="ExpenseDate" required>
+                <input type="date" class="custom-form-control4" id="expenseDate" name="finacialDate" required>
             </div>
 
             <button type="submit" class="btn-custom2-save">저장</button>

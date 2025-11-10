@@ -19,5 +19,9 @@ public interface FinacialService {
     int calculateExpense();
 
 
-    int insertFinacial(Finacial finacial);
+    int insertProfitFinacial(Finacial finacial);
+
+    int insertExpenseFinacial(Finacial finacial);
+
+    List<Finacial> selectAllTransaction();
 }

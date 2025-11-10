@@ -15,5 +15,6 @@ public interface FinacialMapper {
     int calculateProfit();
     int calculateExpense();
     int insertFinacial(Finacial finacial);
+    List<Finacial> selectAllTransaction();
 
 }

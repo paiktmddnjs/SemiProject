@@ -76,4 +76,25 @@
         )
 
     </insert>
+
+
+
+    <select id="selectAllTransaction" resultType="Finacial">
+
+        SELECT
+            TO_CHAR(FINACIAL_DATE, 'YYYY-MM-DD') AS FINACIAL_DATE,
+            FINACIAL_TYPE,
+            CATEGORY,
+            FINACIAL_NAME,
+            FINACIAL_AMOUNT,
+            FINACIAL_STATUS
+        FROM
+            FINACIAL_MANAGEMENT
+        ORDER BY
+            FINACIAL_DATE DESC,
+            FINACIAL_ID DESC
+
+    </select>
+
+
 </mapper>

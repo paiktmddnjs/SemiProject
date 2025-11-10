@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="MoneyControll.css" />
     <link rel="stylesheet" href="history.css" />
 
@@ -16,6 +18,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/MoneyEnroll.jsp" />
 <jsp:include page="/WEB-INF/views/ExpenseEnroll.jsp" />
+
 
 <div class="dashboard-container">
 
@@ -66,14 +69,21 @@
                         <button class="tab-button active" data-page="overview">개요</button>
                         <button class="tab-button" data-page="money">수익 분석</button>
                         <button class="tab-button" data-page="expense">지출 분석</button>
-                        <button class="tab-button" data-page="transaction">거래 내역</button>
+                        <button class="tab-button" data-page="transaction" href="${pageContext.request.contextPath}/transaction.f">거래 내역</button>
                     </div>
 
                     <div id="chart-placeholder" class="chart-placeholder">
                         <canvas id="myChart"></canvas>
                     </div>
 
-
+                    <div style="background-color: yellow; padding: 10px; border: 1px solid orange;">
+                        <h3>[디버깅 정보]</h3>
+                        전달받은 transactionList 객체 값: ${transactionList}
+                        <br>
+                        현재 transactionList 사이즈는 **${fn:length(transactionList)}** 입니다.
+                        <br>
+                    </div>
+                    <hr>
 
                     <div id="history-area" class="transaction-container" style="display: none;">
                         <header class="section-header">
@@ -93,16 +103,46 @@
                                     <th>상태</th>
                                 </tr>
                                 </thead>
+
                                 <tbody>
-                                <tr><td>2025-10-25</td><td><span class="tag profit">수익</span></td><td>광고 수익</td><td>YouTube 광고 수익</td><td class="amount profit">+450,000원</td><td>정산완료</td></tr>
-                                <tr><td>2025-10-25</td><td><span class="tag expense">지출</span></td><td>외주 편집</td><td>10월 콘텐츠 편집 비용</td><td class="amount expense">-300,000원</td><td>지불완료</td></tr>
-                                <tr><td>2025-10-23</td><td><span class="tag profit">수익</span></td><td>협찬</td><td>Instagram 협찬</td><td class="amount profit">+1,500,000원</td><td>정산대기</td></tr>
-                                <tr><td>2025-10-23</td><td><span class="tag expense">지출</span></td><td>마케팅</td><td>Instagram 광고</td><td class="amount expense">-150,000원</td><td>지불완료</td></tr>
-                                <tr><td>2025-10-20</td><td><span class="tag profit">수익</span></td><td>후원</td><td>치지직 후원</td><td class="amount profit">+230,000원</td><td>정산완료</td></tr>
-                                <tr><td>2025-10-20</td><td><span class="tag expense">지출</span></td><td>소프트웨어</td><td>Adobe Creative Cloud</td><td class="amount expense">-88,000원</td><td>지불완료</td></tr>
-                                <tr><td>2025-10-18</td><td><span class="tag profit">수익</span></td><td>굿즈 판매</td><td>스토어 굿즈 판매</td><td class="amount profit">+580,000원</td><td>정산완료</td></tr>
-                                <tr><td>2025-10-18</td><td><span class="tag expense">지출</span></td><td>장비</td><td>조명 장비 구입</td><td class="amount expense">-250,000원</td><td>지불완료</td></tr>
+                                <%--
+                                 <tr><td>2025-10-18</td><td><span class="tag expense">지출</span></td><td>장비</td><td>조명 장비 구입</td><td class="amount expense">-250,000원</td><td>지불완료</td></tr>
+                                --%>
+
+
+                                <c:choose>
+                                    <c:when test="${not empty transactionList}">
+                                        <c:forEach var="item" items="${transactionList}">
+                                            <c:set var="isProfit" value="${item.finacialType eq '수익'}" />
+                                            <c:set var="tagClass" value="${isProfit ? 'profit' : 'expense'}" />
+                                            <c:set var="amountSign" value="${isProfit ? '+' : '-'}" />
+
+                                            <tr>
+                                                <td><fmt:formatDate value="${item.finacialDate}" pattern="yyyy-MM-dd"/></td>
+                                                <td><span class="tag ${tagClass}">${item.finacialType}</span></td>
+                                                <td>${item.category}</td>
+                                                <td>${item.finacialName}</td>
+
+                                                <td class="amount ${tagClass}">
+                                                        ${amountSign}<fmt:formatNumber value="${item.finacialAmount}" pattern="#,###"/>원
+                                                </td>
+
+                                                    <%-- 상태 로직 --%>
+                                                <td>  <%-- 상태 로직 --%>
+                                                    <c:choose>
+                                                        <c:when test="${item.finacialStatus eq 'Y'}">${isProfit ? '정산완료' : '지불완료'}</c:when>
+                                                        <c:when test="${item.finacialStatus eq 'N'}">${isProfit ? '정산대기' : '지불대기'}</c:when>
+                                                        <c:otherwise>알 수 없음</c:otherwise>
+                                                    </c:choose>
+                                                </td> </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr><td colspan="6" style="text-align:center;">등록된 거래 내역이 없습니다.</td></tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -363,6 +403,7 @@
     // ✅ 버튼 클릭 시 차트 전환
     document.querySelectorAll('.tab-button').forEach(btn => {
         btn.addEventListener('click', function () {
+
             // 🔹 탭 활성화 전환
             document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
@@ -376,6 +417,8 @@
 
             // 🔹 거래 내역 클릭 시
             if (key === 'transaction') {
+
+// 1. DOM 전환: 거래 내역 영역만 표시
                 chartPlaceholder.style.display = 'none';
                 historyArea.style.display = 'block';
                 if (rightPanel) rightPanel.style.display = 'none';
@@ -383,6 +426,25 @@
                     leftPanel.style.flex = 'none';
                     leftPanel.style.width = '100%';
                 }
+
+                // 2. 🌐 AJAX 호출: 서버 API에서 JSON 데이터만 가져오기
+                try {
+                    // 새로운 엔드포인트 호출 (거래 내역 행을 반환하는 서버 경로)
+                    const response = await fetch('${pageContext.request.contextPath}/transaction.f');
+
+                    if (!response.ok) {
+                        throw new Error('거래 내역 데이터를 불러오는데 실패했습니다.');
+                    }
+
+                    // 3. 🖼️ 응답을 HTML 텍스트로 받아와 <tbody>에 삽입
+                    const htmlRows = await response.text();
+                    tableBody.innerHTML = htmlRows; // <tbody> 내부를 갱신
+
+                } catch (error) {
+                    console.error("HTML 조각 로드 중 오류:", error);
+                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">데이터 로드 중 오류 발생</td></tr>';
+                }
+
                 return;
             }
 
