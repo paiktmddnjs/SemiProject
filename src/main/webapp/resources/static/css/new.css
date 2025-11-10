@@ -1,0 +1,111 @@
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0
+}
+/* 모달 오버레이 스타일 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 어두운 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    display: none; /* 초기에는 숨김 */
+}
+
+/* 모달 컨테이너 스타일 */
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 중앙에 배치 */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* 오버레이 위에 표시 */
+    display: none; /* 초기에는 숨김 */
+    max-width: 90%; /* 최대 너비 */
+    max-height: 90%; /* 최대 높이 */
+    overflow-y: auto; /* 내용이 길어지면 스크롤 */
+}
+
+/* 모달 닫기 버튼 스타일 */
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.header_title_sub{
+    font-size: 12px;
+}
+.modal-container{
+    width: 400px;
+    height: 380px;
+}
+.new_Content{
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+}
+
+.new_container{
+    border: 1px solid black;
+    border-radius: 24px;
+    width: 512px;
+    height: 360px;
+}
+.new_container_body{
+    padding:20px;
+    display:flex;
+    flex-direction: column;
+    height:100%;
+    gap:14px;
+}
+.input_title{
+    font-size: 14px;;
+}
+.input_body > input{
+    width:100%;
+    height: 36px;
+    padding: 10px;
+}
+.input_body > select{
+    width:100%;
+    height: 36px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+    color:black
+}
+.input_body > textarea{
+    width:100%;
+    height: 80%;
+    padding: 10px;
+}
+.input_body > button{
+    width:100%;
+    height: 36px;
+    background-color: #F54900;
+    border-style: none;
+    border-radius: 16px;
+    color: white;
+    margin-top:10px;
+}
+.input_body > button:hover{
+   scale:1.02;
+   cursor:pointer;
+}
+.show {
+    display: block;
+}

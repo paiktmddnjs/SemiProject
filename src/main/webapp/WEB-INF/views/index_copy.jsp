@@ -54,7 +54,7 @@
                                 <div>이미지</div>
                                 <div class = "title_name">
                                     <div><c:out value="채널명"/></div>
-                                    <div><c:out value="채널 이름"/></div>
+                                    <div><c:out value="채널 설명"/></div>
                                 </div>
                             </div>
                             <div class ="box_describe">

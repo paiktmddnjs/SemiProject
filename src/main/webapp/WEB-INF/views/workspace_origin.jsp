@@ -48,30 +48,30 @@
             </div>
             <div class = "content_box" id="contentBox">
                 <c:forEach var="ws" items="${workspaces}">
-                    <div class ="box" data-channel="${ws.channelId}">
-                        <div class = "box_body">
-                            <div class = "title">
-                                <div>이미지</div>
-                                <div class = "title_name">
-                                    <div><c:out value="채널명"/></div>
-                                    <div><c:out value="채널 이름"/></div>
-                                </div>
-                            </div>
-                            <div class ="box_describe">
-
-                                <div>${ws.workspaceName}</div>
-                                <div>${ws.workspaceExplain}</div>
-
-                            </div>
-                            <div class ="workspace_footer">
-                                <div>5개 프로젝트</div>
-                                <div>8명</div>
-                            </div>
-                            <div class ="workspace_deadline">
-                                <fmt:formatDate value="${ws.enrollDate}" pattern="yyyy-MM-dd"/>
+                <div class ="box" data-channel="${ws.channelId}">
+                    <div class = "box_body">
+                        <div class = "title">
+                            <div>이미지</div>
+                            <div class = "title_name">
+                                <div><c:out value="채널명"/></div>
+                                <div><c:out value="채널 설명"/></div>
                             </div>
                         </div>
+                        <div class ="box_describe">
+
+                            <div>${ws.workspaceName}</div>
+                            <div>${ws.workspaceExplain}</div>
+
+                        </div>
+                        <div class ="workspace_footer">
+                            <div>5개 프로젝트</div>
+                            <div>8명</div>
+                        </div>
+                        <div class ="workspace_deadline">
+                            <fmt:formatDate value="${ws.enrollDate}" pattern="yyyy-MM-dd"/>
+                        </div>
                     </div>
+                </div>
                 </c:forEach>
                 <c:if test="${empty workspaces}">
                     <p style="text-align: center; padding: 20px;">표시할 워크스페이스가 없습니다.</p>

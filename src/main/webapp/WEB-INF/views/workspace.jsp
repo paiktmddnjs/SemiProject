@@ -53,7 +53,7 @@
                             <div class = "title">
                                 <div>이미지</div>
                                 <div class = "title_name">
-                                    <div><c:out value="채널명"/></div>
+                                    <div>${ws.channelName}</div>
                                     <div><c:out value="채널 이름"/></div>
                                 </div>
                             </div>
