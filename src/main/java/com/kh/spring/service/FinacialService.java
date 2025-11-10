@@ -17,10 +17,7 @@ public interface FinacialService {
     int calculateNetProfit();
     int calculateProfit();
     int calculateExpense();
-    /**
-     * 새로운 재무 기록을 삽입하는 메소드
-     * @param finacialRecord 삽입할 FinacialManagement 객체
-     * @return 처리된 행 수 (1이면 성공)
-     */
-    int insertFinacialRecord(Finacial finacialRecord);
+
+
+    int insertFinacial(Finacial finacial);
 }

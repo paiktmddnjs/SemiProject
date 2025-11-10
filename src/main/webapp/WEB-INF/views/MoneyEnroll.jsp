@@ -180,7 +180,7 @@
 
         </div>
 
-        <form id="newProfitForm" onsubmit="event.preventDefault(); submitNewProfit();">
+        <form id="newProfitForm" action="${pageContext.request.contextPath}/insert.f" method="post">
 
             <div class="form3-group">
                 <label for="profitCategory">카테고리</label>
@@ -193,17 +193,17 @@
 
             <div class="form3-group">
                 <label for="profitDescription">내역</label>
-                <input type="text" class="custom-form3-control2" id="profitDescription" name="description" placeholder="수익 내역을 입력하세요" required>
+                <input type="text" class="custom-form3-control2" id="profitDescription" name="finacialName" placeholder="수익 내역을 입력하세요" required>
             </div>
 
             <div class="form3-group">
                 <label for="profitAmount">금액 (원)</label>
-                <input type="number" class="custom-form3-control3" id="profitAmount" name="amount" placeholder="100000" min="0" required>
+                <input type="number" class="custom-form3-control3" id="profitAmount" name="finacialAmount" placeholder="100000" min="0" required>
             </div>
 
             <div class="form3-group" style="margin-bottom: 30px;">
                 <label for="profitDate">날짜</label>
-                <input type="date" class="custom-form3-control4" id="profitDate" name="profitDate" required>
+                <input type="date" class="custom-form3-control4" id="profitDate" name="finacialDate" required>
             </div>
 
             <button type="submit" class="btn-custom1-save">저장</button>

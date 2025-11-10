@@ -53,4 +53,27 @@
             FINACIAL_STATUS = 'Y'
 
     </select>
+
+    <insert id="insertFinacial" parameterType="Finacial">
+        INSERT INTO FINACIAL_MANAGEMENT (
+            FINACIAL_ID,
+            CONTRACT_ID,  MEMBER_ID,
+            FINACIAL_NAME,
+            FINACIAL_AMOUNT,
+            FINACIAL_DATE,
+            FINACIAL_STATUS,
+            CATEGORY,
+            FINACIAL_TYPE
+        ) VALUES (
+            SEQ_FID.NEXTVAL,
+            #{contractId},  #{memberId},
+            #{finacialName},
+            #{finacialAmount},
+            #{finacialDate},
+            'Y',
+            #{category},
+            #{finacialType}
+        )
+
+    </insert>
 </mapper>

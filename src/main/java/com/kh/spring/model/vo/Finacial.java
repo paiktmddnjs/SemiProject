@@ -2,6 +2,7 @@ package com.kh.spring.model.vo;
 
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -27,6 +28,7 @@ public class Finacial {
     private Integer finacialAmount; // 금액이 NULL 가능성이 있다면 Integer 또는 Long 사용
 
     /** FINACIAL_DATE DATE NOT NULL */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date finacialDate;
 
     /** FINACIAL_STATUS VARCHAR2(1) DEFAULT 'Y' NOT NULL */

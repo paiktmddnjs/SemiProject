@@ -51,10 +51,12 @@ public class FinacialServiceImpl implements FinacialService {
     {
 
         return finacialMapper.calculateExpense();
-    }    @Override
-    public int insertFinacialRecord(Finacial finacialRecord) {
+    }
+
+    @Override
+    public int insertFinacial(Finacial finacial) {
         // 매퍼에 정의된 삽입 메소드를 호출
-        return finacialMapper.insertFinacialRecord(finacialRecord);
+        return finacialMapper.insertFinacial(finacial);
     }
 
 }

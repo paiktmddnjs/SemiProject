@@ -2,11 +2,18 @@ package com.kh.spring.controller;
 
 import com.kh.spring.model.vo.Finacial;
 import com.kh.spring.service.FinacialService;
+import com.kh.spring.service.FinacialServiceImpl;
+import jakarta.servlet.http.HttpSession;
 import org.apache.jasper.compiler.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -55,6 +62,28 @@ public class FinacialController {
         model.addAttribute("netProfitChange", "+29.7% 전월 대비");
 
         return "/components/layout";
+    }
+
+
+    @PostMapping("insert.f")
+    public String insertFinacial (
+            @ModelAttribute Finacial finacial, RedirectAttributes ra) {
+
+
+        finacial.setFinacialType("수익");
+        // ⭐ 필수: 실제 로그인된 사용자 ID를 설정 (예시: 세션에서 가져옴)
+        finacial.setMemberId(1234); // 예
+
+        int result = finacialService.insertFinacial(finacial);
+
+        if (result > 0) {
+            ra.addFlashAttribute("alertMsg", "등록 성공!");
+            return "redirect:/finacial";
+        } else {
+            ra.addFlashAttribute("alertMsg", "등록 실패");
+            return "redirect:/finacial";
+        }
+
     }
 
 }

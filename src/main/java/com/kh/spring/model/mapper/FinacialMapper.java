@@ -14,5 +14,6 @@ public interface FinacialMapper {
     int calculateNetProfit();
     int calculateProfit();
     int calculateExpense();
-    int insertFinacialRecord(Finacial finacialRecord);
+    int insertFinacial(Finacial finacial);
+
 }

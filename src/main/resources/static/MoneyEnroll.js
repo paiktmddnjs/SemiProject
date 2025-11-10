@@ -26,9 +26,9 @@ function submitNewProfit() {
     const form1Data = new FormData(form1);
     const data = {
         category: form1Data.get('category'),
-        description: form1Data.get('description'),
-        amount: parseInt(form1Data.get('amount')),
-        profitDate: form1Data.get('profitDate')
+        description: form1Data.get('finacialName'),
+        amount: parseInt(form1Data.get('finacialAmount')),
+        profitDate: form1Data.get('finacialDate')
     };
 
     console.log("서버로 전송할 데이터:", data);
@@ -36,7 +36,7 @@ function submitNewProfit() {
     // ------------------------------------------------
     // ⚠️ TODO: 실제 서버 통신 (Fetch API 사용 예시)
     // ------------------------------------------------
-    /* fetch('/api/profits', {
+     fetch('/api/profits', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ function submitNewProfit() {
     .catch(error => {
         alert('❌ 등록 실패: ' + error.message);
     });
-    */
+
 
     // 서버 통신 대신 임시 처리:
     alert('✅ 등록 완료! 서버로 전송 준비되었습니다.');
