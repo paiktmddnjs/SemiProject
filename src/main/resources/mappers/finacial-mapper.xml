@@ -80,23 +80,27 @@
 
 
     <select id="selectAllTransaction" resultMap="finacialResultMap">
-
         SELECT
             FINACIAL_ID,
-            CONTRACT_ID,
-            MEMBER_ID,
             FINACIAL_NAME,
             FINACIAL_AMOUNT,
-            FINACIAL_DATE,  FINACIAL_STATUS,
-        CATEGORY,
+            FINACIAL_DATE,
+            FINACIAL_STATUS,
+            CATEGORY,
             FINACIAL_TYPE
         FROM
             FINACIAL_MANAGEMENT
         ORDER BY
             FINACIAL_DATE DESC,
             FINACIAL_ID DESC
-
+            OFFSET #{offset} ROWS
+            FETCH NEXT #{limit} ROWS ONLY
     </select>
+
+    <select id="selectTransactionCount" resultType="_int">
+        SELECT COUNT(*) FROM FINACIAL_MANAGEMENT
+    </select>
+
 
 
 </mapper>

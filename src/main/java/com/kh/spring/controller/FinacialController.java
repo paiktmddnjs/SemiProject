@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -27,10 +28,13 @@ public class FinacialController {
 
 
     @GetMapping("finacial")
-    public String getFinancialboard(Model model) {
+    public String getFinancialboard(@RequestParam(value="page", defaultValue="1") int currentPage,
+                                    @RequestParam(value="tab", defaultValue="overview") String currentTabKey,// 페이지 번호 받기
+                                    Model model) {
 
-        // 계약관리를 조회하기위한 로직
-        List<Finacial> transactionList = finacialService.selectAllTransaction();
+        // ... (순이익, 총수익, 총지출 계산 로직 생략) ...
+
+        // 🚨 페이지네이션 로직 호출
 
         // 1. 순이익 계산 (예: 40200000)
         int netProfit = (finacialService.calculateNetProfit() / 10000);
@@ -39,8 +43,13 @@ public class FinacialController {
         double ProfitPercent = Math.round((double) netProfit / (double) Profit * 10000) / 100.0;
 
 
+        Map<String, Object> transactionData = finacialService.selectAllTransaction(currentPage);
+
+
         // 3. 모델에 순이익 데이터 추가 , 게약관리 조회
-        model.addAttribute("transactionList", transactionList);
+        model.addAttribute("transactionList", transactionData.get("transactionList"));
+        model.addAttribute("pageInfo", transactionData.get("pageInfo")); // PageInfo 객체 전달
+        model.addAttribute("currentTabKey", currentTabKey);
         model.addAttribute("netProfitAmount", netProfit);
         model.addAttribute("ProfitAmount", Profit);
         model.addAttribute("ExpenseAmount", Expense);

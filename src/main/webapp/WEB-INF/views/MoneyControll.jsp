@@ -136,6 +136,36 @@
                             </table>
                         </div>
                     </div>
+
+
+                    <%--페이지 구현--%>
+                    <div class="pagination-area" style="text-align:center; margin-top:20px;">
+                        <c:set var="pi" value="${pageInfo}" />
+
+                        <%-- ◀ 처음으로 / 이전 페이지 버튼 --%>
+                        <c:if test="${pi.currentPage > 1}">
+                            <a href="/finacial?page=1" style="margin-right: 5px;">&lt;&lt;</a>
+                            <a href="/finacial?page=${pi.currentPage - 1}" style="margin-right: 15px;">&lt;</a>
+                        </c:if>
+
+                        <%-- 페이지 번호 목록 --%>
+                        <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                            <c:choose>
+                                <c:when test="${p eq pi.currentPage}">
+                                    <span style="font-weight: bold; color: #e10d2c; font-size: 1.1em; margin: 0 5px;">${p}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/finacial?page=${p}" style="margin: 0 5px; color: #555;">${p}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+
+                        <%-- ▶ 다음 페이지 / 마지막 페이지 버튼 --%>
+                        <c:if test="${pi.currentPage < pi.maxPage}">
+                            <a href="/finacial?page=${pi.currentPage + 1}" style="margin-left: 15px;">&gt;</a>
+                            <a href="/finacial?page=${pi.maxPage}" style="margin-left: 5px;">&gt;&gt;</a>
+                        </c:if>
+                    </div>
                 </div>
 
                 <%-------------------------------- 수익 --------------------------------%>
@@ -396,6 +426,7 @@
 
             // 🔹 탭 활성화 전환
             document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+
             this.classList.add('active');
 
             const key = this.dataset.page;
@@ -420,63 +451,63 @@
             }
             else {
 
-            // 🔹 다른 탭 클릭 시 원래 상태 복원
-            historyArea.style.display = 'none';
-            chartPlaceholder.style.display = 'block';
-            if (rightPanel) rightPanel.style.display = 'block';
-            if (leftPanel) {
-                leftPanel.style.flex = '';
-                leftPanel.style.width = '';
-            }
-
-
-            // 🔹 수익 / 지출 분석 시 오른쪽 패널 내용 및 색상 변경
-            if (rightPanel) {
-                const title = rightPanel.querySelector('h3');
-                const desc = rightPanel.querySelector('p');
-                const tagContainSpans = rightPanel.querySelectorAll('.tag-revenue-container');
-                const tagSpans = rightPanel.querySelectorAll('.tag-revenue');
-                const amounts = rightPanel.querySelectorAll('.item-amount');
-
-                if (key === 'expense') {
-                    // 🔵 지출 분석 모드
-                    title.textContent = '최근 주요 지출';
-                    if (desc) desc.textContent = '지출 금액 TOP 3';
-                    tagSpans.forEach(span => {
-                        span.textContent = '지출';
-                        span.style.backgroundColor = '#2A68E8'; // 파란색
-                        span.style.color = '#fff';
-                    });
-                    amounts.forEach(div => {
-                        div.style.color = '#2A68E8'; // 파란색
-                    });
+                // 🔹 다른 탭 클릭 시 원래 상태 복원
+                historyArea.style.display = 'none';
+                chartPlaceholder.style.display = 'block';
+                if (rightPanel) rightPanel.style.display = 'block';
+                if (leftPanel) {
+                    leftPanel.style.flex = '';
+                    leftPanel.style.width = '';
                 }
 
 
-                else if (key === 'money' || key === 'overview') {
-                    // 🔴 수익 분석 / 개요 모드
-                    title.textContent = '최근 주요 수익';
-                    if (desc) desc.textContent = '수익 금액 TOP 3';
-                    tagSpans.forEach(span => {
-                        span.textContent = '수익';
-                        span.style.backgroundColor = '#f55a1d'; // 빨간색
-                        span.style.color = '#fff';
-                    });
-                    amounts.forEach(div => {
-                        div.style.color = '#f55a1d'; // 빨간색
-                    });
+                // 🔹 수익 / 지출 분석 시 오른쪽 패널 내용 및 색상 변경
+                if (rightPanel) {
+                    const title = rightPanel.querySelector('h3');
+                    const desc = rightPanel.querySelector('p');
+                    const tagContainSpans = rightPanel.querySelectorAll('.tag-revenue-container');
+                    const tagSpans = rightPanel.querySelectorAll('.tag-revenue');
+                    const amounts = rightPanel.querySelectorAll('.item-amount');
+
+                    if (key === 'expense') {
+                        // 🔵 지출 분석 모드
+                        title.textContent = '최근 주요 지출';
+                        if (desc) desc.textContent = '지출 금액 TOP 3';
+                        tagSpans.forEach(span => {
+                            span.textContent = '지출';
+                            span.style.backgroundColor = '#2A68E8'; // 파란색
+                            span.style.color = '#fff';
+                        });
+                        amounts.forEach(div => {
+                            div.style.color = '#2A68E8'; // 파란색
+                        });
+                    }
+
+
+                    else if (key === 'money' || key === 'overview') {
+                        // 🔴 수익 분석 / 개요 모드
+                        title.textContent = '최근 주요 수익';
+                        if (desc) desc.textContent = '수익 금액 TOP 3';
+                        tagSpans.forEach(span => {
+                            span.textContent = '수익';
+                            span.style.backgroundColor = '#f55a1d'; // 빨간색
+                            span.style.color = '#fff';
+                        });
+                        amounts.forEach(div => {
+                            div.style.color = '#f55a1d'; // 빨간색
+                        });
+                    }
                 }
-            }
 
-            // 🔹 그래프 변경
-            if (!config) {
-                console.error(`${key} 그래프 구성 없음`);
-                return;
-            }
+                // 🔹 그래프 변경
+                if (!config) {
+                    console.error(`${key} 그래프 구성 없음`);
+                    return;
+                }
 
-            chart.destroy();
-            chart = new Chart(ctx, config);
-        }
+                chart.destroy();
+                chart = new Chart(ctx, config);
+            }
         });
     });
 

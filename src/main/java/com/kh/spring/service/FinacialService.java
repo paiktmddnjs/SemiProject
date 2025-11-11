@@ -3,6 +3,7 @@ package com.kh.spring.service;
 import com.kh.spring.model.vo.Finacial;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FinacialService {
 
@@ -23,5 +24,8 @@ public interface FinacialService {
 
     int insertExpenseFinacial(Finacial finacial);
 
-    List<Finacial> selectAllTransaction();
+
+    public int selectTransactionCount();
+
+    Map<String, Object> selectAllTransaction(int currentPage);
 }
