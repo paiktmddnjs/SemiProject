@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType ="text/html; charset=UTF-8"
-         pageEncoding ="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,99 +10,66 @@
     <link rel="stylesheet" href="<c:url value="/resources/static/css/invite.css"/>">
     <script src="<c:url value="/resources/static/js/project.js"/>" defer></script>
     <script src="<c:url value="/resources/static/js/inviteMember.js"/>" defer></script>
-
 </head>
 <body>
-<div class ="navigator">
-    1
-</div>
-<div class ="body">
-    <div class ="sidebar">
-        1
+    <div class="navigator">
+        <jsp:include page="/WEB-INF/views/components/header.jsp"/>
     </div>
-    <div class = "content">
-        <div class="container">
-            <div class = "header">
-                <div class = "header_title">
-                    <div class = "header_title_main">
-                        유튜브 채널 운영
-                    </div>
-                    <div class = "header_title_sub">
-                        메인 유튜브 채널의 모든 콘텐츠 관리
-                    </div>
-                </div>
-                <div class ="header_button">
-                    <input type="button" value ="+ 새 프로젝트" class = "button" id ="createProjectButton">
-                </div>
-            </div>
-            <div class = "menu">
-                <div class = "tab_list">
-                    <div class = "tab choice" id="projectTab">
-                        프로젝트
-                    </div>
-                    <div class = "tab" id="teamManageTab">
-                        팀관리
-                    </div>
-                </div>
-            </div>
-            <div class = "content_box">
-                <div id="projectContent" style="display: none;">
-                    <!-- 프로젝트 관련 내용이 여기에 표시됩니다. -->
-                    <div class = "content_box">
-                        <div class ="box">
-                            <div class = "box_body">
-                                <div class = "title">
-                                    <div>이미지</div>
-                                    <div class = "title_name">
-                                        <div>1번 채널</div>
-                                        <div>1번 채널입니다.</div>
-                                    </div>
-                                </div>
-                                <div class ="box_describe">
-
-                                    <div>설명</div>
-                                    <div>상세설명</div>
-
-                                </div>
-                                <div class ="workspace_footer">
-                                    <div>5개 프로젝트</div>
-                                    <div>8명</div>
-                                </div>
-                                <div class ="workspace_deadline">
-                                    <div>date</div>
-                                </div>
-                            </div>
+    <div class="body">
+        <div class="sidebar">
+            <jsp:include page="/WEB-INF/views/components/sidebar.jsp"/>
+        </div>
+        <div class="content">
+            <div class="container" data-workspace-id="${workspaceId}">
+                <div class="header">
+                    <div class="header_title">
+                        <div class="header_title_main">
+                            프로젝트 (Workspace ID: ${workspaceId})
                         </div>
-
-                        <div class ="box">
-                            <div class = "box_body">
-                                <div class = "title">
-                                    <div>이미지</div>
-                                    <div class = "title_name">
-                                        <div>1번 채널</div>
-                                        <div>1번 채널입니다.</div>
-                                    </div>
-                                </div>
-                                <div class ="describe">
-
-                                    <div>설명</div>
-                                    <div>상세설명</div>
-
-                                </div>
-                                <div class ="workspace_footer">
-                                    <div>5개 프로젝트</div>
-                                    <div>8명</div>
-                                </div>
-                                <div class ="workspace_deadline">
-                                    <div>date</div>
-                                </div>
-                            </div>
+                        <div class="header_title_sub">
+                            메인 유튜브 채널의 모든 콘텐츠 관리
+                        </div>
+                    </div>
+                    <div class="header_button">
+                        <input type="button" value="+ 새 프로젝트" class="button" id="createProjectButton">
+                    </div>
+                </div>
+                <div class="menu">
+                    <div class="tab_list">
+                        <div class="tab choice" id="projectTab">
+                            프로젝트
+                        </div>
+                        <div class="tab" id="teamManageTab">
+                            팀관리
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="team_border" id ="teamManageContent" style="display: none">
-                <div class="team_all">
+                
+                <%-- 프로젝트 목록을 표시하는 부분 --%>
+                <div id="projectContent" class="content_box">
+                    <c:forEach var="p" items="${projects}">
+                        <div class="box">
+                            <div class="box_body">
+                                <div class="title">
+                                    <div>이미지</div>
+                                    <div class="title_name">
+                                        <div><c:out value="${p.projectName}"/></div>
+                                    </div>
+                                </div>
+                                <div class="box_describe">
+                                    <div><c:out value="${p.projectExplain}"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                    <c:if test="${empty projects}">
+                        <p style="text-align: center; padding: 20px;">이 워크스페이스에는 아직 프로젝트가 없습니다.</p>
+                    </c:if>
+                </div>
+
+                <%-- 팀 관리 내용은 일단 그대로 둡니다 --%>
+                <div class="team_border" id="teamManageContent" style="display: none">
+                    <div class="team_all">
                     <div class="team_menu">
                         <div class="team_title_left">
                             <div>
@@ -209,30 +175,28 @@
                         </table>
                     </div>
                 </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
-<div class ="footer">
-    1
-</div>
-
-<div id="modalOverlay" class="modal-overlay"></div>
-<div id="newProjectModal" class="modal-container">
-    <div class="modal-content">
-        <button class ="modal-close-button">&times;</button>
-        <div id = "newProjectContent" class="new_Content"></div>
+    <div class="footer">
+        <jsp:include page="/WEB-INF/views/components/footer.jsp"/>
     </div>
-</div>
 
-<div id="inviteMemberModal" class="modal-container">
-    <div class="modal-content">
-        <button class ="modal-close-button">&times;</button>
-        <div id = "inviteMemberContent" class="new_Content"></div>
+    <div id="modalOverlay" class="modal-overlay"></div>
+    <div id="newProjectModal" class="modal-container">
+        <div class="modal-content">
+            <button class ="modal-close-button">&times;</button>
+            <div id = "newProjectContent" class="new_Content"></div>
+        </div>
     </div>
-</div>
+
+    <div id="inviteMemberModal" class="modal-container">
+        <div class="modal-content">
+            <button class ="modal-close-button">&times;</button>
+            <div id = "inviteMemberContent" class="new_Content"></div>
+        </div>
+    </div>
 
 </body>
 </html>

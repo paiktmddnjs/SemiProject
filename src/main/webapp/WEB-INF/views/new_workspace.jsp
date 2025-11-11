@@ -21,6 +21,9 @@
                     </div>
                 </div>
                 <form action="<c:url value='/workspace/create'/>" method="post">
+                    <div class = img>
+                        <input type = "file" id = "img" accept="jpg,jpeg,png,gif">
+                    </div>
                     <div class="input">
                         <div class="input_title">
                             워크스페이스 이름

@@ -50,30 +50,27 @@ public class WorkspaceController {
 
     @GetMapping({"/", "/workspace"})
     public String getWorkspaceList(Model model) {
+        // 1. 워크스페이스 목록 조회
         List<WorkspaceVo> workspaceList = workspaceDao.getAllWorkspaces();
         model.addAttribute("workspaces", workspaceList);
+
+        // 2. 채널 목록도 함께 조회하여 모델에 추가
+        List<ChannelVo> channelList = channelDAO.getAllChannels();
+        model.addAttribute("channels", channelList);
+
         return "workspace";
     }
 
-    // ... (이하 생략)
     @GetMapping("/layout")
     public String getLayoutForm() {
         return "layout";
     }
 
-    @GetMapping("/project/new")
-    public String getNewProjectForm() {
-        return "new_project";
-    }
+
 
     @GetMapping("/member/new")
     public String getNewMemberForm() {
         return "new_member";
-    }
-
-    @GetMapping("/project")
-    public String getProjectForm() {
-        return "project";
     }
 
     @GetMapping("/projectdetail")
