@@ -9,10 +9,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="MoneyControll.css" />
     <link rel="stylesheet" href="history.css" />
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <body>
@@ -69,21 +68,13 @@
                         <button class="tab-button active" data-page="overview">개요</button>
                         <button class="tab-button" data-page="money">수익 분석</button>
                         <button class="tab-button" data-page="expense">지출 분석</button>
-                        <button class="tab-button" data-page="transaction" href="${pageContext.request.contextPath}/transaction.f">거래 내역</button>
+                        <button class="tab-button" data-page="transaction">거래 내역</button>
                     </div>
 
                     <div id="chart-placeholder" class="chart-placeholder">
                         <canvas id="myChart"></canvas>
                     </div>
 
-                    <div style="background-color: yellow; padding: 10px; border: 1px solid orange;">
-                        <h3>[디버깅 정보]</h3>
-                        전달받은 transactionList 객체 값: ${transactionList}
-                        <br>
-                        현재 transactionList 사이즈는 **${fn:length(transactionList)}** 입니다.
-                        <br>
-                    </div>
-                    <hr>
 
                     <div id="history-area" class="transaction-container" style="display: none;">
                         <header class="section-header">
@@ -108,8 +99,6 @@
                                 <%--
                                  <tr><td>2025-10-18</td><td><span class="tag expense">지출</span></td><td>장비</td><td>조명 장비 구입</td><td class="amount expense">-250,000원</td><td>지불완료</td></tr>
                                 --%>
-
-
                                 <c:choose>
                                     <c:when test="${not empty transactionList}">
                                         <c:forEach var="item" items="${transactionList}">
@@ -141,6 +130,7 @@
                                         <tr><td colspan="6" style="text-align:center;">등록된 거래 내역이 없습니다.</td></tr>
                                     </c:otherwise>
                                 </c:choose>
+
                                 </tbody>
 
                             </table>
@@ -215,7 +205,7 @@
                 datasets: [
                     {
                         label: '수익',
-                        data: [30000000, 80000000, 120000000, 30000000, 50000000, 95000000, 150000000, 130000000, 100000000, 115000000, 160000000, 180000000],
+                        data: [${netProfitAmount * 10000}, 80000000, 120000000, 30000000, 50000000, 95000000, 150000000, 130000000, 100000000, 115000000, 160000000, 180000000],
                         fill: false,
                         borderColor: '#e10d2c',
                         backgroundColor: '#e10d2c',
@@ -418,7 +408,7 @@
             // 🔹 거래 내역 클릭 시
             if (key === 'transaction') {
 
-// 1. DOM 전환: 거래 내역 영역만 표시
+                // 1. DOM 전환: 거래 내역 영역만 표시
                 chartPlaceholder.style.display = 'none';
                 historyArea.style.display = 'block';
                 if (rightPanel) rightPanel.style.display = 'none';
@@ -426,27 +416,9 @@
                     leftPanel.style.flex = 'none';
                     leftPanel.style.width = '100%';
                 }
-
-                // 2. 🌐 AJAX 호출: 서버 API에서 JSON 데이터만 가져오기
-                try {
-                    // 새로운 엔드포인트 호출 (거래 내역 행을 반환하는 서버 경로)
-                    const response = await fetch('${pageContext.request.contextPath}/transaction.f');
-
-                    if (!response.ok) {
-                        throw new Error('거래 내역 데이터를 불러오는데 실패했습니다.');
-                    }
-
-                    // 3. 🖼️ 응답을 HTML 텍스트로 받아와 <tbody>에 삽입
-                    const htmlRows = await response.text();
-                    tableBody.innerHTML = htmlRows; // <tbody> 내부를 갱신
-
-                } catch (error) {
-                    console.error("HTML 조각 로드 중 오류:", error);
-                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">데이터 로드 중 오류 발생</td></tr>';
-                }
-
                 return;
             }
+            else {
 
             // 🔹 다른 탭 클릭 시 원래 상태 복원
             historyArea.style.display = 'none';
@@ -456,6 +428,7 @@
                 leftPanel.style.flex = '';
                 leftPanel.style.width = '';
             }
+
 
             // 🔹 수익 / 지출 분석 시 오른쪽 패널 내용 및 색상 변경
             if (rightPanel) {
@@ -477,7 +450,10 @@
                     amounts.forEach(div => {
                         div.style.color = '#2A68E8'; // 파란색
                     });
-                } else if (key === 'money' || key === 'overview') {
+                }
+
+
+                else if (key === 'money' || key === 'overview') {
                     // 🔴 수익 분석 / 개요 모드
                     title.textContent = '최근 주요 수익';
                     if (desc) desc.textContent = '수익 금액 TOP 3';
@@ -500,6 +476,7 @@
 
             chart.destroy();
             chart = new Chart(ctx, config);
+        }
         });
     });
 

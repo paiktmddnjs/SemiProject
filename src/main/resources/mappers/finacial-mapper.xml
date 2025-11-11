@@ -79,15 +79,17 @@
 
 
 
-    <select id="selectAllTransaction" resultType="Finacial">
+    <select id="selectAllTransaction" resultMap="finacialResultMap">
 
         SELECT
-            TO_CHAR(FINACIAL_DATE, 'YYYY-MM-DD') AS FINACIAL_DATE,
-            FINACIAL_TYPE,
-            CATEGORY,
+            FINACIAL_ID,
+            CONTRACT_ID,
+            MEMBER_ID,
             FINACIAL_NAME,
             FINACIAL_AMOUNT,
-            FINACIAL_STATUS
+            FINACIAL_DATE,  FINACIAL_STATUS,
+        CATEGORY,
+            FINACIAL_TYPE
         FROM
             FINACIAL_MANAGEMENT
         ORDER BY
