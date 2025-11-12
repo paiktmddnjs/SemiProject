@@ -6,6 +6,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>CREP</title>
+  <link rel="stylesheet" href="<c:url value='/resources/static/css/default.css'/>">
+  <link rel="stylesheet" href="<c:url value='/resources/static/css/new.css'/>">
+  <script src="<c:url value='/resources/static/js/workspace.js'/>" defer></script>
   <style>
     /* 기본 리셋 */
     * { box-sizing: border-box; }
@@ -92,8 +95,7 @@
 
     <!-- 본문 -->
     <main class="layout__main">
-      <!-- 이 영역에 각 페이지 화면만 추가하면 됩니다 -->
-      <h1>내용</h1>
+        <%@ include file="/WEB-INF/views/workspace.jsp" %>
     </main>
 
     <!-- 푸터 -->

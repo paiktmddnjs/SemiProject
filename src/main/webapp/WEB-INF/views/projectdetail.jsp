@@ -8,30 +8,31 @@
         <link rel="stylesheet" href="<c:url value="/resources/static/css/projectdetail.css"/>">
         <link rel="stylesheet" href="<c:url value="/resources/static/css/default.css"/>">
         <link rel="stylesheet" href="<c:url value="/resources/static/css/new.css"/>">
-        <script src="<c:url value="/resources/static/js/projectdetail.js"/>" defer></script>
-        <script src="   <c:url value="/resources/static/js/setWorkspace.js"/>" defer></script>
+        <%-- 스크립트 참조 수정 --%>
+        <script src="<c:url value="/resources/static/js/newProject.js"/>" defer></script>
+        <script src="<c:url value="/resources/static/js/setProject.js"/>" defer></script>
         </head>
-        <div>
+        <body>
         <div class ="navigator">
-        1
+            <jsp:include page="/WEB-INF/views/components/header.jsp"/>
         </div>
         <div class ="body">
-         <div class ="sidebar">
-        1
-        </div>
+            <div class ="sidebar">
+                <jsp:include page="/WEB-INF/views/components/sidebar.jsp"/>
+            </div>
             <div class = "content">
-                <div class="container">
+                <div class="container" data-project-id="${project.projectId}" data-workspace-id="${project.workspaceId}">
                     <div class = "header">
                         <div class = "header_title">
                             <div class = "header_title_main">
-                                테크 리뷰 시리즈
+                                <c:out value="${project.projectName}"/>
                             </div>
                             <div class = "header_title_sub">
-                                최신 가젯 리뷰 콘텐츠 제작
+                                <c:out value="${project.projectExplain}"/>
                             </div>
                         </div>
                         <div class ="header_button">
-                            <input type="button" value ="프로젝트 설정" class = "button" id="setWorkspaceButton">
+                            <input type="button" value ="프로젝트 설정" class = "button" id="setProjectButton">
                         </div>
                     </div>
                     
@@ -250,13 +251,13 @@
             </div>
         
             <div class ="footer">
-            1
+                <jsp:include page="/WEB-INF/views/components/footer.jsp"/>
             </div>
             <div id ="modalOverlay" class="modal-overlay"></div>
-                 <div id="setWorkspaceModal" class="modal-container">
+                 <div id="setProjectModal" class="modal-container">
                 <div class="modal-content">
                     <button class ="modal-close-button">&times;</button>
-                    <div id = "setWorkspaceContent" class="new_Content"></div>
+                    <div id = "setProjectContent" class="new_Content"></div>
                 </div>
 </div>
             <div id="newProjectModal" class="modal-container">
