@@ -88,7 +88,7 @@
     <!-- 본문 -->
     <main class="layout__main">
 
-        <jsp:include page="/WEB-INF/views/MoneyControll.jsp" />
+        <jsp:include page="/WEB-INF/views/MoneyView.jsp" />
 
     </main>
 

@@ -8,13 +8,21 @@
     오직 <table>의 <tbody> 안에 들어갈 <tr>...</tr> HTML 조각만 반환해야 합니다.
 --%>
 <div id="history-area" class="transaction-container" style="display: none;">
+
     <header class="section-header">
+        <div class="h2-div">
         <h2>최근 거래 내역</h2>
+            <div id="filter-buttons">
+                <button id="btn-all" class="filter-btn active">전체 보기</button>
+                <button id="btn-income" class="filter-btn">수익만 보기</button>
+                <button id="btn-expense" class="filter-btn">지출만 보기</button>
+            </div>
+        </div>
         <p class="subtitle">수익 및 지출 상세 내역</p>
     </header>
 
     <div class="table-wrapper">
-        <table>
+        <table id="transaction-table">
             <thead>
             <tr>
                 <th>날짜</th>

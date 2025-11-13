@@ -80,7 +80,7 @@ public class FinacialServiceImpl implements FinacialService {
 
         // 2. 페이지네이션 정보(PageInfo) 설정 및 계산
         int pageLimit = 10;
-        int boardLimit = 6; // ✅ 한 페이지당 6개 항목으로 설정
+        int boardLimit = 8; // ✅ 한 페이지당 6개 항목으로 설정
 
         PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit);
 

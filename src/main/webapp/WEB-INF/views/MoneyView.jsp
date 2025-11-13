@@ -10,7 +10,7 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" href="MoneyControll.css" />
-    <link rel="stylesheet" href="history.css" />
+    <link rel="stylesheet" href="Transaction.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
@@ -413,6 +413,42 @@
             chart = new Chart(ctx, config);
         });
     });
+
+
+        /*  ------- 거래내역 탭에서 수익만 보기, 지출만 보기 구현  ------ */
+    document.addEventListener('DOMContentLoaded', () => {
+        const rows = document.querySelectorAll('#transaction-table tbody tr');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 모든 버튼 비활성화
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const id = btn.id;
+
+                rows.forEach(row => {
+                    const typeCell = row.querySelector('.tag'); // <span class="tag expense">지출</span>
+                    if (!typeCell) return;
+
+                    const type = typeCell.textContent.trim(); // "수익" 또는 "지출"
+
+                    if (id === 'btn-all') {
+                        row.style.display = ''; // 모두 표시
+                    } else if (id === 'btn-income' && type !== '수익') {
+                        row.style.display = 'none';
+                    } else if (id === 'btn-expense' && type !== '지출') {
+                        row.style.display = 'none';
+                    } else {
+                        row.style.display = '';
+                    }
+                });
+            });
+        });
+    });
+    /*--------------------------------------------------------------------- */
+
 
     // ✅ 페이지 로드 시 마지막 탭 복원
     window.addEventListener('DOMContentLoaded', () => {
