@@ -12,7 +12,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>CREP</title>
+
+    <!-- ✅ Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
+        /* ✅ 오렌지 버튼 스타일 강제 적용 */
+        .btn-primary {
+            --bs-btn-bg: #f54900;
+            --bs-btn-border-color: #f54900;
+            --bs-btn-hover-bg: #d94000;
+            --bs-btn-hover-border-color: #d94000;
+            --bs-btn-active-bg: #c24100;
+            --bs-btn-active-border-color: #c24100;
+            --bs-btn-focus-shadow-rgb: 245, 73, 0;
+        }
+
+        .btn-outline-primary {
+            --bs-btn-color: #f54900;
+            --bs-btn-border-color: #f54900;
+            --bs-btn-hover-bg: #f54900;
+            --bs-btn-hover-border-color: #f54900;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-active-bg: #c24100;
+            --bs-btn-active-border-color: #c24100;
+            --bs-btn-focus-shadow-rgb: 245, 73, 0;
+        }
+
+        /* ✅ 버튼 클릭/포커스 시 배경색도 주황으로 */
+        .btn-primary:focus, .btn-outline-primary:focus {
+            box-shadow: 0 0 0 0.25rem rgba(245, 73, 0, 0.35) !important;
+        }
+
         :root{
             --header-h:72px;
             --border:#e5e7eb;
@@ -45,11 +76,12 @@
 
         .header-content {
             height: 100%;
-            max-width: 1280px;
+            width: 100%;
             margin: 0 auto;
             padding: 0 16px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
         }
 
@@ -107,7 +139,7 @@
         }
         .search-container {
             position: relative;
-            width: min(560px, 100%);
+            width: min(720px, 100%);
         }
         .search-input {
             width: 100%;
@@ -161,6 +193,33 @@
             white-space: nowrap; border: 0;
         }
 
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Tailwind의 gap-2 */
+        }
+
+        /* 공통 버튼 스타일 */
+        .auth-buttons button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* 아이콘 공통 크기 */
+        .auth-buttons .icon {
+            width: 16px;
+            height: 16px;
+        }
+
+
+
+
         /* Responsive */
         @media (max-width: 1024px) {
             .logo-text { font-size: 22px; }
@@ -196,7 +255,30 @@
                 <span class="logo-text">CREP</span>
             </a>
         </div>
+<c:choose>
+    <c:when test="${empty sessionScope.loginMember}">
 
+        <!-- Right: Actions -->
+        <div class="right-section">
+            <button class="icon-button" type="button" aria-label="테마 전환" id="themeToggleBtn">
+                <img class="button-icon" src="<c:url value='/resources/images/moon_icon.png'/>" alt="" />
+            </button>
+            <div class="d-flex align-items-center gap-2">
+                <a href="${pageContext.request.contextPath}/loginForm.me"
+                   class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+                    <i data-lucide="log-in" class="icon"></i>
+                    <span>로그인</span>
+                </a>
+
+                <a href="${pageContext.request.contextPath}/enrollForm.me"
+                   class="btn btn-primary btn-sm d-flex align-items-center gap-1">
+                    <i data-lucide="user-plus" class="icon"></i>
+                    <span>회원가입</span>
+                </a>
+            </div>
+        </div>
+    </c:when>
+    <c:otherwise>
         <!-- Center: Search -->
         <div class="search-wrap">
             <form class="search-container" role="search" action="" method="get">
@@ -221,10 +303,19 @@
                 <img class="avatar-image" src="<c:url value='/resources/images/avatar_image.png'/>" alt="사용자 프로필" />
             </button>
         </div>
+        </c:otherwise>
+    </c:choose>
     </div>
 </header>
-
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
 <script>
+
+    if (window.lucide) lucide.createIcons();
+
+    document.getElementById('themeToggleBtn')?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+    });
     // 사이드바 토글 (프로젝트에 맞게 이벤트/클래스 연결)
     document.getElementById('menuToggleBtn')?.addEventListener('click', function () {
         // 예: document.body.classList.toggle('sidebar-open');
@@ -262,5 +353,7 @@
         if (!v) e.preventDefault();
     });
 </script>
+<!-- Bootstrap Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
