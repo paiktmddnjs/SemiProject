@@ -187,7 +187,10 @@
                 <select class="custom-form3-control1" id="profitCategory" name="category" required>
                     <option value="" disabled selected>카테고리 선택</option>
                     <option value="협찬">협찬</option>
-                    <option value="광고수익">광고 수익</option>
+                    <option value="광고수익">광고</option>
+                    <option value="굿즈">굿즈</option>
+                    <option value="후원">후원</option>
+                    <option value="기타">기타</option>
                 </select>
             </div>
 

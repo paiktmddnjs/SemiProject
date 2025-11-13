@@ -24,6 +24,50 @@
     margin-bottom: 0;
 }
 
+
+
+/*  수익 ,지출만 보기 버튼   */
+.h2-div {
+    display: flex;                  /* 🔹 한 줄로 배치 */
+    justify-content: space-between; /* 제목 왼쪽 / 버튼 오른쪽 */
+    align-items: center;            /* 세로 중앙 정렬 */
+    margin-bottom: 10px;
+}
+
+
+#filter-buttons {
+    display: flex;
+    justify-content: flex-end; /* 👉 오른쪽 끝으로 정렬 */
+    gap: 8px; /* 버튼 간 간격 */
+    margin-bottom: 10px;
+}
+
+
+
+.filter-btn {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+
+.filter-btn:hover {
+    background-color: #ddd;
+}
+
+.filter-btn.active {
+    background-color: #a27311;
+    color: white;
+    border: 1px solid #a27311;
+}
+/*---------------------------------------------*/
+
+
+
+
 /* 테이블 기본 스타일 */
 .table-wrapper {
     overflow-x: auto;

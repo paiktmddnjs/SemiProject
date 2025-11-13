@@ -1,6 +1,7 @@
 package com.kh.spring.service;
 
 import com.kh.spring.model.vo.Finacial;
+import com.kh.spring.model.vo.Monthly;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ public interface FinacialService {
     int calculateProfit();
     int calculateExpense();
 
+
+    List<Monthly> calculateMonthly();
 
     int insertProfitFinacial(Finacial finacial);
 

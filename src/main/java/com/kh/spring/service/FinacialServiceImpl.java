@@ -2,6 +2,7 @@ package com.kh.spring.service;
 
 import com.kh.spring.model.mapper.FinacialMapper;
 import com.kh.spring.model.vo.Finacial;
+import com.kh.spring.model.vo.Monthly;
 import com.kh.spring.model.vo.PageInfo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,17 +45,26 @@ public class FinacialServiceImpl implements FinacialService {
         return finacialMapper.calculateNetProfit();
     }
 
+    @Override
     public int calculateProfit()
     {
         return finacialMapper.calculateProfit();
 
     }
 
+    @Override
     public int calculateExpense()
     {
 
         return finacialMapper.calculateExpense();
     }
+
+    @Override
+    public List<Monthly> calculateMonthly() {
+
+        return finacialMapper.calculateMonthly();
+    }
+
 
     @Override
     public int insertProfitFinacial(Finacial finacial) {

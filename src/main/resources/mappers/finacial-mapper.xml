@@ -54,6 +54,32 @@
 
     </select>
 
+
+    <select id="calculateMonthly"  resultType="com.kh.spring.model.vo.Monthly">
+        SELECT
+        EXTRACT(MONTH FROM FINACIAL_DATE) AS month,
+        COALESCE(SUM(CASE WHEN CATEGORY = '광고' AND FINACIAL_TYPE = '수익' THEN FINACIAL_AMOUNT END), 0) AS AdTotalIncome,
+        COALESCE(SUM(CASE WHEN CATEGORY = '굿즈' AND FINACIAL_TYPE = '수익' THEN FINACIAL_AMOUNT END), 0) AS MerchTotalIncome,
+        COALESCE(SUM(CASE WHEN CATEGORY = '협찬' AND FINACIAL_TYPE = '수익' THEN FINACIAL_AMOUNT END), 0) AS SponTotalIncome,
+        COALESCE(SUM(CASE WHEN CATEGORY = '후원' AND FINACIAL_TYPE = '수익' THEN FINACIAL_AMOUNT END), 0) AS DonationTotalIncome,
+        COALESCE(SUM(CASE WHEN CATEGORY = '기타' AND FINACIAL_TYPE = '수익' THEN FINACIAL_AMOUNT END), 0) AS EtcTotalIncome,
+
+        COALESCE(SUM(CASE WHEN CATEGORY = '마케팅' AND FINACIAL_TYPE = '지출' THEN FINACIAL_AMOUNT END), 0) AS MarketTotalExpense,
+        COALESCE(SUM(CASE WHEN CATEGORY = '소프트웨어' AND FINACIAL_TYPE = '지출' THEN FINACIAL_AMOUNT END), 0) AS SoftWareTotalExpense,
+        COALESCE(SUM(CASE WHEN CATEGORY = '외주' AND FINACIAL_TYPE = '지출' THEN FINACIAL_AMOUNT END), 0) AS OutSourceTotalExpense,
+        COALESCE(SUM(CASE WHEN CATEGORY = '장비' AND FINACIAL_TYPE = '지출' THEN FINACIAL_AMOUNT END), 0) AS EquipTotalExpense,
+        COALESCE(SUM(CASE WHEN CATEGORY = '기타' AND FINACIAL_TYPE = '지출' THEN FINACIAL_AMOUNT END), 0) AS EtcTotalExpense
+        FROM
+        FINACIAL_MANAGEMENT
+        WHERE
+        FINACIAL_STATUS = 'Y'
+        GROUP BY
+        EXTRACT(MONTH FROM FINACIAL_DATE)
+        ORDER BY
+        month
+    </select>
+
+
     <insert id="insertFinacial" parameterType="Finacial">
         INSERT INTO FINACIAL_MANAGEMENT (
             FINACIAL_ID,

@@ -225,24 +225,44 @@
         money: {
             type: 'bar',
             data: {
-                labels: ['4월', '5월', '6월', '7월', '8월', '9월', '10월'],
+                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월' , '11월' , '12월'],
                 datasets: [
                     {
                         label: '광고',
-                        data: [1500, 1800, 2200, 2500, 2800, 3000, 3500],
+                        data: [ ${monthlyAdProfits[0]}, ${monthlyAdProfits[1]}, ${monthlyAdProfits[2]},
+                            ${monthlyAdProfits[3]}, ${monthlyAdProfits[4]}, ${monthlyAdProfits[5]},
+                            ${monthlyAdProfits[6]}, ${monthlyAdProfits[7]}, ${monthlyAdProfits[8]},
+                            ${monthlyAdProfits[9]}, ${monthlyAdProfits[10]}, ${monthlyAdProfits[11]}],
                         backgroundColor: '#E55F1C'
                     },
                     {
                         label: '굿즈',
-                        data: [500, 700, 800, 1000, 1200, 1400, 1500],
+                        data: [ ${monthlyMerchProfits[0]}, ${monthlyMerchProfits[1]}, ${monthlyMerchProfits[2]},
+                            ${monthlyMerchProfits[3]}, ${monthlyMerchProfits[4]}, ${monthlyMerchProfits[5]},
+                            ${monthlyMerchProfits[6]}, ${monthlyMerchProfits[7]}, ${monthlyMerchProfits[8]},
+                            ${monthlyMerchProfits[9]}, ${monthlyMerchProfits[10]}, ${monthlyMerchProfits[11]}],
                         backgroundColor: '#F4A346'
                     },
                     {
                         label: '협찬',
-                        data: [300, 400, 500, 600, 700, 800, 900],
+                        data: [ ${monthlySponProfits[0]}, ${monthlySponProfits[1]}, ${monthlySponProfits[2]},
+                            ${monthlySponProfits[3]}, ${monthlySponProfits[4]}, ${monthlySponProfits[5]},
+                            ${monthlySponProfits[6]}, ${monthlySponProfits[7]}, ${monthlySponProfits[8]},
+                            ${monthlySponProfits[9]}, ${monthlySponProfits[10]}, ${monthlySponProfits[11]}],
                         backgroundColor: '#F7C281'
                     },
-                    {label: '후원', data: [100, 150, 200, 250, 300, 350, 400], backgroundColor: '#F9D39F'}
+                    {label: '후원', data: [${monthlyDonationProfits[0]}, ${monthlyDonationProfits[1]}, ${monthlyDonationProfits[2]},
+                            ${monthlyDonationProfits[3]}, ${monthlyDonationProfits[4]}, ${monthlyDonationProfits[5]},
+                            ${monthlyDonationProfits[6]}, ${monthlyDonationProfits[7]}, ${monthlyDonationProfits[8]},
+                            ${monthlyDonationProfits[9]}, ${monthlyDonationProfits[10]}, ${monthlyDonationProfits[11]}],
+                        backgroundColor: '#F9D39F'
+                    },
+                    {label: '기타', data: [${monthlyEtcProfits[0]}, ${monthlyEtcProfits[1]}, ${monthlyEtcProfits[2]},
+                            ${monthlyEtcProfits[3]}, ${monthlyEtcProfits[4]}, ${monthlyEtcProfits[5]},
+                            ${monthlyEtcProfits[6]}, ${monthlyEtcProfits[7]}, ${monthlyEtcProfits[8]},
+                            ${monthlyEtcProfits[9]}, ${monthlyEtcProfits[10]}, ${monthlyEtcProfits[11]}],
+                        backgroundColor: '#FBE3C3'
+                    }
                 ]
             },
             options: {
@@ -261,15 +281,16 @@
                     legend: {display: true, position: 'bottom'}
                 },
                 scales: {
-                    x: {stacked: true},
+                    x: { stacked: true },
                     y: {
                         stacked: true,
-                        min: 0, max: 8000,
+                        min: 0,
+                        // max: 8000,  ❌ 제거
                         ticks: {
-                            stepSize: 2000,
+                            stepSize: 1000,
                             callback: value => value + ' 만원'
                         },
-                        title: {display: true, text: '수익 (단위: 만원)'}
+                        title: { display: true, text: '수익 (단위: 만원)' }
                     }
                 }
             }
@@ -280,24 +301,44 @@
         expense: {
             type: 'bar',
             data: {
-                labels: ['4월', '5월', '6월', '7월', '8월', '9월', '10월'],
+                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월' , '12월'],
                 datasets: [
                     {
                         label: '마케팅',
-                        data: [1500, 1800, 2200, 2500, 2300, 2000, 2500],
+                        data: [${monthlyMarketExpenses[0]}, ${monthlyMarketExpenses[1]}, ${monthlyMarketExpenses[2]},
+                            ${monthlyMarketExpenses[3]}, ${monthlyMarketExpenses[4]}, ${monthlyMarketExpenses[5]},
+                            ${monthlyMarketExpenses[6]}, ${monthlyMarketExpenses[7]}, ${monthlyMarketExpenses[8]},
+                            ${monthlyMarketExpenses[9]}, ${monthlyMarketExpenses[10]}, ${monthlyMarketExpenses[11]}],
                         backgroundColor: '#3232de'
                     },
                     {
                         label: '소프트웨어',
-                        data: [500, 700, 800, 1000, 1200, 1400, 1500],
+                        data: [${monthlySoftWareExpenses[0]}, ${monthlySoftWareExpenses[1]}, ${monthlySoftWareExpenses[2]},
+                            ${monthlySoftWareExpenses[3]}, ${monthlySoftWareExpenses[4]}, ${monthlySoftWareExpenses[5]},
+                            ${monthlySoftWareExpenses[6]}, ${monthlySoftWareExpenses[7]}, ${monthlySoftWareExpenses[8]},
+                            ${monthlySoftWareExpenses[9]}, ${monthlySoftWareExpenses[10]}, ${monthlySoftWareExpenses[11]}],
                         backgroundColor: '#4169E1'
                     },
                     {
                         label: '외주',
-                        data: [300, 400, 500, 600, 700, 400, 500],
+                        data: [${monthlyOutSourceExpenses[0]}, ${monthlyOutSourceExpenses[1]}, ${monthlyOutSourceExpenses[2]},
+                            ${monthlyOutSourceExpenses[3]}, ${monthlyOutSourceExpenses[4]}, ${monthlyOutSourceExpenses[5]},
+                            ${monthlyOutSourceExpenses[6]}, ${monthlyOutSourceExpenses[7]}, ${monthlyOutSourceExpenses[8]},
+                            ${monthlyOutSourceExpenses[9]}, ${monthlyOutSourceExpenses[10]}, ${monthlyOutSourceExpenses[11]}],
                         backgroundColor: '#6495ED'
                     },
-                    {label: '장비', data: [100, 150, 200, 150, 100, 150, 100], backgroundColor: '#abc8ec'}
+                    {label: '장비', data: [${monthlyEquipExpenses[0]}, ${monthlyEquipExpenses[1]}, ${monthlyEquipExpenses[2]},
+                            ${monthlyEquipExpenses[3]}, ${monthlyEquipExpenses[4]}, ${monthlyEquipExpenses[5]},
+                            ${monthlyEquipExpenses[6]}, ${monthlyEquipExpenses[7]}, ${monthlyEquipExpenses[8]},
+                            ${monthlyEquipExpenses[9]}, ${monthlyEquipExpenses[10]}, ${monthlyEquipExpenses[11]}],
+                        backgroundColor: '#abc8ec'
+                    },
+                    {label: '기타', data: [${monthlyEtcTotalExpenses[0]}, ${monthlyEtcTotalExpenses[1]}, ${monthlyEtcTotalExpenses[2]},
+                            ${monthlyEtcTotalExpenses[3]}, ${monthlyEtcTotalExpenses[4]}, ${monthlyEtcTotalExpenses[5]},
+                            ${monthlyEtcTotalExpenses[6]}, ${monthlyEtcTotalExpenses[7]}, ${monthlyEtcTotalExpenses[8]},
+                            ${monthlyEtcTotalExpenses[9]}, ${monthlyEtcTotalExpenses[10]}, ${monthlyEtcTotalExpenses[11]}],
+                        backgroundColor: '#C7DBF4'
+                    }
                 ]
             },
             options: {
@@ -316,12 +357,16 @@
                     legend: {display: true, position: 'bottom'}
                 },
                 scales: {
-                    x: {stacked: true},
+                    x: { stacked: true },
                     y: {
                         stacked: true,
-                        min: 0, max: 5000,
-                        ticks: {stepSize: 1000, callback: v => v + ' 만원'},
-                        title: {display: true, text: '지출 (단위: 만원)'}
+                        min: 0,
+
+                        ticks: {
+                            stepSize: 1000,
+                            callback: value => value + ' 만원'
+                        },
+                        title: { display: true, text: '지출 (단위: 만원)' }
                     }
                 }
             }

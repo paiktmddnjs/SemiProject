@@ -1,6 +1,7 @@
 package com.kh.spring.model.mapper;
 
 import com.kh.spring.model.vo.Finacial;
+import com.kh.spring.model.vo.Monthly;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,6 +16,9 @@ public interface FinacialMapper {
     int calculateNetProfit();
     int calculateProfit();
     int calculateExpense();
+
+    List<Monthly> calculateMonthly();
+
     int insertFinacial(Finacial finacial);
     List<Finacial> selectAllTransaction();
 

@@ -185,8 +185,10 @@
                 <label for="expenseCategory">카테고리</label>
                 <select class="custom-form-control1" id="expenseCategory" name="category" required>
                     <option value="" disabled selected>카테고리 선택</option>
-                    <option value="협찬">협찬</option>
-                    <option value="광고지출">광고 지출</option>
+                    <option value="마케팅">마케팅</option>
+                    <option value="소프트웨어">소프트웨어</option>
+                    <option value="외주">외주</option>
+                    <option value="장비">장비</option>
                     <option value="기타">기타</option>
                 </select>
             </div>
