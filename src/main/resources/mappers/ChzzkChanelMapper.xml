@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.mapper.ChzzkChanelMapper">
+
+    <!-- ResultMap: DB 컬럼과 DTO 필드 매핑 -->
+    <resultMap id="ChzzkChanelResultMap" type="com.kh.spring.dto.ChzzkChanelDto">
+        <id property="chanelId" column="CHANEL_ID"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="chanelName" column="CHANEL_NAME"/>
+        <result property="platformType" column="PLATFORM_TYPE"/>
+        <result property="platfromSubscribe" column="PLATFROM_SUBSCRIBE"/>
+        <result property="chanelStatus" column="CHANEL_STATUS"/>
+        <result property="chanelCreate" column="CHANEL_CREATE"/>
+        <result property="chanelUrl" column="CHANEL_URL"/>
+        <result property="chanelFollower" column="CHANEL_FOLLOWER"/>
+    </resultMap>
+
+    <!-- 채널 ID로 조회 -->
+    <select id="findById" resultMap="ChzzkChanelResultMap">
+        SELECT 
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_FOLLOWER
+        FROM CHANEL
+        WHERE CHANEL_ID = #{chanelId}
+    </select>
+
+    <!-- 채널 이름과 플랫폼 타입으로 조회 -->
+    <select id="findByChanelNameAndPlatformType" resultMap="ChzzkChanelResultMap">
+        SELECT
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_FOLLOWER
+        FROM CHANEL
+        WHERE CHANEL_NAME = #{chanelName}
+          AND PLATFORM_TYPE = #{platformType}
+          AND ROWNUM = 1
+    </select>
+
+    <!-- 채널 URL로 조회 (삭제된 채널 포함) -->
+    <select id="findByChanelUrl" resultMap="ChzzkChanelResultMap">
+        SELECT
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_FOLLOWER
+        FROM CHANEL
+        WHERE CHANEL_URL = #{chanelUrl}
+          AND ROWNUM = 1
+    </select>
+
+    <!-- 멤버 ID로 채널 목록 조회 -->
+    <select id="findByMemberId" resultMap="ChzzkChanelResultMap">
+        SELECT
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_FOLLOWER
+        FROM CHANEL
+        WHERE MEMBER_ID = #{memberId}
+        ORDER BY CHANEL_CREATE DESC
+    </select>
+
+    <!-- 플랫폼 타입으로 채널 목록 조회 -->
+    <select id="findByPlatformType" resultMap="ChzzkChanelResultMap">
+        SELECT
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_FOLLOWER
+        FROM CHANEL
+        WHERE PLATFORM_TYPE = #{platformType}
+        ORDER BY CHANEL_CREATE DESC
+    </select>
+
+    <!-- 플랫폼 타입과 상태로 채널 목록 조회 (활성 채널만) -->
+    <select id="findByPlatformTypeAndStatus" resultMap="ChzzkChanelResultMap">
+        SELECT
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_FOLLOWER
+        FROM CHANEL
+        WHERE CHANEL_STATUS = #{status}
+        <if test="platformType != null">
+            AND PLATFORM_TYPE = #{platformType}
+        </if>
+        ORDER BY CHANEL_CREATE DESC
+    </select>
+
+    <!-- 전체 채널 목록 조회 -->
+    <select id="findAll" resultMap="ChzzkChanelResultMap">
+        SELECT
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_FOLLOWER
+        FROM CHANEL
+        ORDER BY CHANEL_CREATE DESC
+    </select>
+
+    <!-- 채널 저장 (INSERT) -->
+    <insert id="insert" parameterType="com.kh.spring.dto.ChzzkChanelDto">
+        <selectKey keyProperty="chanelId" resultType="Long" order="BEFORE">
+            SELECT SEQ_CHANEL_ID.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO CHANEL (
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_FOLLOWER
+        ) VALUES (
+            #{chanelId},
+            #{memberId},
+            #{chanelName},
+            #{platformType},
+            #{platfromSubscribe},
+            NVL(#{chanelStatus}, 'Y'),
+            NVL(#{chanelCreate}, SYSDATE),
+            #{chanelUrl},
+            #{chanelFollower, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- 채널 업데이트 (UPDATE) -->
+    <update id="update" parameterType="com.kh.spring.dto.ChzzkChanelDto">
+        UPDATE CHANEL
+        SET 
+            MEMBER_ID = #{memberId},
+            CHANEL_NAME = #{chanelName},
+            PLATFORM_TYPE = #{platformType},
+            PLATFROM_SUBSCRIBE = #{platfromSubscribe},
+            CHANEL_STATUS = #{chanelStatus},
+            CHANEL_CREATE = #{chanelCreate},
+            CHANEL_URL = #{chanelUrl},
+            CHANEL_FOLLOWER = #{chanelFollower, jdbcType=VARCHAR}
+        WHERE CHANEL_ID = #{chanelId}
+    </update>
+
+    <!-- 채널 삭제 (DELETE) -->
+    <delete id="deleteById">
+        DELETE FROM CHANEL
+        WHERE CHANEL_ID = #{chanelId}
+    </delete>
+
+    <!-- 다음 시퀀스 값 조회 -->
+    <select id="getNextSequence" resultType="Long">
+        SELECT SEQ_CHANEL_ID.NEXTVAL FROM DUAL
+    </select>
+
+    <!-- 채널 상태 변경 (삭제 시 'N'으로 변경) -->
+    <update id="updateStatus">
+        UPDATE CHANEL
+        SET CHANEL_STATUS = #{status}
+        WHERE CHANEL_ID = #{chanelId}
+    </update>
+
+</mapper>
+

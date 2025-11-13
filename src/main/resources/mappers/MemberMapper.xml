@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.mapper.MemberMapper">
+
+    <!-- 기본 테스트 회원 ID 조회 -->
+    <select id="findDefaultMemberId" resultType="Long">
+        SELECT MEMBER_ID 
+        FROM MEMBER 
+        WHERE EMAIL = 'test@example.com' 
+          AND ROWNUM = 1
+    </select>
+
+    <!-- 기본 테스트 회원 생성 -->
+    <insert id="insertDefaultMember" useGeneratedKeys="false">
+        <selectKey keyProperty="memberId" resultType="Long" order="BEFORE">
+            SELECT SEQ_MEMBER_ID.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO MEMBER (
+            MEMBER_ID,
+            EMAIL,
+            MEMBER_PWD,
+            MEMBER_NAME,
+            PHONE,
+            ENROLL_DATE,
+            STATUS,
+            ROLE
+        ) VALUES (
+            #{memberId},
+            'test@example.com',
+            'test1234',
+            '테스트 사용자',
+            '010-1234-5678',
+            SYSDATE,
+            'Y',
+            'USER'
+        )
+    </insert>
+
+</mapper>
+
