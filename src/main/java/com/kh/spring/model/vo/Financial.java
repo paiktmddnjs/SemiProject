@@ -11,9 +11,9 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Finacial {
+public class Financial {
     /** FINACIAL_ID NUMBER NOT NULL PRIMARY KEY */
-    private int finacialId;
+    private int financialId;
 
     /** CONTRACT_ID NUMBER NULL (FK) */
     private Integer contractId; // NULL 가능성이 있으므로 래퍼(Wrapper) 클래스 Integer 사용
@@ -22,22 +22,22 @@ public class Finacial {
     private int memberId;
 
     /** FINACIAL_NAME VARCHAR2(100) NOT NULL */
-    private String finacialName;
+    private String financialName;
 
     /** FINACIAL_AMOUNT NUMBER NULL */
-    private Integer finacialAmount; // 금액이 NULL 가능성이 있다면 Integer 또는 Long 사용
+    private Integer financialAmount; // 금액이 NULL 가능성이 있다면 Integer 또는 Long 사용
 
     /** FINACIAL_DATE DATE NOT NULL */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date finacialDate;
+    private Date financialDate;
 
     /** FINACIAL_STATUS VARCHAR2(1) DEFAULT 'Y' NOT NULL */
-    private String finacialStatus;
+    private String financialStatus;
 
     /** CATEGORY VARCHAR2(50) NOT NULL */
     private String category;
 
     /** FINACIAL_TYPE VARCHAR2(10) NOT NULL */
-    private String finacialType;
+    private String financialType;
 
 }

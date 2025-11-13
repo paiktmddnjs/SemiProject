@@ -162,7 +162,7 @@
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/video_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">콘텐츠 관리</span>
             </a>
-            <a class="nav-link" href="${pageContext.request.contextPath}/finacial" data-key="finance">
+            <a class="nav-link" href="${pageContext.request.contextPath}/financial" data-key="finance">
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/report_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">재무 관리</span>
             </a>

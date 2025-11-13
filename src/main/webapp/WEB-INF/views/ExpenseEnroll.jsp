@@ -195,18 +195,18 @@
 
             <div class="form-group">
                 <label for="expenseDescription">내역</label>
-                <input type="text" class="custom-form-control2" id="expenseDescription" name="finacialName" placeholder="지출 내역을 입력하세요" required>
+                <input type="text" class="custom-form-control2" id="expenseDescription" name="financialName" placeholder="지출 내역을 입력하세요" required>
             </div>
 
             <div class="form-group">
                 <label for="expenseAmount">금액 (원)</label>
-                <input type="number" class="custom-form-control3" id="expenseAmount" name="finacialAmount" placeholder="100000" min="0" required>
+                <input type="number" class="custom-form-control3" id="expenseAmount" name="financialAmount" placeholder="100000" min="0" required>
             </div>
 
             <div class="form-group" style="margin-bottom: 30px;">
                 <label for="expenseDate">날짜</label>
                 <!-- ⚠️ JS 코드에 맞게 name="ExpenseDate" 로 수정 -->
-                <input type="date" class="custom-form-control4" id="expenseDate" name="finacialDate" required>
+                <input type="date" class="custom-form-control4" id="expenseDate" name="financialDate" required>
             </div>
 
             <button type="submit" class="btn-custom2-save">저장</button>

@@ -26,9 +26,9 @@ function submitNewProfit() {
     const form1Data = new FormData(form1);
     const data = {
         category: form1Data.get('category'),
-        description: form1Data.get('finacialName'),
-        amount: parseInt(form1Data.get('finacialAmount')),
-        profitDate: form1Data.get('finacialDate')
+        description: form1Data.get('financialName'),
+        amount: parseInt(form1Data.get('financialAmount')),
+        profitDate: form1Data.get('financialDate')
     };
 
     console.log("서버로 전송할 데이터:", data);

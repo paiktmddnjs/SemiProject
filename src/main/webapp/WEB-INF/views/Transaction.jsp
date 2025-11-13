@@ -41,25 +41,25 @@
             <c:choose>
                 <c:when test="${not empty transactionList}">
                     <c:forEach var="item" items="${transactionList}">
-                        <c:set var="isProfit" value="${item.finacialType eq '수익'}" />
+                        <c:set var="isProfit" value="${item.financialType eq '수익'}" />
                         <c:set var="tagClass" value="${isProfit ? 'profit' : 'expense'}" />
                         <c:set var="amountSign" value="${isProfit ? '+' : '-'}" />
 
                         <tr>
-                            <td><fmt:formatDate value="${item.finacialDate}" pattern="yyyy-MM-dd"/></td>
-                            <td><span class="tag ${tagClass}">${item.finacialType}</span></td>
+                            <td><fmt:formatDate value="${item.financialDate}" pattern="yyyy-MM-dd"/></td>
+                            <td><span class="tag ${tagClass}">${item.financialType}</span></td>
                             <td>${item.category}</td>
-                            <td>${item.finacialName}</td>
+                            <td>${item.financialName}</td>
 
                             <td class="amount ${tagClass}">
-                                    ${amountSign}<fmt:formatNumber value="${item.finacialAmount}" pattern="#,###"/>원
+                                    ${amountSign}<fmt:formatNumber value="${item.financialAmount}" pattern="#,###"/>원
                             </td>
 
                                 <%-- 상태 로직 --%>
                             <td>  <%-- 상태 로직 --%>
                                 <c:choose>
-                                    <c:when test="${item.finacialStatus eq 'Y'}">${isProfit ? '정산완료' : '지불완료'}</c:when>
-                                    <c:when test="${item.finacialStatus eq 'N'}">${isProfit ? '정산대기' : '지불대기'}</c:when>
+                                    <c:when test="${item.financialStatus eq 'Y'}">${isProfit ? '정산완료' : '지불완료'}</c:when>
+                                    <c:when test="${item.financialStatus eq 'N'}">${isProfit ? '정산대기' : '지불대기'}</c:when>
                                     <c:otherwise>알 수 없음</c:otherwise>
                                 </c:choose>
                             </td> </tr>
@@ -81,8 +81,8 @@
 
             <%-- ◀ 처음으로 / 이전 페이지 버튼 --%>
             <c:if test="${pi.currentPage > 1}">
-                <a href="/finacial?page=1" style="margin-right: 5px;">&lt;&lt;</a>
-                <a href="/finacial?page=${pi.currentPage - 1}" style="margin-right: 15px;">이전</a>
+                <a href="/financial?page=1" style="margin-right: 5px;">&lt;&lt;</a>
+                <a href="/financial?page=${pi.currentPage - 1}" style="margin-right: 15px;">이전</a>
             </c:if>
 
             <%-- 페이지 번호 목록 --%>
@@ -92,15 +92,15 @@
                         <span style="font-weight: bold; color: #e10d2c; font-size: 1.1em; margin: 0 5px;">${p}</span>
                     </c:when>
                     <c:otherwise>
-                        <a href="/finacial?page=${p}" style="margin: 0 5px; color: #555;">${p}</a>
+                        <a href="/financial?page=${p}" style="margin: 0 5px; color: #555;">${p}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
 
             <%-- ▶ 다음 페이지 / 마지막 페이지 버튼 --%>
             <c:if test="${pi.currentPage < pi.maxPage}">
-                <a href="/finacial?page=${pi.currentPage + 1}" style="margin-left: 15px;">다음</a>
-                <a href="/finacial?page=${pi.maxPage}" style="margin-left: 5px;">&gt;&gt;</a>
+                <a href="/financial?page=${pi.currentPage + 1}" style="margin-left: 15px;">다음</a>
+                <a href="/financial?page=${pi.maxPage}" style="margin-left: 5px;">&gt;&gt;</a>
             </c:if>
         </div>
     </div>

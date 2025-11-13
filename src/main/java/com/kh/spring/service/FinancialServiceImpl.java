@@ -1,7 +1,7 @@
 package com.kh.spring.service;
 
-import com.kh.spring.model.mapper.FinacialMapper;
-import com.kh.spring.model.vo.Finacial;
+import com.kh.spring.model.mapper.FinancialMapper;
+import com.kh.spring.model.vo.Financial;
 import com.kh.spring.model.vo.Monthly;
 import com.kh.spring.model.vo.PageInfo;
 import org.apache.ibatis.session.SqlSession;
@@ -14,41 +14,41 @@ import java.util.Map;
 
 
 @Service
-public class FinacialServiceImpl implements FinacialService {
+public class FinancialServiceImpl implements FinancialService {
 
-    private final FinacialMapper finacialMapper;
+    private final FinancialMapper financialMapper;
     private final SqlSession sqlSession;
 
     @Autowired
-    public FinacialServiceImpl(FinacialMapper finacialMapper, SqlSession sqlSession){
+    public FinancialServiceImpl(FinancialMapper financialMapper, SqlSession sqlSession){
 
-        this.finacialMapper = finacialMapper;
+        this.financialMapper = financialMapper;
         this.sqlSession = sqlSession;
     }
 
     @Override
-    public Finacial selectAllFinacial() {
+    public Financial selectAllFinancial() {
 
         //List<Board> list = boardMapper.selectAllBoard(rowBounds);
-        return finacialMapper.selectAllFinacial();
+        return financialMapper.selectAllFinancial();
     }
 
     @Override
-    public List<Finacial> selectAllFinacialRecords() {
+    public List<Financial> selectAllFinancialRecords() {
         // 매퍼에 정의된 전체 조회 메소드를 호출하여 결과를 반환
-        return finacialMapper.selectAllFinacialRecords();
+        return financialMapper.selectAllFinancialRecords();
     }
 
     @Override
     public int calculateNetProfit() {
         // 매퍼에 정의된 순이익 계산 쿼리(calculateNetProfit)를 호출
-        return finacialMapper.calculateNetProfit();
+        return financialMapper.calculateNetProfit();
     }
 
     @Override
     public int calculateProfit()
     {
-        return finacialMapper.calculateProfit();
+        return financialMapper.calculateProfit();
 
     }
 
@@ -56,37 +56,37 @@ public class FinacialServiceImpl implements FinacialService {
     public int calculateExpense()
     {
 
-        return finacialMapper.calculateExpense();
+        return financialMapper.calculateExpense();
     }
 
     @Override
     public List<Monthly> calculateMonthly() {
 
-        return finacialMapper.calculateMonthly();
+        return financialMapper.calculateMonthly();
     }
 
 
     @Override
-    public int insertProfitFinacial(Finacial finacial) {
+    public int insertProfitFinancial(Financial financial) {
         // 매퍼에 정의된 삽입 메소드를 호출
-        return finacialMapper.insertFinacial(finacial);
+        return financialMapper.insertFinancial(financial);
     }
 
-    public int insertExpenseFinacial(Finacial finacial) {
+    public int insertExpenseFinancial(Financial financial) {
 
-        return finacialMapper.insertFinacial(finacial);
+        return financialMapper.insertFinancial(financial);
     }
 
     @Override
     public int selectTransactionCount() {
-        return finacialMapper.selectTransactionCount();
+        return financialMapper.selectTransactionCount();
     }
 
     @Override
     public Map<String, Object> selectAllTransaction(int currentPage) {
 
         // 1. 총 거래 내역 개수 조회
-        int listCount = finacialMapper.selectTransactionCount(); /// 인터페이스 메서드 활용
+        int listCount = financialMapper.selectTransactionCount(); /// 인터페이스 메서드 활용
 
         // 2. 페이지네이션 정보(PageInfo) 설정 및 계산
         int pageLimit = 10;
@@ -101,7 +101,7 @@ public class FinacialServiceImpl implements FinacialService {
 
         // 4. 범위별 거래 내역 조회 (Mapper 호출)
         // Mapper로 offset과 limit을 전달하여 DB에서 6개 데이터만 가져옴
-        List<Finacial> transactionList = finacialMapper.selectAllTransaction(offset, limit);
+        List<Financial> transactionList = financialMapper.selectAllTransaction(offset, limit);
 
         // 5. 결과 반환 (List와 PageInfo를 Map에 담아 Controller로 전달)
         Map<String, Object> resultMap = new HashMap<>();

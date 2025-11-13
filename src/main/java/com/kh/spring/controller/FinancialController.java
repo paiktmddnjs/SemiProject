@@ -1,8 +1,8 @@
 package com.kh.spring.controller;
 
-import com.kh.spring.model.vo.Finacial;
+import com.kh.spring.model.vo.Financial;
 import com.kh.spring.model.vo.Monthly;
-import com.kh.spring.service.FinacialService;
+import com.kh.spring.service.FinancialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,34 +16,34 @@ import java.util.Map;
 
 
 @Controller
-public class FinacialController {
+public class FinancialController {
 
-    private final FinacialService finacialService;
+    private final FinancialService financialService;
 
 
     @Autowired
-    public FinacialController(FinacialService finacialService) {
+    public FinancialController(FinancialService financialService) {
 
-        this.finacialService = finacialService;
+        this.financialService = financialService;
 
     }
 
 
-    @GetMapping("finacial")
+    @GetMapping("financial")
     public String getFinancialboard(@RequestParam(value="page", defaultValue="1") int currentPage,
                                     @RequestParam(value="tab", defaultValue="overview") String currentTabKey,// 페이지 번호 받기
                                     Model model) {
 
 
         // 1. 순이익 계산 (예: 40200000)
-        int netProfit = (finacialService.calculateNetProfit() / 10000);
-        int Profit = (finacialService.calculateProfit() / 10000);
-        int Expense = (finacialService.calculateExpense() / 10000);
+        int netProfit = (financialService.calculateNetProfit() / 10000);
+        int Profit = (financialService.calculateProfit() / 10000);
+        int Expense = (financialService.calculateExpense() / 10000);
         double ProfitPercent = Math.round((double) netProfit / (double) Profit * 10000) / 100.0;
 
 
         // 데이터베이스로부터 카테고리와 수익,지출 에 따른 값을 가져와서 월별 합계로 저장하기
-        List<Monthly> monthlyThings = finacialService.calculateMonthly();
+        List<Monthly> monthlyThings = financialService.calculateMonthly();
 
         List<Integer> monthlyAdProfits = new ArrayList<>(Collections.nCopies(12, 0));
         List<Integer> monthlyMerchProfits = new ArrayList<>(Collections.nCopies(12, 0));
@@ -75,7 +75,7 @@ public class FinacialController {
 
 
         //page를 위한 map 객체
-        Map<String, Object> transactionData = finacialService.selectAllTransaction(currentPage);
+        Map<String, Object> transactionData = financialService.selectAllTransaction(currentPage);
 
 
         // 모델에 순이익 데이터 추가 , 게약관리 조회
@@ -109,47 +109,47 @@ public class FinacialController {
 
 
     @PostMapping("insert.f")
-    public String insertProfitFinacial(@ModelAttribute Finacial finacial, RedirectAttributes ra) {
+    public String insertProfitFinancial(@ModelAttribute Financial financial, RedirectAttributes ra) {
 
-        finacial.setFinacialType("수익");
+        financial.setFinancialType("수익");
         // ⭐ 필수: 실제 로그인된 사용자 ID를 설정 (예시: 세션에서 가져옴)
-        finacial.setMemberId(1234); // 예
+        financial.setMemberId(1234); // 예
 
-        int result = finacialService.insertProfitFinacial(finacial);
+        int result = financialService.insertProfitFinancial(financial);
 
         if (result > 0) {
             ra.addFlashAttribute("alertMsg", "등록 성공!");
-            return "redirect:/finacial";
+            return "redirect:/financial";
         } else {
             ra.addFlashAttribute("alertMsg", "등록 실패");
-            return "redirect:/finacial";
+            return "redirect:/financial";
         }
 
     }
 
 
     @PostMapping("insert.e")
-    public String insertExpenseFinacial(@ModelAttribute Finacial finacial, RedirectAttributes ra) {
+    public String insertExpenseFinancial(@ModelAttribute Financial financial, RedirectAttributes ra) {
 
         try {
-            finacial.setFinacialType("지출");
+            financial.setFinancialType("지출");
             // ⭐ 필수: 실제 로그인된 사용자 ID를 설정 (예시: 세션에서 가져옴)
-            finacial.setMemberId(1234); // 예
+            financial.setMemberId(1234); // 예
 
-            int result = finacialService.insertExpenseFinacial(finacial);
+            int result = financialService.insertExpenseFinancial(financial);
 
             if (result > 0) {
                 ra.addFlashAttribute("alertMsg", "등록 성공!");
-                return "redirect:/finacial";
+                return "redirect:/financial";
             } else {
                 ra.addFlashAttribute("alertMsg", "등록 실패");
-                return "redirect:/finacial";
+                return "redirect:/financial";
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "redirect:/finacial";
+        return "redirect:/financial";
 
     }
 
