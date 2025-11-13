@@ -1,4 +1,4 @@
-package model.vo;
+package com.kh.spring.model.vo;
 
 import lombok.*;
 
@@ -16,4 +16,7 @@ public class Task {
     private String taskStatus;
     private String taskStart;
     private String taskDeadline;
+
+    private String workspaceName; //전달용 콘드
+    private String projectName; //전달용 코드
 }
