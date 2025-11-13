@@ -1,14 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType ="text/html; charset=UTF-8"
     pageEncoding ="UTF-8"%>
     <!DOCTYPE html>
     <html>
         <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="<c:url value="/resources/static/css/projectdetail.css"/>">
+
         <link rel="stylesheet" href="<c:url value="/resources/static/css/default.css"/>">
         <link rel="stylesheet" href="<c:url value="/resources/static/css/new.css"/>">
-        <%-- 스크립트 참조 수정 --%>
+        <link rel="stylesheet" href="<c:url value="/resources/static/css/projectdetail.css"/>">
         <script src="<c:url value="/resources/static/js/newProject.js"/>" defer></script>
         <script src="<c:url value="/resources/static/js/setProject.js"/>" defer></script>
         </head>
@@ -28,7 +30,7 @@
                                 <c:out value="${project.projectName}"/>
                             </div>
                             <div class = "header_title_sub">
-                                <c:out value="${project.projectExplain}"/>
+                                <c:out value="${project.projectMemo}"/>
                             </div>
                         </div>
                         <div class ="header_button">
@@ -43,8 +45,7 @@
                                         <div>진행률</div>
                                     </div>
                                     <div class ="worksapce_describe">
-                                    
-                                            <div>65%</div>
+                                            <div>${project.projectProgress}%</div>
                                             <div>상세설명</div>
                                     </div>
                                 </div>
@@ -53,12 +54,10 @@
                         <div class ="detail_box">
                             <div class = "box_body">
                                     <div class = "title">
-                                        <div>작일</div>
+                                        <div>시작일</div>
                                     </div>
                                     <div class ="describe">
-                                    
-                                            <div>65%</div>
-                                            <div>상세설명</div>
+                                            <div><fmt:formatDate value="${project.projectStart}" pattern="yyyy-MM-dd"/></div>
                                     </div>
                                 </div>
                             </div>
@@ -68,9 +67,7 @@
                                         <div>마감일</div>
                                     </div>
                                     <div class ="describe">
-                                    
-                                            <div>65%</div>
-                                            <div>상세설명</div>
+                                            <div><fmt:formatDate value="${project.projectDeadline}" pattern="yyyy-MM-dd"/></div>
                                     </div>
                                 </div>
                             </div>
@@ -80,9 +77,7 @@
                                         <div>플랫폼</div>
                                     </div>
                                     <div class ="describe">
-                                    
-                                            <div>65%</div>
-                                            <div>상세설명</div>
+                                            <div><c:out value="${project.projectType}"/></div>
                                     </div>
                                 </div>
                             </div>
@@ -97,152 +92,97 @@
                                 작업 목록
                             </div>
                             <div class = "header_title_sub">
-                               4개 작업 1개 완료
+                               ${fn:length(taskList)}개 작업
                             </div>
                         </div>
                         <div class ="header_button">
-                            <input type="button" value ="+ 새 프로젝트" class = "button" id="createProjectButton">
+                            <input type="button" value ="+ 새 작업" class = "button" id="createTaskButton">
                         </div>
                     </div>
-                    <div class ="projectmenu">
-                   
-                 <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "task_title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="worksapce_describe">
-                                    
-                                            <div>65%</div>
-                                            <div> <select name="" id="">
-                                                    <option>멤버 1</option>
-                                                    <option>멤버 2</option>
-                                                    <option>멤버 3</option>
-                                                </select></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="detaildetail_box">
-                                    <div class ="worksapce_describe">
-                                    
-                                            <div>65%</div>
-                                            <div class ="enddate">
-                                                <select>
-                                                    <option>멤버 1</option>
-                                                    <option>멤버 2</option>
-                                                    <option>멤버 3</option>
-                                                </select>
-                                            
-                                             <div>
-                                        마감일
-                                   
-                                    </div>
-                                    </div>
-                                     </div>
-                                   
-                                    </div>
-                                </div>
-                            </div>
-                                </div>
-                            </div>
+                    
+                    <%-- 작업 목록을 세 개의 열로 나누는 컨테이너 --%>
+                    <div class="task-status-container">
                         
-                        <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "task_title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="worksapce_describe">
-                                    
-                                            <div>65%</div>
-                                            <div>
-                                                 <select name="" id="">
-                                                    <option>멤버 1</option>
-                                                    <option>멤버 2</option>
-                                                    <option>멤버 3</option>
-                                                </select>
+                        <!-- 할 일 (worktodo) -->
+                        <div class="task-column">
+                            <div class="task-column-header">할 일</div>
+                            <div class="task-list" id="todo-list">
+                                <c:forEach var="task" items="${taskList}">
+                                    <c:if test="${task.taskStatus == 'worktodo'}">
+                                        <div class="task-card">
+                                            <div class="task-card-title"><c:out value="${task.taskName}"/></div>
+                                            <div class="task-card-assignee">
+                                                <c:choose>
+                                                    <c:when test="${not empty task.workspaceMember}">
+                                                        <c:out value="${task.workspaceMember.memberVo.memberName}"/>
+                                                    </c:when>
+                                                    <c:otherwise>담당자 없음</c:otherwise>
+                                                </c:choose>
                                             </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="worksapce_describe">
-                                    
-                                            <div>65%</div>
-                                            <div>
-                                                 <select name="" id="">
-                                                    <option>멤버 1</option>
-                                                    <option>멤버 2</option>
-                                                    <option>멤버 3</option>
-                                                </select>
+                                            <div class="task-card-deadline">
+                                                <fmt:formatDate value="${task.taskDeadline}" pattern="MM-dd"/>
                                             </div>
-                                    </div>
-                                </div>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
                             </div>
-                                </div>
-                            </div>
-                               <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "task_title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="worksapce_describe">
-                                    
-                                            <div>65%</div>
-                                            <div>
-                                                <select name="" id="">
-                                                    <option>멤버 1</option>
-                                                    <option>멤버 2</option>
-                                                    <option>멤버 3</option>
-                                                </select>
+                        </div>
+
+                        <!-- 진행 중 (progress) -->
+                        <div class="task-column">
+                            <div class="task-column-header">진행 중</div>
+                            <div class="task-list" id="progress-list">
+                                <c:forEach var="task" items="${taskList}">
+                                    <c:if test="${task.taskStatus == 'progress'}">
+                                        <div class="task-card">
+                                            <div class="task-card-title"><c:out value="${task.taskName}"/></div>
+                                            <div class="task-card-assignee">
+                                                <c:choose>
+                                                    <c:when test="${not empty task.workspaceMember}">
+                                                        <c:out value="${task.workspaceMember.memberVo.memberName}"/>
+                                                    </c:when>
+                                                    <c:otherwise>담당자 없음</c:otherwise>
+                                                </c:choose>
                                             </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class ="detail_box">
-                            <div class = "box_body">
-                                    <div class = "title">
-                                        <div>시작일</div>
-                                    </div>
-                                    <div class ="worksapce_describe">
-                                    
-                                            <div>65%</div>
-                                            <div>
-                                                 <select name="" id="">
-                                                    <option>멤버 1</option>
-                                                    <option>멤버 2</option>
-                                                    <option>멤버 3</option>
-                                                </select>
+                                            <div class="task-card-deadline">
+                                                <fmt:formatDate value="${task.taskDeadline}" pattern="MM-dd"/>
                                             </div>
-                                    </div>
-                                </div>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
                             </div>
-                                </div>
+                        </div>
+
+                        <!-- 완료 (complete) -->
+                        <div class="task-column">
+                            <div class="task-column-header">완료</div>
+                            <div class="task-list" id="complete-list">
+                                <c:forEach var="task" items="${taskList}">
+                                    <c:if test="${task.taskStatus == 'complete'}">
+                                        <div class="task-card">
+                                            <div class="task-card-title"><c:out value="${task.taskName}"/></div>
+                                            <div class="task-card-assignee">
+                                                <c:choose>
+                                                    <c:when test="${not empty task.workspaceMember}">
+                                                        <c:out value="${task.workspaceMember.memberVo.memberName}"/>
+                                                    </c:when>
+                                                    <c:otherwise>담당자 없음</c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                            <div class="task-card-deadline">
+                                                <fmt:formatDate value="${task.taskDeadline}" pattern="MM-dd"/>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
                             </div>
+                        </div>
+
                     </div>
+                    <c:if test="${empty taskList}">
+                        <p style="text-align: center; padding: 20px;">이 프로젝트에는 아직 작업이 없습니다.</p>
+                    </c:if>
+
                     </div>
                     </div>
                     </div>  

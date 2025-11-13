@@ -3,20 +3,22 @@ package com.kh.spring.model.vo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Setter
 @Getter
 public class WorkspaceVo {
-    // Getters and Setters
     private int workspaceId;
     private int channelId;
     private String workspaceName;
     private String workspaceExplain;
     private Date enrollDate;
+    private String workspaceStatus;
 
-    // JOIN을 통해 가져올 필드 추가
+    // JOIN해서 사용하는 필드
     private String channelName;
 
-
+    // COUNT해서 사용하는 필드
+    private int projectCount;
+    private int memberCount;
 }

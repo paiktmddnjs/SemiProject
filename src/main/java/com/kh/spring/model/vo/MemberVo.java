@@ -8,14 +8,13 @@ import java.util.Date;
 @Setter
 @Getter
 public class MemberVo {
-    // Getters and Setters
     private int memberId;
-    private String memberEmail;
-    private String memberPassword;
+    private String email; // email로 변경
+    private String memberPwd; // memberPassword -> memberPwd
     private String memberName;
-    private String memberPhone;
-    private Date memberEnrollDate;
+    private String phone; // memberPhone -> phone
+    private Date enrollDate; // memberEnrollDate -> enrollDate
     private Date modifyDate;
-    private char memberStatus;
-    private String memberRole;
+    private String status; // char -> String
+    private String role; // memberRole -> role
 }

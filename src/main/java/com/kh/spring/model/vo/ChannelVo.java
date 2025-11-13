@@ -8,14 +8,13 @@ import java.util.Date;
 @Setter
 @Getter
 public class ChannelVo {
-    // Getters and Setters
     private int channelId;
     private int memberId;
     private String channelName;
     private String platformType;
-    private int channelSubscribe;
+    private long platformSubscribe; // NUMBER는 long으로 처리
     private String channelStatus;
-    private Date channelCreateDate;
+    private Date channelCreate;
     private String channelUrl;
-    private int channelContentCount;
+    private String channelCount;
 }

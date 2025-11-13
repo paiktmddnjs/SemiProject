@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/workspace")
@@ -31,9 +34,23 @@ public class WorkspaceController {
     @GetMapping("")
     public String workspaceList(Model model) {
         List<WorkspaceVo> workspaceList = workspaceDao.getAllWorkspaces();
-        List<ChannelVo> channelList = channelDao.getAllChannels();
+
+        // --- 중복 없는 채널 목록을 생성하는 로직 추가 ---
+        // LinkedHashMap을 사용하여 순서를 유지하면서 채널 ID로 중복을 제거
+        Map<Integer, ChannelVo> uniqueChannelMap = new LinkedHashMap<>();
+        for (WorkspaceVo ws : workspaceList) {
+            // 맵에 해당 채널 ID가 아직 없으면 추가
+            if (!uniqueChannelMap.containsKey(ws.getChannelId())) {
+                ChannelVo channel = new ChannelVo();
+                channel.setChannelId(ws.getChannelId());
+                channel.setChannelName(ws.getChannelName());
+                uniqueChannelMap.put(ws.getChannelId(), channel);
+            }
+        }
+
         model.addAttribute("workspaces", workspaceList);
-        model.addAttribute("channels", channelList);
+        // 맵의 값들(중복이 제거된 ChannelVo 객체들)을 모델에 추가
+        model.addAttribute("channels", new ArrayList<>(uniqueChannelMap.values()));
         return "workspace";
     }
 
@@ -83,7 +100,6 @@ public class WorkspaceController {
         workspaceDao.updateWorkspace(workspace);
 
         if (returnTo != null && !returnTo.isEmpty()) {
-            // 수정된 리다이렉트 경로
             return "redirect:/project/detail?projectId=" + returnTo;
         }
 

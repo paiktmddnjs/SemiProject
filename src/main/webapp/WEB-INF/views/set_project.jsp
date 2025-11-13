@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="<c:url value='/resources/static/css/new.css'/>">
 <%-- 모달 내부에 삽입될 프로젝트 설정 폼 --%>
 <div class="header">
     <div class="header_title">
@@ -27,7 +26,8 @@
     <div class="input">
         <div class="input_title">프로젝트 설명</div>
         <div class="input_body">
-            <textarea name="projectExplain" rows="2" required><c:out value='${project.projectExplain}'/></textarea>
+            <%-- projectExplain -> projectMemo --%>
+            <textarea name="projectMemo" rows="2" required><c:out value='${project.projectMemo}'/></textarea>
         </div>
     </div>
     <div class="input">

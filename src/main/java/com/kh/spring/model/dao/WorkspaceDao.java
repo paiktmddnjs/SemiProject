@@ -21,12 +21,13 @@ public class WorkspaceDao {
     private JdbcTemplate jdbcTemplate;
 
     public List<WorkspaceVo> getAllWorkspaces() {
-        // CHANNEL 테이블을 JOIN하고, 필요한 컬럼들을 추가로 SELECT
         String sql = "SELECT " +
                      "    W.WORKSPACE_ID, W.WORKSPACE_NAME, W.WORKSPACE_EXPLAIN, W.ENROLL_DATE, " +
-                     "    C.CHANNEL_ID, C.CHANNEL_NAME " + // 실제 채널 설명 컬럼명으로 수정 필요
+                     "    C.CHANEL_ID, C.CHANEL_NAME, " +
+                     "    (SELECT COUNT(*) FROM PROJECT P WHERE P.WORKSPACE_ID = W.WORKSPACE_ID) AS PROJECT_COUNT, " +
+                     "    (SELECT COUNT(DISTINCT WM.MEMBER_ID) FROM WORKSPACE_MEMBER WM WHERE WM.WORKSPACE_ID = W.WORKSPACE_ID) AS MEMBER_COUNT " +
                      "FROM WORKSPACE W " +
-                     "JOIN CHANNEL C ON W.CHANNEL_ID = C.CHANNEL_ID";
+                     "JOIN CHANEL C ON W.CHANEL_ID = C.CHANEL_ID";
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             WorkspaceVo ws = new WorkspaceVo();
@@ -34,11 +35,10 @@ public class WorkspaceDao {
             ws.setWorkspaceName(rs.getString("WORKSPACE_NAME"));
             ws.setWorkspaceExplain(rs.getString("WORKSPACE_EXPLAIN"));
             ws.setEnrollDate(rs.getDate("ENROLL_DATE"));
-            
-            // JOIN으로 가져온 채널 정보 매핑
-            ws.setChannelId(rs.getInt("CHANNEL_ID"));
-            ws.setChannelName(rs.getString("CHANNEL_NAME"));
-
+            ws.setChannelId(rs.getInt("CHANEL_ID"));
+            ws.setChannelName(rs.getString("CHANEL_NAME"));
+            ws.setProjectCount(rs.getInt("PROJECT_COUNT"));
+            ws.setMemberCount(rs.getInt("MEMBER_COUNT"));
             return ws;
         });
     }
@@ -59,7 +59,7 @@ public class WorkspaceDao {
     }
 
     public int insertWorkspace(WorkspaceVo workspace) {
-        String sql = "INSERT INTO WORKSPACE (CHANNEL_ID, WORKSPACE_NAME, WORKSPACE_EXPLAIN, ENROLL_DATE) VALUES (?, ?, ?, SYSDATE)";
+        String sql = "INSERT INTO WORKSPACE (WORKSPACE_ID, CHANEL_ID, WORKSPACE_NAME, WORKSPACE_EXPLAIN) VALUES (SEQ_WORKSPACE_ID.NEXTVAL, ?, ?, ?)";
         return jdbcTemplate.update(sql,
                 workspace.getChannelId(),
                 workspace.getWorkspaceName(),
@@ -74,9 +74,10 @@ public class WorkspaceDao {
                 workspace.getWorkspaceId());
     }
 
+    // GROUP BY가 없는 원래의 단순한 JOIN 쿼리로 복구
     public List<WorkspaceMemberVo> getWorkspaceMembersByWorkspaceId(int workspaceId) {
         String sql = "SELECT wm.WORKSPACE_MEMBER_ID, wm.WORKSPACE_ID, wm.MEMBER_ID, wm.WORKSPACE_MEMBER_ROLE, " +
-                     "m.MEMBER_EMAIL, m.MEMBER_NAME, m.MEMBER_ENROLL_DATE " +
+                     "m.EMAIL, m.MEMBER_NAME, m.ENROLL_DATE " +
                      "FROM WORKSPACE_MEMBER wm " +
                      "JOIN MEMBER m ON wm.MEMBER_ID = m.MEMBER_ID " +
                      "WHERE wm.WORKSPACE_ID = ?";
@@ -86,13 +87,12 @@ public class WorkspaceDao {
             workspaceMember.setWorkspaceId(rs.getInt("WORKSPACE_ID"));
             workspaceMember.setMemberId(rs.getInt("MEMBER_ID"));
             workspaceMember.setWorkspaceMemberRole(rs.getString("WORKSPACE_MEMBER_ROLE"));
-            workspaceMember.setEnrollDate(rs.getDate("MEMBER_ENROLL_DATE"));
 
             MemberVo member = new MemberVo();
             member.setMemberId(rs.getInt("MEMBER_ID"));
-            member.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+            member.setEmail(rs.getString("EMAIL"));
             member.setMemberName(rs.getString("MEMBER_NAME"));
-            member.setMemberEnrollDate(rs.getDate("MEMBER_ENROLL_DATE"));
+            member.setEnrollDate(rs.getDate("ENROLL_DATE"));
             
             workspaceMember.setMemberVo(member);
             return workspaceMember;

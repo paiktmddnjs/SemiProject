@@ -14,67 +14,50 @@ public class ProjectDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * 특정 워크스페이스에 속한 모든 프로젝트를 조회하는 메소드
-     * @param workspaceId 조회할 워크스페이스의 ID
-     * @return 프로젝트 목록
-     */
-    public List<ProjectVo> getProjectsByWorkspaceId(int workspaceId) {
-        String sql = "SELECT PROJECT_ID, WORKSPACE_ID, PROJECT_NAME, PROJECT_EXPLAIN FROM PROJECT WHERE WORKSPACE_ID = ?";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
-            ProjectVo project = new ProjectVo();
-            project.setProjectId(rs.getInt("PROJECT_ID"));
-            project.setWorkspaceId(rs.getInt("WORKSPACE_ID"));
-            project.setProjectName(rs.getString("PROJECT_NAME"));
-            project.setProjectExplain(rs.getString("PROJECT_EXPLAIN"));
-            return project;
-        }, workspaceId);
+    private ProjectVo mapRowToProject(java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
+        ProjectVo project = new ProjectVo();
+        project.setProjectId(rs.getInt("PROJECT_ID"));
+        project.setWorkspaceId(rs.getInt("WORKSPACE_ID"));
+        project.setProjectName(rs.getString("PROJECT_NAME"));
+        project.setProjectStatus(rs.getString("PROJECT_STATUS"));
+        project.setProjectStart(rs.getDate("PROJECT_START"));
+        project.setProjectDeadline(rs.getDate("PROJECT_DEADLINE"));
+        project.setProjectTime(rs.getString("PROJECT_TIME"));
+        project.setProjectType(rs.getString("PROJECT_TYPE"));
+        project.setProjectMemo(rs.getString("PROJECT_MEMO"));
+        project.setProjectProgress(rs.getDouble("PROJECT_PROGRESS"));
+        return project;
     }
 
-    /**
-     * 새로운 프로젝트를 데이터베이스에 추가하는 메소드
-     * @param project 저장할 프로젝트 정보
-     * @return INSERT 성공 시 1, 실패 시 0
-     */
+    public List<ProjectVo> getProjectsByWorkspaceId(int workspaceId) {
+        String sql = "SELECT * FROM PROJECT WHERE WORKSPACE_ID = ?";
+        return jdbcTemplate.query(sql, this::mapRowToProject, workspaceId);
+    }
+
     public int insertProject(ProjectVo project) {
-        String sql = "INSERT INTO PROJECT (PROJECT_ID, WORKSPACE_ID, PROJECT_NAME, PROJECT_EXPLAIN) VALUES (SEQ_PROJECT.NEXTVAL, ?, ?, ?)";
+        // PROJECT_EXPLAIN이 PROJECT_MEMO로 변경되었고, 다른 컬럼은 기본값 사용
+        String sql = "INSERT INTO PROJECT (PROJECT_ID, WORKSPACE_ID, PROJECT_NAME, PROJECT_MEMO) VALUES (SEQ_PROJECT_ID.NEXTVAL, ?, ?, ?)";
         return jdbcTemplate.update(sql,
                 project.getWorkspaceId(),
                 project.getProjectName(),
-                project.getProjectExplain());
+                project.getProjectMemo());
     }
 
-    /**
-     * 특정 프로젝트의 정보를 조회하는 메소드
-     * @param projectId 조회할 프로젝트의 ID
-     * @return 프로젝트 정보
-     */
     public ProjectVo getProjectById(int projectId) {
-        String sql = "SELECT PROJECT_ID, WORKSPACE_ID, PROJECT_NAME, PROJECT_EXPLAIN FROM PROJECT WHERE PROJECT_ID = ?";
+        String sql = "SELECT * FROM PROJECT WHERE PROJECT_ID = ?";
         try {
-            return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
-                ProjectVo project = new ProjectVo();
-                project.setProjectId(rs.getInt("PROJECT_ID"));
-                project.setWorkspaceId(rs.getInt("WORKSPACE_ID"));
-                project.setProjectName(rs.getString("PROJECT_NAME"));
-                project.setProjectExplain(rs.getString("PROJECT_EXPLAIN"));
-                return project;
-            }, projectId);
+            return jdbcTemplate.queryForObject(sql, this::mapRowToProject, projectId);
         } catch (EmptyResultDataAccessException e) {
-            return null; // 결과가 없을 경우 null 반환
+            return null;
         }
     }
 
-    /**
-     * 프로젝트 정보를 수정하는 메소드
-     * @param project 수정할 프로젝트 정보
-     * @return UPDATE 성공 시 1, 실패 시 0
-     */
     public int updateProject(ProjectVo project) {
-        String sql = "UPDATE PROJECT SET PROJECT_NAME = ?, PROJECT_EXPLAIN = ? WHERE PROJECT_ID = ?";
+        // PROJECT_EXPLAIN -> PROJECT_MEMO
+        String sql = "UPDATE PROJECT SET PROJECT_NAME = ?, PROJECT_MEMO = ? WHERE PROJECT_ID = ?";
         return jdbcTemplate.update(sql,
                 project.getProjectName(),
-                project.getProjectExplain(),
+                project.getProjectMemo(),
                 project.getProjectId());
     }
 }

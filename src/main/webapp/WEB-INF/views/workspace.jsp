@@ -67,8 +67,9 @@
                                         <div><c:out value="${ws.workspaceExplain}"/></div>
                                     </div>
                                     <div class="workspace_footer">
-                                        <div>5개 프로젝트</div>
-                                        <div>8명</div>
+                                        <%-- 동적으로 프로젝트 수와 멤버 수 표시 --%>
+                                        <div>${ws.projectCount}개 프로젝트</div>
+                                        <div>${ws.memberCount}명</div>
                                     </div>
                                     <div class="workspace_deadline">
                                         <div>

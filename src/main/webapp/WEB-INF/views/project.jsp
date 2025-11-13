@@ -54,7 +54,6 @@
                 
                 <div id="projectContent" class="content_box">
                     <c:forEach var="p" items="${projects}">
-                        <%-- 링크 경로 수정 --%>
                         <a href="<c:url value='/project/detail?projectId=${p.projectId}'/>" class="box-link">
                             <div class="box">
                                 <div class="box_body">
@@ -65,7 +64,8 @@
                                         </div>
                                     </div>
                                     <div class="box_describe">
-                                        <div><c:out value="${p.projectExplain}"/></div>
+                                        <%-- projectExplain -> projectMemo --%>
+                                        <div><c:out value="${p.projectMemo}"/></div>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                                     <div class="team_account_img">이미지</div>
                                                     <div class="team_account_info">
                                                         <div class="team_account_name"><c:out value="${member.memberVo.memberName}"/></div>
-                                                        <div class="team_account_email"><c:out value="${member.memberVo.memberEmail}"/></div>
+                                                        <div class="team_account_email"><c:out value="${member.memberVo.email}"/></div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -124,7 +124,7 @@
                                                     <option value="VIEWER" ${member.workspaceMemberRole == 'VIEWER' ? 'selected' : ''}>뷰어</option>
                                                 </select>
                                             </td>
-                                            <td><c:out value="${member.enrollDate}"/></td>
+                                            <td><c:out value="${member.memberVo.enrollDate}"/></td>
                                             <td>활성</td>
                                         </tr>
                                     </c:forEach>
