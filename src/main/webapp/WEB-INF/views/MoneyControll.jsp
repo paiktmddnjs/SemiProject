@@ -65,10 +65,10 @@
 
                 <div class="left-panel">
                     <div class="tabs">
-                        <button class="tab-button active" data-page="overview">개요</button>
+                        <button class="tab-button active" id="tab-button-overview" data-page="overview">개요</button>
                         <button class="tab-button" data-page="money">수익 분석</button>
                         <button class="tab-button" data-page="expense">지출 분석</button>
-                        <button class="tab-button" data-page="transaction">거래 내역</button>
+                        <button class="tab-button" id="tab-button-transaction" data-page="transaction">거래 내역</button>
                     </div>
 
                     <div id="chart-placeholder" class="chart-placeholder">
@@ -76,96 +76,8 @@
                     </div>
 
 
-                    <div id="history-area" class="transaction-container" style="display: none;">
-                        <header class="section-header">
-                            <h2>최근 거래 내역</h2>
-                            <p class="subtitle">수익 및 지출 상세 내역</p>
-                        </header>
+                    <jsp:include page="/WEB-INF/views/Transaction.jsp" />
 
-                        <div class="table-wrapper">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>날짜</th>
-                                    <th>구분</th>
-                                    <th>카테고리</th>
-                                    <th>내역</th>
-                                    <th>금액</th>
-                                    <th>상태</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                <%--
-                                 <tr><td>2025-10-18</td><td><span class="tag expense">지출</span></td><td>장비</td><td>조명 장비 구입</td><td class="amount expense">-250,000원</td><td>지불완료</td></tr>
-                                --%>
-                                <c:choose>
-                                    <c:when test="${not empty transactionList}">
-                                        <c:forEach var="item" items="${transactionList}">
-                                            <c:set var="isProfit" value="${item.finacialType eq '수익'}" />
-                                            <c:set var="tagClass" value="${isProfit ? 'profit' : 'expense'}" />
-                                            <c:set var="amountSign" value="${isProfit ? '+' : '-'}" />
-
-                                            <tr>
-                                                <td><fmt:formatDate value="${item.finacialDate}" pattern="yyyy-MM-dd"/></td>
-                                                <td><span class="tag ${tagClass}">${item.finacialType}</span></td>
-                                                <td>${item.category}</td>
-                                                <td>${item.finacialName}</td>
-
-                                                <td class="amount ${tagClass}">
-                                                        ${amountSign}<fmt:formatNumber value="${item.finacialAmount}" pattern="#,###"/>원
-                                                </td>
-
-                                                    <%-- 상태 로직 --%>
-                                                <td>  <%-- 상태 로직 --%>
-                                                    <c:choose>
-                                                        <c:when test="${item.finacialStatus eq 'Y'}">${isProfit ? '정산완료' : '지불완료'}</c:when>
-                                                        <c:when test="${item.finacialStatus eq 'N'}">${isProfit ? '정산대기' : '지불대기'}</c:when>
-                                                        <c:otherwise>알 수 없음</c:otherwise>
-                                                    </c:choose>
-                                                </td> </tr>
-                                        </c:forEach>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <tr><td colspan="6" style="text-align:center;">등록된 거래 내역이 없습니다.</td></tr>
-                                    </c:otherwise>
-                                </c:choose>
-
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-
-
-                    <%--페이지 구현--%>
-                    <div class="pagination-area" style="text-align:center; margin-top:20px;">
-                        <c:set var="pi" value="${pageInfo}" />
-
-                        <%-- ◀ 처음으로 / 이전 페이지 버튼 --%>
-                        <c:if test="${pi.currentPage > 1}">
-                            <a href="/finacial?page=1" style="margin-right: 5px;">&lt;&lt;</a>
-                            <a href="/finacial?page=${pi.currentPage - 1}" style="margin-right: 15px;">&lt;</a>
-                        </c:if>
-
-                        <%-- 페이지 번호 목록 --%>
-                        <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-                            <c:choose>
-                                <c:when test="${p eq pi.currentPage}">
-                                    <span style="font-weight: bold; color: #e10d2c; font-size: 1.1em; margin: 0 5px;">${p}</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="/finacial?page=${p}" style="margin: 0 5px; color: #555;">${p}</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-
-                        <%-- ▶ 다음 페이지 / 마지막 페이지 버튼 --%>
-                        <c:if test="${pi.currentPage < pi.maxPage}">
-                            <a href="/finacial?page=${pi.currentPage + 1}" style="margin-left: 15px;">&gt;</a>
-                            <a href="/finacial?page=${pi.maxPage}" style="margin-left: 5px;">&gt;&gt;</a>
-                        </c:if>
-                    </div>
                 </div>
 
                 <%-------------------------------- 수익 --------------------------------%>
@@ -420,13 +332,12 @@
     // ✅ 기본 그래프: 수익 분석
     chart = new Chart(ctx, chartConfigs.overview);
 
-    // ✅ 버튼 클릭 시 차트 전환
+    // ✅ 모든 탭 버튼 클릭 이벤트
     document.querySelectorAll('.tab-button').forEach(btn => {
         btn.addEventListener('click', function () {
 
             // 🔹 탭 활성화 전환
             document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-
             this.classList.add('active');
 
             const key = this.dataset.page;
@@ -436,10 +347,15 @@
             const historyArea = document.getElementById('history-area');
             const leftPanel = document.querySelector('.left-panel');
 
+            // 🔹 클릭할 때마다 현재 탭 이름 저장
+            try {
+                localStorage.setItem('tabName', key);
+            } catch (e) {
+                console.warn('로컬스토리지 접근 불가:', e);
+            }
+
             // 🔹 거래 내역 클릭 시
             if (key === 'transaction') {
-
-                // 1. DOM 전환: 거래 내역 영역만 표시
                 chartPlaceholder.style.display = 'none';
                 historyArea.style.display = 'block';
                 if (rightPanel) rightPanel.style.display = 'none';
@@ -449,66 +365,67 @@
                 }
                 return;
             }
-            else {
 
-                // 🔹 다른 탭 클릭 시 원래 상태 복원
-                historyArea.style.display = 'none';
-                chartPlaceholder.style.display = 'block';
-                if (rightPanel) rightPanel.style.display = 'block';
-                if (leftPanel) {
-                    leftPanel.style.flex = '';
-                    leftPanel.style.width = '';
-                }
-
-
-                // 🔹 수익 / 지출 분석 시 오른쪽 패널 내용 및 색상 변경
-                if (rightPanel) {
-                    const title = rightPanel.querySelector('h3');
-                    const desc = rightPanel.querySelector('p');
-                    const tagContainSpans = rightPanel.querySelectorAll('.tag-revenue-container');
-                    const tagSpans = rightPanel.querySelectorAll('.tag-revenue');
-                    const amounts = rightPanel.querySelectorAll('.item-amount');
-
-                    if (key === 'expense') {
-                        // 🔵 지출 분석 모드
-                        title.textContent = '최근 주요 지출';
-                        if (desc) desc.textContent = '지출 금액 TOP 3';
-                        tagSpans.forEach(span => {
-                            span.textContent = '지출';
-                            span.style.backgroundColor = '#2A68E8'; // 파란색
-                            span.style.color = '#fff';
-                        });
-                        amounts.forEach(div => {
-                            div.style.color = '#2A68E8'; // 파란색
-                        });
-                    }
-
-
-                    else if (key === 'money' || key === 'overview') {
-                        // 🔴 수익 분석 / 개요 모드
-                        title.textContent = '최근 주요 수익';
-                        if (desc) desc.textContent = '수익 금액 TOP 3';
-                        tagSpans.forEach(span => {
-                            span.textContent = '수익';
-                            span.style.backgroundColor = '#f55a1d'; // 빨간색
-                            span.style.color = '#fff';
-                        });
-                        amounts.forEach(div => {
-                            div.style.color = '#f55a1d'; // 빨간색
-                        });
-                    }
-                }
-
-                // 🔹 그래프 변경
-                if (!config) {
-                    console.error(`${key} 그래프 구성 없음`);
-                    return;
-                }
-
-                chart.destroy();
-                chart = new Chart(ctx, config);
+            // 🔹 다른 탭 클릭 시 원래 상태 복원
+            historyArea.style.display = 'none';
+            chartPlaceholder.style.display = 'block';
+            if (rightPanel) rightPanel.style.display = 'block';
+            if (leftPanel) {
+                leftPanel.style.flex = '';
+                leftPanel.style.width = '';
             }
+
+            // 🔹 오른쪽 패널 내용 및 색상 변경
+            if (rightPanel) {
+                const title = rightPanel.querySelector('h3');
+                const desc = rightPanel.querySelector('p');
+                const tagSpans = rightPanel.querySelectorAll('.tag-revenue');
+                const amounts = rightPanel.querySelectorAll('.item-amount');
+
+                if (key === 'expense') {
+                    title.textContent = '최근 주요 지출';
+                    if (desc) desc.textContent = '지출 금액 TOP 3';
+                    tagSpans.forEach(span => {
+                        span.textContent = '지출';
+                        span.style.backgroundColor = '#2A68E8';
+                        span.style.color = '#fff';
+                    });
+                    amounts.forEach(div => div.style.color = '#2A68E8');
+                } else {
+                    title.textContent = '최근 주요 수익';
+                    if (desc) desc.textContent = '수익 금액 TOP 3';
+                    tagSpans.forEach(span => {
+                        span.textContent = '수익';
+                        span.style.backgroundColor = '#f55a1d';
+                        span.style.color = '#fff';
+                    });
+                    amounts.forEach(div => div.style.color = '#f55a1d');
+                }
+            }
+
+            // 🔹 그래프 변경
+            if (!config) {
+                console.error(`${key} 그래프 구성 없음`);
+                return;
+            }
+
+            chart.destroy();
+            chart = new Chart(ctx, config);
         });
+    });
+
+    // ✅ 페이지 로드 시 마지막 탭 복원
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedName = localStorage.getItem('tabName');
+        if (savedName === 'transaction') {
+            document.getElementById('tab-button-transaction').click();
+        } else if (savedName === 'expense') {
+            document.getElementById('tab-button-expense').click();
+        } else if (savedName === 'money') {
+            document.getElementById('tab-button-money').click();
+        } else {
+            document.getElementById('tab-button-overview').click();
+        }
     });
 
 </script>
