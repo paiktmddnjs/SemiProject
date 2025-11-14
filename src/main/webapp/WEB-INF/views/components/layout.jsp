@@ -87,9 +87,20 @@
 
     <!-- 본문 -->
     <main class="layout__main">
-
+      <c:choose>
+        <c:when test="${contentPage == 'contract'}">
+          <jsp:include page="/WEB-INF/views/contract.jsp"/>
+        </c:when>
+        <c:when test="${contentPage == 'dashboard'}">
           <jsp:include page="/WEB-INF/views/dashboard.jsp"/>
-
+        </c:when>
+        <c:when test="${contentPage == 'mypage'}">
+          <jsp:include page="/WEB-INF/views/mypage.jsp"/>
+        </c:when>
+        <c:otherwise>
+          <jsp:include page="/WEB-INF/views/contract.jsp"/>
+        </c:otherwise>
+      </c:choose>
     </main>
 
     <!-- 푸터 -->
