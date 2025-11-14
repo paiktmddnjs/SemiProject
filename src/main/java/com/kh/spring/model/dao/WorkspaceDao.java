@@ -74,7 +74,6 @@ public class WorkspaceDao {
                 workspace.getWorkspaceId());
     }
 
-    // GROUP BY가 없는 원래의 단순한 JOIN 쿼리로 복구
     public List<WorkspaceMemberVo> getWorkspaceMembersByWorkspaceId(int workspaceId) {
         String sql = "SELECT wm.WORKSPACE_MEMBER_ID, wm.WORKSPACE_ID, wm.MEMBER_ID, wm.WORKSPACE_MEMBER_ROLE, " +
                      "m.EMAIL, m.MEMBER_NAME, m.ENROLL_DATE " +
@@ -97,5 +96,51 @@ public class WorkspaceDao {
             workspaceMember.setMemberVo(member);
             return workspaceMember;
         }, workspaceId);
+    }
+
+    /**
+     * 이메일로 멤버 정보를 조회하는 메소드
+     * @param email 조회할 멤버의 이메일
+     * @return MemberVo 객체, 없으면 null
+     */
+    public MemberVo getMemberByEmail(String email) {
+        String sql = "SELECT MEMBER_ID, EMAIL, MEMBER_NAME, ENROLL_DATE FROM MEMBER WHERE EMAIL = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+                MemberVo member = new MemberVo();
+                member.setMemberId(rs.getInt("MEMBER_ID"));
+                member.setEmail(rs.getString("EMAIL"));
+                member.setMemberName(rs.getString("MEMBER_NAME"));
+                member.setEnrollDate(rs.getDate("ENROLL_DATE"));
+                return member;
+            }, email);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 워크스페이스에 멤버를 추가하는 메소드
+     * @param workspaceId 워크스페이스 ID
+     * @param memberId 멤버 ID
+     * @param role 멤버 역할
+     * @return INSERT 성공 시 1, 실패 시 0
+     */
+    public int addWorkspaceMember(int workspaceId, int memberId, String role) {
+        String sql = "INSERT INTO WORKSPACE_MEMBER (WORKSPACE_MEMBER_ID, WORKSPACE_ID, MEMBER_ID, WORKSPACE_MEMBER_ROLE) " +
+                     "VALUES (SEQ_WORKSPACE_MEMBER_ID.NEXTVAL, ?, ?, ?)";
+        return jdbcTemplate.update(sql, workspaceId, memberId, role);
+    }
+
+    /**
+     * 특정 멤버가 특정 워크스페이스에 이미 존재하는지 확인하는 메소드
+     * @param workspaceId 워크스페이스 ID
+     * @param memberId 멤버 ID
+     * @return 존재하면 true, 아니면 false
+     */
+    public boolean isMemberInWorkspace(int workspaceId, int memberId) {
+        String sql = "SELECT COUNT(*) FROM WORKSPACE_MEMBER WHERE WORKSPACE_ID = ? AND MEMBER_ID = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, workspaceId, memberId);
+        return count != null && count > 0;
     }
 }

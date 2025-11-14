@@ -7,12 +7,13 @@
     <html>
         <head>
         <meta charset="UTF-8">
-
+        <link rel="stylesheet" href="<c:url value="/resources/static/css/projectdetail.css"/>">
         <link rel="stylesheet" href="<c:url value="/resources/static/css/default.css"/>">
         <link rel="stylesheet" href="<c:url value="/resources/static/css/new.css"/>">
-        <link rel="stylesheet" href="<c:url value="/resources/static/css/projectdetail.css"/>">
         <script src="<c:url value="/resources/static/js/newProject.js"/>" defer></script>
         <script src="<c:url value="/resources/static/js/setProject.js"/>" defer></script>
+        <script src="<c:url value="/resources/static/js/newTask.js"/>" defer></script>
+        <script src="<c:url value="/resources/static/js/taskCard.js"/>" defer></script>
         </head>
         <body>
         <div class ="navigator">
@@ -39,17 +40,18 @@
                     </div>
                     
                     <div class = "content_box">
+                        <%-- 진행률 섹션 수정 --%>
                         <div class ="detail_box">
                             <div class = "box_body">
-                                    <div class = "title">
-                                        <div>진행률</div>
-                                    </div>
-                                    <div class ="worksapce_describe">
-                                            <div>${project.projectProgress}%</div>
-                                            <div>상세설명</div>
-                                    </div>
+                                <div class = "title">
+                                    <div>진행률</div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: ${calculatedProgress}%;"></div>
+                                    <span class="progress-bar-text">${calculatedProgress}%</span>
                                 </div>
                             </div>
+                        </div>
                         
                         <div class ="detail_box">
                             <div class = "box_body">
@@ -100,79 +102,36 @@
                         </div>
                     </div>
                     
-                    <%-- 작업 목록을 세 개의 열로 나누는 컨테이너 --%>
                     <div class="task-status-container">
                         
-                        <!-- 할 일 (worktodo) -->
                         <div class="task-column">
                             <div class="task-column-header">할 일</div>
-                            <div class="task-list" id="todo-list">
+                            <div class="task-list" id="worktodo-list">
                                 <c:forEach var="task" items="${taskList}">
                                     <c:if test="${task.taskStatus == 'worktodo'}">
-                                        <div class="task-card">
-                                            <div class="task-card-title"><c:out value="${task.taskName}"/></div>
-                                            <div class="task-card-assignee">
-                                                <c:choose>
-                                                    <c:when test="${not empty task.workspaceMember}">
-                                                        <c:out value="${task.workspaceMember.memberVo.memberName}"/>
-                                                    </c:when>
-                                                    <c:otherwise>담당자 없음</c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                            <div class="task-card-deadline">
-                                                <fmt:formatDate value="${task.taskDeadline}" pattern="MM-dd"/>
-                                            </div>
-                                        </div>
+                                        <%@ include file="components/task_card.jsp" %>
                                     </c:if>
                                 </c:forEach>
                             </div>
                         </div>
 
-                        <!-- 진행 중 (progress) -->
                         <div class="task-column">
                             <div class="task-column-header">진행 중</div>
                             <div class="task-list" id="progress-list">
                                 <c:forEach var="task" items="${taskList}">
                                     <c:if test="${task.taskStatus == 'progress'}">
-                                        <div class="task-card">
-                                            <div class="task-card-title"><c:out value="${task.taskName}"/></div>
-                                            <div class="task-card-assignee">
-                                                <c:choose>
-                                                    <c:when test="${not empty task.workspaceMember}">
-                                                        <c:out value="${task.workspaceMember.memberVo.memberName}"/>
-                                                    </c:when>
-                                                    <c:otherwise>담당자 없음</c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                            <div class="task-card-deadline">
-                                                <fmt:formatDate value="${task.taskDeadline}" pattern="MM-dd"/>
-                                            </div>
-                                        </div>
+                                        <%@ include file="components/task_card.jsp" %>
                                     </c:if>
                                 </c:forEach>
                             </div>
                         </div>
 
-                        <!-- 완료 (complete) -->
                         <div class="task-column">
                             <div class="task-column-header">완료</div>
                             <div class="task-list" id="complete-list">
                                 <c:forEach var="task" items="${taskList}">
                                     <c:if test="${task.taskStatus == 'complete'}">
-                                        <div class="task-card">
-                                            <div class="task-card-title"><c:out value="${task.taskName}"/></div>
-                                            <div class="task-card-assignee">
-                                                <c:choose>
-                                                    <c:when test="${not empty task.workspaceMember}">
-                                                        <c:out value="${task.workspaceMember.memberVo.memberName}"/>
-                                                    </c:when>
-                                                    <c:otherwise>담당자 없음</c:otherwise>
-                                                </c:choose>
-                                            </div>
-                                            <div class="task-card-deadline">
-                                                <fmt:formatDate value="${task.taskDeadline}" pattern="MM-dd"/>
-                                            </div>
-                                        </div>
+                                        <%@ include file="components/task_card.jsp" %>
                                     </c:if>
                                 </c:forEach>
                             </div>
@@ -204,6 +163,12 @@
                 <div class="modal-content">
                     <button class ="modal-close-button">&times;</button>
                     <div id = "newProjectContent" class="new_Content"></div>
+                </div>
+</div>
+            <div id="newTaskModal" class="modal-container">
+                <div class="modal-content">
+                    <button class ="modal-close-button">&times;</button>
+                    <div id = "newTaskContent" class="new_Content"></div>
                 </div>
 </div>
         </body>

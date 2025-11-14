@@ -38,7 +38,6 @@ public class TaskDao {
             task.setTaskStart(rs.getDate("TASK_START"));
             task.setTaskDeadline(rs.getDate("TASK_DEADLINE"));
 
-            // 담당자가 지정된 경우에만 멤버 정보 매핑
             if (rs.getObject("WORKSPACE_MEMBER_ID") != null) {
                 WorkspaceMemberVo workspaceMember = new WorkspaceMemberVo();
                 workspaceMember.setWorkspaceMemberId(rs.getInt("WORKSPACE_MEMBER_ID"));
@@ -55,5 +54,27 @@ public class TaskDao {
 
             return task;
         }, projectId);
+    }
+
+    public int insertTask(TaskVo task) {
+        String sql = "INSERT INTO TASK (TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_DEADLINE) " +
+                     "VALUES (SEQ_TASK_ID.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql,
+                task.getProjectId(),
+                task.getWorkspaceMemberId() == 0 ? null : task.getWorkspaceMemberId(),
+                task.getTaskName(),
+                task.getTaskAssign(),
+                task.getTaskStatus(),
+                task.getTaskDeadline());
+    }
+
+    public int updateTaskStatus(int taskId, String status) {
+        String sql = "UPDATE TASK SET TASK_STATUS = ? WHERE TASK_ID = ?";
+        return jdbcTemplate.update(sql, status, taskId);
+    }
+
+    public int updateTaskAssignee(int taskId, Integer workspaceMemberId) {
+        String sql = "UPDATE TASK SET WORKSPACE_MEMBER_ID = ? WHERE TASK_ID = ?";
+        return jdbcTemplate.update(sql, workspaceMemberId, taskId);
     }
 }

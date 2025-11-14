@@ -1,10 +1,10 @@
 package com.kh.spring.controller;
 
 import com.kh.spring.model.dao.ProjectDao;
-import com.kh.spring.model.dao.TaskDao; // TaskDao import 추가
+import com.kh.spring.model.dao.TaskDao;
 import com.kh.spring.model.dao.WorkspaceDao;
 import com.kh.spring.model.vo.ProjectVo;
-import com.kh.spring.model.vo.TaskVo; // TaskVo import 추가
+import com.kh.spring.model.vo.TaskVo;
 import com.kh.spring.model.vo.WorkspaceMemberVo;
 import com.kh.spring.model.vo.WorkspaceVo;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class ProjectController {
     private WorkspaceDao workspaceDao;
 
     @Autowired
-    private TaskDao taskDao; // TaskDao 주입
+    private TaskDao taskDao;
 
     @GetMapping("")
     public String getProjectList(@RequestParam("workspaceId") int workspaceId, Model model) {
@@ -76,16 +76,27 @@ public class ProjectController {
     public String getProjectDetail(@RequestParam("projectId") int projectId, Model model) {
         log.info("GET /project/detail - 수신된 projectId: {}", projectId);
         ProjectVo project = projectDao.getProjectById(projectId);
-        List<TaskVo> taskList = taskDao.getTasksByProjectId(projectId); // 작업 목록 조회
+        List<TaskVo> taskList = taskDao.getTasksByProjectId(projectId);
+
+        // --- 진행률 계산 로직 추가 ---
+        int calculatedProgress = 0;
+        if (taskList != null && !taskList.isEmpty()) {
+            long completeCount = taskList.stream().filter(t -> "complete".equals(t.getTaskStatus())).count();
+            calculatedProgress = (int) Math.round(((double) completeCount / taskList.size()) * 100);
+        }
+        // TODO: 계산된 진행률을 DB의 PROJECT_PROGRESS 컬럼에 업데이트하는 로직을 추가할 수 있습니다.
 
         if (project != null) {
+            List<WorkspaceMemberVo> memberList = workspaceDao.getWorkspaceMembersByWorkspaceId(project.getWorkspaceId());
+            model.addAttribute("workspaceMembers", memberList);
             log.info("조회된 프로젝트 이름: {}", project.getProjectName());
         } else {
             log.warn("projectId {}에 해당하는 프로젝트를 찾을 수 없습니다.", projectId);
         }
 
         model.addAttribute("project", project);
-        model.addAttribute("taskList", taskList); // 모델에 작업 목록 추가
+        model.addAttribute("taskList", taskList);
+        model.addAttribute("calculatedProgress", calculatedProgress); // 계산된 진행률을 모델에 추가
         return "projectdetail";
     }
 
