@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <link rel="stylesheet" href="MoneyControll.css" />
+    <link rel="stylesheet" href="MoneyView.css" />
     <link rel="stylesheet" href="Transaction.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -42,7 +42,7 @@
                 <div class="stat-card">
                     <div class="stat-title"><span>순이익</span><i class="fas fa-chart-line"></i></div>
                     <div class="stat-value" >${netProfitAmount}만원</div>
-                    <div class="stat-change" >${netProfitChange}</div>
+                    <div class="stat-change" >${IncreaseRate}% 전월 대비</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title"><span>총 수익</span><i class="fas fa-arrow-up"></i></div>
@@ -82,38 +82,38 @@
 
                 <%-------------------------------- 수익 --------------------------------%>
                 <div class="right-panel">
-                    <h3>최근 주요 수익</h3>
+                    <h3>최근 3개월간의 주요 수익</h3>
                     <p style="font-size: 14px; color: #777; margin-bottom: 15px;">수익 금액 TOP 3</p>
 
 
                     <div class="recent-revenue-item">
                         <div class="item-source">
                             <div class="tag-revenue-container">
-                                <span class="tag-revenue">수익</span> <span class="tag-revenue2">광고 수익</span>
+                                <span class="tag-revenue">수익</span> <span class="tag-revenue2-1">광고 수익</span>
                             </div>
                             <span >YouTube 광고 수익</span>
                         </div>
-                        <div class="item-amount">+450K</div>
+                        <div class="item-amount" id="item-amount-first">+450K</div>
                     </div>
 
                     <div class="recent-revenue-item">
                         <div class="item-source">
                             <div class="tag-revenue-container">
-                                <span class="tag-revenue">수익</span> 협찬
+                                <span class="tag-revenue" >수익</span><span class="tag-revenue2-2"> 협찬 </span>
                             </div>
                             <span>Instagram 협찬</span>
                         </div>
-                        <div class="item-amount">+1,500K</div>
+                        <div class="item-amount" id="item-amount-second">+1,500K</div>
                     </div>
 
                     <div class="recent-revenue-item">
                         <div class="item-source">
                             <div class="tag-revenue-container">
-                                <span class="tag-revenue">수익</span> 굿즈 판매
+                                <span class="tag-revenue">수익</span> <span class="tag-revenue2-3">굿즈 판매</span>
                             </div>
                             <span>스토어 굿즈 판매</span>
                         </div>
-                        <div class="item-amount">+580K</div>
+                        <div class="item-amount" id="item-amount-third">+580K</div>
                     </div>
 
 
@@ -147,7 +147,10 @@
                 datasets: [
                     {
                         label: '수익',
-                        data: [${netProfitAmount * 10000}, 80000000, 120000000, 30000000, 50000000, 95000000, 150000000, 130000000, 100000000, 115000000, 160000000, 180000000],
+                        data: [
+                            ${monthlyProfit[0]}, ${monthlyProfit[1]}, ${monthlyProfit[2]}, ${monthlyProfit[3]}, ${monthlyProfit[4]}, ${monthlyProfit[5]}, ${monthlyProfit[6]},
+                            ${monthlyProfit[7]}, ${monthlyProfit[8]}, ${monthlyProfit[9]}, ${monthlyProfit[10]}, ${monthlyProfit[11]}
+                        ],
                         fill: false,
                         borderColor: '#e10d2c',
                         backgroundColor: '#e10d2c',
@@ -157,20 +160,24 @@
                     },
                     {
                         label: '순수익',
-                        data: [20000000, 60000000, 100000000, 40000000, 70000000, 110000000, 130000000, 110000000, 80000000, 130000000, 140000000, 160000000],
+                        data: [${monthlyNetProfit[0]}, ${monthlyNetProfit[1]}, ${monthlyNetProfit[2]}, ${monthlyNetProfit[3]}, ${monthlyNetProfit[4]},
+                            ${monthlyNetProfit[5]}, ${monthlyNetProfit[6]}, ${monthlyNetProfit[7]}, ${monthlyNetProfit[8]}, ${monthlyNetProfit[9]},
+                            ${monthlyNetProfit[10]}, ${monthlyNetProfit[11]}],
                         fill: false,
-                        borderColor: '#032ee3',
-                        backgroundColor: '#032ee3',
+                        borderColor: '#e57230',
+                        backgroundColor: '#e57230',
                         tension: 0.3,
                         pointRadius: 5,
                         pointHoverRadius: 8,
                     },
                     {
                         label: '지출',
-                        data: [20000000, 30000000, 60000000, 40000000, 70000000, 30000000, 110000000, 100000000, 80000000, 130000000, 140000000, 130000000],
+                        data: [ ${monthlyExpense[0]}, ${monthlyExpense[1]}, ${monthlyExpense[2]}, ${monthlyExpense[3]},
+                            ${monthlyExpense[4]}, ${monthlyExpense[5]}, ${monthlyExpense[6]}, ${monthlyExpense[7]}, ${monthlyExpense[8]},
+                            ${monthlyExpense[9]}, ${monthlyExpense[10]}, ${monthlyExpense[11]}],
                         fill: false,
-                        borderColor: '#e57230',
-                        backgroundColor: '#e57230',
+                        borderColor: '#032ee3',
+                        backgroundColor: '#032ee3',
                         tension: 0.3,
                         pointRadius: 5,
                         pointHoverRadius: 8,
@@ -184,7 +191,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: '최근 7개월 수익, 지출 및 순이익 변화',
+                        text: '1년간의 수익, 지출 및 순이익 변화',
                         font: {size: 18},
                         align: 'start'
                     },
@@ -428,18 +435,47 @@
                 const amounts = rightPanel.querySelectorAll('.item-amount');
 
                 if (key === 'expense') {
-                    title.textContent = '최근 주요 지출';
+                    title.textContent = '최근 3개월간의 주요 지출';
                     if (desc) desc.textContent = '지출 금액 TOP 3';
                     tagSpans.forEach(span => {
+
+                        document.querySelector('.tag-revenue2-1').innerText = "${FirstExpense.getCategory()}";
+                        document.querySelector('.tag-revenue2-2').innerText = "${SecondExpense.getCategory()}";
+                        document.querySelector('.tag-revenue2-3').innerText = "${ThirdExpense.getCategory()}";
+
+                        <c:set var="amountKFirst" value="${FirstExpense.getAmount() / 1000}" />
+                        document.querySelector('#item-amount-first').innerText = "-<fmt:formatNumber value="${amountKFirst}" pattern="0" />K";
+
+                        <c:set var="amountKSecond" value="${SecondExpense.getAmount() / 1000}" />
+                        document.querySelector('#item-amount-second').innerText = "-<fmt:formatNumber value="${amountKSecond}" pattern="0" />K";
+
+                        <c:set var="amountKThird" value="${ThirdExpense.getAmount() / 1000}" />
+                        document.querySelector('#item-amount-third').innerText = "-<fmt:formatNumber value="${amountKThird}" pattern="0" />K";
+
                         span.textContent = '지출';
+
                         span.style.backgroundColor = '#2A68E8';
                         span.style.color = '#fff';
                     });
                     amounts.forEach(div => div.style.color = '#2A68E8');
                 } else {
-                    title.textContent = '최근 주요 수익';
+                    title.textContent = '최근 3개월간의 주요 수익';
                     if (desc) desc.textContent = '수익 금액 TOP 3';
                     tagSpans.forEach(span => {
+
+                        document.querySelector('.tag-revenue2-1').innerText = "${FirstProfit.getCategory()}";
+                        document.querySelector('.tag-revenue2-2').innerText = "${SecondProfit.getCategory()}";
+                        document.querySelector('.tag-revenue2-3').innerText = "${ThirdProfit.getCategory()}";
+
+                        <c:set var="amountKFirst" value="${FirstProfit.getAmount() / 1000}" />
+                        document.querySelector('#item-amount-first').innerText = "+<fmt:formatNumber value="${amountKFirst}" pattern="0" />K";
+
+                        <c:set var="amountKSecond" value="${SecondProfit.getAmount() / 1000}" />
+                        document.querySelector('#item-amount-second').innerText = "+<fmt:formatNumber value="${amountKSecond}" pattern="0" />K";
+
+                        <c:set var="amountKThird" value="${ThirdProfit.getAmount() / 1000}" />
+                        document.querySelector('#item-amount-third').innerText = "+<fmt:formatNumber value="${amountKThird}" pattern="0" />K";
+
                         span.textContent = '수익';
                         span.style.backgroundColor = '#f55a1d';
                         span.style.color = '#fff';

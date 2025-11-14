@@ -44,5 +44,4 @@ public class PageInfo {
         }
     }
 
-    // ... (Getter/Setter 생략)
 }

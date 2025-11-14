@@ -4,6 +4,7 @@ import com.kh.spring.model.mapper.FinancialMapper;
 import com.kh.spring.model.vo.Financial;
 import com.kh.spring.model.vo.Monthly;
 import com.kh.spring.model.vo.PageInfo;
+import com.kh.spring.model.vo.TopThree;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,10 +60,24 @@ public class FinancialServiceImpl implements FinancialService {
         return financialMapper.calculateExpense();
     }
 
+    public int calculatePreNetProfit()
+    {
+        return financialMapper.calculatePreNetProfit();
+    }
+
     @Override
     public List<Monthly> calculateMonthly() {
 
         return financialMapper.calculateMonthly();
+    }
+
+    public List<Monthly> calculateMonthlyMoney() {
+        return financialMapper.calculateMonthlyMoney();
+    }
+
+    public  List<TopThree> selectTopThree() {
+
+        return financialMapper.selectTopThree();
     }
 
 

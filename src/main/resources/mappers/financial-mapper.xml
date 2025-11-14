@@ -23,12 +23,13 @@
 
     <select id="calculateNetProfit" resultType="int">
         SELECT
-          COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '수익' THEN FINANCIAL_AMOUNT ELSE 0 END), 0) -
-          COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '지출' THEN FINANCIAL_AMOUNT ELSE 0 END), 0)
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '수익' THEN FINANCIAL_AMOUNT ELSE 0 END), 0) -
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '지출' THEN FINANCIAL_AMOUNT ELSE 0 END), 0)
         FROM
-          FINANCIAL_MANAGEMENT
+        FINANCIAL_MANAGEMENT
         WHERE
-          FINANCIAL_STATUS = 'Y'
+        FINANCIAL_STATUS = 'Y'
+        AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
     </select>
 
     <select id="calculateProfit" resultType="int">
@@ -39,6 +40,7 @@
             FINANCIAL_MANAGEMENT
         WHERE
             FINANCIAL_STATUS = 'Y'
+        AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
 
     </select>
 
@@ -51,6 +53,23 @@
             FINANCIAL_MANAGEMENT
         WHERE
             FINANCIAL_STATUS = 'Y'
+        AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
+
+    </select>
+
+    <select id="calculatePreNetProfit"  resultType="int">
+
+
+            SELECT
+            COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '수익' THEN FINANCIAL_AMOUNT ELSE 0 END), 0) -
+            COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '지출' THEN FINANCIAL_AMOUNT ELSE 0 END), 0)
+            FROM
+            FINANCIAL_MANAGEMENT
+            WHERE
+            FINANCIAL_STATUS = 'Y'
+            AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1)
+            AND FINANCIAL_DATE &lt; TRUNC(SYSDATE, 'MM')
+
 
     </select>
 
@@ -77,6 +96,65 @@
         EXTRACT(MONTH FROM FINANCIAL_DATE)
         ORDER BY
         month
+    </select>
+
+    <select id="calculateMonthlyMoney"  resultType="com.kh.spring.model.vo.Monthly">
+
+        SELECT
+        EXTRACT(MONTH FROM FINANCIAL_DATE) AS month,
+        GREATEST(
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '수익' THEN FINANCIAL_AMOUNT ELSE 0 END), 0) -
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '지출' THEN FINANCIAL_AMOUNT ELSE 0 END), 0),
+        0
+        ) AS netProfitTotal,
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '수익' THEN FINANCIAL_AMOUNT ELSE 0 END), 0) AS ProfitTotal,
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE = '지출' THEN FINANCIAL_AMOUNT ELSE 0 END), 0) AS expenseTotal
+        FROM
+        FINANCIAL_MANAGEMENT
+        WHERE
+        FINANCIAL_STATUS = 'Y'
+        GROUP BY
+        EXTRACT(MONTH FROM FINANCIAL_DATE)
+        ORDER BY
+        month
+
+
+    </select>
+
+    <select id="selectTopThree" resultType="com.kh.spring.model.vo.TopThree">
+
+        SELECT  category, amount
+        FROM (
+        SELECT
+        CATEGORY as category,
+        SUM(FINANCIAL_AMOUNT) AS amount,
+        ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
+        FROM FINANCIAL_MANAGEMENT
+        WHERE FINANCIAL_STATUS = 'Y'
+        AND FINANCIAL_TYPE = '수익'
+        AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
+        AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
+        GROUP BY CATEGORY
+        )
+        WHERE RN &lt;= 3
+
+        UNION ALL
+
+        SELECT  category, amount
+        FROM (
+        SELECT
+        CATEGORY as category,
+        SUM(FINANCIAL_AMOUNT) AS amount,
+        ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
+        FROM FINANCIAL_MANAGEMENT
+        WHERE FINANCIAL_STATUS = 'Y'
+        AND FINANCIAL_TYPE = '지출'
+        AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
+        AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
+        GROUP BY CATEGORY
+        )
+        WHERE RN &lt;= 3
+
     </select>
 
 

@@ -2,6 +2,7 @@ package com.kh.spring.controller;
 
 import com.kh.spring.model.vo.Financial;
 import com.kh.spring.model.vo.Monthly;
+import com.kh.spring.model.vo.TopThree;
 import com.kh.spring.service.FinancialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,12 +41,39 @@ public class FinancialController {
         int netProfit = (financialService.calculateNetProfit() / 10000);
         int Profit = (financialService.calculateProfit() / 10000);
         int Expense = (financialService.calculateExpense() / 10000);
+        int PrevNetProfit = (financialService.calculatePreNetProfit() / 10000);
+
+        // DecimalFormat을 사용하여 소수점 2자리와 부호를 동시에 처리
+        // 패턴: 양수일 때 앞에 '+'를 붙임 (0.00; -0.00)
+        DecimalFormat df = new DecimalFormat("+#,##0.00;-#,##0.00");
+        double IncreaseRateDouble = ((double)netProfit - (double)PrevNetProfit) / (double)PrevNetProfit * 100;
+        String IncreaseRate = df.format(IncreaseRateDouble);
+
         double ProfitPercent = Math.round((double) netProfit / (double) Profit * 10000) / 100.0;
+
+
 
 
         // 데이터베이스로부터 카테고리와 수익,지출 에 따른 값을 가져와서 월별 합계로 저장하기
         List<Monthly> monthlyThings = financialService.calculateMonthly();
+        List<Monthly> monthlyTotalMoney = financialService.calculateMonthlyMoney();
 
+        List<TopThree> topList = financialService.selectTopThree();
+        TopThree FirstProfit  = topList.get(0);
+        TopThree SecondProfit = topList.get(1);
+        TopThree ThirdProfit = topList.get(2);
+        TopThree FirstExpense = topList.get(3);
+        TopThree SecondExpense = topList.get(4);
+        TopThree ThirdExpense = topList.get(5);
+
+
+        // 총수익, 순수익, 지출 라인 그래프
+        List<Integer> monthlyNetProfit = new ArrayList<>(Collections.nCopies(12, 0));
+        List<Integer> monthlyProfit = new ArrayList<>(Collections.nCopies(12, 0));
+        List<Integer> monthlyExpense = new ArrayList<>(Collections.nCopies(12, 0));
+
+
+        // 월순으로 각 카테고리별로 넣기 위한 리스트 생성
         List<Integer> monthlyAdProfits = new ArrayList<>(Collections.nCopies(12, 0));
         List<Integer> monthlyMerchProfits = new ArrayList<>(Collections.nCopies(12, 0));
         List<Integer> monthlySponProfits = new ArrayList<>(Collections.nCopies(12, 0));
@@ -57,8 +86,17 @@ public class FinancialController {
         List<Integer> monthlyEquipExpenses = new ArrayList<>(Collections.nCopies(12, 0));
         List<Integer> monthlyEtcTotalExpenses = new ArrayList<>(Collections.nCopies(12, 0));
 
+        for (Monthly mp : monthlyTotalMoney) {
+            int monthIndex = mp.getMonth() - 1; // 1월 → index 0
+            monthlyProfit.set(monthIndex, mp.getProfitTotal());
+            monthlyNetProfit.set(monthIndex, mp.getNetProfitTotal());
+            monthlyExpense.set(monthIndex, mp.getExpenseTotal());
+        }
+
+
         for (Monthly mp : monthlyThings) {
             int monthIndex = mp.getMonth() - 1; // 1월 → index 0
+
             monthlyAdProfits.set(monthIndex, mp.getAdTotalIncome() / 10000);
             monthlyMerchProfits.set(monthIndex, mp.getMerchTotalIncome() / 10000);
             monthlySponProfits.set(monthIndex, mp.getSponTotalIncome() / 10000);
@@ -74,8 +112,23 @@ public class FinancialController {
 
 
 
+
         //page를 위한 map 객체
         Map<String, Object> transactionData = financialService.selectAllTransaction(currentPage);
+
+
+        model.addAttribute("monthlyNetProfit", monthlyNetProfit);
+        model.addAttribute("monthlyProfit", monthlyProfit);
+        model.addAttribute("monthlyExpense", monthlyExpense);
+
+
+        // 오른쪽 패널에 나오는 3개월간의 수익, 지출 순위
+        model.addAttribute("FirstProfit", FirstProfit);
+        model.addAttribute("SecondProfit", SecondProfit);
+        model.addAttribute("ThirdProfit", ThirdProfit);
+        model.addAttribute("FirstExpense", FirstExpense);
+        model.addAttribute("SecondExpense", SecondExpense);
+        model.addAttribute("ThirdExpense", ThirdExpense);
 
 
         // 모델에 순이익 데이터 추가 , 게약관리 조회
@@ -102,7 +155,7 @@ public class FinancialController {
 
 
         // (전월 대비 변화율 계산 로직은 생략함)
-        model.addAttribute("netProfitChange", "+29.7% 전월 대비");
+        model.addAttribute("IncreaseRate", IncreaseRate);
 
         return "/components/layout";
     }
