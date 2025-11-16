@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/MoneyEnroll.jsp" />
+<jsp:include page="/WEB-INF/views/ProfitEnroll.jsp" />
 <jsp:include page="/WEB-INF/views/ExpenseEnroll.jsp" />
 
 
@@ -42,7 +42,7 @@
                 <div class="stat-card">
                     <div class="stat-title"><span>순이익</span><i class="fas fa-chart-line"></i></div>
                     <div class="stat-value" >${netProfitAmount}만원</div>
-                    <div class="stat-change" >${IncreaseRate}% 전월 대비</div>
+                    <div class="stat-change" >전월 대비 ${IncreaseRate}% </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title"><span>총 수익</span><i class="fas fa-arrow-up"></i></div>
@@ -191,9 +191,20 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: '1년간의 수익, 지출 및 순이익 변화',
+                        text: '수익 vs 지출 추이',
+                        color: 'black',
+                        position: 'top',
+                        align: 'start',
                         font: {size: 18},
-                        align: 'start'
+                        padding: {top: 15, bottom: 25}
+                    },
+                    subtitle: {
+                        display: true,
+                        text: '최근 1년간의 수익,지출 및 순이익 변화',
+                        color: '#aaa',
+                        align: 'start',
+                        font: { size: 17 },
+                        padding: { bottom: 20 }
                     },
                     legend: {position: 'top'},
                     tooltip: {
@@ -211,14 +222,13 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 200000000,
                         title: {display: false},
                         ticks: {
                             callback: function (value) {
                                 if (value >= 100000000) return (value / 100000000).toFixed(1) + '억';
                                 return value.toLocaleString('ko-KR');
                             },
-                            stepSize: 20000000
+                            stepSize: 10000000
                         }
                     },
                     x: {
@@ -278,12 +288,20 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: '광고, 후원, 협찬, 굿즈별 월별 수익 변화',
-                        color: '#888',
+                        text: '카테고리별 수익 추이',
+                        color: 'black',
                         position: 'top',
                         align: 'start',
-                        font: {size: 18, weight: 'bold'},
-                        padding: {top: 10, bottom: 40}
+                        font: {size: 18},
+                        padding: {top: 15, bottom: 25}
+                    },
+                    subtitle: {
+                        display: true,
+                        text: '광고, 후원, 협찬, 굿즈별 월별 수익 변화',
+                        color: '#aaa',
+                        align: 'start',
+                        font: { size: 17 },
+                        padding: { bottom: 20 }
                     },
                     legend: {display: true, position: 'bottom'}
                 },
@@ -354,12 +372,20 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: '장비, 소프트웨어, 외주, 마케팅별 지출 변화',
-                        color: '#888',
+                        text: '카테고리별 지출 추이',
+                        color: 'black',
                         position: 'top',
                         align: 'start',
-                        font: {size: 18, weight: 'bold'},
-                        padding: {top: 10, bottom: 40}
+                        font: {size: 18},
+                        padding: {top: 15, bottom: 25}
+                    },
+                    subtitle: {
+                        display: true,
+                        text: '장비, 소프트웨어, 외주, 마케팅, 기타별 지출 변화',
+                        color: '#aaa',
+                        align: 'start',
+                        font: { size: 17 },
+                        padding: { bottom: 20 }
                     },
                     legend: {display: true, position: 'bottom'}
                 },

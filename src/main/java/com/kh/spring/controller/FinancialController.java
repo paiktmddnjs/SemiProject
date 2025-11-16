@@ -46,10 +46,19 @@ public class FinancialController {
         // DecimalFormat을 사용하여 소수점 2자리와 부호를 동시에 처리
         // 패턴: 양수일 때 앞에 '+'를 붙임 (0.00; -0.00)
         DecimalFormat df = new DecimalFormat("+#,##0.00;-#,##0.00");
-        double IncreaseRateDouble = ((double)netProfit - (double)PrevNetProfit) / (double)PrevNetProfit * 100;
-        String IncreaseRate = df.format(IncreaseRateDouble);
 
-        double ProfitPercent = Math.round((double) netProfit / (double) Profit * 10000) / 100.0;
+        if(PrevNetProfit != 0 ) {
+            double IncreaseRateDouble = ((double) netProfit - (double) PrevNetProfit) / (double) PrevNetProfit * 100;
+            String IncreaseRate = df.format(IncreaseRateDouble);
+            // (전월 대비 변화율 계산 로직은 생략함)
+            model.addAttribute("IncreaseRate", IncreaseRate);
+
+        }else {
+
+            String IncreaseRate = "0 ";
+            model.addAttribute("IncreaseRate", IncreaseRate);
+        }
+            double ProfitPercent = Math.round((double) netProfit / (double) Profit * 10000) / 100.0;
 
 
 
@@ -139,7 +148,7 @@ public class FinancialController {
         model.addAttribute("ProfitAmount", Profit);
         model.addAttribute("ExpenseAmount", Expense);
         model.addAttribute("ProfitPercent", ProfitPercent);
-        
+
         // 데이터베이스에서 값을 가져와서 수익,지출 그래프 나타내기
         model.addAttribute("monthlyAdProfits", monthlyAdProfits);
         model.addAttribute("monthlyMerchProfits", monthlyMerchProfits);
@@ -154,8 +163,6 @@ public class FinancialController {
         model.addAttribute("monthlyEtcTotalExpenses", monthlyEtcTotalExpenses);
 
 
-        // (전월 대비 변화율 계산 로직은 생략함)
-        model.addAttribute("IncreaseRate", IncreaseRate);
 
         return "/components/layout";
     }

@@ -87,15 +87,15 @@ body {
 
 .action-buttons .primary-btn {
     padding: 8px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 2px solid #ff5722;
+    border-radius: 8px;
     padding-left: 35px;
-    background-image: url('down.png');
+    background-color : white;
+    background-image: url('ProfitImg.png');
     background-repeat: no-repeat;
     background-position: 10px center; /* 버튼 왼쪽에서 10px 떨어진 중앙에 배치 */
     background-size: 18px 18px;
-    background-color: #ff5722;
-    color: #fff;
+    color: #ff5722;
     cursor: pointer;
     margin-left: 10px;
     font-weight: 500;
@@ -104,10 +104,15 @@ body {
 
 .action-buttons .expense-btn {
     padding: 8px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    color: white;
-    background-color: #0514e2;
+    border: 2px solid #0514e2;
+    border-radius: 8px;
+    padding-left: 35px;
+    background-color : white;
+    background-image: url('ExpenseImg.png');
+    background-repeat: no-repeat;
+    background-position: 10px center; /* 버튼 왼쪽에서 10px 떨어진 중앙에 배치 */
+    background-size: 18px 18px;
+    color: #0514e2;
     cursor: pointer;
     margin-left: 10px;
     font-weight: 500;
@@ -201,6 +206,7 @@ body {
 
 .tabs button.active {
     color: #ff5722;
+    border-radius: 7px;
     border-bottom-color: #ff5722;
     border-top-color: #ff5722;
 }
