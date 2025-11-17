@@ -84,4 +84,16 @@ public class ScheduleController {
 
         return result;
     }
+
+    @PostMapping("/scheduleProject")
+    @ResponseBody
+    public Map<String, Object> scheduleProjectId(@RequestParam("projectSelect") int projectId) {
+
+        List<Task> calendarSelect = scheduleServiceImpl.calendarSelect(projectId);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("scheduleCalendar", calendarSelect);
+
+        return result;
+    }
 }

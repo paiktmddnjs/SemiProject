@@ -9,11 +9,12 @@
 <div id="calendar"></div>
 
 <script>
+    let calendar;
 
     document.addEventListener('DOMContentLoaded', function() {
         let eventColor = ["apple", "banana", "cherry"];
         const calendarEl = document.getElementById('calendar');
-        const calendar = new FullCalendar.Calendar(calendarEl, {
+        calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             dayMaxEvents: 2, // 한 날짜에 보이는 최대 이벤트 수 제한
             eventTextColor: '#ffffff', //이벤트 색상 지정

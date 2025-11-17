@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const projectButtonContainer = document.getElementById('ProjectButtonContainer');
 
     workspaceButtonContainer.addEventListener('click', function(e) {
-        console.log('체크');
 
         if(e.target.tagName === 'BUTTON') {
             const workspaceId = e.target.value;
@@ -30,6 +29,42 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('whole-completed').textContent = `${data.statusComplete}건`;
 
                     Array.from(workspaceButtonContainer.children).forEach(btn => {
+                        btn.classList.remove('activated');
+                        btn.classList.add('disactive');
+                    });
+                    e.target.classList.add('activated');
+                    e.target.classList.remove('disactive');
+                })
+                .catch(err => console.error(err));
+        }
+    });
+
+    projectButtonContainer.addEventListener('click', function(e) {
+
+        if(e.target.tagName === 'BUTTON') {
+            const projectId = e.target.value;
+
+            fetch(`${window.location.origin}/scheduleProject`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `projectSelect=${projectId}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    calendar.removeAllEvents();
+
+                    data.scheduleCalendar.forEach(p => {
+                        calendar.addEvent({
+                            title: `${p.taskName}`,
+                            start: `${p.taskStart}`,
+                            end: `${p.taskDeadline}`,
+                            className: `eventColor${p.taskId}`
+                        });
+                    });
+
+                    Array.from(projectButtonContainer.children).forEach(btn => {
                         btn.classList.remove('activated');
                         btn.classList.add('disactive');
                     });

@@ -16,7 +16,7 @@
             <c:forEach var="w" items="${scheduleWorkspaces}">
                 <button type="button"
                         value="${w.workspaceId}"
-                        class="${w.workspaceId == selectedWorkspaceId ? 'activated' : 'disactive'}">
+                        class='disactive'>
                         ${w.workspaceName}
                 </button>
             </c:forEach>
