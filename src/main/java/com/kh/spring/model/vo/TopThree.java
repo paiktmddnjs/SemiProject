@@ -11,6 +11,7 @@ import lombok.*;
 public class TopThree {
 
     private String category;
+    private String financialName;
     private int amount;
 
 }

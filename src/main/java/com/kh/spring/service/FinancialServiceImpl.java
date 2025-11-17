@@ -75,6 +75,8 @@ public class FinancialServiceImpl implements FinancialService {
         return financialMapper.calculateMonthlyMoney();
     }
 
+
+
     public  List<TopThree> selectTopThree() {
 
         return financialMapper.selectTopThree();

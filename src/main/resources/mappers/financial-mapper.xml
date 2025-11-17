@@ -123,10 +123,11 @@
 
     <select id="selectTopThree" resultType="com.kh.spring.model.vo.TopThree">
 
-        SELECT  category, amount
+        SELECT  category, financialName , amount
         FROM (
         SELECT
         CATEGORY as category,
+        FINANCIAL_NAME as financialName,
         SUM(FINANCIAL_AMOUNT) AS amount,
         ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
         FROM FINANCIAL_MANAGEMENT
@@ -134,16 +135,17 @@
         AND FINANCIAL_TYPE = '수익'
         AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
         AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
-        GROUP BY CATEGORY
+        GROUP BY CATEGORY , FINANCIAL_NAME
         )
         WHERE RN &lt;= 3
 
         UNION ALL
 
-        SELECT  category, amount
+        SELECT  category, financialName , amount
         FROM (
         SELECT
         CATEGORY as category,
+        FINANCIAL_NAME as financialName,
         SUM(FINANCIAL_AMOUNT) AS amount,
         ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
         FROM FINANCIAL_MANAGEMENT
@@ -151,7 +153,7 @@
         AND FINANCIAL_TYPE = '지출'
         AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
         AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
-        GROUP BY CATEGORY
+        GROUP BY CATEGORY , FINANCIAL_NAME
         )
         WHERE RN &lt;= 3
 

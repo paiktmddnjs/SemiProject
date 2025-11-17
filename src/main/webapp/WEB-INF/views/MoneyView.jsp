@@ -89,31 +89,31 @@
                     <div class="recent-revenue-item">
                         <div class="item-source">
                             <div class="tag-revenue-container">
-                                <span class="tag-revenue">수익</span> <span class="tag-revenue2-1">광고 수익</span>
+                                <span class="tag-revenue">수익</span> <span class="tag-revenue2-1">${FirstProfit.getCategory()}</span>
                             </div>
-                            <span >YouTube 광고 수익</span>
+                            <span id="detail-1">${FirstProfit.getFinancialName()}</span>
                         </div>
-                        <div class="item-amount" id="item-amount-first">+450K</div>
+                        <div class="item-amount" id="item-amount-first">${amountKFirst}</div>
                     </div>
 
                     <div class="recent-revenue-item">
                         <div class="item-source">
                             <div class="tag-revenue-container">
-                                <span class="tag-revenue" >수익</span><span class="tag-revenue2-2"> 협찬 </span>
+                                <span class="tag-revenue" >수익</span><span class="tag-revenue2-2">${SecondProfit.getCategory()}</span>
                             </div>
-                            <span>Instagram 협찬</span>
+                            <span id="detail-2">${SecondProfit.getFinancialName()}</span>
                         </div>
-                        <div class="item-amount" id="item-amount-second">+1,500K</div>
+                        <div class="item-amount" id="item-amount-second">${amountKSecond}</div>
                     </div>
 
                     <div class="recent-revenue-item">
                         <div class="item-source">
                             <div class="tag-revenue-container">
-                                <span class="tag-revenue">수익</span> <span class="tag-revenue2-3">굿즈 판매</span>
+                                <span class="tag-revenue">수익</span> <span class="tag-revenue2-3">${ThirdProfit.getCategory()}</span>
                             </div>
-                            <span>스토어 굿즈 판매</span>
+                            <span id="detail-3">${ThirdProfit.getFinancialName()}</span>
                         </div>
-                        <div class="item-amount" id="item-amount-third">+580K</div>
+                        <div class="item-amount" id="item-amount-third">${amountKThird}</div>
                     </div>
 
 
@@ -460,14 +460,17 @@
                 const tagSpans = rightPanel.querySelectorAll('.tag-revenue');
                 const amounts = rightPanel.querySelectorAll('.item-amount');
 
+
                 if (key === 'expense') {
                     title.textContent = '최근 3개월간의 주요 지출';
                     if (desc) desc.textContent = '지출 금액 TOP 3';
-                    tagSpans.forEach(span => {
 
-                        document.querySelector('.tag-revenue2-1').innerText = "${FirstExpense.getCategory()}";
-                        document.querySelector('.tag-revenue2-2').innerText = "${SecondExpense.getCategory()}";
-                        document.querySelector('.tag-revenue2-3').innerText = "${ThirdExpense.getCategory()}";
+                    document.querySelector('.tag-revenue2-1').innerText = "${FirstExpense.getCategory()}";
+                    document.querySelector('.tag-revenue2-2').innerText = "${SecondExpense.getCategory()}";
+                    document.querySelector('.tag-revenue2-3').innerText = "${ThirdExpense.getCategory()}";
+
+
+                    tagSpans.forEach(span => {
 
                         <c:set var="amountKFirst" value="${FirstExpense.getAmount() / 1000}" />
                         document.querySelector('#item-amount-first').innerText = "-<fmt:formatNumber value="${amountKFirst}" pattern="0" />K";
@@ -484,14 +487,21 @@
                         span.style.color = '#fff';
                     });
                     amounts.forEach(div => div.style.color = '#2A68E8');
+
+                    document.querySelector('#detail-1').innerText = "${FirstExpense.getFinancialName()}";
+                    document.querySelector('#detail-2').innerText = "${SecondExpense.getFinancialName()}";
+                    document.querySelector('#detail-3').innerText = "${ThirdExpense.getFinancialName()}";
+
                 } else {
                     title.textContent = '최근 3개월간의 주요 수익';
                     if (desc) desc.textContent = '수익 금액 TOP 3';
+
+                    document.querySelector('.tag-revenue2-1').innerText = "${FirstProfit.getCategory()}";
+                    document.querySelector('.tag-revenue2-2').innerText = "${SecondProfit.getCategory()}";
+                    document.querySelector('.tag-revenue2-3').innerText = "${ThirdProfit.getCategory()}";
+
                     tagSpans.forEach(span => {
 
-                        document.querySelector('.tag-revenue2-1').innerText = "${FirstProfit.getCategory()}";
-                        document.querySelector('.tag-revenue2-2').innerText = "${SecondProfit.getCategory()}";
-                        document.querySelector('.tag-revenue2-3').innerText = "${ThirdProfit.getCategory()}";
 
                         <c:set var="amountKFirst" value="${FirstProfit.getAmount() / 1000}" />
                         document.querySelector('#item-amount-first').innerText = "+<fmt:formatNumber value="${amountKFirst}" pattern="0" />K";
@@ -507,6 +517,10 @@
                         span.style.color = '#fff';
                     });
                     amounts.forEach(div => div.style.color = '#f55a1d');
+
+                    document.querySelector('#detail-1').innerText = "${FirstProfit.getFinancialName()}";
+                    document.querySelector('#detail-2').innerText = "${SecondProfit.getFinancialName()}";
+                    document.querySelector('#detail-3').innerText = "${ThirdProfit.getFinancialName()}";
                 }
             }
 
@@ -522,7 +536,7 @@
     });
 
 
-        /*  ------- 거래내역 탭에서 수익만 보기, 지출만 보기 구현  ------ */
+    /*  ------- 거래내역 탭에서 수익만 보기, 지출만 보기 구현  ------ */
     document.addEventListener('DOMContentLoaded', () => {
         const rows = document.querySelectorAll('#transaction-table tbody tr');
         const buttons = document.querySelectorAll('.filter-btn');
