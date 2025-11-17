@@ -16,6 +16,7 @@ public class TaskDao {
     private JdbcTemplate jdbcTemplate;
 
     public List<TaskVo> getTasksByProjectId(int projectId) {
+        // 이미지 관련 컬럼 제거
         String sql = "SELECT " +
                      "    t.TASK_ID, t.PROJECT_ID, t.WORKSPACE_MEMBER_ID, t.TASK_NAME, t.TASK_ASSIGN, " +
                      "    t.TASK_STATUS, t.TASK_START, t.TASK_DEADLINE, " +

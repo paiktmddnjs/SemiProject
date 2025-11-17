@@ -16,6 +16,9 @@ public class ProjectVo {
     private Date projectDeadline;
     private String projectTime;
     private String projectType;
-    private String projectMemo; // projectExplain -> projectMemo
-    private double projectProgress; // NUMBER는 double 또는 int로 처리
+    private String projectMemo;
+    private double projectProgress;
+    
+    // JOIN해서 사용하는 채널의 플랫폼 타입
+    private String channelPlatformType;
 }

@@ -6,12 +6,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="<c:url value="/resources/static/css/default.css"/>">
     <link rel="stylesheet" href="<c:url value="/resources/static/css/project.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/static/css/new.css"/>">
     <link rel="stylesheet" href="<c:url value="/resources/static/css/invite.css"/>">
     <script src="<c:url value="/resources/static/js/project.js"/>" defer></script>
-    <script src="<c:url value="/resources/static/js/newProject.js"/>" defer></script>
-    <script src="<c:url value="/resources/static/js/inviteMember.js"/>" defer></script>
-    <script src="<c:url value="/resources/static/js/setWorkspace.js"/>" defer></script>
+    <script src="<c:url value="/resources/static/js/modal.js"/>" defer></script>
 </head>
 <body>
     <div class="navigator">
@@ -34,10 +31,14 @@
                     </div>
                     <div class = "header_button_container">
                         <div class="header_button">
-                            <input type="button" value="+ 새 프로젝트" class="button" id="createProjectButton">
+                            <input type="button" value="+ 새 프로젝트" class="button" 
+                                   data-modal-target="newProjectModal"
+                                   data-modal-url="<c:url value='/project/new?workspaceId=${workspace.workspaceId}'/>">
                         </div>
                         <div class="header_button">
-                            <input type="button" value="워크스페이스 설정" class="button" id="setWorkspaceButton">
+                            <input type="button" value="워크스페이스 설정" class="button"
+                                   data-modal-target="setWorkspaceModal"
+                                   data-modal-url="<c:url value='/workspace/set?workspaceId=${workspace.workspaceId}'/>">
                         </div>
                     </div>
                 </div>
@@ -58,13 +59,12 @@
                             <div class="box">
                                 <div class="box_body">
                                     <div class="title">
-                                        <div>이미지</div>
+                                        <%-- 프로젝트 이미지 표시 부분 제거 --%>
                                         <div class="title_name">
                                             <div><c:out value="${p.projectName}"/></div>
                                         </div>
                                     </div>
                                     <div class="box_describe">
-                                        <%-- projectExplain -> projectMemo --%>
                                         <div><c:out value="${p.projectMemo}"/></div>
                                     </div>
                                 </div>
@@ -80,21 +80,18 @@
                     <div class="team_all">
                         <div class="team_menu">
                             <div class="team_title_left">
-                                <div>
-                                    팀 멤버
-                                </div>
-                                <div>
-                                    팀원을 초대하고 역할을 관리하세요
-                                </div>
+                                <div>팀 멤버</div>
+                                <div>팀원을 초대하고 역할을 관리하세요</div>
                             </div>
                             <div class="team_title_right">
-                                <button class="button" id="inviteMemberButton">+ 멤버초대</button>
+                                <button class="button"
+                                        data-modal-target="inviteMemberModal"
+                                        data-modal-url="<c:url value='/member/new?workspaceId=${workspace.workspaceId}'/>">+ 멤버초대</button>
                             </div>
                         </div>
                         <div class ="search">
                             <input type="text" placeholder="팀원 검색">
                         </div>
-
                         <div class ="team_content">
                             <table class="team_box">
                                 <thead>
@@ -110,7 +107,6 @@
                                         <tr>
                                             <td>
                                                 <div class="team_account">
-                                                    <div class="team_account_img">이미지</div>
                                                     <div class="team_account_info">
                                                         <div class="team_account_name"><c:out value="${member.memberVo.memberName}"/></div>
                                                         <div class="team_account_email"><c:out value="${member.memberVo.email}"/></div>
@@ -145,27 +141,6 @@
         <jsp:include page="/WEB-INF/views/components/footer.jsp"/>
     </div>
 
-    <div id="modalOverlay" class="modal-overlay"></div>
-    <div id="newProjectModal" class="modal-container">
-        <div class="modal-content">
-            <button class ="modal-close-button">&times;</button>
-            <div id = "newProjectContent" class="new_Content"></div>
-        </div>
-    </div>
-
-    <div id="inviteMemberModal" class="modal-container">
-        <div class="modal-content">
-            <button class ="modal-close-button">&times;</button>
-            <div id = "inviteMemberContent" class="new_Content"></div>
-        </div>
-    </div>
-
-    <div id="setWorkspaceModal" class="modal-container">
-        <div class="modal-content">
-            <button class ="modal-close-button">&times;</button>
-            <div id = "setWorkspaceContent" class="new_Content"></div>
-        </div>
-    </div>
-
+    <jsp:include page="/WEB-INF/views/components/modals.jsp"/>
 </body>
 </html>

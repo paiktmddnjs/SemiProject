@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- 모달 내부에 삽입될 새 작업 생성 폼 --%>
+<%-- <head> 태그 제거 --%>
+
 <div class="header">
     <div class="header_title">
         <div class="header_title_main">

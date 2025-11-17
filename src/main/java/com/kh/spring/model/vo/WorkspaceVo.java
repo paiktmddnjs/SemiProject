@@ -17,6 +17,7 @@ public class WorkspaceVo {
 
     // JOIN해서 사용하는 필드
     private String channelName;
+    // private String channelProfileUrl; // 제거
 
     // COUNT해서 사용하는 필드
     private int projectCount;

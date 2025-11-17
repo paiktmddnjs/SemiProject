@@ -9,9 +9,10 @@
     <title>워크스페이스</title>
     
     <link rel="stylesheet" href="<c:url value='/resources/static/css/default.css'/>">
-    <link rel="stylesheet" href="<c:url value='/resources/static/css/new.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/static/css/workspace.css'/>">
     
     <script src="<c:url value='/resources/static/js/workspace.js'/>" defer></script>
+    <script src="<c:url value='/resources/static/js/modal.js'/>" defer></script>
 </head>
 <body>
 
@@ -35,7 +36,9 @@
                         </div>
                     </div>
                     <div class="header_button">
-                        <input type="button" value="+ 새 워크스페이스" class="button" id="createWorkspaceButton">
+                        <input type="button" value="+ 새 워크스페이스" class="button"
+                               data-modal-target="newWorkspaceModal"
+                               data-modal-url="<c:url value='/workspace/new'/>">
                     </div>
                 </div>
                 <div class="menu">
@@ -56,7 +59,7 @@
                             <div class="box" data-channel="${ws.channelId}">
                                 <div class="box_body">
                                     <div class="title">
-                                        <div>이미지</div>
+                                        <%-- 이미지 표시 부분 제거 --%>
                                         <div class="title_name">
                                             <div><c:out value="${ws.channelName}"/></div>
                                             <div>채널설명</div>
@@ -67,7 +70,6 @@
                                         <div><c:out value="${ws.workspaceExplain}"/></div>
                                     </div>
                                     <div class="workspace_footer">
-                                        <%-- 동적으로 프로젝트 수와 멤버 수 표시 --%>
                                         <div>${ws.projectCount}개 프로젝트</div>
                                         <div>${ws.memberCount}명</div>
                                     </div>
@@ -92,15 +94,6 @@
         <jsp:include page="/WEB-INF/views/components/footer.jsp"/>
     </div>
 
-    <!-- 모달 오버레이 및 컨테이너 추가 -->
-    <div id="modalOverlay" class="modal-overlay"></div>
-    <div id="newWorkspaceModal" class="modal-container">
-        <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <div id="newWorkspaceContent" class="new_Content">
-            </div>
-        </div>
-    </div>
-
+    <jsp:include page="/WEB-INF/views/components/modals.jsp"/>
 </body>
 </html>

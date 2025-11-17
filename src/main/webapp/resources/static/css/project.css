@@ -25,24 +25,17 @@ th{
 td{
     padding: 16px;
     border-bottom: 1px solid #E5E7EB;
-    vertical-align: middle; /* 셀 내용 수직 중앙 정렬 */
+    vertical-align: middle;
 }
 .team_account{
     display: flex;
     flex-direction: row;
-    align-items: center; /* 이미지와 텍스트를 수직 중앙 정렬 */
+    align-items: center;
     gap: 12px;
 }
-.team_account_img {
-    /* 실제 이미지 크기에 맞게 조절하세요 */
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #ccc; /* 임시 배경색 */
-    text-align: center;
-    line-height: 40px;
-    font-size: 12px;
-}
+
+/* --- 이미지 관련 스타일 모두 제거 --- */
+
 .team_menu{
     display: flex;
     flex-direction: row;
@@ -52,8 +45,7 @@ td{
     padding:10px;
 }
 .tab_list{
-    width : 200px;    
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     background-color: #ECECF0;
     border-radius: 14px;

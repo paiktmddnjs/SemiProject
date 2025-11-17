@@ -1,9 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="<c:url value='/resources/static/css/new.css'/>">
+<%-- <head> 태그 제거 --%>
 
-<%-- 모달 내부에 삽입될 워크스페이스 설정 폼 --%>
 <div class="header">
     <div class="header_title">
         <div class="header_title_main">
@@ -14,10 +13,8 @@
         </div>
     </div>
 </div>
-<%-- form에 id 추가 --%>
 <form action="<c:url value='/workspace/update'/>" method="post" id="setWorkspaceForm">
     <input type="hidden" name="workspaceId" value="${workspace.workspaceId}">
-    <%-- 수정한 뒤 돌아갈 경로를 위한 hidden input --%>
     <input type="hidden" name="returnTo" value="${returnTo}">
 
     <div class="input">

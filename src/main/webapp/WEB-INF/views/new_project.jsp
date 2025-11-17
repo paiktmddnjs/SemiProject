@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- 모달 내부에 삽입될 내용 --%>
 <div class="header">
     <div class="header_title">
         <div class="header_title_main">
@@ -24,9 +23,16 @@
         </div>
     </div>
     <div class="input">
+        <div class="input_title">
+            마감일
+        </div>
+        <div class="input_body">
+            <input type="date" name="projectDeadline">
+        </div>
+    </div>
+    <div class="input">
         <div class="input_title">메모</div>
         <div class="input_body">
-            <%-- projectExplain -> projectMemo --%>
             <textarea name="projectMemo" rows="2" placeholder="추가 메모"></textarea>
         </div>
     </div>

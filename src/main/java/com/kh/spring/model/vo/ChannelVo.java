@@ -12,9 +12,10 @@ public class ChannelVo {
     private int memberId;
     private String channelName;
     private String platformType;
-    private long platformSubscribe; // NUMBER는 long으로 처리
+    private long platformSubscribe;
     private String channelStatus;
     private Date channelCreate;
     private String channelUrl;
     private String channelCount;
+    private String channelProfileUrl; // 채널 프로필 이미지 URL 필드 추가
 }

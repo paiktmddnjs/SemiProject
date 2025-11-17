@@ -9,12 +9,13 @@ import java.util.Date;
 @Getter
 public class MemberVo {
     private int memberId;
-    private String email; // email로 변경
-    private String memberPwd; // memberPassword -> memberPwd
+    private String email;
+    private String memberPwd;
     private String memberName;
-    private String phone; // memberPhone -> phone
-    private Date enrollDate; // memberEnrollDate -> enrollDate
+    private String phone;
+    private Date enrollDate;
     private Date modifyDate;
-    private String status; // char -> String
-    private String role; // memberRole -> role
+    private String status;
+    private String role;
+    // private String memberProfileUrl; // 제거
 }

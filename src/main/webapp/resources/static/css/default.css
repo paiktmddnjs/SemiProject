@@ -54,35 +54,33 @@
     flex-direction: row;
     background-color: #ECECF0;
     border-radius: 14px;
-    gap:12px;
-    font-size: 14;
+    gap: 12px;
+    font-size: 14px;
     align-items: center;
-    justify-items: center;
     padding: 4px;
 }  
 .tab{
     text-align: center;
-    width: 105px;
+    padding: 0 16px;
     height: 30px;
-    line-height: 30px; /* 텍스트 세로 중앙 정렬 */
+    line-height: 30px;
+    border-radius: 14px;
+    white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s;
 }
 .tab:hover{
     cursor:pointer;
+    background-color: #e0e0e0;
 }
 .choice{
     background-color: #F54900;
-    border-style: none;
-    border-radius: 14px;
-    width: 105px;
-    height: 30px;
-    text-align: center;
     color: white;
 } 
 .content_box{
     display: flex;
     flex-direction: row;
     gap: 24px;
-    flex-wrap: wrap; /* 화면 너비에 따라 자동으로 줄바꿈 */
+    flex-wrap: wrap;
 }
 .box{
     border : 1px solid rgba(0,0,0,0.5);
@@ -91,7 +89,6 @@
 .box:hover{
     scale:1.02;
 }
-
 .box_body{
     margin: 30px;
     display: flex;
@@ -131,4 +128,108 @@ select{
 .box-link {
     text-decoration: none;
     color: inherit;
+}
+
+/* --- 모달 공통 스타일 (고전적이고 확실한 방법) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: none; /* JS로 제어 */
+}
+.modal-overlay.is-open {
+    display: block;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh; /* 화면 높이의 90%를 넘지 않도록 */
+    z-index: 1001;
+    display: none; /* JS로 제어 */
+    overflow-y: auto; /* 내용이 길어지면 이 컨테이너에 스크롤 생성 */
+}
+.modal-container.is-open {
+    display: block;
+}
+
+.modal-content {
+    padding: 32px;
+}
+.modal-close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+}
+
+/* --- 모달 내부 폼 스타일 --- */
+.new_Content {
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.input_title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+.input_body > input,
+.input_body > select,
+.input_body > textarea {
+    width:100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+.input_body > input:focus,
+.input_body > select:focus,
+.input_body > textarea:focus {
+    outline: none;
+    border-color: #F54900;
+    box-shadow: 0 0 0 2px rgba(245, 73, 0, 0.2);
+}
+.input_body > textarea {
+    height: 90px;
+    padding: 12px;
+    resize: vertical;
+}
+.input_body > select {
+    background-color: white;
+    color: black;
+}
+.input_body > button {
+    width:100%;
+    height: 44px;
+    background-color: #F54900;
+    border-style: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 16px;
+}
+.input_body > button:hover {
+   scale: 1.02;
+   cursor: pointer;
 }
