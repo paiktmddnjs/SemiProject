@@ -31,7 +31,7 @@ public class MemberController {
             return "redirect:/";
         } else {
             model.addAttribute("errorMsg", "회원가입에 실패하였습니다.");
-            return "common/error";
+            return "SignUp";
         }
     }
 
@@ -52,17 +52,26 @@ public class MemberController {
     }
 
     @PostMapping("login.me")
-    public ModelAndView login(String email, String memberPwd, HttpSession httpSession, ModelAndView mv) {
-       Member loginMember = memberService.getMemberByEmail(email);
+    public ModelAndView login(String email,
+                              String memberPwd,
+                              HttpSession session,
+                              ModelAndView mv) {
 
-       if(loginMember == null){
-           mv.addObject("errorMSg","아이디를 찾을 수 없습니다." );
-           mv.setViewName("common/error");
-       }else {//로그인 성공
-           httpSession.setAttribute("loginMember", loginMember);
-           mv.setViewName("redirect:/");
-       }
+        Member loginMember = memberService.getMemberByEmail(email);
+        if (loginMember == null) {
+            mv.addObject("errorMsg", "아이디를 찾을 수 없습니다.");
+            mv.setViewName("Login");
 
+        }else if (!bCryptPasswordEncoder.matches(memberPwd, loginMember.getMemberPwd())) {
+            mv.addObject("errorMsg", "비밀번호를 확인해 주세요.");
+            mv.setViewName("Login");
+
+        }else{
+            session.setAttribute("loginMember", loginMember);
+            mv.setViewName("redirect:/");
+
+        }
         return mv;
     }
+
 }

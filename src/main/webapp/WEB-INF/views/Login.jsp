@@ -49,7 +49,8 @@
         .login-card {
             background: white;
             border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05);
             padding: 2rem;
         }
 
@@ -233,16 +234,22 @@
             text-decoration: underline;
         }
 
-        /* SVG 아이콘 스타일 */
         svg {
             display: block;
         }
     </style>
 </head>
 <body>
+<c:if test="${not empty errorMsg}">
+    <script>
+        alert("${errorMsg}");
+    </script>
+</c:if>
 <div class="container">
     <button class="back-button" onclick="location.href='/'">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
         <span>홈으로 돌아가기</span>
@@ -250,7 +257,6 @@
 
     <div class="login-card">
         <div class="icon-container">
-
             <img src="/logo.PNG.png" alt="로고" width="100" height="100">
         </div>
 
@@ -263,17 +269,21 @@
             로그인과 크리에이터의 성장을 시작하세요
         </p>
 
-        <form  action="${pageContext.request.contextPath}/login.me" method="post">
+        <!-- 로그인 폼 -->
+        <form action="${pageContext.request.contextPath}/login.me" method="post">
             <div class="form-group">
                 <label for="email">이메일</label>
                 <div class="input-wrapper">
-                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="5" width="18" height="14" rx="2"/>
                         <path d="m3 7 9 6 9-6"/>
                     </svg>
                     <input
                             type="email"
                             id="email"
+                            name="email"
                             placeholder="example@email.com"
                             required
                     />
@@ -281,24 +291,36 @@
             </div>
 
             <div class="form-group">
-                <label for="password">비밀번호</label>
+                <label for="memberPwd">비밀번호</label>
                 <div class="input-wrapper">
-                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
                         <rect x="5" y="11" width="14" height="10" rx="2" ry="2"/>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                     </svg>
                     <input
                             type="password"
-                            id="password"
+                            id="memberPwd"
+                            name="memberPwd"
                             placeholder="••••••••"
                             required
                     />
-                    <button type="button" class="password-toggle" onclick="togglePassword()">
-                        <svg id="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <button type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()">
+                        <svg id="eye-icon" width="20" height="20"
+                             viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
                             <circle cx="12" cy="12" r="3"/>
                         </svg>
-                        <svg id="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <svg id="eye-off-icon" width="20" height="20"
+                             viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round"
+                             style="display: none;">
                             <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
                             <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
                             <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
@@ -310,14 +332,16 @@
 
             <div class="form-footer">
                 <label class="checkbox-wrapper">
-                    <input type="checkbox" id="remember" />
+                    <input type="checkbox" id="remember" name="remember"/>
                     <span class="checkbox-label">로그인 상태 유지</span>
                 </label>
                 <a href="#" class="forgot-password">비밀번호 찾기</a>
             </div>
 
             <button type="submit" class="login-button">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
                 <span>로그인</span>
@@ -341,7 +365,7 @@
 
 <script>
     function togglePassword() {
-        const passwordInput = document.getElementById('password');
+        const passwordInput = document.getElementById('memberPwd'); // ★ 수정된 부분
         const eyeIcon = document.getElementById('eye-icon');
         const eyeOffIcon = document.getElementById('eye-off-icon');
 
@@ -355,8 +379,6 @@
             eyeOffIcon.style.display = 'none';
         }
     }
-
-
 </script>
 </body>
 </html>
