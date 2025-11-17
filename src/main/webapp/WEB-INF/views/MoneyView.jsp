@@ -18,6 +18,12 @@
 <jsp:include page="/WEB-INF/views/ProfitEnroll.jsp" />
 <jsp:include page="/WEB-INF/views/ExpenseEnroll.jsp" />
 
+<c:if test="${not empty msg}">
+<script>
+    alert("${msg}");
+</script>
+</c:if>
+
 
 <div class="dashboard-container">
 

@@ -68,12 +68,15 @@ public class FinancialController {
         List<Monthly> monthlyTotalMoney = financialService.calculateMonthlyMoney();
 
         List<TopThree> topList = financialService.selectTopThree();
-        TopThree FirstProfit  = topList.get(0);
-        TopThree SecondProfit = topList.get(1);
-        TopThree ThirdProfit = topList.get(2);
-        TopThree FirstExpense = topList.get(3);
-        TopThree SecondExpense = topList.get(4);
-        TopThree ThirdExpense = topList.get(5);
+        TopThree dummy = TopThree.DUMMY; // 미리 생성된 더미 객체
+
+// 리스트 크기를 확인하여 각 순위에 맞는 객체를 할당
+        TopThree FirstProfit  = topList.size() > 0 ? topList.get(0) : dummy;
+        TopThree SecondProfit = topList.size() > 1 ? topList.get(1) : dummy;
+        TopThree ThirdProfit  = topList.size() > 2 ? topList.get(2) : dummy;
+        TopThree FirstExpense = topList.size() > 3 ? topList.get(3) : dummy;
+        TopThree SecondExpense = topList.size() > 4 ? topList.get(4) : dummy;
+        TopThree ThirdExpense = topList.size() > 5 ? topList.get(5) : dummy;
 
 
         // 총수익, 순수익, 지출 라인 그래프
@@ -177,11 +180,12 @@ public class FinancialController {
 
         int result = financialService.insertProfitFinancial(financial);
 
+
         if (result > 0) {
-            ra.addFlashAttribute("alertMsg", "등록 성공!");
+            ra.addFlashAttribute("msg", "수익 항목이 성공적으로 등록되었습니다.");
             return "redirect:/financial";
         } else {
-            ra.addFlashAttribute("alertMsg", "등록 실패");
+            ra.addFlashAttribute("msg", "수익 항목 등록에 실패했습니다.");
             return "redirect:/financial";
         }
 
@@ -194,15 +198,14 @@ public class FinancialController {
         try {
             financial.setFinancialType("지출");
             // ⭐ 필수: 실제 로그인된 사용자 ID를 설정 (예시: 세션에서 가져옴)
-            financial.setMemberId(1234); // 예
 
             int result = financialService.insertExpenseFinancial(financial);
 
             if (result > 0) {
-                ra.addFlashAttribute("alertMsg", "등록 성공!");
+                ra.addFlashAttribute("msg", "지출 항목이 성공적으로 등록되었습니다.");
                 return "redirect:/financial";
             } else {
-                ra.addFlashAttribute("alertMsg", "등록 실패");
+                ra.addFlashAttribute("msg", "지출 항목 등록에 실패했습니다.");
                 return "redirect:/financial";
             }
         } catch (Exception e) {

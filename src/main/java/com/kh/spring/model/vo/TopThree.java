@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class TopThree {
 
+    public static final TopThree DUMMY = null;
     private String category;
     private String financialName;
     private int amount;
