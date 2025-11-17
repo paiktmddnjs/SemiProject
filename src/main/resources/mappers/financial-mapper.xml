@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.model.mapper.FinancialMapper">
+    <resultMap id="financialResultMap" type="com.kh.spring.model.vo.Financial">
+        <result column="FINANCIAL_ID" property="financialId"/>
+        <result column="CONTRACT_ID" property="contractId"/>
+        <result column="MEMBER_ID" property="memberId"/>
+        <result column="FINANCIAL_NAME" property="financialName"/>
+        <result column="FINANCIAL_AMOUNT" property="financialAmount"/>
+        <result column="FINANCIAL_DATE" property="financialDate"/>
+        <result column="FINANCIAL_STATUS" property="financialStatus"/>
+        <result column="CATEGORY" property="category"/>
+        <result column="FINANCIAL_TYPE" property="financialType"/>
+    </resultMap>
+
+    <select id="selectAllFinancial" resultType="Financial">
+        SELECT *
+        FROM FINANCIAL_MANAGEMENT
+    </select>
+
+    <select id="calculateNetProfit" resultType="int">
+        SELECT
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) -
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT ELSE 0 END), 0)
+        FROM
+        FINANCIAL_MANAGEMENT
+        WHERE
+        FINANCIAL_STATUS = 'Y'
+        AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
+    </select>
+
+    <select id="calculateProfit" resultType="int">
+
+        SELECT
+            COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0)
+        FROM
+            FINANCIAL_MANAGEMENT
+        WHERE
+            FINANCIAL_STATUS = 'Y'
+        AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
+
+    </select>
+
+
+    <select id="calculateExpense" resultType="int">
+
+        SELECT
+            COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT ELSE 0 END), 0)
+        FROM
+            FINANCIAL_MANAGEMENT
+        WHERE
+            FINANCIAL_STATUS = 'Y'
+        AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
+
+    </select>
+
+    <select id="calculatePreNetProfit"  resultType="int">
+
+
+            SELECT
+            COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) -
+            COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT ELSE 0 END), 0)
+            FROM
+            FINANCIAL_MANAGEMENT
+            WHERE
+            FINANCIAL_STATUS = 'Y'
+            AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1)
+            AND FINANCIAL_DATE &lt; TRUNC(SYSDATE, 'MM')
+
+
+    </select>
+
+
+    <select id="calculateMonthly"  resultType="com.kh.spring.model.vo.Monthly">
+        SELECT
+        EXTRACT(MONTH FROM FINANCIAL_DATE) AS month,
+        COALESCE(SUM(CASE WHEN (CATEGORY = '광고' OR CATEGORY = '광고수익') AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT END), 0) AS AdTotalIncome,
+        COALESCE(SUM(CASE WHEN (CATEGORY = '굿즈' OR CATEGORY = '상품판매') AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT END), 0) AS MerchTotalIncome,
+        COALESCE(SUM(CASE WHEN CATEGORY = '협찬' AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT END), 0) AS SponTotalIncome,
+        COALESCE(SUM(CASE WHEN (CATEGORY = '후원' OR CATEGORY = '후원수익') AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT END), 0) AS DonationTotalIncome,
+        COALESCE(SUM(CASE WHEN CATEGORY = '기타' AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT END), 0) AS EtcTotalIncome,
+
+        COALESCE(SUM(CASE WHEN (CATEGORY = '마케팅' OR CATEGORY = '인건비') AND FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT END), 0) AS MarketTotalExpense,
+        COALESCE(SUM(CASE WHEN (CATEGORY = '소프트웨어' OR CATEGORY LIKE '%소프트웨어%') AND FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT END), 0) AS SoftWareTotalExpense,
+        COALESCE(SUM(CASE WHEN (CATEGORY = '외주' OR CATEGORY = '외주/인력') AND FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT END), 0) AS OutSourceTotalExpense,
+        COALESCE(SUM(CASE WHEN (CATEGORY = '장비' OR CATEGORY = '촬영장비') AND FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT END), 0) AS EquipTotalExpense,
+        COALESCE(SUM(CASE WHEN CATEGORY = '기타' AND FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT END), 0) AS EtcTotalExpense
+        FROM
+        FINANCIAL_MANAGEMENT
+        WHERE
+        FINANCIAL_STATUS = 'Y'
+        GROUP BY
+        EXTRACT(MONTH FROM FINANCIAL_DATE)
+        ORDER BY
+        month
+    </select>
+
+    <select id="calculateMonthlyMoney"  resultType="com.kh.spring.model.vo.Monthly">
+
+        SELECT
+        EXTRACT(MONTH FROM FINANCIAL_DATE) AS month,
+        GREATEST(
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) -
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT ELSE 0 END), 0),
+        0
+        ) AS netProfitTotal,
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) AS ProfitTotal,
+        COALESCE(SUM(CASE WHEN FINANCIAL_TYPE IN ('지출', 'EXPENSE') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) AS expenseTotal
+        FROM
+        FINANCIAL_MANAGEMENT
+        WHERE
+        FINANCIAL_STATUS = 'Y'
+        GROUP BY
+        EXTRACT(MONTH FROM FINANCIAL_DATE)
+        ORDER BY
+        month
+
+
+    </select>
+
+    <select id="selectTopThree" resultType="com.kh.spring.model.vo.TopThree">
+
+        SELECT  category, financialName , amount
+        FROM (
+        SELECT
+        CATEGORY as category,
+        FINANCIAL_NAME as financialName,
+        SUM(FINANCIAL_AMOUNT) AS amount,
+        ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
+        FROM FINANCIAL_MANAGEMENT
+        WHERE FINANCIAL_STATUS = 'Y'
+        AND FINANCIAL_TYPE IN ('수익', 'INCOME')
+        AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
+        AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
+        GROUP BY CATEGORY , FINANCIAL_NAME
+        )
+        WHERE RN &lt;= 3
+
+        UNION ALL
+
+        SELECT  category, financialName , amount
+        FROM (
+        SELECT
+        CATEGORY as category,
+        FINANCIAL_NAME as financialName,
+        SUM(FINANCIAL_AMOUNT) AS amount,
+        ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
+        FROM FINANCIAL_MANAGEMENT
+        WHERE FINANCIAL_STATUS = 'Y'
+        AND FINANCIAL_TYPE IN ('지출', 'EXPENSE')
+        AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
+        AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
+        GROUP BY CATEGORY , FINANCIAL_NAME
+        )
+        WHERE RN &lt;= 3
+
+    </select>
+
+
+    <insert id="insertFinancial" parameterType="Financial">
+        INSERT INTO FINANCIAL_MANAGEMENT (
+            FINANCIAL_ID,
+            CONTRACT_ID,  MEMBER_ID,
+            FINANCIAL_NAME,
+            FINANCIAL_AMOUNT,
+            FINANCIAL_DATE,
+            FINANCIAL_STATUS,
+            CATEGORY,
+            FINANCIAL_TYPE
+        ) VALUES (
+            SEQ_FINANCIAL_ID.NEXTVAL,
+            #{contractId},  #{memberId},
+            #{financialName},
+            #{financialAmount},
+            #{financialDate},
+            'Y',
+            #{category},
+            #{financialType}
+        )
+
+    </insert>
+
+
+
+    <select id="selectAllTransaction" resultMap="financialResultMap">
+        SELECT
+            FINANCIAL_ID,
+            FINANCIAL_NAME,
+            FINANCIAL_AMOUNT,
+            FINANCIAL_DATE,
+            FINANCIAL_STATUS,
+            CATEGORY,
+            FINANCIAL_TYPE
+        FROM
+            FINANCIAL_MANAGEMENT
+        ORDER BY
+            FINANCIAL_DATE DESC,
+            FINANCIAL_ID DESC
+            OFFSET #{offset} ROWS
+            FETCH NEXT #{limit} ROWS ONLY
+    </select>
+
+    <select id="selectTransactionCount" resultType="_int">
+        SELECT COUNT(*) FROM FINANCIAL_MANAGEMENT
+    </select>
+
+
+
+</mapper>

@@ -11,6 +11,9 @@
     <title>Title</title>
 </head>
 <body>
-    <%@ include file="/WEB-INF/views/components/layout.jsp" %>
+
+<jsp:include page="/WEB-INF/views/components/layout.jsp" />
+
+
 </body>
 </html>
