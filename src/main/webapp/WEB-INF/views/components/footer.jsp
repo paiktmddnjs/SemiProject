@@ -198,8 +198,6 @@
         </div>
     </div>
 </footer>
-
-<%-- modal.js 스크립트 제거 --%>
-
 </body>
 </html>
+

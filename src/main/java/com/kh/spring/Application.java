@@ -1,10 +1,11 @@
 package com.kh.spring;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 
+@MapperScan(basePackages = {"com.kh.spring.model.mapper", "com.kh.spring.mapper", "com.kh.spring.model.dao"})
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class Application {
     public static void main(String[] args) {

@@ -4,81 +4,73 @@
 <html lang="ko" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>CREP</title>
-  <link rel="stylesheet" href="<c:url value='/resources/static/css/default.css'/>">
-  <link rel="stylesheet" href="<c:url value='/resources/static/css/new.css'/>">
-  <script src="<c:url value='/resources/static/js/workspace.js'/>" defer></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title><c:out value="${pageTitle != null ? pageTitle : 'CREP'}"/></title>
   <style>
-    /* 기본 리셋 */
+    :root {
+      --border:#e5e7eb;
+      --bg:#f9fafb;
+      --panel:#fff;
+      --text:#111827;
+    }
     * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    html, body { height: 100%; margin: 0; }
     body {
-      margin: 0;
-      color: #111827;
-      background: #f9fafb;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     }
 
-    /* 레이아웃 그리드 */
+    /* 기본 구조: header → sidebar → main → footer */
     .layout {
-      min-height: 100vh;               /* 화면 높이에 맞춤 */
       display: grid;
-      grid-template-columns: 256px 1fr; /* 왼쪽 고정폭 사이드바, 오른쪽 가변 본문 */
-      grid-template-rows: auto 1fr auto;/* 헤더 자동높이, 본문 채우기, 푸터 자동높이 */
+      grid-template-rows: auto auto 1fr auto; /* footer는 항상 아래 */
       grid-template-areas:
-        "header header"
-        "sidebar main"
-        "footer footer";
+        "header"
+        "sidebar"
+        "main"
+        "footer";
     }
 
-    /* 영역 배치 */
-    header.layout__header { grid-area: header; background:#fff; border-bottom:1px solid #e5e7eb; }
-    aside.layout__sidebar { grid-area: sidebar; background:#fff; border-right:1px solid #e5e7eb; }
-    main.layout__main     { grid-area: main;   background:#f9fafb; }
-    footer.layout__footer { grid-area: footer; background:#fff; border-top:1px solid #e5e7eb; }
+    header.layout__header { grid-area: header; background: var(--panel); border-bottom: 1px solid var(--border); }
+    aside.layout__sidebar { grid-area: sidebar; background: var(--panel); border-bottom: 1px solid var(--border); }
+    main.layout__main { grid-area: main; background: var(--bg); padding: 24px; min-height: 0; }
+    footer.layout__footer { grid-area: footer; background: var(--panel); border-top: 1px solid var(--border); }
 
-    /* 스크롤/패딩 처리: 본문만 스크롤 */
-    .layout__sidebar, .layout__main {
-      min-height: 0;       /* grid 아이템 스크롤 위해 필요 */
-    }
-    .layout__main {
-      overflow: auto;
-      padding: 24px;       /* 본문 여백 */
-    }
+    /* ✅ 사이드바와 메인에 불필요한 내부 스크롤 방지 */
+    .layout__sidebar, .layout__main { min-height: 0; }
 
-    /* 사이드바 내부가 길어질 경우만 자체 스크롤(헤더 아래에서 시작) */
-    .layout__sidebar {
-      overflow: auto;
+    /* ✅ 사이드바 JSP 내부 루트가 그리드 높이를 채우도록 */
+    .layout__sidebar > .sidebar {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* 푸터를 얇고 고정 높이처럼 보이게 */
-    .layout__footer .footer-inner {
+    .footer-inner {
       max-width: 1280px;
       margin: 0 auto;
       padding: 16px 24px;
+      color: #6b7280;
       font-size: 14px;
-      color:#6b7280;
     }
 
-    /* 간단한 반응형: 폭이 좁으면 사이드바 살짝 줄이기(옵션) */
-    @media (max-width: 1024px) {
+    /* 넓은 화면: sidebar를 왼쪽에 붙이는 2열 구조 */
+    @media (min-width: 768px) {
       .layout {
-        grid-template-columns: 200px 1fr;
-      }
-    }
-    @media (max-width: 768px) { /* 모바일에서는 위아래 스택(필요시) */
-      .layout {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto 1fr auto;
+        grid-template-columns: max-content 1fr;
+        grid-template-rows: auto 1fr auto;
         grid-template-areas:
-          "header"
-          "sidebar"
-          "main"
-          "footer";
+          "header header"
+          "sidebar main"
+          "footer footer";
       }
-      .layout__sidebar { border-right: none; border-bottom: 1px solid #e5e7eb; }
+      aside.layout__sidebar {
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+      }
     }
+
   </style>
 </head>
 <body>
@@ -95,7 +87,24 @@
 
     <!-- 본문 -->
     <main class="layout__main">
-        <%@ include file="/WEB-INF/views/workspace.jsp" %>
+      <c:choose>
+        <c:when test="${contentPage == 'contract'}">
+          <jsp:include page="/WEB-INF/views/contract.jsp"/>
+        </c:when>
+        <c:when test="${contentPage == 'dashboard'}">
+          <jsp:include page="/WEB-INF/views/dashboard.jsp"/>
+        </c:when>
+        <c:when test="${contentPage == 'mypage'}">
+          <jsp:include page="/WEB-INF/views/mypage.jsp"/>
+        </c:when>
+        <c:when test="${contentPage == 'financial'}">
+          <jsp:include page="/WEB-INF/views/MoneyView.jsp"/>
+        </c:when>
+        <c:otherwise>
+          <jsp:include page="/WEB-INF/views/contract.jsp"/>
+        </c:otherwise>
+      </c:choose>
+
     </main>
 
     <!-- 푸터 -->
