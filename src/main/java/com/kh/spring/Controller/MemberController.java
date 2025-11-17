@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @RequiredArgsConstructor
 @Controller
@@ -51,5 +52,17 @@ public class MemberController {
     }
 
     @PostMapping("login.me")
-    public
+    public ModelAndView login(String email, String memberPwd, HttpSession httpSession, ModelAndView mv) {
+       Member loginMember = memberService.getMemberByEmail(email);
+
+       if(loginMember == null){
+           mv.addObject("errorMSg","아이디를 찾을 수 없습니다." );
+           mv.setViewName("common/error");
+       }else {//로그인 성공
+           httpSession.setAttribute("loginMember", loginMember);
+           mv.setViewName("redirect:/");
+       }
+
+        return mv;
+    }
 }

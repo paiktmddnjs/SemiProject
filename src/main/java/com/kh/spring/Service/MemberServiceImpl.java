@@ -21,4 +21,9 @@ public class MemberServiceImpl implements MemberService {
     public int getMemberCountByEmail(String email) {
         return memberMapper.getMemberCountByEmail(email);
     }
+
+    @Override
+    public Member getMemberByEmail(String email) {
+        return memberMapper.getMemberByEmail(email);
+    }
 }

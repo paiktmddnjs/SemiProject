@@ -40,4 +40,19 @@
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
+
+    <select id="getMemberByEmail" parameterType="string" resultMap="memberResultMap">
+        SELECT MEMBER_ID,
+                EMAIL,
+                MEMBER_PWD,
+                MEMBER_NAME,
+                PHONE,
+                ENROLL_DATE,
+                MODIFY_DATE,
+                STATUS,
+                ROLE
+        FROM MEMBER
+        WHERE EMAIL = #{email}
+        AND STATUS = 'Y'
+    </select>
 </mapper>
