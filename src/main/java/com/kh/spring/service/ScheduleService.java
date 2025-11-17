@@ -9,17 +9,15 @@ public interface ScheduleService {
     List<Workspace> scheduleWorkspaceSelect(int memberId);
     List<Project> scheduleProjectSelect(int projectId);
     List<Project> scheduleProjectWholeSelect();
-    int statusTodoSelect(int projectId);
+    int statusTodoSelect(int workspaceId);
     int statusTodoWholeSelect();
-    int statusProgressSelect(int projectId);
+    int statusProgressSelect(int workspaceId);
     int statusProgressWholeSelect();
-    int statusCompleteSelect(int projectId);
+    int statusCompleteSelect(int workspaceId);
     int statusCompleteWholeSelect();
     List<Task> calendarSelect(int projectId);
     List<Task> calendarWholeSelect();
     List<Task> dailyTaskSelect(String selectedDate);
-    List<StatusContainer> workspaceStatusSelect(int projectId);
-    List<StatusContainer> workspaceStatusWholeSelect();
-    List<StatusContainer> projectStatusSelect(int projectId);
-    List<StatusContainer> projectStatusWholeSelect();
+    List<StatusContainer> workspaceStatusSelect();
+    List<StatusContainer> projectStatusSelect();
 }

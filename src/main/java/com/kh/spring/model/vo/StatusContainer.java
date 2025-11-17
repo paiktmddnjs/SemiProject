@@ -8,6 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StatusContainer {
-    private String status;
-    private int statusCount;
+    private String statusName;
+    private int statusId;
+    private int statusTodo;
+    private int statusProgress;
+    private int statusComplete;
+    private int statusSum;
 }

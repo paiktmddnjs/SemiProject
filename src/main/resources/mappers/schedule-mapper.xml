@@ -46,8 +46,12 @@
     </resultMap>
 
     <resultMap id="statusContainerResultMap" type="statusContainer">
-        <result column="TASK_STATUS" property="status"/>
-        <result column="COUNT" property="statusCount"/>
+        <result column="NAME" property="statusName"/>
+        <result column="ID" property="statusId"/>
+        <result column="WORKTODO" property="statusTodo"/>
+        <result column="PROGRESS" property="statusProgress"/>
+        <result column="COMPLETE" property="statusComplete"/>
+        <result column="SUM" property="statusSum"/>
     </resultMap>
 
     <select id="scheduleWorkspaceSelect" parameterType="int" resultMap="workspaceResultMap">
@@ -74,7 +78,7 @@
         SELECT COUNT(*)
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
-        WHERE PROJECT_ID = #{projectId} AND TASK_STATUS = 'worktodo'
+        WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'worktodo'
     </select>
 
     <select id="statusTodoWholeSelect" resultType="int">
@@ -88,7 +92,7 @@
         SELECT COUNT(*)
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
-        WHERE PROJECT_ID = #{projectId} AND TASK_STATUS = 'progress'
+        WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'progress'
     </select>
 
     <select id="statusProgressWholeSelect" resultType="int">
@@ -102,7 +106,7 @@
         SELECT COUNT(*)
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
-        WHERE PROJECT_ID = #{projectId} AND TASK_STATUS = 'complete'
+        WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'complete'
     </select>
 
     <select id="statusCompleteWholeSelect" resultType="int">
@@ -136,34 +140,73 @@
     </select>
 
     <select id="workspaceStatusSelect" parameterType="int" resultMap="statusContainerResultMap">
-        SELECT TASK_STATUS, COUNT(*) AS COUNT
+        SELECT WORKSPACE_NAME AS NAME, WORKSPACE_ID AS ID, NVL(WORKTODO,0) AS WORKTODO, NVL(PROGRESS,0) AS PROGRESS, NVL(COMPLETE,0) AS COMPLETE, (NVL(WORKTODO,0)+NVL(PROGRESS,0)+NVL(COMPLETE,0)) AS SUM
+        FROM (
+        SELECT WORKSPACE_NAME, WORKSPACE_ID
+        FROM WORKSPACE
+        )
+        LEFT JOIN (
+        SELECT WORKSPACE_ID, COUNT(*) WORKTODO
+        FROM (
+        SELECT WORKSPACE_ID
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
-        WHERE WORKSPACE_ID = #{workspaceId}
-        GROUP BY TASK_STATUS
-    </select>
-
-    <select id="workspaceStatusWholeSelect" resultMap="statusContainerResultMap">
-        SELECT TASK_STATUS, COUNT(*) AS COUNT
+        WHERE TASK_STATUS = 'worktodo')
+        GROUP BY WORKSPACE_ID
+        ) USING (WORKSPACE_ID)
+        LEFT JOIN (SELECT WORKSPACE_ID, COUNT(*) PROGRESS
+        FROM (
+        SELECT WORKSPACE_ID
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
-        GROUP BY TASK_STATUS
+        WHERE TASK_STATUS = 'progress')
+        GROUP BY WORKSPACE_ID
+        ) USING (WORKSPACE_ID)
+        LEFT JOIN (
+        SELECT WORKSPACE_ID, COUNT(*) COMPLETE
+        FROM (
+        SELECT WORKSPACE_ID
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE TASK_STATUS = 'complete')
+        GROUP BY WORKSPACE_ID
+        ) USING (WORKSPACE_ID)
     </select>
 
     <select id="projectStatusSelect" parameterType="int" resultMap="statusContainerResultMap">
-        SELECT TASK_STATUS, COUNT(*) AS COUNT
+        SELECT PROJECT_NAME AS NAME, PROJECT_ID AS ID, NVL(WORKTODO,0) AS WORKTODO, NVL(PROGRESS,0) AS PROGRESS, NVL(COMPLETE,0) AS COMPLETE, (NVL(WORKTODO,0)+NVL(PROGRESS,0)+NVL(COMPLETE,0)) AS SUM
+        FROM (
+        SELECT PROJECT_NAME, PROJECT_ID
+        FROM PROJECT
+        )
+        LEFT JOIN (
+        SELECT PROJECT_ID, COUNT(*) WORKTODO
+        FROM (
+        SELECT PROJECT_ID
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
-        WHERE PROJECT_ID = #{projectId}
-        GROUP BY TASK_STATUS
-    </select>
-
-    <select id="projectStatusWholeSelect" resultMap="statusContainerResultMap">
-        SELECT TASK_STATUS, COUNT(*) AS COUNT
+        WHERE TASK_STATUS = 'worktodo')
+        GROUP BY PROJECT_ID
+        ) USING (PROJECT_ID)
+        LEFT JOIN (SELECT PROJECT_ID, COUNT(*) PROGRESS
+        FROM (
+        SELECT PROJECT_ID
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
-        GROUP BY TASK_STATUS
+        WHERE TASK_STATUS = 'progress')
+        GROUP BY PROJECT_ID
+        ) USING (PROJECT_ID)
+        LEFT JOIN (
+        SELECT PROJECT_ID, COUNT(*) COMPLETE
+        FROM (
+        SELECT PROJECT_ID
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE TASK_STATUS = 'complete')
+        GROUP BY PROJECT_ID
+        ) USING (PROJECT_ID)
     </select>
 </mapper>

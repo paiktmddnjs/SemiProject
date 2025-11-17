@@ -10,19 +10,17 @@ import java.util.List;
 @Mapper
 public interface ScheduleMapper {
     List<Workspace> scheduleWorkspaceSelect(@Param("memberId") int memberId);
-    List<Project> scheduleProjectSelect(@Param("projectId") int projectId);
+    List<Project> scheduleProjectSelect(@Param("workspaceId") int workspaceId);
     List<Project> scheduleProjectWholeSelect();
-    int statusTodoSelect(@Param("projectId") int projectId);
+    int statusTodoSelect(@Param("workspaceId") int workspaceId);
     int statusTodoWholeSelect();
-    int statusProgressSelect(@Param("projectId") int projectId);
+    int statusProgressSelect(@Param("workspaceId") int workspaceId);
     int statusProgressWholeSelect();
-    int statusCompleteSelect(@Param("projectId") int projectId);
+    int statusCompleteSelect(@Param("workspaceId") int workspaceId);
     int statusCompleteWholeSelect();
     List<Task> calendarSelect(@Param("projectId") int projectId);
     List<Task> calendarWholeSelect();
     List<Task> dailyTaskSelect(@Param("selectedDate") String selectedDate);
-    List<StatusContainer> workspaceStatusSelect(@Param("workspaceId") int workspaceId);
-    List<StatusContainer> workspaceStatusWholeSelect();
-    List<StatusContainer> projectStatusSelect(@Param("projectId") int projectId);
-    List<StatusContainer> projectStatusWholeSelect();
+    List<StatusContainer> workspaceStatusSelect();
+    List<StatusContainer> projectStatusSelect();
 }

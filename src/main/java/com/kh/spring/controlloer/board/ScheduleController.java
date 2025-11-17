@@ -11,11 +11,15 @@ import jdk.jshell.Snippet;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -41,56 +45,19 @@ public class ScheduleController {
         int statusComplete = scheduleServiceImpl.statusCompleteWholeSelect();
         List<Task> calendar = scheduleServiceImpl.calendarWholeSelect();
         List<Task> dailyTask = scheduleServiceImpl.dailyTaskSelect(todayStr);
-        List<StatusContainer> workspaceStatus = scheduleServiceImpl.workspaceStatusWholeSelect();
-        List<StatusContainer> projectStatus = scheduleServiceImpl.projectStatusWholeSelect();
+        List<StatusContainer> workspaceStatus = scheduleServiceImpl.workspaceStatusSelect();
+        List<StatusContainer> projectStatus = scheduleServiceImpl.projectStatusSelect();
 
-        for (Workspace w : workspace){
-            String w_name = w.getWorkspaceName();
-            int w_id = w.getWorkspaceId();
-            System.out.println("워크스페이스 정보 : " + w_name + ", " + w_id);
-        }
 
-        for (Project p : project){
-            String p_name = p.getProjectName();
-            int p_id = p.getProjectId();
-            System.out.println("프로젝트 정보 : " + p_name + ", " + p_id);
-        }
-
-        System.out.println("할일 갯수 : " + statusTodo);
-        System.out.println("진행중 갯수 : " + statusProgress);
-        System.out.println("완료된 일 갯수 : " + statusComplete);
-
-        for (Task c : calendar){
-            String c_name = c.getTaskName();
-            int c_id = c.getTaskId();
-            String c_start = c.getTaskStart();
-            String c_deadline = c.getTaskDeadline();
-            System.out.println("달력 정보 : " + c_name + ", " + c_id + ", " + c_start + ", " + c_deadline);
-        }
-
-        for (Task d : dailyTask){
-            String d_workspace = d.getWorkspaceName();
-            String d_project = d.getProjectName();
-            String d_status = d.getTaskStatus();
-            String d_name = d.getTaskName();
-            String d_assign = d.getTaskAssign();
-            System.out.println("할일 목록 : " + d_workspace + ", " + d_project + ", " + d_status + ", " + d_name + ", " + d_assign);
-        }
-
-        for (StatusContainer ws : workspaceStatus){
-            String ws_status = ws.getStatus();
-            int ws_count = ws.getStatusCount();
-            System.out.println("워크스페이스 정보 : " + ws_status + ", " + ws_count);
-        }
-
-        for (StatusContainer ps : projectStatus){
-            String ps_status = ps.getStatus();
-            int ps_count = ps.getStatusCount();
-            System.out.println("프로젝트 정보 : " + ps_status + ", " + ps_count);
-        }
-
-        model.addAttribute("workspaces", workspace);
-
+        model.addAttribute("scheduleWorkspaces", workspace);
+        model.addAttribute("scheduleProjects", project);
+        model.addAttribute("todo", statusTodo);
+        model.addAttribute("progress", statusProgress);
+        model.addAttribute("complete", statusComplete);
+        model.addAttribute("calendar", calendar);
+        model.addAttribute("dailyTask", dailyTask);
+        model.addAttribute("workspaceStatus", workspaceStatus);
+        model.addAttribute("projectStatus", projectStatus);
         return "board/schedule";
     }
 
@@ -98,5 +65,18 @@ public class ScheduleController {
     @PostMapping("/schedule.bo")
     public String handleSchedulePost() {
         return "board/schedule";
+    }
+
+    @PostMapping("/scheduleWorkspace")
+    @ResponseBody
+    public Map<String, Object> scheduleWorkspaceId(@RequestParam("workspaceSelect") int workspaceId) {
+
+        List<Project> project = scheduleServiceImpl.scheduleProjectSelect(workspaceId);
+
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("scheduleProjects", project);
+
+        return result;
     }
 }

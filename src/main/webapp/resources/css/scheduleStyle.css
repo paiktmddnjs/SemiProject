@@ -85,6 +85,13 @@
     color:black;
 }
 
+.buttonCollection button.disactive:hover{
+    background: #ffe4d7 !important;
+    color: #868686;
+    transition: background 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
 .buttonCollection button.activated{
     background: #ea580c;
     padding-top: 5px;
@@ -399,6 +406,70 @@
 .fc-event{
     background-color: #ea580c;
     border: 0px;
+}
+
+.eventColor1{
+    background-color: #FFA12B !important;
+}
+.eventColor2{
+    background-color: #FFA844 !important;
+}
+.eventColor3{
+    background-color: #FFAC49 !important;
+}
+.eventColor4{
+    background-color: #F9A901 !important;
+}
+.eventColor5{
+    background-color: #FEA610 !important;
+}
+.eventColor6{
+    background-color: #FFBF01 !important;
+}
+.eventColor7{
+    background-color: #EB9605 !important;
+}
+.eventColor8{
+    background-color: #F78C2F !important;
+}
+.eventColor9{
+    background-color: #FA812A !important;
+}
+.eventColor10{
+    background-color: #F58008 !important;
+}
+.eventColor11{
+    background-color: #EF820D !important;
+}
+.eventColor12{
+    background-color: #FF7417 !important;
+}
+.eventColor13{
+    background-color: #EF7216 !important;
+}
+.eventColor14{
+    background-color: #FD6901 !important;
+}
+.eventColor15{
+    background-color: #FB670A !important;
+}
+.eventColor16{
+    background-color: #FC6701 !important;
+}
+.eventColor17{
+    background-color: #F05E23 !important;
+}
+.eventColor18{
+    background-color: #EF6321 !important;
+}
+.eventColor19{
+    background-color: #FE4E03 !important;
+}
+.eventColor20{
+    background-color: #B3672B !important;
+}
+.eventColor21{
+    background-color: #C05403 !important;
 }
 
 .first-event{

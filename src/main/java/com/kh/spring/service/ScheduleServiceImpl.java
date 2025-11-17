@@ -25,8 +25,8 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public List<Project> scheduleProjectSelect(int projectId){
-        return scheduleMapper.scheduleProjectSelect(projectId);
+    public List<Project> scheduleProjectSelect(int workspaceId){
+        return scheduleMapper.scheduleProjectSelect(workspaceId);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public int statusTodoSelect(int projectId){
-        return scheduleMapper.statusTodoSelect(projectId);
+    public int statusTodoSelect(int workspaceId){
+        return scheduleMapper.statusTodoSelect(workspaceId);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public int statusProgressSelect(int projectId){
-        return scheduleMapper.statusProgressSelect(projectId);
+    public int statusProgressSelect(int workspaceId){
+        return scheduleMapper.statusProgressSelect(workspaceId);
     }
 
     @Override
@@ -55,8 +55,8 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public int statusCompleteSelect(int projectId){
-        return scheduleMapper.statusCompleteSelect(projectId);
+    public int statusCompleteSelect(int workspaceId){
+        return scheduleMapper.statusCompleteSelect(workspaceId);
     }
 
     @Override
@@ -80,22 +80,12 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public List<StatusContainer> workspaceStatusSelect(int workspaceId){
-        return scheduleMapper.workspaceStatusSelect(workspaceId);
+    public List<StatusContainer> workspaceStatusSelect(){
+        return scheduleMapper.workspaceStatusSelect();
     }
 
     @Override
-    public List<StatusContainer> workspaceStatusWholeSelect(){
-        return scheduleMapper.workspaceStatusWholeSelect();
-    }
-
-    @Override
-    public List<StatusContainer> projectStatusSelect(int projectId){
-        return scheduleMapper.projectStatusSelect(projectId);
-    }
-
-    @Override
-    public List<StatusContainer> projectStatusWholeSelect(){
-        return scheduleMapper.projectStatusWholeSelect();
+    public List<StatusContainer> projectStatusSelect(){
+        return scheduleMapper.projectStatusSelect();
     }
 }
