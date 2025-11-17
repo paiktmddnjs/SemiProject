@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -241,7 +241,7 @@
 </head>
 <body>
 <div class="container">
-    <button class="back-button" onclick="location.href='landing'">
+    <button class="back-button" onclick="location.href='/'">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
@@ -263,7 +263,7 @@
             로그인과 크리에이터의 성장을 시작하세요
         </p>
 
-        <form onsubmit="handleSubmit(event)">
+        <form  action="${pageContext.request.contextPath}/login.me" method="post">
             <div class="form-group">
                 <label for="email">이메일</label>
                 <div class="input-wrapper">
@@ -326,7 +326,7 @@
 
         <p class="signup-text">
             아직 계정이 없으신가요?
-            <a href="#" class="signup-link">회원가입</a>
+            <a href="<c:url value='/enrollForm.me'/>" class="signup-link">회원가입</a>
         </p>
     </div>
 
@@ -354,18 +354,6 @@
             eyeIcon.style.display = 'block';
             eyeOffIcon.style.display = 'none';
         }
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const remember = document.getElementById('remember').checked;
-
-        console.log('로그인 시도:', { email, password, remember });
-        alert('로그인 시도: ' + email);
-
-        // 여기에 실제 로그인 로직을 추가하세요
     }
 
 

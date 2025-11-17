@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -34,9 +36,20 @@ public class MemberController {
 
     @GetMapping("enrollForm.me")
     public String enrollForm() {
-        return "Sign_Up";
+        return "SignUp";
     }
 
     @GetMapping("loginForm.me")
     public  String login() {return "Login";}
+
+    @GetMapping("emailDuplicateCheck.me")
+    @ResponseBody
+    public String emailDuplicateCheck(@RequestParam String checkEmail) {
+        int count = memberService.getMemberCountByEmail(checkEmail);
+
+        return count > 0 ? "NNNNN" : "NNNNY";
+    }
+
+    @PostMapping("login.me")
+    public
 }

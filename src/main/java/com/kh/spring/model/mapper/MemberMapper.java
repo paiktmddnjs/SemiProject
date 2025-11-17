@@ -12,4 +12,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface MemberMapper {
     int addMember(Member member);
+    int getMemberCountByEmail(@Param("email") String email);
 }

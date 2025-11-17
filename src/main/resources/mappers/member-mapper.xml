@@ -19,19 +19,25 @@
     <insert id="addMember" parameterType="Member">
         INSERT INTO MEMBER
         (
-            MEMBER_ID,
-            EMAIL,
-            MEMBER_PWD,
-            MEMBER_NAME,
-            PHONE
+        MEMBER_ID,
+        EMAIL,
+        MEMBER_PWD,
+        MEMBER_NAME,
+        PHONE
 
         )
         VALUES(
-            SEQ_MEMBER_ID.NEXTVAL,
-            #{email},
-            #{memberPwd},
-            #{memberName},
-            #{phone}
+        SEQ_MEMBER_ID.NEXTVAL,
+        #{email},
+        #{memberPwd},
+        #{memberName},
+        #{phone}
         )
     </insert>
+
+    <select id="getMemberCountByEmail" resultType="_int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE EMAIL = #{email}
+    </select>
 </mapper>

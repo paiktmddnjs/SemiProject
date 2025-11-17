@@ -6,7 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CREP 시작하기</title>
+
+    <!-- jQuery (AJAX용) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -87,9 +92,9 @@
                 </div>
             </div>
 
-            <!-- Email Field -->
+            <!-- Email Field (로그인 ID 겸용) -->
             <div class="space-y-2">
-                <label for="email" class="text-sm text-[#364153]">이메일</label>
+                <label for="email" class="text-sm text-[#364153]">이메일 (아이디)</label>
 
                 <div class="relative flex gap-2">
                     <!-- 이메일 입력창 -->
@@ -111,7 +116,7 @@
                     <!-- 중복확인 버튼 -->
                     <button type="button"
                             id="checkEmailBtn"
-
+                            onclick="emailDuplicateCheck()"
                             class="w-[110px] h-[50px] bg-[#F54900] text-white rounded-lg text-sm hover:bg-[#D94000]">
                         중복확인
                     </button>
@@ -202,12 +207,12 @@
                 <label class="flex items-start gap-2 cursor-pointer">
                     <input type="checkbox" id="agreeToTerms" name="agreeToTerms" class="checkbox-custom mt-0.5" required/>
                     <span class="text-sm text-[#364153] leading-5">
-            <span class="text-[#F54900]">(필수) </span>
-            <a class="link-orange">이용약관</a>
-            <span> 및 </span>
-            <a class="link-orange">개인정보처리방침</a>
-            <span>에 동의합니다</span>
-          </span>
+                        <span class="text-[#F54900]">(필수) </span>
+                        <a class="link-orange">이용약관</a>
+                        <span> 및 </span>
+                        <a class="link-orange">개인정보처리방침</a>
+                        <span>에 동의합니다</span>
+                    </span>
                 </label>
             </div>
 
@@ -233,7 +238,7 @@
 </div>
 
 <script>
-    // Toggle password visibility
+    // 비밀번호 표시 토글
     function togglePassword(inputId, button) {
         const input = document.getElementById(inputId);
         const eyeOpen = button.querySelector('.eye-open');
@@ -256,7 +261,7 @@
         return re.test(String(email).toLowerCase());
     }
 
-    // (선택) 비밀번호 복잡도 검사: 8자+, 숫자+영문
+    // 비밀번호 복잡도 검사: 8자+, 숫자+영문
     function isStrongPassword(pwd) {
         if (pwd.length < 8) return false;
         const hasNum = /\d/.test(pwd);
@@ -265,12 +270,61 @@
     }
 
     let submitting = false;
+    let emailChecked = false; // 이메일(아이디) 중복확인 여부
+
+    // 이메일 중복확인
+    function emailDuplicateCheck() {
+        const emailInput = document.getElementById('email');
+        const email = emailInput.value.trim();
+        const msg = document.getElementById('emailCheckMsg');
+
+        if (!isValidEmail(email)) {
+            alert('올바른 이메일 주소를 입력한 후 중복확인을 눌러주세요.');
+            emailInput.focus();
+            return;
+        }
+
+        $.ajax({
+            url : 'emailDuplicateCheck.me',   // 컨트롤러 매핑에 맞춰서 사용
+            type : 'get',
+            data : { checkEmail : email },
+            success: function(result){
+                // 존재하는 경우
+                if (result === 'NNNNN') {
+                    emailChecked = false;
+                    msg.textContent = '이미 가입된 이메일입니다.';
+                    msg.className = 'text-sm mt-1 text-red-600';
+                    emailInput.focus();
+                } else {
+                    // 사용 가능
+                    if (confirm('사용 가능한 이메일입니다. 이 이메일을 아이디로 사용하시겠습니까?')) {
+                        emailChecked = true;
+                        emailInput.setAttribute('readonly', true);
+                        msg.textContent = '이메일 중복확인을 완료했습니다.';
+                        msg.className = 'text-sm mt-1 text-green-600';
+                    } else {
+                        emailChecked = false;
+                        msg.textContent = '';
+                        msg.className = 'text-sm mt-1';
+                        emailInput.focus();
+                    }
+                }
+                validateForm();
+            },
+            error: function(err){
+                console.log('이메일 중복 체크 요청 실패 : ', err);
+                emailChecked = false;
+                msg.textContent = '이메일 중복확인 중 오류가 발생했습니다.';
+                msg.className = 'text-sm mt-1 text-red-600';
+                validateForm();
+            }
+        });
+    }
 
     // onsubmit 핸들러: 유효하면 true를 반환하여 기본 제출 진행
     function handleSubmit(event) {
         if (submitting) return false;
 
-        const form = document.getElementById('signupForm');
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
@@ -280,7 +334,8 @@
         const submitBtn = document.getElementById('submitBtn');
 
         if (!name) { alert('이름을 입력하세요.'); return false; }
-        if (!isValidEmail(email)) { alert('올바 있는 이메일 주소를 입력하세요.'); return false; }
+        if (!isValidEmail(email)) { alert('올바른 이메일 주소를 입력하세요.'); return false; }
+        if (!emailChecked) { alert('이메일 중복확인을 먼저 진행해주세요.'); return false; }
         if (password !== confirmPassword) { alert('비밀번호가 일치하지 않습니다.'); return false; }
         if (!isStrongPassword(password)) { alert('비밀번호는 8자 이상, 숫자와 영문을 조합해주세요.'); return false; }
         if (!agreeToTerms) { alert('이용약관 및 개인정보처리방침에 동의해주세요.'); return false; }
@@ -289,15 +344,14 @@
         submitting = true;
         submitBtn.disabled = true;
         submitBtn.innerHTML = `
-      <svg class="animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-           fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-      </svg>
-      <span class="text-lg">처리 중...</span>
-    `;
+          <svg class="animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+          </svg>
+          <span class="text-lg">처리 중...</span>
+        `;
 
-        // true를 반환하면 브라우저가 form을 정상 제출함
-        return true;
+        return true; // form submit 진행
     }
 
     // 실시간 유효성 검사 (버튼 활성/비활성)
@@ -305,14 +359,23 @@
         const agreeToTerms = document.getElementById('agreeToTerms').checked;
         const submitBtn = document.getElementById('submitBtn');
 
-
-        submitBtn.disabled = !agreeToTerms || submitting;
+        // 필수: 약관 동의 + 이메일 중복확인 완료 + 아직 제출 중 아님
+        submitBtn.disabled = !agreeToTerms || !emailChecked || submitting;
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         const formInputs = document.querySelectorAll('#signupForm input');
         formInputs.forEach(input => {
-            input.addEventListener('input', validateForm);
+            input.addEventListener('input', function(e) {
+                // 이메일 수정 시 중복체크 다시 필요하도록 플래그 초기화
+                if (e.target.id === 'email' && !e.target.readOnly) {
+                    emailChecked = false;
+                    const msg = document.getElementById('emailCheckMsg');
+                    msg.textContent = '';
+                    msg.className = 'text-sm mt-1';
+                }
+                validateForm();
+            });
             input.addEventListener('change', validateForm);
         });
         validateForm();
