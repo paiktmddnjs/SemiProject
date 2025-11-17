@@ -9,7 +9,7 @@
 <div class="whitebox" style="width: 99%;">
     <h3>진행현황</h3>
 
-    <p>'유튜브 채널 운영' 현황</p>
+    <p id="whole-title">전체 현황</p>
     <div class="dataCollection">
         <div class="dataBlock" style="height:100px; width: 32%; background-color:#fff7ed;">
             <div class="dataBlockType" style="background-color:#f54900">
@@ -17,7 +17,7 @@
             </div>
             <div class="dataBlockText">
                 <p>진행중</p>
-                <h1 id="whole-progress" style="color:#f54900">${todo}건</h1>
+                <h1 id="whole-progress" style="color:#f54900">${progress}건</h1>
             </div>
         </div>
         <div class="dataBlock" style="height:100px; width: 32%; background-color:#f9fafb;">
@@ -26,7 +26,7 @@
             </div>
             <div class="dataBlockText">
                 <p>예정</p>
-                <h1 id="whole-expected" style="color:#4a5565">${progress}건</h1>
+                <h1 id="whole-todo" style="color:#4a5565">${todo}건</h1>
             </div>
         </div>
         <div class="dataBlock" style="height:100px; width: 32%; background-color:#f0fdf4;">

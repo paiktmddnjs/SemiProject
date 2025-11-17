@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(e.target.tagName === 'BUTTON') {
             const workspaceId = e.target.value;
+            const workspaceName = e.target.textContent;
 
             fetch(`${window.location.origin}/scheduleWorkspace`, {
                 method: 'POST',
@@ -22,6 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         projectButtonList += `<button type="button" class="disactive" value="${p.projectId}">${p.projectName}</button>`;
                     });
                     projectButtonContainer.innerHTML = projectButtonList;
+
+                    document.getElementById('whole-title').textContent = `${workspaceName} 현황`;
+                    document.getElementById('whole-todo').textContent = `${data.statusTodo}건`;
+                    document.getElementById('whole-progress').textContent = `${data.statusProgress}건`;
+                    document.getElementById('whole-completed').textContent = `${data.statusComplete}건`;
 
                     Array.from(workspaceButtonContainer.children).forEach(btn => {
                         btn.classList.remove('activated');

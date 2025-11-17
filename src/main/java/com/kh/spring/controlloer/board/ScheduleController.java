@@ -72,10 +72,15 @@ public class ScheduleController {
     public Map<String, Object> scheduleWorkspaceId(@RequestParam("workspaceSelect") int workspaceId) {
 
         List<Project> project = scheduleServiceImpl.scheduleProjectSelect(workspaceId);
-
+        int statusTodo = scheduleServiceImpl.statusTodoSelect(workspaceId);
+        int statusProgress = scheduleServiceImpl.statusProgressSelect(workspaceId);
+        int statusComplete = scheduleServiceImpl.statusCompleteSelect(workspaceId);
 
         Map<String, Object> result = new HashMap<>();
         result.put("scheduleProjects", project);
+        result.put("statusTodo", statusTodo);
+        result.put("statusProgress", statusProgress);
+        result.put("statusComplete", statusComplete);
 
         return result;
     }
