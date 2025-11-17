@@ -5,9 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@MapperScan(basePackages = "com.kh.spring.model.mapper")
+@MapperScan(basePackages = {"com.kh.spring.model.mapper", "com.kh.spring.mapper", "com.kh.spring.model.dao"})
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-@MapperScan("com.kh.spring.model.dao")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

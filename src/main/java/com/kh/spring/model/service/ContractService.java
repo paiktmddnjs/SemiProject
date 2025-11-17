@@ -8,13 +8,13 @@ import com.kh.spring.model.vo.Company;
 public interface ContractService {
     
     // 계약 목록 조회
-    List<Contract> selectContractList();
+    List<Contract> selectContractList(Long memberId);
     
     // 계약 상세 조회
     Contract selectContract(int contractId);
     
     // 계약 통계 조회
-    ContractSummary selectContractSummary();
+    ContractSummary selectContractSummary(Long memberId);
     
     // 계약 추가
     int insertContract(Contract contract);

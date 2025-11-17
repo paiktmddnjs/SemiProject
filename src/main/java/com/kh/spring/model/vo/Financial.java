@@ -19,7 +19,7 @@ public class Financial {
     private Integer contractId; // NULL 가능성이 있으므로 래퍼(Wrapper) 클래스 Integer 사용
 
     /** MEMBER_ID NUMBER NOT NULL (FK) */
-    private int memberId;
+    private Long memberId;
 
     /** FINACIAL_NAME VARCHAR2(100) NOT NULL */
     private String financialName;

@@ -34,14 +34,20 @@ public class FinancialController {
     @GetMapping("financial")
     public String getFinancialboard(@RequestParam(value="page", defaultValue="1") int currentPage,
                                     @RequestParam(value="tab", defaultValue="overview") String currentTabKey,// 페이지 번호 받기
-                                    Model model) {
-
+                                    Model model,
+                                    jakarta.servlet.http.HttpSession session) {
+        
+        // 세션에서 로그인한 멤버 ID 가져오기
+        Long memberId = (Long) session.getAttribute("memberId");
+        if (memberId == null) {
+            return "redirect:/login";
+        }
 
         // 1. 순이익 계산 (예: 40200000)
-        int netProfit = (financialService.calculateNetProfit() / 10000);
-        int Profit = (financialService.calculateProfit() / 10000);
-        int Expense = (financialService.calculateExpense() / 10000);
-        int PrevNetProfit = (financialService.calculatePreNetProfit() / 10000);
+        int netProfit = (financialService.calculateNetProfit(memberId) / 10000);
+        int Profit = (financialService.calculateProfit(memberId) / 10000);
+        int Expense = (financialService.calculateExpense(memberId) / 10000);
+        int PrevNetProfit = (financialService.calculatePreNetProfit(memberId) / 10000);
 
         // DecimalFormat을 사용하여 소수점 2자리와 부호를 동시에 처리
         // 패턴: 양수일 때 앞에 '+'를 붙임 (0.00; -0.00)
@@ -64,10 +70,10 @@ public class FinancialController {
 
 
         // 데이터베이스로부터 카테고리와 수익,지출 에 따른 값을 가져와서 월별 합계로 저장하기
-        List<Monthly> monthlyThings = financialService.calculateMonthly();
-        List<Monthly> monthlyTotalMoney = financialService.calculateMonthlyMoney();
+        List<Monthly> monthlyThings = financialService.calculateMonthly(memberId);
+        List<Monthly> monthlyTotalMoney = financialService.calculateMonthlyMoney(memberId);
 
-        List<TopThree> topList = financialService.selectTopThree();
+        List<TopThree> topList = financialService.selectTopThree(memberId);
         TopThree dummy = TopThree.DUMMY; // 미리 생성된 더미 객체
 
 // 리스트 크기를 확인하여 각 순위에 맞는 객체를 할당
@@ -126,7 +132,7 @@ public class FinancialController {
 
 
         //page를 위한 map 객체
-        Map<String, Object> transactionData = financialService.selectAllTransaction(currentPage);
+        Map<String, Object> transactionData = financialService.selectAllTransaction(memberId, currentPage);
 
 
         model.addAttribute("monthlyNetProfit", monthlyNetProfit);
@@ -174,11 +180,18 @@ public class FinancialController {
 
 
     @PostMapping("insert.f")
-    public String insertProfitFinancial(@ModelAttribute Financial financial, RedirectAttributes ra) {
+    public String insertProfitFinancial(@ModelAttribute Financial financial, RedirectAttributes ra,
+                                       jakarta.servlet.http.HttpSession session) {
+
+        // 세션에서 로그인한 멤버 ID 가져오기
+        Long memberId = (Long) session.getAttribute("memberId");
+        if (memberId == null) {
+            ra.addFlashAttribute("msg", "로그인이 필요합니다.");
+            return "redirect:/login";
+        }
 
         financial.setFinancialType("수익");
-        // ⭐ 필수: 실제 로그인된 사용자 ID를 설정 (예시: 세션에서 가져옴)
-        financial.setMemberId(1234); // 예
+        financial.setMemberId(memberId);
 
         int result = financialService.insertProfitFinancial(financial);
 
@@ -195,11 +208,19 @@ public class FinancialController {
 
 
     @PostMapping("insert.e")
-    public String insertExpenseFinancial(@ModelAttribute Financial financial, RedirectAttributes ra) {
+    public String insertExpenseFinancial(@ModelAttribute Financial financial, RedirectAttributes ra,
+                                        jakarta.servlet.http.HttpSession session) {
 
         try {
+            // 세션에서 로그인한 멤버 ID 가져오기
+            Long memberId = (Long) session.getAttribute("memberId");
+            if (memberId == null) {
+                ra.addFlashAttribute("msg", "로그인이 필요합니다.");
+                return "redirect:/login";
+            }
+
             financial.setFinancialType("지출");
-            // ⭐ 필수: 실제 로그인된 사용자 ID를 설정 (예시: 세션에서 가져옴)
+            financial.setMemberId(memberId);
 
             int result = financialService.insertExpenseFinancial(financial);
 

@@ -14,22 +14,22 @@ public interface FinancialMapper {
 
     Financial selectAllFinancial();
     List<Financial> selectAllFinancialRecords();
-    int calculateNetProfit();
-    int calculateProfit();
-    int calculateExpense();
-    int calculatePreNetProfit();
+    int calculateNetProfit(@Param("memberId") Long memberId);
+    int calculateProfit(@Param("memberId") Long memberId);
+    int calculateExpense(@Param("memberId") Long memberId);
+    int calculatePreNetProfit(@Param("memberId") Long memberId);
 
-    List<Monthly> calculateMonthly();
-    List<Monthly> calculateMonthlyMoney();
-    List<TopThree> selectTopThree();
+    List<Monthly> calculateMonthly(@Param("memberId") Long memberId);
+    List<Monthly> calculateMonthlyMoney(@Param("memberId") Long memberId);
+    List<TopThree> selectTopThree(@Param("memberId") Long memberId);
 
     int insertFinancial(Financial financial);
     List<Financial> selectAllTransaction();
 
     // 1. 전체 개수 조회
-    int selectTransactionCount();
+    int selectTransactionCount(@Param("memberId") Long memberId);
 
     // 2. 범위별 조회 (Map에 offset과 limit을 담아 전달)
-    List<Financial> selectAllTransaction(@Param("offset") int offset, @Param("limit") int limit);
+    List<Financial> selectAllTransaction(@Param("memberId") Long memberId, @Param("offset") int offset, @Param("limit") int limit);
 
 }

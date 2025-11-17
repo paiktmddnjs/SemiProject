@@ -15,8 +15,8 @@ public class ContractServiceImpl implements ContractService {
     private ContractMapper contractMapper;
     
     @Override
-    public List<Contract> selectContractList() {
-        return contractMapper.selectContractList();
+    public List<Contract> selectContractList(Long memberId) {
+        return contractMapper.selectContractList(memberId);
     }
     
     @Override
@@ -25,8 +25,8 @@ public class ContractServiceImpl implements ContractService {
     }
     
     @Override
-    public ContractSummary selectContractSummary() {
-        return contractMapper.selectContractSummary();
+    public ContractSummary selectContractSummary(Long memberId) {
+        return contractMapper.selectContractSummary(memberId);
     }
     
     @Override

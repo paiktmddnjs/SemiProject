@@ -24,6 +24,7 @@
             co.COMPANY_REPRESENTATIVE as companyRepresentative
         FROM CONTRACT c
         LEFT JOIN COMPANY co ON c.COMPANY_ID = co.COMPANY_ID
+        WHERE c.MEMBER_ID = #{memberId}
         ORDER BY c.CONTRACT_START DESC
     </select>
     
@@ -54,12 +55,13 @@
     <!-- 계약 통계 조회 -->
     <select id="selectContractSummary" resultType="ContractSummary">
         SELECT 
-            (SELECT COUNT(*) FROM CONTRACT WHERE CONTRACT_STATUS = 'Y') as activeContracts,
-            (SELECT NVL(SUM(CONTRACT_AMOUNT), 0) FROM CONTRACT) as totalAmount,
+            (SELECT COUNT(*) FROM CONTRACT WHERE CONTRACT_STATUS = 'Y' AND MEMBER_ID = #{memberId}) as activeContracts,
+            (SELECT NVL(SUM(CONTRACT_AMOUNT), 0) FROM CONTRACT WHERE MEMBER_ID = #{memberId}) as totalAmount,
             (SELECT COUNT(*) FROM CONTRACT 
-             WHERE TO_CHAR(CONTRACT_START, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')) as newContractsThisMonth,
+             WHERE TO_CHAR(CONTRACT_START, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')
+             AND MEMBER_ID = #{memberId}) as newContractsThisMonth,
             0 as newContractsGrowthRate,
-            (SELECT COUNT(*) FROM CONTRACT WHERE CONTRACT_STATUS != 'Y') as pendingPayments
+            (SELECT COUNT(*) FROM CONTRACT WHERE CONTRACT_STATUS != 'Y' AND MEMBER_ID = #{memberId}) as pendingPayments
         FROM DUAL
     </select>
     

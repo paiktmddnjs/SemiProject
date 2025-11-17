@@ -41,45 +41,45 @@ public class FinancialServiceImpl implements FinancialService {
     }
 
     @Override
-    public int calculateNetProfit() {
+    public int calculateNetProfit(Long memberId) {
         // 매퍼에 정의된 순이익 계산 쿼리(calculateNetProfit)를 호출
-        return financialMapper.calculateNetProfit();
+        return financialMapper.calculateNetProfit(memberId);
     }
 
     @Override
-    public int calculateProfit()
+    public int calculateProfit(Long memberId)
     {
-        return financialMapper.calculateProfit();
+        return financialMapper.calculateProfit(memberId);
 
     }
 
     @Override
-    public int calculateExpense()
+    public int calculateExpense(Long memberId)
     {
 
-        return financialMapper.calculateExpense();
+        return financialMapper.calculateExpense(memberId);
     }
 
-    public int calculatePreNetProfit()
+    public int calculatePreNetProfit(Long memberId)
     {
-        return financialMapper.calculatePreNetProfit();
+        return financialMapper.calculatePreNetProfit(memberId);
     }
 
     @Override
-    public List<Monthly> calculateMonthly() {
+    public List<Monthly> calculateMonthly(Long memberId) {
 
-        return financialMapper.calculateMonthly();
+        return financialMapper.calculateMonthly(memberId);
     }
 
-    public List<Monthly> calculateMonthlyMoney() {
-        return financialMapper.calculateMonthlyMoney();
+    public List<Monthly> calculateMonthlyMoney(Long memberId) {
+        return financialMapper.calculateMonthlyMoney(memberId);
     }
 
 
 
-    public  List<TopThree> selectTopThree() {
+    public  List<TopThree> selectTopThree(Long memberId) {
 
-        return financialMapper.selectTopThree();
+        return financialMapper.selectTopThree(memberId);
     }
 
 
@@ -95,15 +95,15 @@ public class FinancialServiceImpl implements FinancialService {
     }
 
     @Override
-    public int selectTransactionCount() {
-        return financialMapper.selectTransactionCount();
+    public int selectTransactionCount(Long memberId) {
+        return financialMapper.selectTransactionCount(memberId);
     }
 
     @Override
-    public Map<String, Object> selectAllTransaction(int currentPage) {
+    public Map<String, Object> selectAllTransaction(Long memberId, int currentPage) {
 
         // 1. 총 거래 내역 개수 조회
-        int listCount = financialMapper.selectTransactionCount(); /// 인터페이스 메서드 활용
+        int listCount = financialMapper.selectTransactionCount(memberId); /// 인터페이스 메서드 활용
 
         // 2. 페이지네이션 정보(PageInfo) 설정 및 계산
         int pageLimit = 10;
@@ -118,7 +118,7 @@ public class FinancialServiceImpl implements FinancialService {
 
         // 4. 범위별 거래 내역 조회 (Mapper 호출)
         // Mapper로 offset과 limit을 전달하여 DB에서 6개 데이터만 가져옴
-        List<Financial> transactionList = financialMapper.selectAllTransaction(offset, limit);
+        List<Financial> transactionList = financialMapper.selectAllTransaction(memberId, offset, limit);
 
         // 5. 결과 반환 (List와 PageInfo를 Map에 담아 Controller로 전달)
         Map<String, Object> resultMap = new HashMap<>();

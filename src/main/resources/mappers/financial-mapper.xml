@@ -29,6 +29,7 @@
         FINANCIAL_MANAGEMENT
         WHERE
         FINANCIAL_STATUS = 'Y'
+        AND MEMBER_ID = #{memberId}
         AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
     </select>
 
@@ -40,6 +41,7 @@
             FINANCIAL_MANAGEMENT
         WHERE
             FINANCIAL_STATUS = 'Y'
+        AND MEMBER_ID = #{memberId}
         AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
 
     </select>
@@ -53,6 +55,7 @@
             FINANCIAL_MANAGEMENT
         WHERE
             FINANCIAL_STATUS = 'Y'
+        AND MEMBER_ID = #{memberId}
         AND TRUNC(FINANCIAL_DATE, 'MM') = TRUNC(SYSDATE, 'MM')
 
     </select>
@@ -67,6 +70,7 @@
             FINANCIAL_MANAGEMENT
             WHERE
             FINANCIAL_STATUS = 'Y'
+            AND MEMBER_ID = #{memberId}
             AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -1)
             AND FINANCIAL_DATE &lt; TRUNC(SYSDATE, 'MM')
 
@@ -92,6 +96,7 @@
         FINANCIAL_MANAGEMENT
         WHERE
         FINANCIAL_STATUS = 'Y'
+        AND MEMBER_ID = #{memberId}
         GROUP BY
         EXTRACT(MONTH FROM FINANCIAL_DATE)
         ORDER BY
@@ -113,6 +118,7 @@
         FINANCIAL_MANAGEMENT
         WHERE
         FINANCIAL_STATUS = 'Y'
+        AND MEMBER_ID = #{memberId}
         GROUP BY
         EXTRACT(MONTH FROM FINANCIAL_DATE)
         ORDER BY
@@ -132,6 +138,7 @@
         ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
         FROM FINANCIAL_MANAGEMENT
         WHERE FINANCIAL_STATUS = 'Y'
+        AND MEMBER_ID = #{memberId}
         AND FINANCIAL_TYPE IN ('수익', 'INCOME')
         AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
         AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
@@ -150,6 +157,7 @@
         ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
         FROM FINANCIAL_MANAGEMENT
         WHERE FINANCIAL_STATUS = 'Y'
+        AND MEMBER_ID = #{memberId}
         AND FINANCIAL_TYPE IN ('지출', 'EXPENSE')
         AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
         AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
@@ -196,6 +204,8 @@
             FINANCIAL_TYPE
         FROM
             FINANCIAL_MANAGEMENT
+        WHERE
+            MEMBER_ID = #{memberId}
         ORDER BY
             FINANCIAL_DATE DESC,
             FINANCIAL_ID DESC
@@ -205,6 +215,7 @@
 
     <select id="selectTransactionCount" resultType="_int">
         SELECT COUNT(*) FROM FINANCIAL_MANAGEMENT
+        WHERE MEMBER_ID = #{memberId}
     </select>
 
 

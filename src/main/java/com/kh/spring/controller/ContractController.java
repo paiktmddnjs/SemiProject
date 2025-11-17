@@ -22,13 +22,19 @@ public class ContractController {
     
     // 계약 목록 페이지
     @GetMapping("/list.co")
-    public String contractList(Model model) {
-        // 계약 목록 조회
-        List<Contract> contractList = contractService.selectContractList();
+    public String contractList(Model model, jakarta.servlet.http.HttpSession session) {
+        // 세션에서 로그인한 멤버 ID 가져오기
+        Long memberId = (Long) session.getAttribute("memberId");
+        if (memberId == null) {
+            return "redirect:/login";
+        }
+        
+        // 계약 목록 조회 (해당 멤버의 계약만)
+        List<Contract> contractList = contractService.selectContractList(memberId);
         model.addAttribute("list", contractList);
         
-        // 계약 통계 조회
-        var summary = contractService.selectContractSummary();
+        // 계약 통계 조회 (해당 멤버의 통계만)
+        var summary = contractService.selectContractSummary(memberId);
         model.addAttribute("contractSummary", summary);
         
         // 회사 목록 조회 (계약 추가 시 사용)
@@ -52,7 +58,8 @@ public class ContractController {
             @RequestParam("endDate") String endDate,
             @RequestParam(value = "contractStatus", defaultValue = "Y") String contractStatus,
             @RequestParam(value = "memo", required = false) String memo,
-            Model model) {
+            Model model,
+            jakarta.servlet.http.HttpSession session) {
         
         Contract contract = new Contract();
         contract.setContractName(contractName);
@@ -62,7 +69,16 @@ public class ContractController {
         contract.setContractEnd(Date.valueOf(endDate));
         contract.setContractStatus(contractStatus);
         contract.setContractDesc(memo);
-        contract.setMemberId(1); // 임시로 1 설정 (나중에 세션에서 가져올 수 있음)
+        
+        // 세션에서 로그인한 멤버 ID 가져오기
+        Long memberId = (Long) session.getAttribute("memberId");
+        if (memberId == null) {
+            model.addAttribute("errorMsg", "로그인이 필요합니다.");
+            model.addAttribute("contentPage", "contract");
+            model.addAttribute("pageTitle", "협찬 계약");
+            return "components/layout";
+        }
+        contract.setMemberId(memberId.intValue());
         
         int result = contractService.insertContract(contract);
         
