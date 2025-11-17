@@ -14,6 +14,7 @@
         <result property="chanelStatus" column="CHANEL_STATUS"/>
         <result property="chanelCreate" column="CHANEL_CREATE"/>
         <result property="chanelUrl" column="CHANEL_URL"/>
+        <result property="chanelCount" column="CHANEL_COUNT"/>
         <result property="chanelFollower" column="CHANEL_FOLLOWER"/>
     </resultMap>
 
@@ -28,6 +29,7 @@
             CHANEL_STATUS,
             CHANEL_CREATE,
             CHANEL_URL,
+            CHANEL_COUNT,
             CHANEL_FOLLOWER
         FROM CHANEL
         WHERE CHANEL_ID = #{chanelId}
@@ -44,6 +46,7 @@
             CHANEL_STATUS,
             CHANEL_CREATE,
             CHANEL_URL,
+            CHANEL_COUNT,
             CHANEL_FOLLOWER
         FROM CHANEL
         WHERE CHANEL_NAME = #{chanelName}
@@ -62,6 +65,7 @@
             CHANEL_STATUS,
             CHANEL_CREATE,
             CHANEL_URL,
+            CHANEL_COUNT,
             CHANEL_FOLLOWER
         FROM CHANEL
         WHERE CHANEL_URL = #{chanelUrl}
@@ -79,6 +83,7 @@
             CHANEL_STATUS,
             CHANEL_CREATE,
             CHANEL_URL,
+            CHANEL_COUNT,
             CHANEL_FOLLOWER
         FROM CHANEL
         WHERE MEMBER_ID = #{memberId}
@@ -96,6 +101,7 @@
             CHANEL_STATUS,
             CHANEL_CREATE,
             CHANEL_URL,
+            CHANEL_COUNT,
             CHANEL_FOLLOWER
         FROM CHANEL
         WHERE PLATFORM_TYPE = #{platformType}
@@ -113,6 +119,7 @@
             CHANEL_STATUS,
             CHANEL_CREATE,
             CHANEL_URL,
+            CHANEL_COUNT,
             CHANEL_FOLLOWER
         FROM CHANEL
         WHERE CHANEL_STATUS = #{status}
@@ -133,6 +140,7 @@
             CHANEL_STATUS,
             CHANEL_CREATE,
             CHANEL_URL,
+            CHANEL_COUNT,
             CHANEL_FOLLOWER
         FROM CHANEL
         ORDER BY CHANEL_CREATE DESC
@@ -152,6 +160,7 @@
             CHANEL_STATUS,
             CHANEL_CREATE,
             CHANEL_URL,
+            CHANEL_COUNT,
             CHANEL_FOLLOWER
         ) VALUES (
             #{chanelId},
@@ -162,6 +171,7 @@
             NVL(#{chanelStatus}, 'Y'),
             NVL(#{chanelCreate}, SYSDATE),
             #{chanelUrl},
+            #{chanelCount, jdbcType=VARCHAR},
             #{chanelFollower, jdbcType=VARCHAR}
         )
     </insert>
@@ -177,6 +187,7 @@
             CHANEL_STATUS = #{chanelStatus},
             CHANEL_CREATE = #{chanelCreate},
             CHANEL_URL = #{chanelUrl},
+            CHANEL_COUNT = #{chanelCount, jdbcType=VARCHAR},
             CHANEL_FOLLOWER = #{chanelFollower, jdbcType=VARCHAR}
         WHERE CHANEL_ID = #{chanelId}
     </update>

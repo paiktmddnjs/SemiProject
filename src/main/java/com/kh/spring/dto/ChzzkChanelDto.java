@@ -40,6 +40,9 @@ public class ChzzkChanelDto {
     @JsonProperty("CHANEL_URL")
     private String chanelUrl;
     
+    @JsonProperty("CHANEL_COUNT")
+    private String chanelCount;
+    
     @JsonProperty("CHANEL_FOLLOWER")
     private String chanelFollower;
 }

@@ -13,10 +13,7 @@
     </select>
 
     <!-- 기본 테스트 회원 생성 -->
-    <insert id="insertDefaultMember" useGeneratedKeys="false">
-        <selectKey keyProperty="memberId" resultType="Long" order="BEFORE">
-            SELECT SEQ_MEMBER_ID.NEXTVAL FROM DUAL
-        </selectKey>
+    <insert id="insertDefaultMember">
         INSERT INTO MEMBER (
             MEMBER_ID,
             EMAIL,
@@ -27,7 +24,7 @@
             STATUS,
             ROLE
         ) VALUES (
-            #{memberId},
+            SEQ_MEMBER_ID.NEXTVAL,
             'test@example.com',
             'test1234',
             '테스트 사용자',
