@@ -88,7 +88,20 @@
     <!-- 본문 -->
     <main class="layout__main">
 
-        <jsp:include page="/WEB-INF/views/MoneyView.jsp" />
+
+
+        <c:choose>
+
+            <c:when test="${contentPage == 'financial'}">
+                <jsp:include page="/WEB-INF/views/MoneyView.jsp"/>
+            </c:when>
+            <c:when test="${contentPage == 'content'}">
+                <jsp:include page="/WEB-INF/views/Content_Management.jsp"/>
+            </c:when>
+
+
+
+        </c:choose>
 
     </main>
 

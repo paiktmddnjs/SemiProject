@@ -2,7 +2,6 @@ package com.kh.spring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration //해당 객체는 설정을 위한 객체
 public class SecurityConfig {
@@ -16,8 +15,5 @@ public class SecurityConfig {
     //BCryptPasswordEncoder객체를 스프링 빈에 등록해서 사용하고 싶다.
     //다만 외부객체이므로 class에 직접 @Component를 기술할 수 없어서
     //해당 객체를 만들어 반환하는 함수자체를 Bean에 등록하여 필요시 스프링이 만들어 전달할 수 있게 함.
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }

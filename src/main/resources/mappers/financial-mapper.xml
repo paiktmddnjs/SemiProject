@@ -201,7 +201,7 @@
             FETCH NEXT #{limit} ROWS ONLY
     </select>
 
-    <select id="selectTransactionCount" resultType="_int">
+    <select id="selectTransactionCount" resultType="int">
         SELECT COUNT(*) FROM FINANCIAL_MANAGEMENT
     </select>
 

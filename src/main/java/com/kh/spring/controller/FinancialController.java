@@ -161,7 +161,7 @@ public class FinancialController {
         model.addAttribute("monthlyOutSourceExpenses", monthlyOutSourceExpenses);
         model.addAttribute("monthlyEquipExpenses", monthlyEquipExpenses);
         model.addAttribute("monthlyEtcTotalExpenses", monthlyEtcTotalExpenses);
-
+        model.addAttribute("contentPage", "financial");
 
 
         return "/components/layout";
