@@ -1,4 +1,4 @@
-package com.kh.spring.controller;
+package com.kh.spring.Controller;
 
 import java.sql.Date;
 import java.util.List;

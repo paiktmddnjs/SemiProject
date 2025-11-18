@@ -3,8 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/contractList.css">
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 및 담당자 관리 시스템</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/contractList.css">
+</head>
+<body>
 <div class="container">
     <div class="header">
         <p class="header-subtitle">브랜드 협찬 및 광고 계약 현황을 관리하세요</p>
@@ -70,7 +77,55 @@
         </div>
     </div>
 
-    <%-- 더미 데이터 제거: DB에서 데이터를 가져옵니다 --%>
+    <%-- ====================================================== --%>
+    <%-- [임시] 더미 데이터 생성 (DB 연결 전 테스트용) --%>
+    <%
+        java.util.List<java.util.Map<String, String>> dummyList = new java.util.ArrayList<>();
+
+        java.util.Map<String, String> item1 = new java.util.HashMap<>();
+        item1.put("contractNo", "1");
+        item1.put("contractName", "브랜드 A - 뷰티 제품");
+        item1.put("amount", "2000000");
+        item1.put("startDate", "2025-10-15");
+        item1.put("endDate", "2025-11-15");
+        item1.put("status", "active"); // '진행중' 배지
+        item1.put("deliverables", "영상 1개, 포스트 2개");
+        item1.put("paymentStatusName", "계약서 검토 중"); // 간략 보기에 표시될 이름
+        item1.put("paymentStatus", "reviewing"); // select 박스 선택값
+        item1.put("companyEmail", "manager@branda.com");
+        item1.put("companyName", "(주) KH");
+        item1.put("companyContact", "02-7777-8888");
+        item1.put("managerName", "백승원");
+        item1.put("businessLicenseNumber", "125158-121548");
+        item1.put("managerContact", "010-1234-1178");
+        item1.put("ceoContact", "010-4845-4812");
+        item1.put("memo", "성실히 임할 것\n전화 금지\n쇼츠 금지\n위약금 있음\n모니터링 함\n여기까지");
+        dummyList.add(item1);
+
+        java.util.Map<String, String> item2 = new java.util.HashMap<>();
+        item2.put("contractNo", "2");
+        item2.put("contractName", "브랜드 B - 패션 의류");
+        item2.put("amount", "1500000");
+        item2.put("startDate", "2025-10-20");
+        item2.put("endDate", "2025-11-20");
+        item2.put("status", "pending");
+        item2.put("deliverables", "릴스 3개");
+        item2.put("paymentStatusName", "정산 대기");
+        item2.put("paymentStatus", "pending");
+        item2.put("companyEmail", "manager@brandb.com");
+        item2.put("companyName", "(주) 패션월드");
+        item2.put("companyContact", "02-1111-2222");
+        item2.put("managerName", "김철수");
+        item2.put("businessLicenseNumber", "111-22-33333");
+        item2.put("managerContact", "010-2222-3333");
+        item2.put("ceoContact", "010-4444-5555");
+        item2.put("memo", "협의된 내용 없음.");
+        dummyList.add(item2);
+
+        pageContext.setAttribute("list", dummyList);
+    %>
+    <%-- 더미 데이터 끝 --%>
+    <%-- ====================================================== --%>
 
     <div class="contract-section">
         <div class="section-header">
@@ -160,14 +215,11 @@
                             <div class="detail-right-column">
                                 <div class="detail-item">
                                     <span class="detail-label">정산 상태 변경</span>
-                                    <form action="${pageContext.request.contextPath}/contract/updateContract.do" method="post" style="display: inline;">
-                                        <input type="hidden" name="contractId" value="${c.contractId}">
-                                        <select name="paymentStatus" class="payment-status-select" onchange="this.form.submit()">
-                                            <option value="reviewing" ${c.paymentStatus == 'reviewing' ? 'selected' : ''}>계약서 검토 중</option>
-                                            <option value="pending" ${c.paymentStatus == 'pending' ? 'selected' : ''}>정산 대기</option>
-                                            <option value="completed" ${c.paymentStatus == 'completed' ? 'selected' : ''}>정산 완료</option>
-                                        </select>
-                                    </form>
+                                    <select name="paymentStatus" class="payment-status-select">
+                                        <option value="reviewing" ${c.paymentStatus == 'reviewing' ? 'selected' : ''}>계약서 검토 중</option>
+                                        <option value="pending" ${c.paymentStatus == 'pending' ? 'selected' : ''}>정산 대기</option>
+                                        <option value="completed" ${c.paymentStatus == 'completed' ? 'selected' : ''}>정산 완료</option>
+                                    </select>
                                 </div>
                                 <div class="detail-item">
                                     <span class="detail-label">계약 상세</span>
@@ -189,7 +241,16 @@
             </c:if>
         </div>
 
-        <%-- 페이지네이션은 추후 구현 가능 --%>
+        <div class="pagination">
+            <c:url var="pageUrl" value="${pageContext.request.contextPath}/list.co">
+            </c:url>
+
+            <c:forEach var="p" begin="1" end="${pi.maxPage}">
+                <a href="${pageUrl}?cpage=${p}">
+                    <div class="pagination-dot ${p == pi.currentPage ? 'active' : ''}"></div>
+                </a>
+            </c:forEach>
+        </div>
     </div>
 </div>
 
@@ -200,7 +261,7 @@
             <button type="button" class="close-btn" id="closeContractModalBtn">&times;</button>
         </div>
         <div class="modal-body">
-            <form action="${pageContext.request.contextPath}/contract/saveContract.do" method="post">
+            <form action="saveContract.do" method="post">
                 <div class="form-group">
                     <label for="contractName">계약 명칭 *</label>
                     <input type="text" id="contractName" name="contractName" placeholder="계약 명칭을 입력하세요">
@@ -210,12 +271,11 @@
                     <input type="number" id="contractAmount" name="contractAmount" placeholder="계약 금액을 입력하세요">
                 </div>
                 <div class="form-group">
-                    <label for="companyId">계약 회사</label>
+                    <label for="companyId">계약 확정</label>
                     <select id="companyId" name="companyId">
                         <option value="">계약 회사를 선택하세요</option>
-                        <c:forEach var="company" items="${companyList}">
-                            <option value="${company.companyId}">${company.companyName}</option>
-                        </c:forEach>
+                        <option value="1">A회사</option>
+                        <option value="2">B회사</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -229,8 +289,9 @@
                 <div class="form-group">
                     <label for="contractStatus">계약 상태</label>
                     <select id="contractStatus" name="contractStatus">
-                        <option value="N">대기/협상</option>
-                        <option value="Y" selected>진행중</option>
+                        <option value="pending">대기/협상</option>
+                        <option value="active">진행중</option>
+                        <option value="completed">완료</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -253,7 +314,7 @@
         </div>
         <p class="modal-subtitle">새 회사 정보를 추가하세요</p>
         <div class="modal-body">
-            <form action="${pageContext.request.contextPath}/contract/saveCompany.do" method="post">
+            <form action="saveCompany.do" method="post">
                 <div class="form-group">
                     <input type="text" id="companyName" name="companyName" placeholder="회사 이름을 입력하세요" required>
                 </div>
@@ -352,3 +413,5 @@
         });
     }
 </script>
+</body>
+</html>

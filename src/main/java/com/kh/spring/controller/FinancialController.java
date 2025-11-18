@@ -1,9 +1,9 @@
-package com.kh.spring.controller;
+package com.kh.spring.Controller;
 
 import com.kh.spring.model.vo.Financial;
 import com.kh.spring.model.vo.Monthly;
 import com.kh.spring.model.vo.TopThree;
-import com.kh.spring.service.FinancialService;
+import com.kh.spring.Service.FinancialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

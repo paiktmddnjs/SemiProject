@@ -1,9 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-
-=======
->>>>>>> combine
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -273,12 +269,8 @@
             로그인과 크리에이터의 성장을 시작하세요
         </p>
 
-<<<<<<< HEAD
-        <form action="/login" method="post">
-=======
         <!-- 로그인 폼 -->
         <form action="${pageContext.request.contextPath}/login.me" method="post">
->>>>>>> combine
             <div class="form-group">
                 <label for="email">이메일</label>
                 <div class="input-wrapper">
@@ -309,11 +301,7 @@
                     </svg>
                     <input
                             type="password"
-<<<<<<< HEAD
-                            id="password"
-=======
                             id="memberPwd"
->>>>>>> combine
                             name="memberPwd"
                             placeholder="••••••••"
                             required
@@ -362,11 +350,7 @@
 
         <p class="signup-text">
             아직 계정이 없으신가요?
-<<<<<<< HEAD
-            <a href="/signup" class="signup-link">회원가입</a>
-=======
             <a href="<c:url value='/enrollForm.me'/>" class="signup-link">회원가입</a>
->>>>>>> combine
         </p>
     </div>
 
@@ -395,17 +379,6 @@
             eyeOffIcon.style.display = 'none';
         }
     }
-<<<<<<< HEAD
-
-</script>
-
-<script>
-    // 로그인 메시지 표시 (회원가입 후 리다이렉트된 경우)
-    <c:if test="${not empty msg}">
-        alert("${msg}");
-    </c:if>
-=======
->>>>>>> combine
 </script>
 </body>
 </html>

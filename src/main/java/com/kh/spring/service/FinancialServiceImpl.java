@@ -1,4 +1,4 @@
-package com.kh.spring.service;
+package com.kh.spring.Service;
 
 import com.kh.spring.model.mapper.FinancialMapper;
 import com.kh.spring.model.vo.Financial;
