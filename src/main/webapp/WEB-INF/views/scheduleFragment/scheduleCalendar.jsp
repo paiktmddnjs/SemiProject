@@ -44,6 +44,9 @@
             dayMaxEvents: 2, // 한 날짜에 보이는 최대 이벤트 수 제한
             eventTextColor: '#ffffff', //이벤트 색상 지정
             displayEventTime: false,
+            eventDidMount: function(info) {
+                info.el.style.pointerEvents = 'none';
+            },
 
             titleFormat: function(date){
                 const year = date.date.year;

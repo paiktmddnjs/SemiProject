@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(e.target.tagName === 'BUTTON') {
             const projectId = e.target.value;
+            var num = 1;
 
             fetch(`${window.location.origin}/scheduleProject`, {
                 method: 'POST',
@@ -61,8 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             title: `${p.taskName}`,
                             start: `${p.taskStart}`,
                             end: `${p.taskDeadline}`,
-                            className: `eventColor${p.taskId}`
+                            className: `eventColor${num}`
                         });
+                        console.log(num);
+                        num +=1;
                     });
 
                     Array.from(projectButtonContainer.children).forEach(btn => {
