@@ -82,6 +82,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberUpdateForm.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/contractList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/profile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap" rel="stylesheet">
     <%-- 2. Chart.js 라이브러리 불러오기 --%>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <%-- 3. Chart.js 데이터 라벨 플러그인 불러오기 --%>
@@ -101,7 +105,17 @@
 
     <!-- 본문 -->
     <main class="layout__main">
-      <jsp:include page="/WEB-INF/views/mypage.jsp"/>
+      <c:choose>
+        <c:when test="${contentPage == 'profile'}">
+          <jsp:include page="/WEB-INF/views/profile.jsp"/>
+        </c:when>
+        <c:when test="${contentPage == 'mypage'}">
+          <jsp:include page="/WEB-INF/views/mypage.jsp"/>
+        </c:when>
+        <c:otherwise>
+          <jsp:include page="/WEB-INF/views/mypage.jsp"/>
+        </c:otherwise>
+      </c:choose>
     </main>
 
     <!-- 푸터 -->

@@ -164,75 +164,6 @@
             </div>
         </div>
     </header>
-
-    <main class="dashboard-content">
-        <%-- ... (연동 중인 채널 테이블, 내용은 동일) ... --%>
-        <div class="card channels-card">
-            <div class="card-header">
-                <h3 class="card-title">연동 중인 채널</h3>
-                <button class="btn btn-primary">
-                    <span class="icon-wrapper">
-                        <jsp:include page="/WEB-INF/views/common/icons/icon_plus.jsp" />
-                    </span>
-                    새로운 계정 연동
-                </button>
-            </div>
-            <div class="table-container">
-                <table class="channels-table">
-                    <thead>
-                    <tr>
-                        <th>플랫폼</th>
-                        <th>채널명</th>
-                        <th>카테고리</th>
-                        <th>최근 업로드일</th>
-                        <th>총 조회수</th>
-                        <th>총 좋아요</th>
-                        <th>총 댓글</th>
-                        <th>상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="channel" items="${channelList}">
-                        <tr>
-                            <td>
-                                    <span class="icon-wrapper platform-icon">
-                                        <jsp:include page="/WEB-INF/views/common/icons/${channel.platformIcon}.jsp" />
-                                    </span>
-                                    ${channel.platformName}
-                            </td>
-                            <td>${channel.channelName}</td>
-                            <td>
-                                <span class="badge ${channel.categoryClass}">${channel.categoryName}</span>
-                            </td>
-                            <td>${channel.lastUploadDate}</td>
-                            <td>
-                                    <span class="icon-wrapper stat-icon">
-                                        <jsp:include page="/WEB-INF/views/common/icons/icon_view.jsp" />
-                                    </span>
-                                <fmt:formatNumber value="${channel.totalViews}" pattern="#,##0" />
-                            </td>
-                            <td>
-                                    <span class="icon-wrapper stat-icon">
-                                        <jsp:include page="/WEB-INF/views/common/icons/icon_like.jsp" />
-                                    </span>
-                                <fmt:formatNumber value="${channel.totalLikes}" pattern="#,##0" />
-                            </td>
-                            <td>
-                                    <span class="icon-wrapper stat-icon">
-                                        <jsp:include page="/WEB-INF/views/common/icons/icon_comments.jsp" />
-                                    </span>
-                                <fmt:formatNumber value="${channel.totalComments}" pattern="#,##0" />
-                            </td>
-                            <td>
-                                <span class="status-badge ${channel.statusClass}">${channel.statusName}</span>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
 </div> <%-- .dashboard-container 끝 --%>
 
 
@@ -312,8 +243,41 @@
         if (passwordForm) {
             passwordForm.addEventListener("submit", function(event) {
                 event.preventDefault();
-                alert("비밀번호 확인 완료! (임시) \n'profileEdit.jsp' 페이지로 이동합니다.");
-                modalOverlay.classList.add("hidden");
+                
+                const password = document.getElementById("passwordCheck").value;
+                
+                if (!password || password.trim() === "") {
+                    alert("비밀번호를 입력해주세요.");
+                    return;
+                }
+                
+                // 비밀번호 확인 API 호출
+                fetch("${pageContext.request.contextPath}/mypage/checkPassword", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        password: password
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // 비밀번호 일치 시 profile.jsp 페이지로 이동
+                        modalOverlay.classList.add("hidden");
+                        window.location.href = "${pageContext.request.contextPath}/profile";
+                    } else {
+                        // 비밀번호 불일치
+                        alert(data.message || "비밀번호가 일치하지 않습니다.");
+                        document.getElementById("passwordCheck").value = "";
+                        document.getElementById("passwordCheck").focus();
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("비밀번호 확인 중 오류가 발생했습니다.");
+                });
             });
         }
 

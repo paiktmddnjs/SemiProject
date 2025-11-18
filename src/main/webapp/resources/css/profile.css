@@ -1,0 +1,161 @@
+@charset "UTF-8";
+/* --- 메인 컨테이너 --- */
+.profile-container {
+    width: 100%;
+    max-width: 1000px; /* 최대 너비 축소 */
+    background: white;
+    border-radius: 14px;
+    border: 1.11px solid rgba(0, 0, 0, 0.10);
+    padding: 2rem; /* 패딩 축소 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    color: rgba(0, 0, 0, 0.70);
+    font-size: 32px; /* 폰트 크기 축소 */
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem; /* 여백 축소 */
+}
+
+/* --- 컨텐츠 레이아웃 (Flexbox) --- */
+.profile-content {
+    display: flex;
+    gap: 2rem; /* 간격 축소 */
+}
+
+/* --- 1. 사이드바 --- */
+.profile-sidebar {
+    flex: 0 0 200px; /* 너비 축소 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile-image-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-image-placeholder {
+    width: 150px; /* 크기 축소 */
+    height: 150px; /* 크기 축소 */
+    background: #1D1B20;
+    border-radius: 10px;
+    margin-bottom: 1rem; /* 여백 축소 */
+}
+
+/* --- 2. 메인 폼 --- */
+.profile-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem; /* 여백 축소 */
+}
+
+.form-group label {
+    flex: 0 0 150px; /* 레이블 너비 축소 */
+    color: rgba(0, 0, 0, 0.7); /* 가독성을 위해 조금 더 진하게 */
+    font-size: 16px; /* 폰트 크기 대폭 축소 */
+    font-weight: 400;
+}
+
+.form-group input {
+    flex: 1;
+    height: 40px; /* 높이 축소 */
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.40);
+    padding: 0 0.75rem; /* 패딩 축소 */
+    font-size: 16px; /* 폰트 크기 축소 */
+    color: rgba(0, 0, 0, 0.8); /* 입력된 텍스트 색상 */
+    font-family: 'Arimo', sans-serif;
+    border-radius: 4px; /* 약간의 둥근 모서리 추가 */
+}
+
+/* placeholder 스타일 */
+.form-group input::placeholder {
+    color: rgba(0, 0, 0, 0.40); /* 원본의 연한 텍스트 색상 */
+    font-size: 16px;
+}
+
+/* 읽기 전용 필드 (계정) */
+.form-group input[readonly] {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.20);
+    color: rgba(0, 0, 0, 0.50);
+    cursor: not-allowed;
+}
+
+/* --- 마케팅 동의 (체크박스) --- */
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem; /* 여백 축소 */
+    margin-left: 150px; /* 레이블 너비만큼 밀어내기 */
+}
+
+.form-check input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    border: 1px solid #99A1AF;
+}
+
+.form-check label {
+    color: #364153;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* --- 하단 버튼 (저장) --- */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem; /* 여백 축소 */
+}
+
+/* --- 공용 버튼 스타일 --- */
+.btn {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Arimo', sans-serif;
+    text-align: center;
+    padding: 8px 15px; /* 패딩 축소 */
+    font-weight: 400;
+}
+
+/* 개별 버튼 스타일 */
+.btn-primary {
+    background: #F54900;
+    color: white;
+    font-size: 14px;
+    line-height: 20px;
+    width: 100%;
+    max-width: 150px; /* 이미지 크기에 맞춤 */
+}
+
+.btn-danger {
+    background: rgba(0, 0, 0, 0.60);
+    color: white;
+    font-size: 14px;
+    line-height: 20px;
+    width: 100%;
+    max-width: 150px; /* 이미지 크기에 맞춤 */
+    margin: 1rem auto 0;
+}
+
+.btn-save {
+    background: rgba(0, 0, 0, 0.70); /* 가독성을 위해 조금 더 진하게 */
+    color: white;
+    font-size: 18px; /* 폰트 크기 축소 */
+    line-height: 1.2;
+    padding: 10px 20px; /* 패딩 축소 */
+}
