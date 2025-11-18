@@ -12,6 +12,10 @@
     <title>Title</title>
 </head>
 <body>
+<<<<<<< .merge_file_eKM3UK
+
+<jsp:include page="/WEB-INF/views/components/layout.jsp" />
+=======
     <c:if test="${not empty sessionScope.alertMsg}">
         <script>
              alert("${sessionScope.alertMsg}");
@@ -19,6 +23,7 @@
         <c:remove var="alertMsg" scope="session"/>
     </c:if>
     <%@ include file="/WEB-INF/views/components/layout.jsp" %>
+>>>>>>> .merge_file_jbTJ0W
 
 
 </body>
