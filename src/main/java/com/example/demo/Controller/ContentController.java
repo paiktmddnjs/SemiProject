@@ -41,16 +41,19 @@ public class ContentController {
         Integer chanelId = (Integer) session.getAttribute("chanelId");
 
         //예시로 만든것
-        chanelId = 101;
+        chanelId = 1;
 
         int ContentCount = contentService.selectCountContent(chanelId);
         int ViewCount = contentService.selectCountView(chanelId);
+        int PrevMonthContent = contentService.selectPrevContent(chanelId);
+        double PrevMonthPercent = contentService.selectPrevView(chanelId);
         double AvergeLikeCount = contentService.selectCountLike(chanelId);
         int AvergeViewCount = contentService.selectCountAvergeView(chanelId);
-        System.out.println("AvergeLikeCount: " + AvergeLikeCount);
 
         model.addAttribute("ContentCount", ContentCount);
         model.addAttribute("ViewCount", ViewCount);
+        model.addAttribute("PrevMonthContent", PrevMonthContent);
+        model.addAttribute("PrevMonthPercent", PrevMonthPercent);
         model.addAttribute("AvergeLikeCount", AvergeLikeCount);
         model.addAttribute("AvergeViewCount", AvergeViewCount);
 

@@ -17,6 +17,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class Content {
 
+    private String platform;
+
+    public String getPlatformIcon() {
+        return platform; // JSP에서 platformIcon으로 사용
+    }
     // CONTENT_ID NUMBER PRIMARY KEY
     private Integer contentId;
 

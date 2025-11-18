@@ -9,6 +9,8 @@ public interface ContentService {
 
     int selectCountContent(int chanelId);
     int selectCountView(int chanelId);
+    int selectPrevContent(int chanelId);
+    double selectPrevView(int chanelId);
     double selectCountLike(int chanelId);
     int selectCountAvergeView(int chanelId);
     List<Categorical> selectContentByCategory(int chanelId);

@@ -7,7 +7,7 @@
 
     <resultMap id="ContentResultMap" type="com.example.demo.model.vo.Content"  >
         <id column="CONTENT_ID" property="contentId"/>
-
+        <result column="PLATFORM_TYPE" property="platform"/>
         <result column="CHANEL_ID" property="chanelId"/>
         <result column="PROJECT_ID" property="projectId"/>
         <result column="TITLE" property="title"/>
@@ -96,19 +96,22 @@
 
     <select id="selectContent" parameterType="int" resultMap="ContentResultMap">
         SELECT
-        CONTENT_ID,
-        CHANEL_ID,
-        PROJECT_ID,
-        TITLE,
-        UPLOAD_DATE,
-        VIEWS,
-        LIKES,
-        COMMENTS,
-        CONTENT_STATUS,
-        CONTENT_DESC,
-        CATEGORY
-        FROM CONTENT
-        WHERE CHANEL_ID = #{chanelId}
+        C.CONTENT_ID,
+        C.CHANEL_ID,
+        C.PROJECT_ID,
+        C.TITLE,
+        C.UPLOAD_DATE,
+        C.VIEWS,
+        C.LIKES,
+        C.COMMENTS,
+        C.CONTENT_STATUS,
+        C.CONTENT_DESC,
+        C.CATEGORY,
+        CH.PLATFORM_TYPE
+        FROM CONTENT C
+        left JOIN CHANEL CH
+        ON C.CHANEL_ID = CH.CHANEL_ID
+        WHERE C.CHANEL_ID = #{chanelId}
     </select>
 
     <insert id="insertContent" parameterType="com.example.demo.model.vo.Content">
@@ -132,6 +135,38 @@
         #{platform}
         )
     </insert>
+
+
+    <select id="selectPrevContent"  parameterType="int" resultType="int">
+        SELECT
+        SUM(CASE WHEN TO_CHAR(UPLOAD_DATE, 'YYYYMM') = TO_CHAR(SYSDATE, 'YYYYMM') THEN 1 ELSE 0 END) AS CURRENT_MONTH_COUNT,
+
+        SUM(CASE WHEN TO_CHAR(UPLOAD_DATE, 'YYYYMM') = TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYYMM') THEN 1 ELSE 0 END) AS PREVIOUS_MONTH_COUNT,
+
+        SUM(CASE WHEN TO_CHAR(UPLOAD_DATE, 'YYYYMM') = TO_CHAR(SYSDATE, 'YYYYMM') THEN 1 ELSE 0 END)
+        - SUM(CASE WHEN TO_CHAR(UPLOAD_DATE, 'YYYYMM') = TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYYMM') THEN 1 ELSE 0 END) AS DIFFERENCE
+        FROM
+        CONTENT
+        WHERE
+        CHANEL_ID = #{chanelId}
+
+    </select>
+
+
+    <select id="selectPrevView" parameterType="int" resultType="double">
+
+        SELECT
+        (SUM(CASE WHEN TO_CHAR(UPLOAD_DATE, 'YYYYMM') = TO_CHAR(SYSDATE, 'YYYYMM') THEN TO_NUMBER(VIEWS) ELSE 0 END)
+        - SUM(CASE WHEN TO_CHAR(UPLOAD_DATE, 'YYYYMM') = TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYYMM') THEN TO_NUMBER(VIEWS) ELSE 0 END))
+        / NULLIF(SUM(CASE WHEN TO_CHAR(UPLOAD_DATE, 'YYYYMM') = TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYYMM') THEN TO_NUMBER(VIEWS) ELSE 0 END), 0)
+        * 100 AS GROWTH_RATE_PERCENTAGE
+        FROM
+        CONTENT
+        WHERE
+        CHANEL_ID = #{chanelId}
+
+    </select>
+
 
 
 </mapper>

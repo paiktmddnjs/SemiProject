@@ -35,6 +35,16 @@ public class ContentServiceImpl implements ContentService {
         return contentMapper.selectCountView(chanelId);
     }
 
+    public int  selectPrevContent(int chanelId) {
+
+        return contentMapper.selectPrevContent(chanelId);
+    }
+
+    public double selectPrevView(int chanelId) {
+
+        return contentMapper.selectPrevView(chanelId);
+    }
+
     @Override
     public double selectCountLike(int chanelId) {
         System.out.println(chanelId);

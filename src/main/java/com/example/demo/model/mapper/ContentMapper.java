@@ -14,6 +14,8 @@ public interface ContentMapper {
     int selectCountContent(int chanelId);
     int selectCountView(int chanelId);
     double selectCountLike(int chanelId);
+    int selectPrevContent(int chanelId);
+    double selectPrevView(int chanelId);
     int selectCountAvergeView(int chanelId);
     List<Categorical> selectContentByCategory(int chanelId);
     List<Categorical> selectViewByCategory(int chanelId);
