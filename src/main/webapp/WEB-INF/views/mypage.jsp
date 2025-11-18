@@ -1,237 +1,351 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%-- ====================================================== --%>
-<%-- [임시] 마이페이지 대시보드용 더미 데이터 (스크립틀릿) --%>
-<%
-    // 1. 프로필 카드 통계 (4개)
-    java.util.Map<String, String> profileStats = new java.util.HashMap<>();
-    profileStats.put("totalRevenue", "6,500만원");
-    profileStats.put("avgEngagement", "7.5%");
-    profileStats.put("totalViews", "159K");
-    profileStats.put("sponsorshipCount", "3건");
-    pageContext.setAttribute("profileStats", profileStats);
+<style>
+    :root{
+        --brand:#f54900;
+    }
 
-    java.util.Map<String, String> projectStats = new java.util.HashMap<>();
-    projectStats.put("remainingSchedules", "4");
-    projectStats.put("activeProjects", "8");
-    pageContext.setAttribute("projectStats", projectStats);
+    .mypage-wrapper{
+        max-width: 960px;
+        margin: 0 auto;
+    }
 
-    // 3. 채널 리스트 (테이블용)
-    java.util.List<java.util.Map<String, String>> channelList = new java.util.ArrayList<>();
+    .mypage-title{
+        color: var(--brand);
+        font-weight: 700;
+    }
 
-    java.util.Map<String, String> c1 = new java.util.HashMap<>();
-    c1.put("platformIcon", "icon_youtube");
-    c1.put("platformName", "YouTube");
-    c1.put("channelName", "여름 장이란 애당초에 글러서");
-    c1.put("categoryClass", "badge-review");
-    c1.put("categoryName", "리뷰");
-    c1.put("lastUploadDate", "2025-10-25");
-    // [수정] 콤마 제거
-    c1.put("totalViews", "15420");
-    c1.put("totalLikes", "892");
-    c1.put("totalComments", "156");
-    c1.put("statusClass", "status-published");
-    c1.put("statusName", "게시됨");
-    channelList.add(c1);
+    .mypage-subtitle{
+        color:#6b7280;
+        font-size: 0.95rem;
+    }
 
-    java.util.Map<String, String> c2 = new java.util.HashMap<>();
-    c2.put("platformIcon", "icon_chzzk");
-    c2.put("platformName", "치지직");
-    c2.put("channelName", "장판은 벌써 쓸쓸하고");
-    c2.put("categoryClass", "badge-entertainment");
-    c2.put("categoryName", "엔터테인먼트");
-    c2.put("lastUploadDate", "2025-10-23");
-    // [수정] 콤마 제거
-    c2.put("totalViews", "45200");
-    c2.put("totalLikes", "3420");
-    c2.put("totalComments", "234");
-    c2.put("statusClass", "status-published");
-    c2.put("statusName", "게시됨");
-    channelList.add(c2);
+    .mypage-card{
+        border-radius: 16px;
+        box-shadow: 0 1px 3px rgba(15,23,42,.08);
+        border: 1px solid #e5e7eb;
+    }
 
-    java.util.Map<String, String> c3 = new java.util.HashMap<>();
-    c3.put("platformIcon", "icon_youtube");
-    c3.put("platformName", "YouTube");
-    c3.put("channelName", "해는 아직 중천에 있건만");
-    c3.put("categoryClass", "badge-communication");
-    c3.put("categoryName", "소통");
-    c3.put("lastUploadDate", "2025-10-22");
-    // [수정] 콤마 제거
-    c3.put("totalViews", "12890");
-    c3.put("totalLikes", "756");
-    c3.put("totalComments", "198");
-    c3.put("statusClass", "status-private");
-    c3.put("statusName", "비공개");
-    channelList.add(c3);
+    .mypage-card-header{
+        padding: 1.25rem 1.5rem 0.75rem;
+    }
 
-    java.util.Map<String, String> c4 = new java.util.HashMap<>();
-    c4.put("platformIcon", "icon_instagram");
-    c4.put("platformName", "Instagram");
-    c4.put("channelName", "더운 햇발이 벌여놓은 전 휘장 밑으로");
-    c4.put("categoryClass", "badge-tutorial");
-    c4.put("categoryName", "튜토리얼");
-    c4.put("lastUploadDate", "2025-10-21");
-    // [수정] 콤마 제거
-    c4.put("totalViews", "9870");
-    c4.put("totalLikes", "1150");
-    c4.put("totalComments", "92");
-    c4.put("statusClass", "status-published");
-    c4.put("statusName", "게시됨");
-    channelList.add(c4);
+    .mypage-card-title{
+        font-size: 1.05rem;
+        font-weight: 600;
+    }
 
-    pageContext.setAttribute("channelList", channelList);
-%>
-<%-- 더미 데이터 끝 --%>
-<%-- ====================================================== --%>
+    .mypage-card-desc{
+        font-size: .875rem;
+        color:#6b7280;
+    }
 
-<div class="dashboard-container">
+    .mypage-card-body{
+        padding: 0 1.5rem 1.5rem;
+    }
 
-    <header class="dashboard-header">
-        <div class="card profile-card">
-            <div class="profile-main">
-                <div class="profile-image-placeholder">
-                    <%-- <img src="path/to/profile.jpg" alt="프로필 이미지"> --%>
-                </div>
-                <div class="profile-divider"></div>
-                <div class="profile-info">
-                    <h2>환영합니다, 크리에이터</h2>
-                    <p class="email">creator@example.com</p>
-                    <p class="user-info">
-                        사용자 : 크리에이터<br/>
-                        가입일 : 2025. 10. 30<br/>
-                        최근 수정 날짜 : 2025.10.30
-                    </p>
-                </div>
-                <button class="btn btn-secondary">개인 정보 수정</button>
-            </div>
-            <div class="profile-stats">
-                <div class="stat-box">
-                    <div class="stat-header">
-                        <span class="stat-title">총 수익</span>
-                        <span class="icon-wrapper">
-                            <jsp:include page="/WEB-INF/views/common/icons/icon_money.jsp" />
-                        </span>
-                    </div>
-                    <div class="stat-value">${profileStats.totalRevenue}</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-header">
-                        <span class="stat-title">평균 참여율</span>
-                        <span class="icon-wrapper">
-                            <jsp:include page="/WEB-INF/views/common/icons/icon_like.jsp" />
-                        </span>
-                    </div>
-                    <div class="stat-value">${profileStats.avgEngagement}</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-header">
-                        <span class="stat-title">종합 조회수</span>
-                        <span class="icon-wrapper">
-                            <jsp:include page="/WEB-INF/views/common/icons/icon_user.jsp" />
-                        </span>
-                    </div>
-                    <div class="stat-value">${profileStats.totalViews}</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-header">
-                        <span class="stat-title">진행한 협찬 수</span>
-                        <span class="icon-wrapper">
-                            <jsp:include page="/WEB-INF/views/common/icons/icon_sponsorships.jsp" />
-                        </span>
-                    </div>
-                    <div class="stat-value">${profileStats.sponsorshipCount}</div>
-                </div>
+    .platform-item{
+        border:1px solid #e5e7eb;
+        border-radius:12px;
+        padding:.85rem 1rem;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        transition: background-color .15s ease;
+    }
+    .platform-item:hover{
+        background:#f9fafb;
+    }
+
+    .platform-icon-box{
+        width:40px;
+        height:40px;
+        border-radius:12px;
+        background:#f3f4f6;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:18px;
+    }
+
+    .stat-pill{
+        border-radius: 12px;
+        background:#fff7ed;
+        border:1px solid #fed7aa;
+        padding:.75rem 1rem;
+    }
+
+    .stat-pill-label{
+        font-size:.75rem;
+        color:#6b7280;
+    }
+
+    .stat-pill-value{
+        font-weight:600;
+        color:#ea580c;
+        font-size:1.1rem;
+    }
+
+    .danger-card{
+        border-color:#fecaca;
+    }
+
+    .danger-title{
+        color:#dc2626;
+    }
+</style>
+
+<div class="mypage-wrapper py-4">
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h1 class="h3 mypage-title">마이페이지</h1>
+        <p class="mypage-subtitle mt-1">
+            프로필 및 계정 설정을 관리하세요
+        </p>
+    </div>
+
+    <!-- 프로필 정보 (DB에서 불러온 개인정보) -->
+    <div class="card mypage-card mb-4">
+        <div class="mypage-card-header">
+            <div class="mypage-card-title">프로필 정보</div>
+            <div class="mypage-card-desc">
+                회원정보를 확인하고 수정합니다
             </div>
         </div>
+        <div class="mypage-card-body">
+            <%-- 나중에 action="/mypageUpdate.me" method="post" 로 연결 예정 --%>
+            <form>
+                <!-- 아이디 -->
+                <div class="mb-3">
+                    <label class="form-label">아이디</label>
+                    <input type="text"
+                           class="form-control bg-light"
+                           readonly
+                           name="memberId"
+                           value="${sessionScope.loginMember.memberId}">
+                </div>
 
-        <div class="card project-card">
-            <div class="project-column">
-                <h3 class="project-title">남은 일정</h3>
-                <div class="project-count">
-                    <span class="project-number">${projectStats.remainingSchedules}</span>
-                    <span class="project-unit">개</span>
+                <!-- 이름 -->
+                <div class="mb-3">
+                    <label class="form-label">이름</label>
+                    <input type="text"
+                           class="form-control"
+                           name="memberName"
+                           value="${sessionScope.loginMember.memberName}">
                 </div>
+
+                <!-- 이메일 (읽기 전용 – 아래 보안 설정에서 변경) -->
+                <div class="mb-3">
+                    <label class="form-label">이메일</label>
+                    <input type="email"
+                           class="form-control bg-light"
+                           name="email"
+                           readonly
+                           value="${sessionScope.loginMember.email}">
+                    <div class="form-text small">
+                        이메일은 아래 보안 설정에서 변경할 수 있습니다
+                    </div>
+                </div>
+
+                <!-- 전화번호 -->
+                <div class="mb-3">
+                    <label class="form-label">전화번호</label>
+                    <input type="tel"
+                           class="form-control"
+                           name="phone"
+                           value="${sessionScope.loginMember.phone}">
+                </div>
+
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="button" class="btn btn-primary">
+                        프로필 저장
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 보안 설정 -->
+    <div class="card mypage-card mb-4">
+        <div class="mypage-card-header">
+            <div class="mypage-card-title d-flex align-items-center gap-2">
+                <i class="bi bi-shield-lock text-warning"></i>
+                보안 설정
             </div>
-            <div class="project-divider"></div>
-            <div class="project-column">
-                <h3 class="project-title">진행 중인 프로젝트</h3>
-                <div class="project-count">
-                    <span class="project-number">${projectStats.activeProjects}</span>
-                    <span class="project-unit">개</span>
-                </div>
+            <div class="mypage-card-desc">
+                계정의 보안을 관리하고 비밀번호를 변경합니다
             </div>
         </div>
-    </header>
+        <div class="mypage-card-body">
 
-    <main class="dashboard-content">
-        <div class="card channels-card">
-            <div class="card-header">
-                <h3 class="card-title">연동 중인 채널</h3>
-                <button class="btn btn-primary">
-                    <span class="icon-wrapper">
-                        <jsp:include page="/WEB-INF/views/common/icons/icon_plus.jsp" />
-                    </span>
-                    새로운 계정 연동
+            <!-- 이메일 변경 -->
+            <div class="mb-4">
+                <h6 class="mb-1 d-flex align-items-center gap-2">
+                    <i class="bi bi-envelope text-warning"></i>
+                    이메일 변경
+                </h6>
+                <p class="small text-muted mb-2">
+                    현재 이메일:
+                    <strong>${sessionScope.loginMember.email}</strong>
+                </p>
+                <label class="form-label small">새 이메일</label>
+                <input type="email"
+                       class="form-control mb-2"
+                       placeholder="new@example.com">
+                <button type="button"
+                        class="btn btn-sm btn-outline-primary">
+                    이메일 변경
                 </button>
             </div>
 
-            <div class="table-container">
-                <table class="channels-table">
-                    <thead>
-                    <tr>
-                        <th>플랫폼</th>
-                        <th>채널명</th>
-                        <th>카테고리</th>
-                        <th>최근 업로드일</th>
-                        <th>총 조회수</th>
-                        <th>총 좋아요</th>
-                        <th>총 댓글</th>
-                        <th>상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="channel" items="${channelList}">
-                        <tr>
-                            <td>
-                                    <span class="icon-wrapper platform-icon">
-                                        <jsp:include page="/WEB-INF/views/common/icons/${channel.platformIcon}.jsp" />
-                                    </span>
-                                    ${channel.platformName}
-                            </td>
-                            <td>${channel.channelName}</td>
-                            <td>
-                                <span class="badge ${channel.categoryClass}">${channel.categoryName}</span>
-                            </td>
-                            <td>${channel.lastUploadDate}</td>
-                            <td>
-                                    <span class="icon-wrapper stat-icon">
-                                        <jsp:include page="/WEB-INF/views/common/icons/icon_view.jsp" />
-                                    </span>
-                                <fmt:formatNumber value="${channel.totalViews}" pattern="#,##0" />
-                            </td>
-                            <td>
-                                    <span class="icon-wrapper stat-icon">
-                                        <jsp:include page="/WEB-INF/views/common/icons/icon_like.jsp" />
-                                    </span>
-                                <fmt:formatNumber value="${channel.totalLikes}" pattern="#,##0" />
-                            </td>
-                            <td>
-                                    <span class="icon-wrapper stat-icon">
-                                        <jsp:include page="/WEB-INF/views/common/icons/icon_comments.jsp" />
-                                    </span>
-                                <fmt:formatNumber value="${channel.totalComments}" pattern="#,##0" />
-                            </td>
-                            <td>
-                                <span class="status-badge ${channel.statusClass}">${channel.statusName}</span>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+            <hr/>
+
+            <!-- 비밀번호 변경 -->
+            <div class="mt-4">
+                <h6 class="mb-1 d-flex align-items-center gap-2">
+                    <i class="bi bi-lock text-warning"></i>
+                    비밀번호 변경
+                </h6>
+                <p class="small text-muted mb-3">
+                    보안을 위해 주기적으로 비밀번호를 변경하세요
+                </p>
+
+                <div class="mb-3">
+                    <label class="form-label small">현재 비밀번호</label>
+                    <input type="password" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small">새 비밀번호</label>
+                    <input type="password" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small">새 비밀번호 확인</label>
+                    <input type="password" class="form-control">
+                </div>
+
+                <button type="button" class="btn btn-primary">
+                    비밀번호 변경
+                </button>
             </div>
         </div>
-    </main>
+    </div>
+
+    <!-- 플랫폼 연동 -->
+    <div class="card mypage-card mb-4">
+        <div class="mypage-card-header">
+            <div class="mypage-card-title">플랫폼 연동</div>
+            <div class="mypage-card-desc">
+                콘텐츠를 게시하는 플랫폼을 연동하고 관리하세요
+            </div>
+        </div>
+        <div class="mypage-card-body">
+            <%-- 지금은 더미 데이터, 나중에 DB/연동 정보로 교체 예정 --%>
+
+            <div class="platform-item mb-2">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="platform-icon-box text-danger">
+                        <i class="bi bi-youtube"></i>
+                    </div>
+                    <div>
+                        <div class="fw-semibold">
+                            YouTube
+                            <span class="text-success small ms-1">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </span>
+                        </div>
+                        <div class="small text-muted">@creator123</div>
+                    </div>
+                </div>
+                <button type="button"
+                        class="btn btn-sm btn-outline-danger">
+                    연동 해제
+                </button>
+            </div>
+
+            <div class="platform-item mb-2">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="platform-icon-box" style="color:#db2777;">
+                        <i class="bi bi-instagram"></i>
+                    </div>
+                    <div>
+                        <div class="fw-semibold">
+                            Instagram
+                            <span class="text-success small ms-1">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </span>
+                        </div>
+                        <div class="small text-muted">@creator_official</div>
+                    </div>
+                </div>
+                <button type="button"
+                        class="btn btn-sm btn-outline-danger">
+                    연동 해제
+                </button>
+            </div>
+
+            <div class="platform-item mb-2">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="platform-icon-box">
+                        <i class="bi bi-play-btn"></i>
+                    </div>
+                    <div>
+                        <div class="fw-semibold">TikTok</div>
+                        <div class="small text-muted">연동되지 않음</div>
+                    </div>
+                </div>
+                <button type="button"
+                        class="btn btn-sm btn-primary">
+                    연동하기
+                </button>
+            </div>
+
+            <hr class="my-4"/>
+
+            <!-- 연동 통계 -->
+            <h6 class="mb-3">연동 통계</h6>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">연동된 플랫폼</div>
+                        <div class="stat-pill-value mt-1">3개</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">전체 구독자</div>
+                        <div class="stat-pill-value mt-1">125.4K</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">이번 달 업로드</div>
+                        <div class="stat-pill-value mt-1">24개</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 위험 구역 -->
+    <div class="card mypage-card danger-card mb-4">
+        <div class="mypage-card-header">
+            <div class="mypage-card-title danger-title d-flex align-items-center gap-2">
+                <i class="bi bi-trash"></i>
+                위험 구역
+            </div>
+            <div class="mypage-card-desc">
+                계정 삭제는 되돌릴 수 없습니다
+            </div>
+        </div>
+        <div class="mypage-card-body">
+            <button type="button"
+                    class="btn btn-danger"
+                    onclick="if(confirm('정말 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')){ alert('계정이 삭제되었습니다. (추후 서버 연동)'); }">
+                계정 삭제
+            </button>
+        </div>
+    </div>
 
 </div>

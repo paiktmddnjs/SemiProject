@@ -275,7 +275,7 @@
                             <li><hr class="dropdown-divider" /></li>
                             <li>
                                 <a class="dropdown-item"
-                                   href="${pageContext.request.contextPath}/mypage.me">
+                                   href="${pageContext.request.contextPath}/myPage.me">
                                     마이페이지
                                 </a>
                             </li>
