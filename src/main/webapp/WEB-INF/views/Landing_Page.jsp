@@ -15,16 +15,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-bottom: 1px solid #E5E7EB;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
+
         body {
             font-family: 'Arimo', sans-serif;
             line-height: 1.6;
@@ -87,6 +78,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            transition: all 0.3s;
         }
 
         .btn-secondary {
@@ -703,11 +695,46 @@
     </style>
 </head>
 <body>
+<!-- Header -->
 <header class="header">
-<header class="layout__header">
-    <jsp:include page="/WEB-INF/views/components/header.jsp"/>
+    <div class="header-container">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.PNG.png" alt="CREP Dashboard">
+            </div>
+            <div class="logo-text">CREP</div>
+        </div>
+        <nav class="nav-actions">
+            <a href="#" class="btn btn-secondary flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </a>
+
+            <button class="btn btn-secondary" onclick="location.href='login'">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                    <polyline points="10 17 15 12 10 7"></polyline>
+                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                </svg>
+                로그인
+            </button>
+
+            <a href="signup" class="btn btn-primary flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <line x1="19" y1="8" x2="19" y2="14"></line>
+                    <line x1="22" y1="11" x2="16" y2="11"></line>
+                </svg>
+                회원가입
+            </a>
+        </nav>
+    </div>
 </header>
-</header>
+
+<!-- Hero Section -->
 <section class="hero">
     <div class="hero-container">
         <div class="hero-content">

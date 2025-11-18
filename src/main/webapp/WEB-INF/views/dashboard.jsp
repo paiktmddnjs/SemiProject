@@ -14,62 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
-<%-- ====================================================== --%>
-<%-- [임시] 대시보드용 더미 데이터 (DB 연결 전 테스트용) --%>
-<%
-    // (더미 데이터... 원본과 동일하게 유지)
-    java.util.Map<String, Object> channels = new java.util.HashMap<>();
-    java.util.Map<String, Object> yt = new java.util.HashMap<>();
-    yt.put("name", "afsd"); yt.put("handle", "asdf"); yt.put("subs", "18.3"); yt.put("views", "256.8"); yt.put("videos", 213);
-    channels.put("yt", yt);
-    java.util.List<java.util.Map<String, Object>> igList = new java.util.ArrayList<>();
-    java.util.Map<String, Object> ig1 = new java.util.HashMap<>();
-    ig1.put("name", "asdf"); ig1.put("handle", "asdf"); ig1.put("subs", "45.9"); ig1.put("views", "1.2"); ig1.put("posts", 104);
-    igList.add(ig1);
-    java.util.Map<String, Object> ig2 = new java.util.HashMap<>();
-    ig2.put("name", "asfd"); ig2.put("handle", "asdf"); ig2.put("subs", "38.3"); ig2.put("views", "880.8"); ig2.put("posts", 169);
-    igList.add(ig2);
-    channels.put("ig", igList);
-    pageContext.setAttribute("channel", channels);
-    java.util.Map<String, String> stats = new java.util.HashMap<>();
-    stats.put("totalRevenue", "6,500"); stats.put("revenueGrowth", "24.5"); stats.put("weeklyViews", "159"); stats.put("viewsGrowth", "18.2"); stats.put("engagementRate", "7.5"); stats.put("engagementGrowth", "2.1"); stats.put("activeContracts", "3"); stats.put("activeContractAmount", "6,500");
-    pageContext.setAttribute("stats", stats);
-    java.util.List<java.util.Map<String, String>> scheduleList = new java.util.ArrayList<>();
-    java.util.Map<String, String> sched1 = new java.util.HashMap<>();
-    sched1.put("title", "신제품 리뷰 영상"); sched1.put("date", "2025-10-28"); sched1.put("status", "편집중"); sched1.put("platform", "YouTube");
-    scheduleList.add(sched1);
-    java.util.Map<String, String> sched2 = new java.util.HashMap<>();
-    sched2.put("title", "일상 브이로그"); sched2.put("date", "2025-10-29"); sched2.put("status", "촬영완료"); sched2.put("platform", "Instagram");
-    scheduleList.add(sched2);
-    java.util.Map<String, String> sched3 = new java.util.HashMap<>();
-    sched3.put("title", "챌린지 영상"); sched3.put("date", "2025-10-30"); sched3.put("status", "기획"); sched3.put("platform", "Chzzk");
-    scheduleList.add(sched3);
-    pageContext.setAttribute("schedule", scheduleList);
-    java.util.List<java.util.Map<String, String>> contractList = new java.util.ArrayList<>();
-    java.util.Map<String, String> contract1 = new java.util.HashMap<>();
-    contract1.put("name", "브랜드 A"); contract1.put("amount", "2000000"); contract1.put("status", "진행중"); contract1.put("progress", "60");
-    contractList.add(contract1);
-    java.util.Map<String, String> contract2 = new java.util.HashMap<>();
-    contract2.put("name", "브랜드 B"); contract2.put("amount", "1500000"); contract2.put("status", "대기중"); contract2.put("progress", "30");
-    contractList.add(contract2);
-    java.util.Map<String, String> contract3 = new java.util.HashMap<>();
-    contract3.put("name", "브랜드 C"); contract3.put("amount", "3000000"); contract3.put("status", "정산대기"); contract3.put("progress", "90");
-    contractList.add(contract3);
-    pageContext.setAttribute("activeContract", contractList);
-    java.util.List<java.util.Map<String, Object>> topContentList = new java.util.ArrayList<>();
-    java.util.Map<String, Object> content1 = new java.util.HashMap<>();
-    content1.put("platform", "YouTube"); content1.put("title", "신제품 리뷰 - 갤럭시 S25"); content1.put("likes", 892);
-    topContentList.add(content1);
-    java.util.Map<String, Object> content2 = new java.util.HashMap<>();
-    content2.put("platform", "YouTube"); content2.put("title", "Q&A 영상"); content2.put("likes", 756);
-    topContentList.add(content2);
-    java.util.Map<String, Object> content3 = new java.util.HashMap<>();
-    content3.put("platform", "Instagram"); content3.put("title", "신제품 리뷰 - 갤럭시 S25"); content3.put("likes", 892);
-    topContentList.add(content3);
-    pageContext.setAttribute("topContent", topContentList);
-%>
-<%-- 더미 데이터 끝 --%>
-<%-- ====================================================== --%>
+
 <div class="container">
     <div class="dash-grid-row dash-grid-row-3">
 
@@ -85,7 +30,7 @@
                             <div class="channel-unlinked-title">YouTube 채널 연동</div>
                             <div class="channel-unlinked-desc">YouTube 채널을 연동하여 콘텐츠를 관리하세요</div>
                         </div>
-                        <a href="#" class="btn-link-channel">
+                        <a href="${pageContext.request.contextPath}/login2" class="btn-link-channel">
                             <jsp:include page="/WEB-INF/views/common/icons/icon_plus.jsp" />
                             채널 연동하기
                         </a>
@@ -100,28 +45,30 @@
                         <div class="dash-card-badge">1개 연동됨</div>
                     </div>
                     <div class="channel-list">
-                        <div class="channel-item">
-                            <div class="channel-item-header">
-                                <div class="channel-item-info">
-                                        ${channel.yt.name} <span>@${channel.yt.handle}</span>
+                        <c:forEach var="ychannel" items="${channel.yt}">
+                            <div class="channel-item">
+                                <div class="channel-item-header">
+                                    <div class="channel-item-info">
+                                            ${ychannel.name} <span>@${ychannel.handle}</span>
+                                    </div>
+                                </div>
+                                <div class="channel-item-stats">
+                                    <div class="channel-stat">
+                                        <span class="channel-stat-label">구독자</span>
+                                        <span class="channel-stat-value">${ychannel.subs}K</span>
+                                    </div>
+                                    <div class="channel-stat">
+                                        <span class="channel-stat-label">조회수</span>
+                                        <span class="channel-stat-value">${ychannel.views}K</span>
+                                    </div>
+                                    <div class="channel-stat">
+                                        <span class="channel-stat-label">영상</span>
+                                        <span class="channel-stat-value">${ychannel.videos}</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="channel-item-stats">
-                                <div class="channel-stat">
-                                    <span class="channel-stat-label">구독자</span>
-                                    <span class="channel-stat-value">${channel.yt.subs}K</span>
-                                </div>
-                                <div class="channel-stat">
-                                    <span class="channel-stat-label">조회수</span>
-                                    <span class="channel-stat-value">${channel.yt.views}K</span>
-                                </div>
-                                <div class="channel-stat">
-                                    <span class="channel-stat-label">영상</span>
-                                    <span class="channel-stat-value">${channel.yt.videos}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#" class="btn-add-channel">채널 추가</a>
+                        </c:forEach>
+                        <a href="${pageContext.request.contextPath}/login2" class="btn-add-channel">계정 추가</a>
                     </div>
                 </c:otherwise>
             </c:choose>
@@ -139,7 +86,7 @@
                             <div class="channel-unlinked-title">Instagram 계정 연동</div>
                             <div class="channel-unlinked-desc">Instagram 계정을 연동하여 콘텐츠를 관리하세요</div>
                         </div>
-                        <a href="#" class="btn-link-channel">
+                        <a href="${pageContext.request.contextPath}/instagram/login" class="btn-link-channel">
                             <jsp:include page="/WEB-INF/views/common/icons/icon_plus.jsp" />
                             계정 연동하기
                         </a>
@@ -177,69 +124,107 @@
                                 </div>
                             </div>
                         </c:forEach>
-                        <a href="#" class="btn-add-channel">계정 추가</a>
+                        <a href="${pageContext.request.contextPath}/instagram/login" class="btn-add-channel">계정 추가</a>
                     </div>
                 </c:otherwise>
             </c:choose>
         </div>
 
         <%-- 1-3. 치지직 카드 --%>
-        <div class="dash-card channel-card">
-            <c:choose>
-                <c:when test="${empty channel.chzzk}">
-                    <div class="channel-card-unlinked">
-                        <div class="channel-icon-wrapper cz">
-                            <jsp:include page="/WEB-INF/views/common/icons/icon_chzzk.jsp" />
-                        </div>
-                        <div>
-                            <div class="channel-unlinked-title">CHZZK 채널 연동</div>
-                            <div class="channel-unlinked-desc">CHZZK 채널을 연동하여 콘텐츠를 관리하세요</div>
-                        </div>
-                        <a href="#" class="btn-link-channel">
-                            <jsp:include page="/WEB-INF/views/common/icons/icon_plus.jsp" />
-                            채널 연동하기
-                        </a>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="dash-card-header">
-                        <div class="dash-card-title">
-                            <jsp:include page="/WEB-INF/views/common/icons/icon_chzzk.jsp" />
-                            치지직 채널
-                        </div>
-                        <div class="dash-card-badge">1개 연동됨</div>
-                    </div>
-                    <div class="channel-list">
-                        <div class="channel-item">
-                            <div class="channel-item-header">
-                                <div class="channel-item-info">
-                                        ${channel.chzzk.name} <span>@${channel.chzzk.handle}</span>
-                                </div>
+            <div class="dash-card channel-card">
+                <c:choose>
+                    <c:when test="${empty chzzkChanels}">
+                        <div class="channel-card-unlinked">
+                            <div class="channel-icon-wrapper cz">
+                                <jsp:include page="/WEB-INF/views/common/icons/icon_chzzk.jsp" />
                             </div>
-                            <div class="channel-item-stats">
-                                <div class="channel-stat">
-                                    <span class="channel-stat-label">팔로워</span>
-                                    <span class="channel-stat-value">${channel.chzzk.subs}K</span>
-                                </div>
-                                <div class="channel-stat">
-                                    <span class="channel-stat-label">조회수</span>
-                                    <span class="channel-stat-value">${channel.chzzk.views}K</span>
-                                </div>
-                                <div class="channel-stat">
-                                    <span class="channel-stat-label">영상</span>
-                                    <span class="channel-stat-value">${channel.chzzk.videos}</span>
-                                </div>
+                            <div>
+                                <div class="channel-unlinked-title">CHZZK 채널 연동</div>
+                                <div class="channel-unlinked-desc">CHZZK 채널을 연동하여 콘텐츠를 관리하세요</div>
                             </div>
+                            <a href="${pageContext.request.contextPath}/chzzk/login" class="btn-link-channel">
+                                <jsp:include page="/WEB-INF/views/common/icons/icon_plus.jsp" />
+                                채널 연동하기
+                            </a>
                         </div>
-                        <a href="#" class="btn-add-channel">채널 추가</a>
-                    </div>
-                </c:otherwise>
-            </c:choose>
-        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="dash-card-header">
+                            <div class="dash-card-title">
+                                <jsp:include page="/WEB-INF/views/common/icons/icon_chzzk.jsp" />
+                                치지직 채널
+                            </div>
+                            <div class="dash-card-badge">${chzzkChanels.size()}개 연동됨</div>
+                        </div>
+                        <div class="channel-list">
+                            <c:forEach var="chanel" items="${chzzkChanels}">
+                                <div class="channel-item">
+                                    <div class="channel-item-header">
+                                        <div class="channel-item-info">
+                                                ${chanel.chanelName}
+                                        </div>
+                                        <button type="button" class="btn-delete-channel" onclick="deleteChannel('${chanel.chanelId}')">
+                                            <jsp:include page="/WEB-INF/views/common/icons/icon_delete.jsp" />
+                                        </button>
+                                    </div>
+                                    <div class="channel-item-stats">
+                                        <div class="channel-stat">
+                                            <span class="channel-stat-label">구독자</span>
+                                            <span class="channel-stat-value">
+                                            <c:choose>
+                                                <c:when test="${chanel.platfromSubscribe >= 1000}">
+                                                    <fmt:formatNumber value="${chanel.platfromSubscribe / 1000}" pattern="#,##0.0" />K
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <fmt:formatNumber value="${chanel.platfromSubscribe}" pattern="#,##0" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </span>
+                                        </div>
+                                        <c:if test="${not empty chanel.chanelFollower}">
+                                            <div class="channel-stat">
+                                                <span class="channel-stat-label">팔로워</span>
+                                                <span class="channel-stat-value">
+                                                <c:catch var="parseError">
+                                                    <c:set var="followerNum" value="${0}" />
+                                                    <c:if test="${not empty chanel.chanelFollower}">
+                                                        <c:set var="followerNum" value="${Integer.parseInt(chanel.chanelFollower)}" />
+                                                    </c:if>
+                                                    <c:choose>
+                                                        <c:when test="${followerNum >= 1000}">
+                                                            <fmt:formatNumber value="${followerNum / 1000}" pattern="#,##0.0" />K
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <fmt:formatNumber value="${followerNum}" pattern="#,##0" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:catch>
+                                                <c:if test="${not empty parseError}">
+                                                    ${chanel.chanelFollower}
+                                                </c:if>
+                                            </span>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${not empty chanel.chanelUrl}">
+                                            <div class="channel-stat">
+                                                <span class="channel-stat-label">URL</span>
+                                                <span class="channel-stat-value">
+                                                <a href="${chanel.chanelUrl}" target="_blank" style="color: inherit; text-decoration: underline;">보기</a>
+                                            </span>
+                                            </div>
+                                        </c:if>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                            <a href="${pageContext.request.contextPath}/chzzk/login" class="btn-add-channel">채널 추가</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
     </div> <%-- .dash-grid-row-3 끝 --%>
 
-<%--             2. 통계 (4열)--%>
+    <%--             2. 통계 (4열)--%>
     <div class="dash-grid-row dash-grid-row-4">
         <div class="dash-card dash-stat-card">
             <span class="dash-stat-card-title">이번 달 총 수익</span>
@@ -282,7 +267,7 @@
         </div>
     </div>
 
-<%--         3. 수익 분석 (2열) --%>
+    <%--         3. 수익 분석 (2열) --%>
     <div class="dash-grid-row dash-grid-row-2-ratio">
         <%-- (내용 동일) --%>
         <div class="dash-card">
@@ -306,7 +291,7 @@
     </div>
 
 
-<%--         4. 콘텐츠 성과 (2열) --%>
+    <%--         4. 콘텐츠 성과 (2열) --%>
     <div class="dash-grid-row dash-grid-row-2-ratio">
 
         <%-- 4-1. "콘텐츠 성과 추이" 카드  --%>
@@ -366,7 +351,7 @@
         </div>
     </div>
 
-<%--         5. 일정 및 계약 (2열) --%>
+    <%--         5. 일정 및 계약 (2열) --%>
     <div class="dash-grid-row dash-grid-row-2">
 
         <div class="dash-card">
@@ -602,6 +587,49 @@
             });
         }
     });
+    // 채널 삭제 함수 (전역 스코프 - onclick에서 접근 가능하도록)
+    function deleteChannel(chanelId) {
+        console.log('deleteChannel called with ID:', chanelId);
+
+        if (!chanelId) {
+            alert('채널 ID가 없습니다.');
+            return;
+        }
+
+        if (!confirm('정말 이 채널을 삭제하시겠습니까?')) {
+            return;
+        }
+
+        fetch('/dashboard/channel/' + chanelId + '/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error('HTTP error! status: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.success) {
+                    alert(data.message);
+                    // 페이지 새로고침하여 삭제된 채널 제거
+                    location.reload();
+                } else {
+                    alert(data.message || '채널 삭제에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('채널 삭제 중 오류가 발생했습니다: ' + error.message);
+            });
+    }
+
+
 </script>
 </body>
 </html>

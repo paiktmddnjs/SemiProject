@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.InstagramChannelMapper">
+
+    <resultMap id="InstagramChannelResultMap" type="com.example.demo.dto.InstagramdashboardDto">
+        <id property="chanelId" column="CHANEL_ID"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="name" column="CHANEL_NAME"/>
+        <result property="handle" column="CHANEL_HANDLE"/>
+        <result property="followers" column="CHANEL_FOLLOWER"/>
+        <result property="views" column="CHANEL_VIEWS"/>
+        <result property="mediaCount" column="CHANEL_MEDIA_COUNT"/>
+        <result property="platformType" column="PLATFORM_TYPE"/>
+        <result property="chanelStatus" column="CHANEL_STATUS"/>
+    </resultMap>
+
+
+
+
+    <select id="findByPlatformTypeAndStatusInstagram" parameterType="long" resultType="com.example.demo.dto.InstagramdashboardDto">
+        SELECT
+        CHANEL_ID,
+        MEMBER_ID,
+        CHANEL_NAME,
+        PLATFORM_TYPE,
+        PLATFROM_SUBSCRIBE,
+        CHANEL_STATUS,
+        CHANEL_CREATE,
+        CHANEL_URL,
+        CHANEL_COUNT,
+        CHANEL_FOLLOWER
+        FROM CHANEL
+        WHERE MEMBER_ID = #{memberId}
+        AND PLATFORM_TYPE = 'INSTAGRAM'
+
+    </select>
+
+
+    <!-- 특정 회원의 Instagram 채널 조회 -->
+    <select id="findByMemberId" parameterType="long" resultType="com.example.demo.Entity.Chanel">
+        SELECT *
+        FROM CHANEL
+        WHERE MEMBER_ID = #{memberId}
+        AND PLATFORM_TYPE = 'INSTAGRAM'
+    </select>
+
+    <!-- Instagram 채널 삽입 -->
+    <insert id="insertChannel" parameterType="com.example.demo.dto.InstagramChannelDto">
+        INSERT INTO CHANEL (
+        CHANEL_ID,
+        MEMBER_ID,
+        CHANEL_NAME,
+        PLATFORM_TYPE,
+        PLATFROM_SUBSCRIBE,
+        CHANEL_STATUS,
+        CHANEL_CREATE,
+        CHANEL_URL,
+        CHANEL_COUNT,
+        CHANEL_FOLLOWER
+        )
+        VALUES (
+        SEQ_CHANEL_ID.NEXTVAL,
+        5,
+        #{name},
+        'INSTAGRAM',
+        #{subs},
+        #{chanelStatus},
+        SYSDATE,
+        #{chanelUrl},
+        #{videos},
+        #{subs}
+        )
+    </insert>
+
+    <!-- Instagram 채널 업데이트 -->
+    <update id="updateChannel" parameterType="com.example.demo.dto.InstagramChannelDto">
+        UPDATE CHANEL
+        SET CHANEL_NAME = #{name},
+        PLATFROM_SUBSCRIBE = #{subs},
+        CHANEL_COUNT = #{videos},
+        CHANEL_URL = #{chanelUrl},
+        CHANEL_FOLLOWER = #{subs},
+        CHANEL_STATUS = #{chanelStatus}
+        WHERE MEMBER_ID = #{memberId}
+        AND PLATFORM_TYPE = 'INSTAGRAM'
+    </update>
+
+
+
+
+    <!-- 활성 인스타 채널 조회 -->
+
+
+
+    <!-- INSERT -->
+    <insert id="insert" parameterType="com.example.demo.dto.InstagramChannelDto">
+        <selectKey keyProperty="chanelId" resultType="Long" order="BEFORE">
+            SELECT SEQ_CHANEL_ID.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO CHANEL (
+        CHANEL_ID,
+        MEMBER_ID,
+        CHANEL_NAME,
+        CHANEL_HANDLE,
+        CHANEL_FOLLOWER,
+        CHANEL_VIEWS,
+        CHANEL_MEDIA_COUNT,
+        PLATFORM_TYPE,
+        CHANEL_STATUS,
+        CHANEL_CREATE
+        ) VALUES (
+        #{chanelId},
+        #{memberId},
+        #{name},
+        #{handle},
+        #{followers},
+        #{views},
+        #{mediaCount},
+        #{platformType},
+        #{chanelStatus},
+        SYSDATE
+        )
+    </insert>
+
+    <!-- UPDATE -->
+    <update id="update" parameterType="com.example.demo.dto.InstagramChannelDto">
+        UPDATE CHANEL
+        SET
+        MEMBER_ID = #{memberId},
+        CHANEL_NAME = #{name},
+        CHANEL_HANDLE = #{handle},
+        CHANEL_FOLLOWER = #{followers},
+        CHANEL_VIEWS = #{views},
+        CHANEL_MEDIA_COUNT = #{mediaCount},
+        PLATFORM_TYPE = #{platformType},
+        CHANEL_STATUS = #{chanelStatus}
+        WHERE CHANEL_ID = #{chanelId}
+    </update>
+
+    <!-- DELETE -->
+    <delete id="deleteById">
+        DELETE FROM CHANEL
+        WHERE CHANEL_ID = #{chanelId}
+    </delete>
+
+
+
+</mapper>
