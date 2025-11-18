@@ -135,8 +135,9 @@
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
-        WHERE TASK_START &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
-            AND TASK_DEADLINE &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+        WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+            AND TASK_DEADLINE &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+            AND (TASK_STATUS != 'complete')
     </select>
 
     <select id="workspaceStatusSelect" parameterType="int" resultMap="statusContainerResultMap">

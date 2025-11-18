@@ -11,6 +11,31 @@
 <script>
     let calendar;
 
+    function dateEvent(dateStr){
+        console.log("받은 데이터 : " + dateStr);
+
+        fetch(`${window.location.origin}/scheduleDate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `dateSelect=` + dateStr
+        })
+            .then(response => response.json())
+            .then(data =>{
+                let taskList = '';
+                data.dailyTask.forEach(p=>{
+
+                    taskList += '<li><div class="keywordContainer"><div class="keyword_type">' + p.workspaceName + '</div>';
+                    taskList += '<div class="keyword_event">' +  p.projectName + '</div>';
+                    taskList += '<div class="keyword_state">진행중</div>';
+                    taskList += '</div>';
+                    taskList += '<h3>&nbsp;'+p.taskName+'</h3><p>'+p.taskAssign+'</p></li>';
+
+                });
+                eventList.innerHTML = taskList;
+            })
+            .catch(err => console.error(err));
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         let eventColor = ["apple", "banana", "cherry"];
         const calendarEl = document.getElementById('calendar');
@@ -39,6 +64,17 @@
 
             height: 700,          // 높이를 700으로 고정
             contentHeight: 600,
+
+            dateClick: function(info){
+                console.log(info.dateStr);
+                if(typeof dateEvent === 'function'){
+                    console.log('데이터 전달 체크');
+                    dateEvent(info.dateStr);
+                } else{
+                    console.log('데이터 전달 실패');
+                    console.log(typeof dateEvent);
+                }
+            },
 
             events: [
                 <c:forEach var="c" items="${calendar}">

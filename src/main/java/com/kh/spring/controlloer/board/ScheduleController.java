@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.Console;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -93,6 +94,19 @@ public class ScheduleController {
 
         Map<String, Object> result = new HashMap<>();
         result.put("scheduleCalendar", calendarSelect);
+
+        return result;
+    }
+
+    @PostMapping("/scheduleDate")
+    @ResponseBody
+    public Map<String, Object> scheduleDate(@RequestParam("dateSelect") String dateStr) {
+
+        List<Task> dailyTaskSelect = scheduleServiceImpl.dailyTaskSelect(dateStr);
+
+        System.out.println(dailyTaskSelect);
+        Map<String, Object> result = new HashMap<>();
+        result.put("dailyTask", dailyTaskSelect);
 
         return result;
     }

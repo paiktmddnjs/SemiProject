@@ -11,7 +11,7 @@
         <h3>10월 27일</h3>
         <p>2개의 일정</p>
     </div>
-    <ol class="eventList">
+    <ol class="eventList" id="eventList">
         <c:forEach var="d" items="${dailyTask}">
             <li>
                 <div class="keywordContainer">

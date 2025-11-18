@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const workspaceButtonContainer = document.getElementById('WorkspaceButtonContainer');
     const projectButtonContainer = document.getElementById('ProjectButtonContainer');
+    const eventList = document.getElementById('eventList');
 
     workspaceButtonContainer.addEventListener('click', function(e) {
 
@@ -74,4 +75,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(err => console.error(err));
         }
     });
+
+    function dateEvent(dateStr){
+        fetch(`${window.location.origin}/scheduleCalendar`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `dateSelect=${dateStr}`
+        })
+            .then(response => response.json())
+            .then(data =>{
+                let taskList = '';
+                data.dailyTask.forEach(p =>{
+                    taskList += `
+                                <li>
+                                    <div class="keywordContainer">
+                                        <div class="keyword_type">${p.workspaceName}</div>
+                                        <div class="keyword_event">${p.projectName}</div>
+                                        <div class="keyword_state">진행중</div>
+                                    </div>
+                                    <h3>&nbsp;${p.taskName}</h3>
+                                    <p>${p.taskAssign}</p>
+                                </li>
+                                `;
+                });
+            eventList.innerHTML = taskList;
+            })
+            .catch(err => console.error(err));
+    }
 });
