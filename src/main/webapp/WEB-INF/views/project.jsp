@@ -129,7 +129,7 @@
                             <div class="team_title_right">
                                 <button class="button"
                                         data-modal-target="inviteMemberModal"
-                                        data-modal-url="<c:url value='/member/new?workspaceId=${workspace.workspaceId}'/>">+ 멤버초대</button>
+                                        data-modal-url="<c:url value='/request/invite?workspaceId=${workspace.workspaceId}'/>">+ 멤버초대</button>
                             </div>
                         </div>
                         <div class ="search">
@@ -212,6 +212,21 @@
                 form.submit();
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const successMessage = '<c:out value="${successMessage}" />';
+            const errorMessage = '<c:out value="${errorMessage}" />';
+
+            console.log("JSP 렌더링 시점의 successMessage:", successMessage);
+            console.log("JSP 렌더링 시점의 errorMessage:", errorMessage);
+
+            if (successMessage) {
+                alert(successMessage);
+            }
+            if (errorMessage) {
+                alert(errorMessage);
+            }
+        });
     </script>
 </body>
 </html>

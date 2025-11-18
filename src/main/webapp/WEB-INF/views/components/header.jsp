@@ -1,9 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user1
-  Date: 25. 11. 4.
-  Time: 오후 12:38
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -211,10 +205,12 @@
                 <img class="button-icon" src="<c:url value='/resources/images/moon_icon.png'/>" alt="" />
             </button>
 
-            <button class="icon-button" type="button" aria-label="알림 열기" id="notifyBtn" style="position: relative;">
+            <a href="<c:url value='/request'/>" class="icon-button" aria-label="초대 목록 열기" style="position: relative;">
                 <img class="button-icon" src="<c:url value='/resources/images/bell_icon.png'/>" alt="" />
-                <span class="notification-badge" aria-hidden="true"></span>
-            </button>
+                <c:if test="${pendingRequestCount > 0}">
+                    <span class="notification-badge" aria-hidden="true"></span>
+                </c:if>
+            </a>
 
             <button class="avatar-button" type="button" aria-label="프로필 메뉴 열기" id="profileBtn">
                 <img class="avatar-image" src="<c:url value='/resources/images/avatar_image.png'/>" alt="사용자 프로필" />
@@ -241,12 +237,6 @@
         const root = document.documentElement;
         root.classList.toggle('dark');
         // 아이콘 교체가 필요하면 여기서 처리 (예: moon <-> sun)
-    });
-
-    // 알림 버튼
-    document.getElementById('notifyBtn')?.addEventListener('click', function () {
-        // 알림 드롭다운 열기/닫기 로직 연결
-        console.log('알림 클릭');
     });
 
     // 프로필 버튼

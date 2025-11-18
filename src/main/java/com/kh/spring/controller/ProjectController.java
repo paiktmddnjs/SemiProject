@@ -26,10 +26,22 @@ public class ProjectController {
     private ProjectService projectService; // 오직 Service만 의존
 
     @GetMapping("")
-    public String getProjectList(@RequestParam("workspaceId") int workspaceId, Model model) {
+    public String getProjectList(@RequestParam("workspaceId") int workspaceId,
+                                 @RequestParam(value = "successMessage", required = false) String successMessage,
+                                 @RequestParam(value = "errorMessage", required = false) String errorMessage,
+                                 Model model) {
         log.info("GET /project - 수신된 workspaceId: {}", workspaceId);
         Map<String, Object> pageData = projectService.getProjectPageData(workspaceId);
         model.addAllAttributes(pageData);
+
+        // URL 파라미터로 받은 메시지를 모델에 추가
+        if (successMessage != null) {
+            model.addAttribute("successMessage", successMessage);
+        }
+        if (errorMessage != null) {
+            model.addAttribute("errorMessage", errorMessage);
+        }
+
         return "project";
     }
 
