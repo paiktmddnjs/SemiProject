@@ -73,5 +73,9 @@ public class MemberController {
         }
         return mv;
     }
-
+    @GetMapping("/logout.me")
+    public String logout(HttpSession httpSession) {
+        httpSession.removeAttribute("loginMember");
+        return "redirect:/";
+    }
 }
