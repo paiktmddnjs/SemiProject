@@ -21,7 +21,7 @@ public class ContractController {
     private ContractService contractService;
     
     // 계약 목록 페이지
-    @GetMapping("/list.co")
+    @GetMapping("/list")
     public String contractList(Model model, jakarta.servlet.http.HttpSession session) {
         // 세션에서 로그인한 멤버 ID 가져오기
         Long memberId = (Long) session.getAttribute("memberId");

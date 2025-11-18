@@ -258,9 +258,36 @@
                         <span class="notification-badge" style="position:absolute;top:4px;right:4px;width:8px;height:8px;background:#fb2c36;border-radius:999px;"></span>
                     </button>
 
-                    <button class="avatar-button" id="profileBtn">
-                        <img class="avatar-image" src="<c:url value='/resources/images/avatar_image.png'/>" />
-                    </button>
+                        <%-- ✅ 프로필 아이콘 + 드롭다운 --%>
+                    <div class="dropdown">
+                        <button class="avatar-button dropdown-toggle"
+                                id="profileDropdown"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <img class="avatar-image" src="<c:url value='/resources/images/avatar_image.png'/>" />
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li class="dropdown-header px-3 py-2">
+                                <strong>${sessionScope.loginMember.memberName}</strong> 님
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/mypage.me">
+                                    마이페이지
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/logout.me">
+                                    로그아웃
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </c:otherwise>
 
