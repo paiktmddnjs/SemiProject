@@ -218,6 +218,23 @@
         WHERE MEMBER_ID = #{memberId}
     </select>
 
-
+    <!-- 최근 5개월 수익 추이 데이터 (카테고리별) -->
+    <select id="selectRecentFiveMonthsRevenue" resultType="com.kh.spring.model.vo.Monthly">
+        SELECT
+            EXTRACT(MONTH FROM FINANCIAL_DATE) AS month,
+            EXTRACT(YEAR FROM FINANCIAL_DATE) AS year,
+            COALESCE(SUM(CASE WHEN (CATEGORY = '광고' OR CATEGORY = '광고수익') AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) AS AdTotalIncome,
+            COALESCE(SUM(CASE WHEN CATEGORY = '협찬' AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) AS SponTotalIncome,
+            COALESCE(SUM(CASE WHEN (CATEGORY = '굿즈' OR CATEGORY = '상품판매') AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) AS MerchTotalIncome,
+            COALESCE(SUM(CASE WHEN CATEGORY = '기타' AND FINANCIAL_TYPE IN ('수익', 'INCOME') THEN FINANCIAL_AMOUNT ELSE 0 END), 0) AS EtcTotalIncome
+        FROM FINANCIAL_MANAGEMENT
+        WHERE FINANCIAL_STATUS = 'Y'
+        AND MEMBER_ID = #{memberId}
+        AND FINANCIAL_TYPE IN ('수익', 'INCOME')
+        AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -4)
+        AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
+        GROUP BY EXTRACT(YEAR FROM FINANCIAL_DATE), EXTRACT(MONTH FROM FINANCIAL_DATE)
+        ORDER BY year, month
+    </select>
 
 </mapper>

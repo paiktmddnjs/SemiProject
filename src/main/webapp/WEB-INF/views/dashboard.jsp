@@ -455,14 +455,68 @@
         const ctxRevenue = document.getElementById('revenueTrendChart');
 
         if (ctxRevenue) {
-            const revenueLabels = ['6월', '7월', '8월', '9월', '10월'];
+            // 서버에서 전달받은 데이터 사용 (없으면 기본값)
+            let revenueLabels;
+            let adRevenueData;
+            let sponRevenueData;
+            let merchRevenueData;
+            let etcRevenueData;
+            
+            <c:choose>
+                <c:when test="${not empty revenueMonthLabels}">
+                    revenueLabels = [
+                        <c:forEach var="label" items="${revenueMonthLabels}" varStatus="status">
+                            '${label}'<c:if test="${!status.last}">,</c:if>
+                        </c:forEach>
+                    ];
+                    
+                    adRevenueData = [
+                        <c:forEach var="amount" items="${adRevenue}" varStatus="status">
+                            ${amount}<c:if test="${!status.last}">,</c:if>
+                        </c:forEach>
+                    ];
+                    
+                    sponRevenueData = [
+                        <c:forEach var="amount" items="${sponRevenue}" varStatus="status">
+                            ${amount}<c:if test="${!status.last}">,</c:if>
+                        </c:forEach>
+                    ];
+                    
+                    merchRevenueData = [
+                        <c:forEach var="amount" items="${merchRevenue}" varStatus="status">
+                            ${amount}<c:if test="${!status.last}">,</c:if>
+                        </c:forEach>
+                    ];
+                    
+                    etcRevenueData = [
+                        <c:forEach var="amount" items="${etcRevenue}" varStatus="status">
+                            ${amount}<c:if test="${!status.last}">,</c:if>
+                        </c:forEach>
+                    ];
+                </c:when>
+                <c:otherwise>
+                    // 데이터가 없을 때 기본값 (최근 5개월 라벨)
+                    revenueLabels = [];
+                    adRevenueData = [0, 0, 0, 0, 0];
+                    sponRevenueData = [0, 0, 0, 0, 0];
+                    merchRevenueData = [0, 0, 0, 0, 0];
+                    etcRevenueData = [0, 0, 0, 0, 0];
+                    // 최근 5개월 라벨 생성
+                    const now = new Date();
+                    for (let i = 4; i >= 0; i--) {
+                        const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                        revenueLabels.push((date.getMonth() + 1) + '월');
+                    }
+                </c:otherwise>
+            </c:choose>
+            
             const revenueData = {
                 labels: revenueLabels,
                 datasets: [
-                    { label: '광고 수익', data: [1200, 1500, 1800, 2100, 2800], backgroundColor: '#EA580C' },
-                    { label: '협찬 수익', data: [800, 1200, 1000, 1600, 2000], backgroundColor: '#FB923C' },
-                    { label: '굿즈 판매', data: [400, 500, 600, 700, 900], backgroundColor: '#FDBA74' },
-                    { label: '기타 수익', data: [300, 400, 500, 600, 800], backgroundColor: '#FED7AA' }
+                    { label: '광고 수익', data: adRevenueData, backgroundColor: '#EA580C' },
+                    { label: '협찬 수익', data: sponRevenueData, backgroundColor: '#FB923C' },
+                    { label: '굿즈 판매', data: merchRevenueData, backgroundColor: '#FDBA74' },
+                    { label: '기타 수익', data: etcRevenueData, backgroundColor: '#FED7AA' }
                 ]
             };
 

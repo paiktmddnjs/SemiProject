@@ -34,4 +34,7 @@ public interface FinancialService {
     public int selectTransactionCount(Long memberId);
 
     Map<String, Object> selectAllTransaction(Long memberId, int currentPage);
+    
+    // 최근 5개월 수익 추이 데이터
+    List<Monthly> selectRecentFiveMonthsRevenue(Long memberId);
 }

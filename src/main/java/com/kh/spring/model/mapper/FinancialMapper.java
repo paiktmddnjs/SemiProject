@@ -32,4 +32,7 @@ public interface FinancialMapper {
     // 2. 범위별 조회 (Map에 offset과 limit을 담아 전달)
     List<Financial> selectAllTransaction(@Param("memberId") Long memberId, @Param("offset") int offset, @Param("limit") int limit);
 
+    // 최근 5개월 수익 추이 데이터 (카테고리별)
+    List<Monthly> selectRecentFiveMonthsRevenue(@Param("memberId") Long memberId);
+
 }

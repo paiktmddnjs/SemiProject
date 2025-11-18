@@ -128,5 +128,10 @@ public class FinancialServiceImpl implements FinancialService {
         return resultMap;
     }
 
+    @Override
+    public List<Monthly> selectRecentFiveMonthsRevenue(Long memberId) {
+        return financialMapper.selectRecentFiveMonthsRevenue(memberId);
+    }
+
 
 }
