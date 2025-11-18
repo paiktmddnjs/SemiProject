@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -337,13 +336,7 @@
 </head>
 <body>
 <%
-    // JSP에서 사용할 데이터 설정 (실제로는 Controller에서 Model에 담아 전달)
-    request.setAttribute("totalContent", 8);
-    request.setAttribute("totalViews", "153.5K");
-    request.setAttribute("viewsGrowth", "+12.5%");
-    request.setAttribute("avgLikes", "1,680");
-    request.setAttribute("avgComments", "170");
-    request.setAttribute("monthlyContentIncrease", "+8개");
+    // JSP에서 사용할 데이터 설정 (실제로는 Controller에서 Model에 담아 전달
 
     // 파라미터로 받은 카테고리 필터 (없으면 '전체')
     String selectedCategory = request.getParameter("category");
@@ -365,6 +358,9 @@
             <span>새 콘텐츠 등록</span>
         </button>
     </div>
+    <form action="${pageContext.request.contextPath}/content" method="get">
+        <button type="submit">콘텐츠 페이지 이동</button>
+    </form>
 
     <!-- Stats Cards -->
     <div class="stats-grid">
@@ -377,7 +373,7 @@
                 </svg>
             </div>
             <div class="stat-card-content">
-                <div class="stat-value">${totalContent}개</div>
+                <div class="stat-value">${ContentCount}개</div>
                 <div class="stat-subtitle">이번 달 ${monthlyContentIncrease}</div>
             </div>
         </div>
@@ -391,7 +387,7 @@
                 </svg>
             </div>
             <div class="stat-card-content">
-                <div class="stat-value">${totalViews}</div>
+                <div class="stat-value">${ViewCount}</div>
                 <div class="stat-subtitle">
                     <span class="trend-positive">${viewsGrowth}</span> 전월 대비
                 </div>
@@ -406,7 +402,7 @@
                 </svg>
             </div>
             <div class="stat-card-content">
-                <div class="stat-value">${avgLikes}</div>
+                <div class="stat-value">${AvergeLikeCount}</div>
                 <div class="stat-subtitle">콘텐츠당 평균</div>
             </div>
         </div>
@@ -419,7 +415,7 @@
                 </svg>
             </div>
             <div class="stat-card-content">
-                <div class="stat-value">${avgComments}</div>
+                <div class="stat-value">${AvergeViewCount}</div>
                 <div class="stat-subtitle">콘텐츠당 평균</div>
             </div>
         </div>
@@ -469,22 +465,22 @@
                 </thead>
                 <tbody id="categoryStatsBody">
                 <%-- 실제 환경에서는 categoryStatsList를 Model에서 받아 사용 --%>
-                <c:forEach var="stat" items="${categoryStatsList}">
+                <c:forEach var="stat" items="${CategoricalDetailList}">
                     <tr>
                         <td>
                             <div class="category-badge">
-                                <div class="category-dot" style="background-color: ${stat.color}"></div>
-                                <span>${stat.name}</span>
+                                <div class="category-dot" style="background-color: orange"></div>
+                                <span>${stat.category}</span>
                             </div>
                         </td>
-                        <td>${stat.count}개</td>
-                        <td><fmt:formatNumber value="${stat.views}" pattern="#,###"/></td>
+                        <td>${stat.content_count}개</td>
+                        <td><fmt:formatNumber value="${stat.total_views}" pattern="#,###"/></td>
                         <td>
                             <div class="icon-value">
                                 <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                 </svg>
-                                <span><fmt:formatNumber value="${stat.likes}" pattern="#,###"/></span>
+                                <span><fmt:formatNumber value="${stat.total_likes}" pattern="#,###"/></span>
                             </div>
                         </td>
                         <td>
@@ -492,7 +488,7 @@
                                 <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                 </svg>
-                                <span><fmt:formatNumber value="${stat.comments}" pattern="#,###"/></span>
+                                <span><fmt:formatNumber value="${stat.total_comments}" pattern="#,###"/></span>
                             </div>
                         </td>
                     </tr>
@@ -503,16 +499,6 @@
     </div>
 
     <!-- Category Filter -->
-    <div class="category-filter">
-        <c:forEach var="cat" items="${['전체', '리뷰', '브이로그', '튜토리얼', '소통', '엔터테인먼트']}">
-            <form action="dashboard.jsp" method="get" style="display: inline;">
-                <input type="hidden" name="category" value="${cat}">
-                <button type="submit" class="category-btn ${selectedCategory eq cat ? 'active' : ''}">
-                        ${cat}
-                </button>
-            </form>
-        </c:forEach>
-    </div>
 
 
 
@@ -543,19 +529,19 @@
                 </thead>
                 <tbody>
                 <%-- 실제 환경에서는 contentList를 Model에서 받아 사용 --%>
-                <c:forEach var="content" items="${contentList}">
+                <c:forEach var="content" items="${contentList2}">
                     <tr>
                         <td>
                             <div class="platform-badge">
-                                <div class="platform-icon ${content.platformIcon}">
+                                <div class="platform-icon ${contentList.platformIcon}">
                                     <c:choose>
-                                        <c:when test="${content.platformIcon eq 'youtube'}">
+                                        <c:when test="${contentList.platformIcon eq 'youtube'}">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <rect x="2" y="6" width="20" height="12" rx="2"></rect>
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </c:when>
-                                        <c:when test="${content.platformIcon eq 'instagram'}">
+                                        <c:when test="${contentList.platformIcon eq 'instagram'}">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                                 <circle cx="12" cy="12" r="4"></circle>
@@ -566,16 +552,23 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <span>${content.platform}</span>
+                                <span>${contentList.platform}</span>
                             </div>
                         </td>
                         <td>${content.title}</td>
                         <td>
-                                    <span class="category-tag" style="color: ${content.categoryColor}; border-color: ${content.categoryColor}">
+                                    <span class="category-tag" style="color: ${contentList.categoryColor}; border-color: ${contentList.categoryColor}">
                                             ${content.category}
                                     </span>
                         </td>
-                        <td><fmt:formatDate value="${content.uploadDate}" pattern="yyyy-MM-dd"/></td>
+                        <td><c:choose>
+                            <c:when test="${not empty content.uploadDate}">
+                                <fmt:formatDate value="${content.uploadDate}" pattern="yyyy-MM-dd"/>
+                            </c:when>
+                            <c:otherwise>
+                                -
+                            </c:otherwise>
+                        </c:choose></td>
                         <td>
                             <div class="icon-value">
                                 <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -602,7 +595,7 @@
                             </div>
                         </td>
                         <td>
-                            <span class="status-badge">${content.status}</span>
+                            <span class="status-badge">${content.contentStatus}</span>
                         </td>
                     </tr>
                 </c:forEach>
@@ -724,11 +717,26 @@
     const chartData = {
         barChart: {
             labels: ['리뷰', '브이로그', '엔터테인먼트', '소통', '튜토리얼'],
-            data: [2, 2, 2, 1, 1]
+            data: [
+                <c:forEach var="item1" items="${CategoricalContentList}" varStatus="status">
+                ${item1.contentByCategroy}${status.last ? '' : ','}
+                </c:forEach>
+
+            ]
         },
         pieChart: {
-            labels: ['리뷰 17%', '브이로그 17%', '엔터테인먼트 50%', '소통 8%', '튜토리얼 6%'],
-            data: [17, 17, 50, 8, 6],
+                labels: [
+                    <c:forEach var="item2" items="${CategoricalViewsList}" varStatus="status">
+                    '<c:out value="${item2.category}"/>'
+                    ${status.last ? '' : ','}
+                    </c:forEach>
+                    ${percent}
+                ],
+            data: [
+                <c:forEach var="item2" items="${CategoricalViewsList}" varStatus="status">
+                ${item2.viewByCategroy}${status.last ? '' : ','}
+                </c:forEach>
+            ],
             colors: ['#EA580C', '#FB923C', '#FFEDD5', '#FED7AA', '#FDBA74']
         }
     };
