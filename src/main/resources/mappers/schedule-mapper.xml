@@ -117,14 +117,21 @@
     </select>
 
     <select id="calendarSelect" parameterType="int" resultMap="taskResultMap">
-        SELECT TASK_NAME, TASK_ID, TASK_START, TASK_DEADLINE
+        SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
         WHERE PROJECT_ID = #{projectId} AND (TASK_STATUS != 'complete')
     </select>
 
+    <select id="calendarWorkspaceSelect" parameterType="int" resultMap="taskResultMap">
+        SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE WORKSPACE_ID = #{workspaceId} AND (TASK_STATUS != 'complete')
+    </select>
+
     <select id="calendarWholeSelect" resultMap="taskResultMap">
-        SELECT TASK_NAME, TASK_ID, TASK_START, TASK_DEADLINE
+        SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
         WHERE TASK_STATUS != 'complete'
@@ -136,8 +143,43 @@
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
         WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
-            AND TASK_DEADLINE &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+            AND TASK_DEADLINE &gt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
             AND (TASK_STATUS != 'complete')
+    </select>
+
+    <select id="dailyTaskMemberNoSelect" resultMap="taskResultMap">
+        SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_ID)
+        JOIN MEMBER USING (MEMBER_ID)
+        WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+            AND TASK_DEADLINE &gt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+            AND (TASK_STATUS != 'complete')
+            AND (MEMBER_ID = #{memberId})
+    </select>
+
+    <select id="dailyTaskWorkspaceSelect" resultMap="taskResultMap">
+        SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+        AND TASK_DEADLINE &gt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+        AND (TASK_STATUS != 'complete')
+        AND (WORKSPACE_ID = #{workspaceId})
+    </select>
+
+    <select id="dailyTaskProjectSelect" resultMap="taskResultMap">
+        SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+        AND TASK_DEADLINE &gt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+        AND (TASK_STATUS != 'complete')
+        AND (PROJECT_ID = #{projectId})
     </select>
 
     <select id="workspaceStatusSelect" parameterType="int" resultMap="statusContainerResultMap">

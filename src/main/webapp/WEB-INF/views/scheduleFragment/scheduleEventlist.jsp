@@ -8,8 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="whitebox" style="width: calc(98% - 800px); padding:0px;">
     <div class="headline" style="height:70px;">
-        <h3>10월 27일</h3>
-        <p>2개의 일정</p>
+        <h3 id="eventDate">${today}</h3>
+        <p id="eventMany">${taskMany}개의 일정</p>
     </div>
     <ol class="eventList" id="eventList">
         <c:forEach var="d" items="${dailyTask}">

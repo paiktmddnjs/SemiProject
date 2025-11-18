@@ -13,6 +13,7 @@
         </div>
         <p>먼저 워크스페이스를 선택하세요</p>
         <div class="buttonCollection" id="WorkspaceButtonContainer">
+            <button type="button" value="0" class="activated">전체</button>
             <c:forEach var="w" items="${scheduleWorkspaces}">
                 <button type="button"
                         value="${w.workspaceId}"

@@ -16,8 +16,12 @@ public interface ScheduleService {
     int statusCompleteSelect(int workspaceId);
     int statusCompleteWholeSelect();
     List<Task> calendarSelect(int projectId);
+    List<Task> calendarWorkspaceSelect(int workspaceId);
     List<Task> calendarWholeSelect();
     List<Task> dailyTaskSelect(String selectedDate);
+    List<Task> dailyTaskMemberNoSelect(int memberId, String selectedDate);
+    List<Task> dailyTaskWorkspaceSelect(int workspaceId, String selectedDate);
+    List<Task> dailyTaskProjectSelect(int projectId, String selectedDate);
     List<StatusContainer> workspaceStatusSelect();
     List<StatusContainer> projectStatusSelect();
 }

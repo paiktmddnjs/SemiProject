@@ -13,6 +13,7 @@
     </div>
     <p>프로젝트 필터링</p>
     <div class="buttonCollection" id="ProjectButtonContainer">
+        <button type="button" class="activated" value=0>전체</button>
         <c:forEach var="p" items="${scheduleProjects}">
             <button type="button"
                 value="${p.projectId}"

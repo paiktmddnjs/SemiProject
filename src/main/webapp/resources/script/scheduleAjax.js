@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if(e.target.tagName === 'BUTTON') {
             const workspaceId = e.target.value;
             const workspaceName = e.target.textContent;
+            var num = 1;
 
             fetch(`${window.location.origin}/scheduleWorkspace`, {
                 method: 'POST',
@@ -18,11 +19,23 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    let projectButtonList = '';
+                    let projectButtonList = '<button type="button" class="activated" value=0>전체</button>';
                     data.scheduleProjects.forEach(p => {
-                        projectButtonList += `<button type="button" class="disactive" value="${p.projectId}">${p.projectName}</button>`;
+                        projectButtonList += `<button type="button" class="disactive" value=${p.projectId}>${p.projectName}</button>`;
                     });
                     projectButtonContainer.innerHTML = projectButtonList;
+
+                    calendar.removeAllEvents();
+                    data.scheduleCalendar.forEach(p => {
+                        calendar.addEvent({
+                            title: `${p.taskName}`,
+                            start: `${p.taskStart}`,
+                            end: `${p.taskDeadline}`,
+                            className: `eventColor${num}`
+                        });
+                        console.log(num);
+                        num +=1;
+                    });
 
                     document.getElementById('whole-title').textContent = `${workspaceName} 현황`;
                     document.getElementById('whole-todo').textContent = `${data.statusTodo}건`;
@@ -35,6 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     e.target.classList.add('activated');
                     e.target.classList.remove('disactive');
+                    W_id = data.W_id;
+                    P_id = data.P_id;
+                    console.log(`워크스페이스 id : ${W_id}`);
+                    console.log(`프로젝트 id : ${P_id}`);
                 })
                 .catch(err => console.error(err));
         }
@@ -51,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `projectSelect=${projectId}`
+                body: `workspaceId=` + W_id + `&projectSelect=${projectId}`
             })
                 .then(response => response.json())
                 .then(data => {
@@ -74,6 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     e.target.classList.add('activated');
                     e.target.classList.remove('disactive');
+                    P_id = data.P_id;
+                    console.log(`워크스페이스 id : ${W_id}`);
+                    console.log(`프로젝트 id : ${P_id}`);
                 })
                 .catch(err => console.error(err));
         }

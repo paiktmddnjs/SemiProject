@@ -21,6 +21,9 @@ public interface ScheduleMapper {
     List<Task> calendarSelect(@Param("projectId") int projectId);
     List<Task> calendarWholeSelect();
     List<Task> dailyTaskSelect(@Param("selectedDate") String selectedDate);
+    List<Task> dailyTaskMemberNoSelect(@Param("memberId") int memberId, @Param("selectedDate") String selectedDate);
+    List<Task> dailyTaskWorkspaceSelect(@Param("workspaceId") int workspaceId, @Param("selectedDate") String selectedDate);
+    List<Task> dailyTaskProjectSelect(@Param("projectId") int projectId, @Param("selectedDate") String selectedDate);
     List<StatusContainer> workspaceStatusSelect();
     List<StatusContainer> projectStatusSelect();
 }

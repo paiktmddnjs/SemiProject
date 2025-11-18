@@ -385,6 +385,7 @@
     height: 100px;
     width: 100px;
     color: white;
+    cursor: pointer;
 }
 
 .fc .fc-daygrid-day-top a {

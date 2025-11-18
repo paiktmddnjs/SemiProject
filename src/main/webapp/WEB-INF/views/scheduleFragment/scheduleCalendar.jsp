@@ -13,14 +13,34 @@
 
     function dateEvent(dateStr){
         console.log("받은 데이터 : " + dateStr);
+        const eventDate = document.getElementById('eventDate');
+        const eventMany = document.getElementById('eventMany');
+        let fetchContainer;
+        var num = 0;
 
-        fetch(`${window.location.origin}/scheduleDate`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `dateSelect=` + dateStr
-        })
+        if(P_id!=0){
+            fetchContainer=fetch(`${window.location.origin}/scheduleProjectDate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `projectId=` + P_id + `&dateSelect=` + dateStr
+            })
+        } else if(W_id!=0){
+            fetchContainer=fetch(`${window.location.origin}/scheduleWorkspaceDate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `workspaceId=` + W_id + `&dateSelect=` + dateStr
+            })
+        } else{
+            fetchContainer=fetch(`${window.location.origin}/scheduleMemberNoDate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `memberId=` + memberId + `&dateSelect=` + dateStr
+            })
+        }
+        fetchContainer
             .then(response => response.json())
             .then(data =>{
+                eventDate.textContent = dateStr;
                 let taskList = '';
                 data.dailyTask.forEach(p=>{
 
@@ -30,8 +50,10 @@
                     taskList += '</div>';
                     taskList += '<h3>&nbsp;'+p.taskName+'</h3><p>'+p.taskAssign+'</p></li>';
 
+                    num += 1;
                 });
                 eventList.innerHTML = taskList;
+                eventMany.textContent = num + '개의 일정';
             })
             .catch(err => console.error(err));
     }
