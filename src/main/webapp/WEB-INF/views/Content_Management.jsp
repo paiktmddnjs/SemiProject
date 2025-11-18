@@ -794,10 +794,8 @@
         pieChart: {
                 labels: [
                     <c:forEach var="item2" items="${CategoricalViewsList}" varStatus="status">
-                    '<c:out value="${item2.category}"/>'
-                    ${status.last ? '' : ','}
+                    '<c:out value="${item2.category}"/> <fmt:formatNumber value="${percentList[status.index]}" type="number" maxFractionDigits="2" minFractionDigits="2" />%'${status.last ? '' : ','}
                     </c:forEach>
-                    ${percent}
                 ],
             data: [
                 <c:forEach var="item2" items="${CategoricalViewsList}" varStatus="status">
