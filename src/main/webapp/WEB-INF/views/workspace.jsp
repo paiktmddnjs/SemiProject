@@ -13,6 +13,33 @@
     
     <script src="<c:url value='/resources/static/js/workspace.js'/>" defer></script>
     <script src="<c:url value='/resources/static/js/modal.js'/>" defer></script>
+    <style>
+        .box {
+            position: relative;
+        }
+        .delete-workspace-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background-color: #fee2e2;
+            color: #ef4444;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .delete-workspace-btn:hover {
+            background-color: #ef4444;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
@@ -57,6 +84,7 @@
                     <c:forEach var="ws" items="${workspaces}">
                         <a href="<c:url value='/project?workspaceId=${ws.workspaceId}'/>" class="box-link">
                             <div class="box" data-channel="${ws.channelId}">
+                                <button class="delete-workspace-btn" onclick="deleteWorkspace(event, '${ws.workspaceId}')">X</button>
                                 <div class="box_body">
                                     <div class="title">
                                         <%-- 이미지 표시 부분 제거 --%>
@@ -95,5 +123,27 @@
     </div>
 
     <jsp:include page="/WEB-INF/views/components/modals.jsp"/>
+
+    <script>
+        function deleteWorkspace(event, workspaceId) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (confirm('정말 이 워크스페이스를 삭제하시겠습니까? 관련된 모든 프로젝트와 데이터가 영구적으로 삭제됩니다.')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '${pageContext.request.contextPath}/workspace/delete';
+
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = 'workspaceId';
+                idInput.value = workspaceId;
+                form.appendChild(idInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
 </body>
 </html>

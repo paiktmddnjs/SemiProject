@@ -8,8 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -20,15 +24,16 @@ public class WorkspaceDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<WorkspaceVo> getAllWorkspaces() {
-        // 이미지 관련 JOIN 및 컬럼 제거
+    public List<WorkspaceVo> getWorkspacesByMemberId(int memberId) {
         String sql = "SELECT " +
                      "    W.WORKSPACE_ID, W.WORKSPACE_NAME, W.WORKSPACE_EXPLAIN, W.ENROLL_DATE, " +
                      "    C.CHANEL_ID, C.CHANEL_NAME, " +
-                     "    (SELECT COUNT(*) FROM PROJECT P WHERE P.WORKSPACE_ID = W.WORKSPACE_ID) AS PROJECT_COUNT, " +
+                     "    (SELECT COUNT(*) FROM PROJECT P WHERE P.WORKSPACE_ID = W.WORKSPACE_ID AND P.PROJECT_STATUS = 'Y') AS PROJECT_COUNT, " +
                      "    (SELECT COUNT(DISTINCT WM.MEMBER_ID) FROM WORKSPACE_MEMBER WM WHERE WM.WORKSPACE_ID = W.WORKSPACE_ID) AS MEMBER_COUNT " +
                      "FROM WORKSPACE W " +
-                     "JOIN CHANEL C ON W.CHANEL_ID = C.CHANEL_ID";
+                     "JOIN CHANEL C ON W.CHANEL_ID = C.CHANEL_ID " +
+                     "JOIN WORKSPACE_MEMBER WM ON W.WORKSPACE_ID = WM.WORKSPACE_ID " +
+                     "WHERE W.WORKSPACE_STATUS = 'Y' AND WM.MEMBER_ID = ?";
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             WorkspaceVo ws = new WorkspaceVo();
@@ -41,11 +46,11 @@ public class WorkspaceDao {
             ws.setProjectCount(rs.getInt("PROJECT_COUNT"));
             ws.setMemberCount(rs.getInt("MEMBER_COUNT"));
             return ws;
-        });
+        }, memberId);
     }
 
     public WorkspaceVo getWorkspaceById(int workspaceId) {
-        String sql = "SELECT WORKSPACE_ID, WORKSPACE_NAME, WORKSPACE_EXPLAIN FROM WORKSPACE WHERE WORKSPACE_ID = ?";
+        String sql = "SELECT WORKSPACE_ID, WORKSPACE_NAME, WORKSPACE_EXPLAIN FROM WORKSPACE WHERE WORKSPACE_ID = ? AND WORKSPACE_STATUS = 'Y'";
         try {
             return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
                 WorkspaceVo ws = new WorkspaceVo();
@@ -60,11 +65,20 @@ public class WorkspaceDao {
     }
 
     public int insertWorkspace(WorkspaceVo workspace) {
-        String sql = "INSERT INTO WORKSPACE (WORKSPACE_ID, CHANEL_ID, WORKSPACE_NAME, WORKSPACE_EXPLAIN) VALUES (SEQ_WORKSPACE_ID.NEXTVAL, ?, ?, ?)";
-        return jdbcTemplate.update(sql,
-                workspace.getChannelId(),
-                workspace.getWorkspaceName(),
-                workspace.getWorkspaceExplain());
+        String sql = "INSERT INTO WORKSPACE (WORKSPACE_ID, CHANEL_ID, WORKSPACE_NAME, WORKSPACE_EXPLAIN, WORKSPACE_STATUS) VALUES (SEQ_WORKSPACE_ID.NEXTVAL, ?, ?, ?, 'Y')";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"WORKSPACE_ID"});
+            ps.setInt(1, workspace.getChannelId());
+            ps.setString(2, workspace.getWorkspaceName());
+            ps.setString(3, workspace.getWorkspaceExplain());
+            return ps;
+        }, keyHolder);
+
+        int workspaceId = keyHolder.getKey().intValue();
+        workspace.setWorkspaceId(workspaceId);
+        return workspaceId;
     }
 
     public int updateWorkspace(WorkspaceVo workspace) {
@@ -73,6 +87,11 @@ public class WorkspaceDao {
                 workspace.getWorkspaceName(),
                 workspace.getWorkspaceExplain(),
                 workspace.getWorkspaceId());
+    }
+
+    public int updateWorkspaceStatus(int workspaceId) {
+        String sql = "UPDATE WORKSPACE SET WORKSPACE_STATUS = 'N' WHERE WORKSPACE_ID = ?";
+        return jdbcTemplate.update(sql, workspaceId);
     }
 
     public List<WorkspaceMemberVo> getWorkspaceMembersByWorkspaceId(int workspaceId) {

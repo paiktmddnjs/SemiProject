@@ -9,6 +9,46 @@
     <link rel="stylesheet" href="<c:url value="/resources/static/css/invite.css"/>">
     <script src="<c:url value="/resources/static/js/project.js"/>" defer></script>
     <script src="<c:url value="/resources/static/js/modal.js"/>" defer></script>
+    <style>
+        .box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .box_body {
+            flex-grow: 1;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background-color: #fee2e2;
+            color: #ef4444;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .delete-btn:hover {
+            background-color: #ef4444;
+            color: white;
+        }
+        .project_type {
+            margin-top: auto; /* 내용을 아래로 밀어냄 */
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #6b7280;
+            border-top: 1px solid #f3f4f6;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
     <div class="navigator">
@@ -55,11 +95,11 @@
                 
                 <div id="projectContent" class="content_box">
                     <c:forEach var="p" items="${projects}">
-                        <a href="<c:url value='/project/detail?projectId=${p.projectId}'/>" class="box-link">
-                            <div class="box">
+                        <div class="box">
+                            <button class="delete-btn" onclick="deleteProject(event, '${p.projectId}', '${p.workspaceId}')">X</button>
+                            <a href="<c:url value='/project/detail?projectId=${p.projectId}'/>" class="box-link" style="display: flex; flex-direction: column; height: 100%;">
                                 <div class="box_body">
                                     <div class="title">
-                                        <%-- 프로젝트 이미지 표시 부분 제거 --%>
                                         <div class="title_name">
                                             <div><c:out value="${p.projectName}"/></div>
                                         </div>
@@ -68,8 +108,11 @@
                                         <div><c:out value="${p.projectMemo}"/></div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                                <div class="project_type">
+                                    <c:out value="${p.projectType}"/>
+                                </div>
+                            </a>
+                        </div>
                     </c:forEach>
                     <c:if test="${empty projects}">
                         <p style="text-align: center; padding: 20px;">이 워크스페이스에는 아직 프로젝트가 없습니다.</p>
@@ -142,5 +185,33 @@
     </div>
 
     <jsp:include page="/WEB-INF/views/components/modals.jsp"/>
+
+    <script>
+        function deleteProject(event, projectId, workspaceId) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (confirm('정말 이 프로젝트를 삭제하시겠습니까?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '${pageContext.request.contextPath}/project/delete';
+
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = 'projectId';
+                idInput.value = projectId;
+                form.appendChild(idInput);
+
+                const wsIdInput = document.createElement('input');
+                wsIdInput.type = 'hidden';
+                wsIdInput.name = 'workspaceId';
+                wsIdInput.value = workspaceId;
+                form.appendChild(wsIdInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
 </body>
 </html>

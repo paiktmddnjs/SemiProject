@@ -43,12 +43,14 @@ public class ProjectController {
     public String createProject(@RequestParam("workspaceId") int workspaceId,
                                 @RequestParam("projectName") String projectName,
                                 @RequestParam("projectMemo") String projectMemo,
-                                @RequestParam(value = "projectDeadline", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date projectDeadline) {
+                                @RequestParam(value = "projectDeadline", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date projectDeadline,
+                                @RequestParam(value = "projectType", required = false) String projectType) {
         ProjectVo project = new ProjectVo();
         project.setWorkspaceId(workspaceId);
         project.setProjectName(projectName);
         project.setProjectMemo(projectMemo);
         project.setProjectDeadline(projectDeadline);
+        project.setProjectType(projectType); // projectType 설정
         projectService.createProject(project);
         return "redirect:/project?workspaceId=" + workspaceId;
     }
@@ -89,5 +91,12 @@ public class ProjectController {
         ProjectVo project = projectService.getProjectById(projectId);
         model.addAttribute("project", project);
         return "set_project";
+    }
+
+    @PostMapping("/delete")
+    public String softDeleteProject(@RequestParam("projectId") int projectId,
+                                    @RequestParam("workspaceId") int workspaceId) {
+        projectService.softDeleteProject(projectId);
+        return "redirect:/project?workspaceId=" + workspaceId;
     }
 }

@@ -52,18 +52,19 @@ public class ProjectDao {
                      "FROM PROJECT p " +
                      "JOIN WORKSPACE w ON p.WORKSPACE_ID = w.WORKSPACE_ID " +
                      "JOIN CHANEL c ON w.CHANEL_ID = c.CHANEL_ID " +
-                     "WHERE p.WORKSPACE_ID = ?";
+                     "WHERE p.WORKSPACE_ID = ? AND p.PROJECT_STATUS = 'Y'";
         return jdbcTemplate.query(sql, this::mapRowToProject, workspaceId);
     }
 
     public int insertProject(ProjectVo project) {
-        String sql = "INSERT INTO PROJECT (PROJECT_ID, WORKSPACE_ID, PROJECT_NAME, PROJECT_MEMO, PROJECT_DEADLINE) " +
-                     "VALUES (SEQ_PROJECT_ID.NEXTVAL, ?, ?, ?, ?)";
+        String sql = "INSERT INTO PROJECT (PROJECT_ID, WORKSPACE_ID, PROJECT_NAME, PROJECT_MEMO, PROJECT_DEADLINE, PROJECT_STATUS, PROJECT_TYPE) " +
+                     "VALUES (SEQ_PROJECT_ID.NEXTVAL, ?, ?, ?, ?, 'Y', ?)";
         return jdbcTemplate.update(sql,
                 project.getWorkspaceId(),
                 project.getProjectName(),
                 project.getProjectMemo(),
-                project.getProjectDeadline());
+                project.getProjectDeadline(),
+                project.getProjectType());
     }
 
     public ProjectVo getProjectById(int projectId) {
@@ -71,7 +72,7 @@ public class ProjectDao {
                      "FROM PROJECT p " +
                      "JOIN WORKSPACE w ON p.WORKSPACE_ID = w.WORKSPACE_ID " +
                      "JOIN CHANEL c ON w.CHANEL_ID = c.CHANEL_ID " +
-                     "WHERE p.PROJECT_ID = ?";
+                     "WHERE p.PROJECT_ID = ? AND p.PROJECT_STATUS = 'Y'";
         try {
             return jdbcTemplate.queryForObject(sql, this::mapRowToProject, projectId);
         } catch (EmptyResultDataAccessException e) {
@@ -94,5 +95,10 @@ public class ProjectDao {
                 project.getProjectType(),
                 project.getProjectStatus(),
                 project.getProjectId());
+    }
+
+    public int updateProjectStatus(int projectId) {
+        String sql = "UPDATE PROJECT SET PROJECT_STATUS = 'N' WHERE PROJECT_ID = ?";
+        return jdbcTemplate.update(sql, projectId);
     }
 }

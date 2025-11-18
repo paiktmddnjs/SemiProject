@@ -37,6 +37,12 @@
         </div>
     </div>
     <div class="input">
+        <div class="input_title">유형</div>
+        <div class="input_body">
+            <input type="text" name="projectType" placeholder="예: 유튜브, 인스타그램 릴스">
+        </div>
+    </div>
+    <div class="input">
         <div class="input_body">
             <button type="submit" class="button">저장</button>
         </div>

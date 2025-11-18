@@ -9,7 +9,7 @@ import com.kh.spring.model.vo.WorkspaceMemberVo;
 import com.kh.spring.model.vo.WorkspaceVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional; // import 추가
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,6 +68,11 @@ public class ProjectService {
     @Transactional
     public int updateProject(ProjectVo project) {
         return projectDao.updateProject(project);
+    }
+
+    @Transactional
+    public int softDeleteProject(int projectId) {
+        return projectDao.updateProjectStatus(projectId);
     }
 
     public ProjectVo getProjectById(int projectId) {
