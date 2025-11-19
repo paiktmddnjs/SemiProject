@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.model.mapper.ScheduleMapper">
+    <resultMap id="workspaceResultMap" type="Workspace">
+        <result column="WORKSPACE_ID" property="workspaceId"/>
+        <result column="CHANEL_ID" property="chanelId"/>
+        <result column="WORKSPACE_NAME" property="workspaceName"/>
+        <result column="WORKSPACE_EXPLAIN" property="workspaceExplain"/>
+        <result column="WORKSPACE_DATE" property="workspaceDate"/>
+    </resultMap>
+    
+    <resultMap id="projectResultMap" type="Project">
+        <result column="PROJECT_ID" property="projectId"/>
+        <result column="WORKSPACE_ID" property="workspaceId"/>
+        <result column="PROJECT_NAME" property="projectName"/>
+        <result column="PROJECT_STATUS" property="projectStatus"/>
+        <result column="PROJECT_START" property="projectStart"/>
+        <result column="PROJECT_DEADLINE" property="projectDeadline"/>
+        <result column="PROJECT_TIME" property="projectTime"/>
+        <result column="PROJECT_TYPE" property="projectType"/>
+        <result column="PROJECT_MEMO" property="projectMemo"/>
+        <result column="PROJECT_PROGRESS" property="projectProgress"/>
+    </resultMap>
+
+    <resultMap id="taskResultMap" type="Task">
+        <result column="TASK_ID" property="taskId"/>
+        <result column="PROJECT_ID" property="projectId"/>
+        <result column="WORKSPACE_MEMBER_ID" property="workspaceMemberId"/>
+        <result column="TASK_NAME" property="taskName"/>
+        <result column="TASK_ASSIGN" property="taskAssign"/>
+        <result column="TASK_STATUS" property="taskStatus"/>
+        <result column="TASK_START" property="taskStart"/>
+        <result column="TASK_DEADLINE" property="taskDeadline"/>
+        <result column="WORKSPACE_NAME" property="workspaceName"/>
+        <result column="PROJECT_NAME" property="projectName"/>
+    </resultMap>
+
+    <resultMap id="workspaceMemberResultMap" type="WorkspaceMember">
+        <result column="WORKSPACE_MEMBER_ID" property="workspaceMemberId"/>
+        <result column="WORKSPACE_ID" property="workspaceId"/>
+        <result column="MEMBER_ID" property="memberId"/>
+        <result column="WORKSPACE_MEMBER_ROLE" property="workspaceMemberRole"/>
+    </resultMap>
+
+    <resultMap id="statusContainerResultMap" type="statusContainer">
+        <result column="NAME" property="statusName"/>
+        <result column="ID" property="statusId"/>
+        <result column="WORKTODO" property="statusTodo"/>
+        <result column="PROGRESS" property="statusProgress"/>
+        <result column="COMPLETE" property="statusComplete"/>
+        <result column="SUM" property="statusSum"/>
+    </resultMap>
+
+    <select id="scheduleWorkspaceSelect" parameterType="int" resultMap="workspaceResultMap">
+        SELECT WORKSPACE_NAME, WORKSPACE_ID
+        FROM WORKSPACE_MEMBER
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="scheduleProjectSelect" parameterType="int" resultMap="projectResultMap">
+        SELECT PROJECT_NAME, PROJECT_ID
+        FROM PROJECT
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE WORKSPACE_ID = #{workspaceId}
+    </select>
+
+    <select id="scheduleProjectWholeSelect" resultMap="projectResultMap">
+        SELECT PROJECT_NAME, PROJECT_ID
+        FROM PROJECT
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+    </select>
+
+    <select id="statusTodoSelect" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'worktodo'
+    </select>
+
+    <select id="statusTodoWholeSelect" resultType="int">
+        SELECT COUNT(*)
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE TASK_STATUS = 'worktodo'
+    </select>
+
+    <select id="statusProgressSelect" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'progress'
+    </select>
+
+    <select id="statusProgressWholeSelect" resultType="int">
+        SELECT COUNT(*)
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE TASK_STATUS = 'progress'
+    </select>
+
+    <select id="statusCompleteSelect" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'complete'
+    </select>
+
+    <select id="statusCompleteWholeSelect" resultType="int">
+        SELECT COUNT(*)
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE TASK_STATUS = 'complete'
+    </select>
+
+    <select id="calendarSelect" parameterType="int" resultMap="taskResultMap">
+        SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE PROJECT_ID = #{projectId} AND (TASK_STATUS != 'complete')
+    </select>
+
+    <select id="calendarWorkspaceSelect" parameterType="int" resultMap="taskResultMap">
+        SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE WORKSPACE_ID = #{workspaceId} AND (TASK_STATUS != 'complete')
+    </select>
+
+    <select id="calendarWholeSelect" resultMap="taskResultMap">
+        SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE TASK_STATUS != 'complete'
+    </select>
+
+    <select id="dailyTaskSelect" parameterType="string" resultMap="taskResultMap">
+        SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+            AND (TASK_DEADLINE+1) &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+            AND (TASK_STATUS != 'complete')
+    </select>
+
+    <select id="dailyTaskMemberNoSelect" resultMap="taskResultMap">
+        SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_ID)
+        JOIN MEMBER USING (MEMBER_ID)
+        WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+            AND (TASK_DEADLINE+1) &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+            AND (TASK_STATUS != 'complete')
+            AND (MEMBER_ID = #{memberId})
+    </select>
+
+    <select id="dailyTaskWorkspaceSelect" resultMap="taskResultMap">
+        SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+        AND (TASK_DEADLINE+1) &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+        AND (TASK_STATUS != 'complete')
+        AND (WORKSPACE_ID = #{workspaceId})
+    </select>
+
+    <select id="dailyTaskProjectSelect" resultMap="taskResultMap">
+        SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+        AND (TASK_DEADLINE+1) &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+        AND (TASK_STATUS != 'complete')
+        AND (PROJECT_ID = #{projectId})
+    </select>
+
+    <select id="workspaceStatusSelect" parameterType="int" resultMap="statusContainerResultMap">
+        SELECT WORKSPACE_NAME AS NAME, WORKSPACE_ID AS ID, NVL(WORKTODO,0) AS WORKTODO, NVL(PROGRESS,0) AS PROGRESS, NVL(COMPLETE,0) AS COMPLETE, (NVL(WORKTODO,0)+NVL(PROGRESS,0)+NVL(COMPLETE,0)) AS SUM
+        FROM (
+        SELECT WORKSPACE_NAME, WORKSPACE_ID
+        FROM WORKSPACE
+        )
+        LEFT JOIN (
+        SELECT WORKSPACE_ID, COUNT(*) WORKTODO
+        FROM (
+        SELECT WORKSPACE_ID
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE TASK_STATUS = 'worktodo')
+        GROUP BY WORKSPACE_ID
+        ) USING (WORKSPACE_ID)
+        LEFT JOIN (SELECT WORKSPACE_ID, COUNT(*) PROGRESS
+        FROM (
+        SELECT WORKSPACE_ID
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE TASK_STATUS = 'progress')
+        GROUP BY WORKSPACE_ID
+        ) USING (WORKSPACE_ID)
+        LEFT JOIN (
+        SELECT WORKSPACE_ID, COUNT(*) COMPLETE
+        FROM (
+        SELECT WORKSPACE_ID
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        JOIN WORKSPACE USING(WORKSPACE_ID)
+        WHERE TASK_STATUS = 'complete')
+        GROUP BY WORKSPACE_ID
+        ) USING (WORKSPACE_ID)
+    </select>
+
+    <select id="projectStatusSelect" parameterType="int" resultMap="statusContainerResultMap">
+        SELECT PROJECT_NAME AS NAME, PROJECT_ID AS ID, NVL(WORKTODO,0) AS WORKTODO, NVL(PROGRESS,0) AS PROGRESS, NVL(COMPLETE,0) AS COMPLETE, (NVL(WORKTODO,0)+NVL(PROGRESS,0)+NVL(COMPLETE,0)) AS SUM
+        FROM (
+        SELECT PROJECT_NAME, PROJECT_ID
+        FROM PROJECT
+        )
+        LEFT JOIN (
+        SELECT PROJECT_ID, COUNT(*) WORKTODO
+        FROM (
+        SELECT PROJECT_ID
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE TASK_STATUS = 'worktodo')
+        GROUP BY PROJECT_ID
+        ) USING (PROJECT_ID)
+        LEFT JOIN (SELECT PROJECT_ID, COUNT(*) PROGRESS
+        FROM (
+        SELECT PROJECT_ID
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE TASK_STATUS = 'progress')
+        GROUP BY PROJECT_ID
+        ) USING (PROJECT_ID)
+        LEFT JOIN (
+        SELECT PROJECT_ID, COUNT(*) COMPLETE
+        FROM (
+        SELECT PROJECT_ID
+        FROM TASK
+        JOIN PROJECT USING(PROJECT_ID)
+        WHERE TASK_STATUS = 'complete')
+        GROUP BY PROJECT_ID
+        ) USING (PROJECT_ID)
+    </select>
+</mapper>

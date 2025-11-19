@@ -1,0 +1,501 @@
+.container{
+    width:100%;
+}
+
+.full-container{
+    display: flex;
+}
+.form-container{
+    display: flex;
+    background: #f9fafb;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.form-row {
+    margin-bottom: 1em;
+}
+
+/*introduce*/
+.introduce{
+    margin: 10px;
+    margin-top: 0px;
+    border: 0px solid;
+}
+
+.introduce h1{
+    margin: 0px;
+    color: #ea580c;
+}
+
+.introduce p{
+    margin: 0px;
+    color: #868e96;
+}
+
+/* 흰색 배경 */
+.whitebox{
+    background: #ffffff;
+    margin: 0 auto;
+    border: 1px solid;
+    border-color: #ffedd4;
+    border-radius: 10px;
+    padding-left:20px;
+    padding-right: 20px;
+    padding-top:10px;
+    padding-bottom:10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.whitebox h3{
+    margin: 5px;
+    color: #ea580c;
+}
+
+.whitebox p{
+    margin: 5px;
+    color: #868e96;
+}
+
+.titlebox{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.buttonCollection{
+    display: flex;
+    margin: 5px;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.buttonCollection button.disactive{
+    background: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid;
+    border-color: #ffd6a7;
+    border-radius: 10px;
+    color:black;
+}
+
+.buttonCollection button.disactive:hover{
+    background: #ffe4d7 !important;
+    color: #868686;
+    transition: background 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+.buttonCollection button.activated{
+    background: #ea580c;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid;
+    border-color: #ffd6a7;
+    border-radius: 10px;
+    color:white;
+}
+
+.dataCollection{
+    display: flex;
+    margin: 5px;
+    margin-top: 10px;
+}
+
+.dataBlock{
+    display:flex;
+    margin:10px;
+    padding:10px;
+    background: grey;
+    border: 0px solid;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.dataBlockType{
+    width:70px;
+    height:70px;
+    background: black;
+    border: 0px solid;
+    border-radius: 50%;
+    margin:5px;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.dataBlockText {
+    width: calc(100% - 60px);
+    padding: 10px;
+}
+
+.dataBlockText p{
+    margin: 0 0;
+    color:#868e96;
+}
+
+.dataBlockText h1{
+    margin-left:10px;
+}
+
+.imageContainer img {
+    width: 100%;   /* 부모 div에 맞게 가로 꽉 채움 */
+    height: auto;  /* 비율 유지 */
+}
+
+.headline{
+    width:100%;
+    background-color:#fff7ed;
+    padding: 5px 10px 10px;
+}
+
+.headline h3{
+    margin:0 0;
+}
+
+.headline p{
+    margin: 0 0;
+}
+
+.eventList{
+    margin:10px;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.eventList li{
+    width:95%;
+    height:100px;
+    margin:10px auto;
+    background-color:#fff7ed;
+    border: 1px solid;
+    border-color: #ea580c;
+    border-radius: 10px;
+    padding:10px;
+}
+
+.eventList li h3{
+    color: black;
+    margin: 5px 0 0;
+}
+
+.eventList li p{
+    color: grey;
+    margin: 0 0 10px;
+}
+
+.keywordContainer{
+    display:flex;
+    margin: 0 0;
+    padding-left: 10px;
+}
+
+.keyword_type{
+    margin:0 5px;
+    background-color:#ffddd4;
+    border: 1px solid;
+    border-color: #ea580c;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left:10px;
+    padding-right:10px;
+    color:#ea580c;
+    font-size:80%;
+}
+
+.keyword_event{
+    margin:0 5px;
+    background-color:lightgrey;
+    border: 1px solid;
+    border-color: lightgrey;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left:10px;
+    padding-right:10px;
+    color:dimgrey;
+    font-size:80%;
+}
+
+.keyword_state{
+    margin:0 5px;
+    background-color:#ea580c;
+    border: 1px solid;
+    border-color: #ea580c;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left:10px;
+    padding-right:10px;
+    color:white;
+    font-size:80%;
+}
+
+.eventSemiList{
+    margin:10px;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.eventSemiList li{
+    width:95%;
+    margin:10px auto;
+    background-color:#fff7ed;
+    border: 1px solid;
+    border-color: #ea580c;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.eventSemiHead{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.eventSemiHead h3{
+    color:black;
+    margin:0 0;
+}
+
+.eventSemiMany{
+    margin:0 5px;
+    background-color:#fff7ed;
+    border: 1px solid;
+    border-color: #ea580c;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left:10px;
+    padding-right:10px;
+    color:#ea580c;
+    font-size:80%;
+}
+
+.eventSemiBody{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0 0;
+    gap: 20px;
+}
+
+.eventSemiProgress{
+    color:orangered;
+    margin:0 0;
+}
+
+.eventSemiExpected{
+    color:grey;
+    margin:0 0;
+}
+
+.eventCompleted{
+    color:mediumseagreen;
+    margin:0 0;
+}
+
+/* 달력 div 설정 */ /*=======================================================================================================================================*/
+#calendar{
+    width: 800px;
+    margin: 0 auto;
+    border: 0px solid;
+    border-radius: 6px;
+}
+
+/*달력 전체 스타일*/
+.fc{
+    background: #fff2e7;
+    color: #ea580c;
+}
+
+/* 요일 헤더 스타일 */
+.fc .fc-col-header-cell {
+    /*background: #ffffff;*/
+}
+
+/* 요일 헤더 텍스트 */
+.fc .fc-col-header-cell-cushion {
+    color: #ea580c;
+}
+
+.fc-header-toolbar{
+    margin-bottom: 0.5em !important;
+    padding-botton: 0.5em !important;
+    padding-top: 0.5em !important;
+}
+
+.fc .fc-header-toolbar{
+    font-size: 12px;
+}
+
+.fc .fc-toolbar button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 0;
+    height: 30px;
+    width: 30px;
+    margin: 0 5px;
+    color: #ea580c;
+    font-size: 10px;
+    background-color: rgba(255, 255, 255, 1);
+    border: 2px solid;
+    border-radius: 6px;
+    border-color: #ea580c;
+}
+
+.fc .fc-toolbar button:active {
+    background-color: #ea580c !important;
+    color: #ffffff !important;
+    border-color: #ea580c !important;
+}
+
+.fc .fc-toolbar button:focus{
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.fc .fc-toolbar button:hover{
+    border-color: rgba(100, 10, 10, 0.3);
+    background-color: rgba(100, 10, 10, 0.1);
+    transition: background-color 0.2s ease;
+}
+
+/* .fc-daygrid-day : .fc(FullCalender)의 각 셀을 지정 */
+.fc .fc-daygrid-day{
+    background-color: rgba(255, 255, 255, 1);
+    height: 100px;
+    width: 100px;
+    color: white;
+    cursor: pointer;
+}
+
+.fc .fc-daygrid-day-top a {
+    color: #868e96;
+}
+
+.fc .fc-daygrid-day:hover{
+    background-color: rgba(0, 0, 0, 0.1); /*검정에 투명도 0.1로 설정*/
+    transition: background-color 0.2s ease; /*색 부드럽게 변화 */
+}
+
+/* .fc-daygrid-day:hover:not(.fc-day-other) 같은 달, 다른 날 날짜에 마우스를 올릴때 적용*/
+
+/* 다른 달의 날에 적용 */
+.fc .fc-daygrid-day.fc-day-other{
+    background-color: rgba(240, 240, 240, 1);
+}
+
+.fc-event{
+    background-color: #ea580c;
+    border: 0px;
+}
+
+.eventColor1{
+    background-color: #FFA12B !important;
+}
+.eventColor2{
+    background-color: #FFA844 !important;
+}
+.eventColor3{
+    background-color: #FFAC49 !important;
+}
+.eventColor4{
+    background-color: #F9A901 !important;
+}
+.eventColor5{
+    background-color: #FEA610 !important;
+}
+.eventColor6{
+    background-color: #FFBF01 !important;
+}
+.eventColor7{
+    background-color: #EB9605 !important;
+}
+.eventColor8{
+    background-color: #F78C2F !important;
+}
+.eventColor9{
+    background-color: #FA812A !important;
+}
+.eventColor10{
+    background-color: #F58008 !important;
+}
+.eventColor11{
+    background-color: #EF820D !important;
+}
+.eventColor12{
+    background-color: #FF7417 !important;
+}
+.eventColor13{
+    background-color: #EF7216 !important;
+}
+.eventColor14{
+    background-color: #FD6901 !important;
+}
+.eventColor15{
+    background-color: #FB670A !important;
+}
+.eventColor16{
+    background-color: #FC6701 !important;
+}
+.eventColor17{
+    background-color: #F05E23 !important;
+}
+.eventColor18{
+    background-color: #EF6321 !important;
+}
+.eventColor19{
+    background-color: #FE4E03 !important;
+}
+.eventColor20{
+    background-color: #B3672B !important;
+}
+.eventColor21{
+    background-color: #C05403 !important;
+}
+
+.first-event{
+    background-color: #893101 !important;
+}
+
+.second-event{
+    background-color: #fa8128 !important;
+}
+
+.third-event{
+    background-color: #fcae1e !important;
+}
+
+.fc .fc-more-link{
+    color: #bfb6b0;
+}
+
+/* dayCellDidMount가 기존 셀 이벤트를 덮어씌워서 그 위에 씌울 이벤트 */
+/*
+.event-other-month{background-color: #d9c4a9 !important;}
+.event-current-month{background-color: #ffedd5 !important;}
+
+.event-current-month:hover {
+    background-color: #ffd7b5 !important;
+    transition: background-color 0.2s ease;
+}
+*/
