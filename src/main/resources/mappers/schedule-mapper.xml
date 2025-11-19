@@ -74,65 +74,92 @@
         JOIN WORKSPACE USING(WORKSPACE_ID)
     </select>
 
-    <select id="statusTodoSelect" parameterType="int" resultType="int">
+    <select id="statusTodoSelect" resultType="int">
         SELECT COUNT(*)
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'worktodo'
     </select>
 
     <select id="statusTodoWholeSelect" resultType="int">
         SELECT COUNT(*)
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE TASK_STATUS = 'worktodo'
     </select>
 
-    <select id="statusProgressSelect" parameterType="int" resultType="int">
+    <select id="statusProgressSelect" resultType="int">
         SELECT COUNT(*)
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'progress'
     </select>
 
     <select id="statusProgressWholeSelect" resultType="int">
         SELECT COUNT(*)
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE TASK_STATUS = 'progress'
     </select>
 
-    <select id="statusCompleteSelect" parameterType="int" resultType="int">
+    <select id="statusCompleteSelect" resultType="int">
         SELECT COUNT(*)
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE WORKSPACE_ID = #{workspaceId} AND TASK_STATUS = 'complete'
     </select>
 
     <select id="statusCompleteWholeSelect" resultType="int">
         SELECT COUNT(*)
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE TASK_STATUS = 'complete'
     </select>
 
-    <select id="calendarSelect" parameterType="int" resultMap="taskResultMap">
+    <select id="calendarSelect" resultMap="taskResultMap">
         SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE PROJECT_ID = #{projectId} AND (TASK_STATUS != 'complete')
     </select>
 
-    <select id="calendarWorkspaceSelect" parameterType="int" resultMap="taskResultMap">
+    <select id="calendarWorkspaceSelect" resultMap="taskResultMap">
         SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE WORKSPACE_ID = #{workspaceId} AND (TASK_STATUS != 'complete')
     </select>
 
     <select id="calendarWholeSelect" resultMap="taskResultMap">
         SELECT TASK_NAME, TASK_ID, TASK_START, (TASK_DEADLINE+1) TASK_DEADLINE
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
         FROM TASK
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         WHERE TASK_STATUS != 'complete'
     </select>
@@ -162,7 +189,9 @@
 
     <select id="dailyTaskWorkspaceSelect" resultMap="taskResultMap">
         SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
-        FROM TASK
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
         WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
@@ -173,7 +202,9 @@
 
     <select id="dailyTaskProjectSelect" resultMap="taskResultMap">
         SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
-        FROM TASK
+        FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
+        JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
+        WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
         WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')

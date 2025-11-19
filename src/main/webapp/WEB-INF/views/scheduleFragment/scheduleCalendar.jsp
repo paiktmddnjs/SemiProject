@@ -22,13 +22,13 @@
             fetchContainer=fetch(`${window.location.origin}/scheduleProjectDate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `projectId=` + P_id + `&dateSelect=` + dateStr
+                body: `memberId=` + memberId + `&projectId=` + P_id + `&dateSelect=` + dateStr
             })
         } else if(W_id!=0){
             fetchContainer=fetch(`${window.location.origin}/scheduleWorkspaceDate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `workspaceId=` + W_id + `&dateSelect=` + dateStr
+                body: `memberId=` + memberId + `&workspaceId=` + W_id + `&dateSelect=` + dateStr
             })
         } else{
             fetchContainer=fetch(`${window.location.origin}/scheduleMemberNoDate`, {
