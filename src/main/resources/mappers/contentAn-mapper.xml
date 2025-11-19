@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.model.mapper.ContentMapper">
+
+        <resultMap id="ContentAnalyticsResultMap" type="com.kh.spring.model.vo.Content">
+            <id column="CONTENT_ANALYTICS_ID" property="contentAnalyticsId"/>
+            <result column="CONTENT_ID" property="contentId"/>
+            <result column="ANALYTICS_DATE" property="analyticsDate"/>
+            <result column="CONTENT_ANALYTICS_DAILY_VIEW" property="contentAnalyticsDailyView"/>
+            <result column="CONTENT_ANALYTICS_DAILY_LIKE" property="contentAnalyticsDailyLike"/>
+            <result column="CONTENT_ANALYTICS_TOTAL_VIEW" property="contentAnalyticsTotalView"/>
+            <result column="CONTENT_ANALYTICS_TOTAL_LIKE" property="contentAnalyticsTotalLike"/>
+
+        </resultMap>
+
+
+    <select id="selectCountLike" parameterType="int" resultType="double">
+        SELECT
+        ROUND( SUM(NVL(A.CONTENT_ANALYTICS_TOTAL_LIKE,0)) / COUNT(C.CONTENT_ID), 2 )
+        FROM
+        CONTENT C
+        LEFT JOIN CONTENT_ANALYTICS A ON C.CONTENT_ID = A.CONTENT_ID
+        WHERE
+        C.CHANEL_ID = #{chanelId}
+    </select>
+
+
+
+
+
+    </mapper>
+
+
