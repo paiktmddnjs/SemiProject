@@ -2,6 +2,7 @@ package com.example.demo.model.vo;
 
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 // Lombok 라이브러리를 사용할 경우 주석을 해제하세요.
@@ -17,6 +18,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class Content {
 
+    private String platform;
+
+    public String getPlatformIcon() {
+        return platform; // JSP에서 platformIcon으로 사용
+    }
     // CONTENT_ID NUMBER PRIMARY KEY
     private Integer contentId;
 
@@ -29,7 +35,7 @@ public class Content {
     // TITLE VARCHAR2(30) NOT NULL
     private String title;
 
-    // UPLOAD_DATE DATE DEFAULT SYSDATE
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date uploadDate;
 
     // VIEWS VARCHAR2(30) (VARCHAR2로 되어 있지만, 숫자 값으로 처리할 경우 String 대신 Integer/Long 사용을 고려하세요.)

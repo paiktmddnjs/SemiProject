@@ -35,6 +35,21 @@ public class ContentServiceImpl implements ContentService {
         return contentMapper.selectCountView(chanelId);
     }
 
+    public int  selectPrevContent(int chanelId) {
+
+        return contentMapper.selectPrevContent(chanelId);
+    }
+
+    public double selectPrevView(int chanelId) {
+
+        return contentMapper.selectPrevView(chanelId);
+    }
+
+    @Override
+    public int insertContent(Content content) {
+        return contentMapper.insertContent(content);
+    }
+
     @Override
     public double selectCountLike(int chanelId) {
         System.out.println(chanelId);
@@ -67,12 +82,6 @@ public class ContentServiceImpl implements ContentService {
 
         return contentMapper.selectContent(chanelId);
     }
-
-    @Override
-    public int insertContent(Content content, Integer chanelId) {
-        return contentMapper.insertContent(content, chanelId);
-    }
-
 
 
 }

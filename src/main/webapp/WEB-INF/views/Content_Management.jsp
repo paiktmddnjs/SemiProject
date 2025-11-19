@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -110,7 +111,7 @@
         }
 
         .trend-positive {
-            color: #EA580C;
+            color: #219807;
         }
 
         /* Charts Grid */
@@ -346,6 +347,13 @@
     request.setAttribute("selectedCategory", selectedCategory);
 %>
 
+<c:if test="${not empty msg}">
+<script>
+    alert("${msg}");
+</script>
+</c:if>
+
+
 <div class="container">
     <!-- Header -->
     <div class="header">
@@ -358,9 +366,6 @@
             <span>새 콘텐츠 등록</span>
         </button>
     </div>
-    <form action="${pageContext.request.contextPath}/content" method="get">
-        <button type="submit">콘텐츠 페이지 이동</button>
-    </form>
 
     <!-- Stats Cards -->
     <div class="stats-grid">
@@ -374,7 +379,9 @@
             </div>
             <div class="stat-card-content">
                 <div class="stat-value">${ContentCount}개</div>
-                <div class="stat-subtitle">이번 달 ${monthlyContentIncrease}</div>
+                <div class="stat-subtitle">이번 달 <span style="color: ${PrevMonthContent > 0 ? '#219807' : (PrevMonthContent < 0 ? '#F08080' : '#808080')};">
+                    ${PrevMonthContent > 0 ? '+' : ''}${PrevMonthContent}
+                </span>개</div>
             </div>
         </div>
 
@@ -389,7 +396,7 @@
             <div class="stat-card-content">
                 <div class="stat-value">${ViewCount}</div>
                 <div class="stat-subtitle">
-                    <span class="trend-positive">${viewsGrowth}</span> 전월 대비
+                    전월 대비 <span class="trend-positive">${PrevMonthPercent}%</span>
                 </div>
             </div>
         </div>
@@ -469,7 +476,32 @@
                     <tr>
                         <td>
                             <div class="category-badge">
-                                <div class="category-dot" style="background-color: orange"></div>
+                                <c:choose>
+                                    <%-- 1. 리뷰 (가장 진한/명확한 주황 계열) --%>
+                                    <c:when test="${fn:toLowerCase(stat.category) eq '리뷰'}">
+                                        <div class="category-dot" style="background-color: #ff9804;"></div> </c:when>
+
+                                    <%-- 2. 엔터테인먼트 (연한 주황/살구색) --%>
+                                    <c:when test="${fn:toLowerCase(stat.category) eq '엔터테인먼트'}">
+                                        <div class="category-dot" style="background-color: #f8b96c;"></div> </c:when>
+
+                                    <%-- 3. 브이로그 (더 연한 분홍/파스텔톤) --%>
+                                    <c:when test="${fn:toLowerCase(stat.category) eq '브이로그'}">
+                                        <div class="category-dot" style="background-color: #eca3a3;"></div> </c:when>
+
+                                    <%-- 4. 튜토리얼 (가장 연한 노란/아이보리 계열) --%>
+                                    <c:when test="${fn:toLowerCase(stat.category) eq '튜토리얼'}">
+                                        <div class="category-dot" style="background-color: #f5f5aa;"></div> </c:when>
+
+                                    <%-- 5. 소통 (옅은 회색 또는 매우 연한 색상) --%>
+                                    <c:when test="${fn:toLowerCase(stat.category) eq '소통'}">
+                                        <div class="category-dot" style="background-color: #ffd4d4;"></div> </c:when>
+
+                                    <%-- 기타 (기본색: 회색) --%>
+                                    <c:otherwise>
+                                        <div class="category-dot" style="background-color: #fff0f0;"></div>
+                                    </c:otherwise>
+                                </c:choose>
                                 <span>${stat.category}</span>
                             </div>
                         </td>
@@ -533,33 +565,87 @@
                     <tr>
                         <td>
                             <div class="platform-badge">
-                                <div class="platform-icon ${contentList.platformIcon}">
+                                <div class="platform-icon ${content.platformIcon}">
                                     <c:choose>
-                                        <c:when test="${contentList.platformIcon eq 'youtube'}">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
-                                                <circle cx="12" cy="12" r="3"></circle>
+                                        <c:when test="${fn:toLowerCase(content.platformIcon) eq 'youtube'}">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                    <%-- 배경 (붉은색 둥근 사각형)과 재생 버튼 (흰색 삼각형)을 하나의 SVG로 표현 --%>
+                                                <path d="M22 5.5C22 3.5 20.5 2 18.5 2H5.5C3.5 2 2 3.5 2 5.5V18.5C2 20.5 3.5 22 5.5 22H18.5C20.5 22 22 20.5 22 18.5V5.5ZM10 15V9L16 12L10 15Z"
+                                                      fill="#FF0000" />
+
+                                                    <%-- 재생 버튼을 별도로 Path로 추가 (더 명확한 분리를 위해) --%>
+                                                <path d="M10 9L16 12L10 15Z" fill="#FFFFFF" />
                                             </svg>
                                         </c:when>
-                                        <c:when test="${contentList.platformIcon eq 'instagram'}">
+                                        <c:when test="${fn:toLowerCase(content.platformIcon) eq 'instagram'}">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                                    <%-- 둥근 사각형을 Path로 변환 --%>
+                                                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z" />
+
+                                                    <%-- 원은 그대로 circle 태그 유지 (가장 효율적) --%>
                                                 <circle cx="12" cy="12" r="4"></circle>
                                             </svg>
                                         </c:when>
+                                        <%-- 💡 Twitch 아이콘 추가 --%>
+                                        <c:when test="${fn:toLowerCase(content.platformIcon) eq 'twitch'}">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                                    <%-- Twitch 로고의 복잡한 형태를 Path로 표현 --%>
+                                                <path d="M11.53 17.51L9.62 19.38L9.93 17.51L6.96 17.51L6.96 5.51L18.96 5.51L18.96 17.51L11.53 17.51ZM22 5V18L18 22H13L9 18H5V18V2H22V5Z" />
+                                            </svg>
+                                        </c:when>
+                                        <c:when test="${fn:toLowerCase(content.platformIcon) eq 'tiktok'}">
+                                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 30 30" width="30px" height="30px">    <path d="M24,4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18c1.105,0,2-0.895,2-2V6C26,4.895,25.104,4,24,4z M22.689,13.474 c-0.13,0.012-0.261,0.02-0.393,0.02c-1.495,0-2.809-0.768-3.574-1.931c0,3.049,0,6.519,0,6.577c0,2.685-2.177,4.861-4.861,4.861 C11.177,23,9,20.823,9,18.139c0-2.685,2.177-4.861,4.861-4.861c0.102,0,0.201,0.009,0.3,0.015v2.396c-0.1-0.012-0.197-0.03-0.3-0.03 c-1.37,0-2.481,1.111-2.481,2.481s1.11,2.481,2.481,2.481c1.371,0,2.581-1.08,2.581-2.45c0-0.055,0.024-11.17,0.024-11.17h2.289 c0.215,2.047,1.868,3.663,3.934,3.811V13.474z"/></svg>
+                                         </c:when>
+                                          <c:when test="${fn:toLowerCase(content.platformIcon) eq 'facebook'}">
+                                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="30px" height="30px"><path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"/><path fill="#fff" d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"/></svg>
+                                           </c:when>
+
+
+                                        <%-- 아이콘이 정의되지 않은 경우 --%>
                                         <c:otherwise>
-                                            <div style="width: 20px; height: 20px; background: black; border-radius: 6px;"></div>
+                                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                          <circle cx="12" cy="12" r="10" stroke="black" stroke-width="2"/>
+
+                                          <text x="12" y="17" font-family="Arial, sans-serif" font-size="16" fill="black" text-anchor="middle" dominant-baseline="middle">?</text>
+                                      </svg>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <span>${contentList.platform}</span>
+                                <span>${content.platform}</span>
                             </div>
                         </td>
                         <td>${content.title}</td>
                         <td>
-                                    <span class="category-tag" style="color: ${contentList.categoryColor}; border-color: ${contentList.categoryColor}">
-                                            ${content.category}
-                                    </span>
+                            <!-- category 소문자 변환 -->
+                            <c:set var="cat" value="${fn:toLowerCase(content.category)}" />
+
+                            <!-- category에 따라 색상 결정 -->
+                            <c:choose>
+                                <c:when test="${cat eq '리뷰'}">
+                                    <c:set var="color" value="#FFB347" />
+                                </c:when>
+                                <c:when test="${cat eq '브이로그'}">
+                                    <c:set var="color" value="#FF70A6" />
+                                </c:when>
+                                <c:when test="${cat eq '엔터테인먼트'}">
+                                    <c:set var="color" value="#A0C4FF" />
+                                </c:when>
+                                <c:when test="${cat eq '소통'}">
+                                    <c:set var="color" value="#B388EB" />
+                                </c:when>
+                                <c:when test="${cat eq '튜토리얼'}">
+                                    <c:set var="color" value="#66CDAA" />
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="color" value="#6C757D" />
+                                </c:otherwise>
+                            </c:choose>
+
+                            <!-- 스타일 적용 -->
+                            <span class="category-tag"
+                                  style="color:${color}; border-color:${color};">
+                                    ${content.category}
+                            </span>
                         </td>
                         <td><c:choose>
                             <c:when test="${not empty content.uploadDate}">
@@ -621,8 +707,11 @@
         </div>
 
         <!-- Form -->
-        <form id="contentForm" class="modal-form" onsubmit="handleSubmit(event)">
-            <!-- Platform -->
+        <form id="contentForm" class="modal-form"  action="${pageContext.request.contextPath}/insert.c" method="post">
+
+
+
+        <!-- Platform -->
             <div class="form-group">
                 <label class="form-label">플랫폼</label>
                 <select name="platform" class="form-select" required>
@@ -633,6 +722,7 @@
                     <option value="Facebook">Facebook</option>
                 </select>
             </div>
+
 
             <!-- Title -->
             <div class="form-group">
@@ -673,7 +763,7 @@
             <!-- Status -->
             <div class="form-group">
                 <label class="form-label">상태</label>
-                <select name="status" class="form-select" required>
+                <select name="contentStatus" class="form-select" required>
                     <option value="">상태 선택</option>
                     <option value="게시됨">게시됨</option>
                     <option value="임시저장">임시저장</option>
@@ -681,23 +771,11 @@
                 </select>
             </div>
 
-            <!-- URL -->
-            <div class="form-group">
-                <label class="form-label">콘텐츠 URL</label>
-                <input
-                        type="url"
-                        name="url"
-                        class="form-input"
-                        placeholder="https://..."
-                        required
-                >
-            </div>
-
             <!-- Memo -->
             <div class="form-group large">
                 <label class="form-label">메모</label>
                 <textarea
-                        name="memo"
+                        name="contentDesc"
                         class="form-textarea"
                         placeholder="콘텐츠 관련 메모"
                         rows="3"
@@ -721,16 +799,14 @@
                 <c:forEach var="item1" items="${CategoricalContentList}" varStatus="status">
                 ${item1.contentByCategroy}${status.last ? '' : ','}
                 </c:forEach>
-
-            ]
+            ],
+            colors: ['#EA580C', '#FB923C', '#FFEDD5', '#FED7AA', '#FDBA74']
         },
         pieChart: {
                 labels: [
                     <c:forEach var="item2" items="${CategoricalViewsList}" varStatus="status">
-                    '<c:out value="${item2.category}"/>'
-                    ${status.last ? '' : ','}
+                    '<c:out value="${item2.category}"/> <fmt:formatNumber value="${percentList[status.index]}" type="number" maxFractionDigits="2" minFractionDigits="2" />%'${status.last ? '' : ','}
                     </c:forEach>
-                    ${percent}
                 ],
             data: [
                 <c:forEach var="item2" items="${CategoricalViewsList}" varStatus="status">

@@ -45,12 +45,15 @@ public class ContentController {
 
         int ContentCount = contentService.selectCountContent(chanelId);
         int ViewCount = contentService.selectCountView(chanelId);
+        int PrevMonthContent = contentService.selectPrevContent(chanelId);
+        double PrevMonthPercent = contentService.selectPrevView(chanelId);
         double AvergeLikeCount = contentService.selectCountLike(chanelId);
         int AvergeViewCount = contentService.selectCountAvergeView(chanelId);
-        System.out.println("AvergeLikeCount: " + AvergeLikeCount);
 
         model.addAttribute("ContentCount", ContentCount);
         model.addAttribute("ViewCount", ViewCount);
+        model.addAttribute("PrevMonthContent", PrevMonthContent);
+        model.addAttribute("PrevMonthPercent", PrevMonthPercent);
         model.addAttribute("AvergeLikeCount", AvergeLikeCount);
         model.addAttribute("AvergeViewCount", AvergeViewCount);
 
@@ -84,20 +87,26 @@ public class ContentController {
     }
 
     @PostMapping("insert.c")
-    public String insertProfitFinancial(@ModelAttribute Content content, RedirectAttributes ra,
+    public String insertContentEnroll(@ModelAttribute Content content, RedirectAttributes ra,
                                         HttpSession session) {
 
 
         // ⭐ 필수: 실제 로그인된 사용자 ID를 설정 (예시: 세션에서 가져옴)
         Integer chanelId = (Integer) session.getAttribute("chanelId");
+        chanelId = 101;
 
-        try {
-            contentService.insertContent(content, chanelId); // <- 인스턴스 메서드 호출
+        content.setChanelId(chanelId);
+
+        int result = contentService.insertContent(content); // <- 인스턴스 메서드 호출
+
+        if(result > 0) {
             ra.addFlashAttribute("msg", "콘텐츠가 성공적으로 등록되었습니다.");
-        } catch (Exception e) {
+        }
+        else{
             ra.addFlashAttribute("msg", "콘텐츠 등록에 실패했습니다.");
         }
-        return "redirect:/financial";
+
+        return "redirect:/content";
     }
 
 
