@@ -35,48 +35,48 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public int statusTodoSelect(int workspaceId){
-        return scheduleMapper.statusTodoSelect(workspaceId);
+    public int statusTodoSelect(int memberId, int workspaceId){
+        return scheduleMapper.statusTodoSelect(memberId, workspaceId);
     }
 
     @Override
-    public int statusTodoWholeSelect(){
-        return scheduleMapper.statusTodoWholeSelect();
+    public int statusTodoWholeSelect(int memberId){
+        return scheduleMapper.statusTodoWholeSelect(memberId);
     }
 
     @Override
-    public int statusProgressSelect(int workspaceId){
-        return scheduleMapper.statusProgressSelect(workspaceId);
+    public int statusProgressSelect(int memberId, int workspaceId){
+        return scheduleMapper.statusProgressSelect(memberId, workspaceId);
     }
 
     @Override
-    public int statusProgressWholeSelect(){
-        return scheduleMapper.statusProgressWholeSelect();
+    public int statusProgressWholeSelect(int memberId){
+        return scheduleMapper.statusProgressWholeSelect(memberId);
     }
 
     @Override
-    public int statusCompleteSelect(int workspaceId){
-        return scheduleMapper.statusCompleteSelect(workspaceId);
+    public int statusCompleteSelect(int memberId, int workspaceId){
+        return scheduleMapper.statusCompleteSelect(memberId, workspaceId);
     }
 
     @Override
-    public int statusCompleteWholeSelect(){
-        return scheduleMapper.statusCompleteWholeSelect();
+    public int statusCompleteWholeSelect(int memberId){
+        return scheduleMapper.statusCompleteWholeSelect(memberId);
     }
 
     @Override
-    public List<Task> calendarSelect(int projectId){
-        return scheduleMapper.calendarSelect(projectId);
+    public List<Task> calendarSelect(int memberId, int projectId){
+        return scheduleMapper.calendarSelect(memberId, projectId);
     }
 
     @Override
-    public List<Task> calendarWorkspaceSelect(int workspaceId){
-        return scheduleMapper.calendarSelect(workspaceId);
+    public List<Task> calendarWorkspaceSelect(int memberId, int workspaceId){
+        return scheduleMapper.calendarWorkspaceSelect(memberId, workspaceId);
     }
 
     @Override
-    public List<Task> calendarWholeSelect(){
-        return scheduleMapper.calendarWholeSelect();
+    public List<Task> calendarWholeSelect(int memberId){
+        return scheduleMapper.calendarWholeSelect(memberId);
     }
 
     @Override
@@ -90,13 +90,13 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public List<Task> dailyTaskWorkspaceSelect(int workspaceId, String selectedDate){
-        return scheduleMapper.dailyTaskWorkspaceSelect(workspaceId, selectedDate);
+    public List<Task> dailyTaskWorkspaceSelect(int memberId, int workspaceId, String selectedDate){
+        return scheduleMapper.dailyTaskWorkspaceSelect(memberId, workspaceId, selectedDate);
     }
 
     @Override
-    public List<Task> dailyTaskProjectSelect(int projectId, String selectedDate){
-        return scheduleMapper.dailyTaskProjectSelect(projectId, selectedDate);
+    public List<Task> dailyTaskProjectSelect(int memberId, int projectId, String selectedDate){
+        return scheduleMapper.dailyTaskProjectSelect(memberId, projectId, selectedDate);
     }
 
     @Override

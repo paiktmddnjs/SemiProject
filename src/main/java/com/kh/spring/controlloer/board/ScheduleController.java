@@ -41,10 +41,10 @@ public class ScheduleController {
 
         List<Workspace> workspace = scheduleServiceImpl.scheduleWorkspaceSelect(memberId);
         List<Project> project = scheduleServiceImpl.scheduleProjectWholeSelect();
-        int statusTodo = scheduleServiceImpl.statusTodoWholeSelect();
-        int statusProgress = scheduleServiceImpl.statusProgressWholeSelect();
-        int statusComplete = scheduleServiceImpl.statusCompleteWholeSelect();
-        List<Task> calendar = scheduleServiceImpl.calendarWholeSelect();
+        int statusTodo = scheduleServiceImpl.statusTodoWholeSelect(memberId);
+        int statusProgress = scheduleServiceImpl.statusProgressWholeSelect(memberId);
+        int statusComplete = scheduleServiceImpl.statusCompleteWholeSelect(memberId);
+        List<Task> calendar = scheduleServiceImpl.calendarWholeSelect(memberId);
         List<Task> dailyTask = scheduleServiceImpl.dailyTaskMemberNoSelect(memberId, todayStr);
         int taskMany = dailyTask.size();
         List<StatusContainer> workspaceStatus = scheduleServiceImpl.workspaceStatusSelect();
@@ -77,7 +77,7 @@ public class ScheduleController {
 
     @PostMapping("/scheduleWorkspace")
     @ResponseBody
-    public Map<String, Object> scheduleWorkspaceId(@RequestParam("workspaceSelect") int workspaceId) {
+    public Map<String, Object> scheduleWorkspaceId(@RequestParam("memberId") int memberId, @RequestParam("workspaceSelect") int workspaceId) {
 
         List<Project> project;
         int statusTodo;
@@ -87,16 +87,16 @@ public class ScheduleController {
 
         if(workspaceId==0){
             project = scheduleServiceImpl.scheduleProjectWholeSelect();
-            statusTodo = scheduleServiceImpl.statusTodoWholeSelect();
-            statusProgress = scheduleServiceImpl.statusProgressWholeSelect();
-            statusComplete = scheduleServiceImpl.statusCompleteWholeSelect();
-            calendar = scheduleServiceImpl.calendarWholeSelect();
+            statusTodo = scheduleServiceImpl.statusTodoWholeSelect(memberId);
+            statusProgress = scheduleServiceImpl.statusProgressWholeSelect(memberId);
+            statusComplete = scheduleServiceImpl.statusCompleteWholeSelect(memberId);
+            calendar = scheduleServiceImpl.calendarWholeSelect(memberId);
         } else{
             project = scheduleServiceImpl.scheduleProjectSelect(workspaceId);
-            statusTodo = scheduleServiceImpl.statusTodoSelect(workspaceId);
-            statusProgress = scheduleServiceImpl.statusProgressSelect(workspaceId);
-            statusComplete = scheduleServiceImpl.statusCompleteSelect(workspaceId);
-            calendar = scheduleServiceImpl.calendarWorkspaceSelect(workspaceId);
+            statusTodo = scheduleServiceImpl.statusTodoSelect(memberId, workspaceId);
+            statusProgress = scheduleServiceImpl.statusProgressSelect(memberId, workspaceId);
+            statusComplete = scheduleServiceImpl.statusCompleteSelect(memberId, workspaceId);
+            calendar = scheduleServiceImpl.calendarWorkspaceSelect(memberId, workspaceId);
         }
 
         System.out.println(project);
@@ -118,16 +118,16 @@ public class ScheduleController {
 
     @PostMapping("/scheduleProject")
     @ResponseBody
-    public Map<String, Object> scheduleProjectId(@RequestParam("workspaceId") int W_id, @RequestParam("projectSelect") int projectId) {
+    public Map<String, Object> scheduleProjectId(@RequestParam("memberId") int memberId, @RequestParam("workspaceId") int W_id, @RequestParam("projectSelect") int projectId) {
 
         List<Task> calendarSelect;
 
         if(projectId!=0){
-            calendarSelect = scheduleServiceImpl.calendarSelect(projectId);
+            calendarSelect = scheduleServiceImpl.calendarSelect(memberId, projectId);
         } else if(W_id!=0){
-            calendarSelect = scheduleServiceImpl.calendarWorkspaceSelect(W_id);
+            calendarSelect = scheduleServiceImpl.calendarWorkspaceSelect(memberId, W_id);
         } else{
-            calendarSelect = scheduleServiceImpl.calendarWholeSelect();
+            calendarSelect = scheduleServiceImpl.calendarWholeSelect(memberId);
         }
 
         Map<String, Object> result = new HashMap<>();
@@ -154,9 +154,9 @@ public class ScheduleController {
 
     @PostMapping("/scheduleWorkspaceDate")
     @ResponseBody
-    public Map<String, Object> scheduleWorkspaceDate(@RequestParam("workspaceId") int workspaceId, @RequestParam("dateSelect") String dateStr) {
+    public Map<String, Object> scheduleWorkspaceDate(@RequestParam("memberId") int memberId, @RequestParam("workspaceId") int workspaceId, @RequestParam("dateSelect") String dateStr) {
 
-        List<Task> dailyTaskSelect = scheduleServiceImpl.dailyTaskWorkspaceSelect(workspaceId, dateStr);
+        List<Task> dailyTaskSelect = scheduleServiceImpl.dailyTaskWorkspaceSelect(memberId, workspaceId, dateStr);
 
         System.out.println(dailyTaskSelect);
         Map<String, Object> result = new HashMap<>();
@@ -169,9 +169,9 @@ public class ScheduleController {
 
     @PostMapping("/scheduleProjectDate")
     @ResponseBody
-    public Map<String, Object> scheduleProjectDate(@RequestParam("projectId") int projectId, @RequestParam("dateSelect") String dateStr) {
+    public Map<String, Object> scheduleProjectDate(@RequestParam("memberId") int memberId, @RequestParam("projectId") int projectId, @RequestParam("dateSelect") String dateStr) {
 
-        List<Task> dailyTaskSelect = scheduleServiceImpl.dailyTaskProjectSelect(projectId, dateStr);
+        List<Task> dailyTaskSelect = scheduleServiceImpl.dailyTaskProjectSelect(memberId, projectId, dateStr);
 
         System.out.println(dailyTaskSelect);
         Map<String, Object> result = new HashMap<>();

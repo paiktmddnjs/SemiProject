@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `workspaceSelect=${workspaceId}`
+                body: `memberId=` + memberId +`&workspaceSelect=${workspaceId}`
             })
                 .then(response => response.json())
                 .then(data => {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `workspaceId=` + W_id + `&projectSelect=${projectId}`
+                body: `memberId=` + memberId +`&workspaceId=` + W_id + `&projectSelect=${projectId}`
             })
                 .then(response => response.json())
                 .then(data => {
