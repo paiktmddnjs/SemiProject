@@ -154,7 +154,7 @@
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/dashboard_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">대시보드</span>
             </a>
-            <a class="nav-link" href="#" data-key="calendar">
+            <a class="nav-link" href="<c:url value='/schedule.bo'/>" data-key="calendar">
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/calendar_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">일정 관리</span>
             </a>
