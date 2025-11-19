@@ -166,7 +166,7 @@
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/report_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">재무 관리</span>
             </a>
-            <a class="nav-link" href="<c:url value='/contract/list'/>" data-key="sponsorship">
+            <a class="nav-link" href="<c:url value='/contract/list.co'/>" data-key="sponsorship">
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/handshake.png'/>" alt=""></span>
                 <span class="nav-link__label">협찬 계약</span>
             </a>

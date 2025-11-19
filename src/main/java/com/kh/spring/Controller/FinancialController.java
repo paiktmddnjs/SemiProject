@@ -1,6 +1,7 @@
 package com.kh.spring.Controller;
 
 import com.kh.spring.model.vo.Financial;
+import com.kh.spring.model.vo.Member;
 import com.kh.spring.model.vo.Monthly;
 import com.kh.spring.model.vo.TopThree;
 import com.kh.spring.Service.FinancialService;
@@ -38,10 +39,11 @@ public class FinancialController {
                                     jakarta.servlet.http.HttpSession session) {
         
         // 세션에서 로그인한 멤버 ID 가져오기
-        Long memberId = (Long) session.getAttribute("memberId");
-        if (memberId == null) {
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
             return "redirect:/loginForm.me";
         }
+        Long memberId = (long) loginMember.getMemberId();
 
         // 1. 순이익 계산 (예: 40200000)
         int netProfit = (financialService.calculateNetProfit(memberId) / 10000);
@@ -184,11 +186,11 @@ public class FinancialController {
                                        jakarta.servlet.http.HttpSession session) {
 
         // 세션에서 로그인한 멤버 ID 가져오기
-        Long memberId = (Long) session.getAttribute("memberId");
-        if (memberId == null) {
-            ra.addFlashAttribute("msg", "로그인이 필요합니다.");
-            return "redirect:/login";
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
+            return "redirect:/loginForm.me";
         }
+        Long memberId = (long) loginMember.getMemberId();
 
         financial.setFinancialType("수익");
         financial.setMemberId(memberId);
@@ -212,12 +214,11 @@ public class FinancialController {
                                         jakarta.servlet.http.HttpSession session) {
 
         try {
-            // 세션에서 로그인한 멤버 ID 가져오기
-            Long memberId = (Long) session.getAttribute("memberId");
-            if (memberId == null) {
-                ra.addFlashAttribute("msg", "로그인이 필요합니다.");
+            Member loginMember = (Member) session.getAttribute("loginMember");
+            if (loginMember == null) {
                 return "redirect:/loginForm.me";
             }
+            Long memberId = (long) loginMember.getMemberId();
 
             financial.setFinancialType("지출");
             financial.setMemberId(memberId);

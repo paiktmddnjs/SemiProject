@@ -79,51 +79,7 @@
 
     <%-- ====================================================== --%>
     <%-- [임시] 더미 데이터 생성 (DB 연결 전 테스트용) --%>
-    <%
-        java.util.List<java.util.Map<String, String>> dummyList = new java.util.ArrayList<>();
 
-        java.util.Map<String, String> item1 = new java.util.HashMap<>();
-        item1.put("contractNo", "1");
-        item1.put("contractName", "브랜드 A - 뷰티 제품");
-        item1.put("amount", "2000000");
-        item1.put("startDate", "2025-10-15");
-        item1.put("endDate", "2025-11-15");
-        item1.put("status", "active"); // '진행중' 배지
-        item1.put("deliverables", "영상 1개, 포스트 2개");
-        item1.put("paymentStatusName", "계약서 검토 중"); // 간략 보기에 표시될 이름
-        item1.put("paymentStatus", "reviewing"); // select 박스 선택값
-        item1.put("companyEmail", "manager@branda.com");
-        item1.put("companyName", "(주) KH");
-        item1.put("companyContact", "02-7777-8888");
-        item1.put("managerName", "백승원");
-        item1.put("businessLicenseNumber", "125158-121548");
-        item1.put("managerContact", "010-1234-1178");
-        item1.put("ceoContact", "010-4845-4812");
-        item1.put("memo", "성실히 임할 것\n전화 금지\n쇼츠 금지\n위약금 있음\n모니터링 함\n여기까지");
-        dummyList.add(item1);
-
-        java.util.Map<String, String> item2 = new java.util.HashMap<>();
-        item2.put("contractNo", "2");
-        item2.put("contractName", "브랜드 B - 패션 의류");
-        item2.put("amount", "1500000");
-        item2.put("startDate", "2025-10-20");
-        item2.put("endDate", "2025-11-20");
-        item2.put("status", "pending");
-        item2.put("deliverables", "릴스 3개");
-        item2.put("paymentStatusName", "정산 대기");
-        item2.put("paymentStatus", "pending");
-        item2.put("companyEmail", "manager@brandb.com");
-        item2.put("companyName", "(주) 패션월드");
-        item2.put("companyContact", "02-1111-2222");
-        item2.put("managerName", "김철수");
-        item2.put("businessLicenseNumber", "111-22-33333");
-        item2.put("managerContact", "010-2222-3333");
-        item2.put("ceoContact", "010-4444-5555");
-        item2.put("memo", "협의된 내용 없음.");
-        dummyList.add(item2);
-
-        pageContext.setAttribute("list", dummyList);
-    %>
     <%-- 더미 데이터 끝 --%>
     <%-- ====================================================== --%>
 
