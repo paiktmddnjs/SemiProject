@@ -40,7 +40,7 @@ public class FinancialController {
         // 세션에서 로그인한 멤버 ID 가져오기
         Long memberId = (Long) session.getAttribute("memberId");
         if (memberId == null) {
-            return "redirect:/login";
+            return "redirect:/loginForm.me";
         }
 
         // 1. 순이익 계산 (예: 40200000)
@@ -216,7 +216,7 @@ public class FinancialController {
             Long memberId = (Long) session.getAttribute("memberId");
             if (memberId == null) {
                 ra.addFlashAttribute("msg", "로그인이 필요합니다.");
-                return "redirect:/login";
+                return "redirect:/loginForm.me";
             }
 
             financial.setFinancialType("지출");

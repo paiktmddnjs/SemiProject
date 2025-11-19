@@ -1,4 +1,4 @@
-package com.kh.spring.controller;
+package com.kh.spring.Controller;
 
 import com.kh.spring.model.vo.Member;
 import jakarta.servlet.http.HttpSession;
