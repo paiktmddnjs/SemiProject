@@ -1,23 +1,23 @@
 package com.kh.spring.controller;
 
 import com.kh.spring.dto.MemberDto;
+import com.kh.spring.model.service.ProjectService;
 import com.kh.spring.model.service.WorkspaceService;
 import com.kh.spring.model.vo.ChannelVo;
+import com.kh.spring.model.vo.WorkspaceMemberVo;
 import com.kh.spring.model.vo.WorkspaceVo;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/workspace")
@@ -27,6 +27,9 @@ public class WorkspaceController {
 
     @Autowired
     private WorkspaceService workspaceService;
+
+    @Autowired
+    private ProjectService projectService; // 멤버 목록 조회를 위해 추가
 
     @GetMapping("")
     public String workspaceList(Model model, HttpSession session) {
@@ -51,60 +54,35 @@ public class WorkspaceController {
     public String createWorkspace(@RequestParam("channelId") int channelId,
                                   @RequestParam("workspaceName") String workspaceName,
                                   @RequestParam("workspaceExplain") String workspaceExplain,
-                                  HttpSession session,
-                                  RedirectAttributes redirectAttributes) {
-        // 세션 키를 'loginMember'로, 타입을 MemberDto로 수정
+                                  HttpSession session) {
         MemberDto loginUser = (MemberDto) session.getAttribute("loginMember");
         if (loginUser == null) {
-            log.warn("로그인되지 않은 사용자의 워크스페이스 생성 시도.");
             return "redirect:/login";
         }
-
-        try {
-            WorkspaceVo workspace = new WorkspaceVo();
-            workspace.setChannelId(channelId);
-            workspace.setWorkspaceName(workspaceName);
-            workspace.setWorkspaceExplain(workspaceExplain);
-
-            log.info("워크스페이스 생성 요청. 사용자: {}", loginUser.getEmail());
-            // MemberDto의 memberId를 intValue()를 사용하여 int로 변환
-            workspaceService.createWorkspaceAndAddMember(workspace, loginUser.getMemberId().intValue());
-            log.info("워크스페이스 생성 성공. 리다이렉트: /workspace");
-
-            return "redirect:/workspace";
-
-        } catch (Exception e) {
-            log.error("워크스페이스 생성 중 심각한 오류 발생", e);
-            redirectAttributes.addFlashAttribute("errorMessage", "워크스페이스 생성에 실패했습니다. 문제가 지속되면 관리자에게 문의하세요.");
-            return "redirect:/"; // 오류 발생 시 루트로 리다이렉트
-        }
+        WorkspaceVo workspace = new WorkspaceVo();
+        workspace.setChannelId(channelId);
+        workspace.setWorkspaceName(workspaceName);
+        workspace.setWorkspaceExplain(workspaceExplain);
+        workspaceService.createWorkspaceAndAddMember(workspace, loginUser.getMemberId().intValue());
+        return "redirect:/workspace";
     }
 
     @GetMapping("/set")
-    public String getWorkspaceSettingsPage(@RequestParam("workspaceId") int workspaceId,
-                                           @RequestParam(value = "projectId", required = false) String projectId,
-                                           Model model) {
+    public String getWorkspaceSettingsPage(@RequestParam("workspaceId") int workspaceId, Model model) {
         WorkspaceVo workspace = workspaceService.getWorkspaceById(workspaceId);
         model.addAttribute("workspace", workspace);
-        model.addAttribute("returnTo", projectId);
         return "set_workspace";
     }
 
     @PostMapping("/update")
     public String updateWorkspace(@RequestParam("workspaceId") int workspaceId,
                                   @RequestParam("workspaceName") String workspaceName,
-                                  @RequestParam("workspaceExplain") String workspaceExplain,
-                                  @RequestParam(value = "returnTo", required = false) String returnTo) {
+                                  @RequestParam("workspaceExplain") String workspaceExplain) {
         WorkspaceVo workspace = new WorkspaceVo();
         workspace.setWorkspaceId(workspaceId);
         workspace.setWorkspaceName(workspaceName);
         workspace.setWorkspaceExplain(workspaceExplain);
         workspaceService.updateWorkspace(workspace);
-
-        if (returnTo != null && !returnTo.isEmpty()) {
-            return "redirect:/project/detail?projectId=" + returnTo;
-        }
-
         return "redirect:/project?workspaceId=" + workspaceId;
     }
 
@@ -112,5 +90,66 @@ public class WorkspaceController {
     public String softDeleteWorkspace(@RequestParam("workspaceId") int workspaceId) {
         workspaceService.updateWorkspaceStatus(workspaceId);
         return "redirect:/workspace";
+    }
+
+    @PostMapping("/member/remove")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> removeMemberAjax(@RequestParam("workspaceId") int workspaceId,
+                                                                @RequestParam("memberId") int memberId,
+                                                                HttpSession session) {
+        MemberDto loginUser = (MemberDto) session.getAttribute("loginMember");
+        if (loginUser == null) {
+            return ResponseEntity.status(401).body(Map.of("success", false, "message", "로그인이 필요합니다."));
+        }
+
+        try {
+            workspaceService.removeMember(workspaceId, memberId, loginUser.getMemberId().intValue());
+            return ResponseEntity.ok(Map.of("success", true, "message", "멤버를 추방했습니다."));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "message", e.getMessage()));
+        } catch (Exception e) {
+            log.error("멤버 추방 중 오류 발생", e);
+            return ResponseEntity.internalServerError().body(Map.of("success", false, "message", "서버 오류가 발생했습니다."));
+        }
+    }
+
+    @PostMapping("/member/updateRole")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> updateMemberRoleAjax(@RequestParam("workspaceId") int workspaceId,
+                                                                    @RequestParam("memberId") int memberId,
+                                                                    @RequestParam("role") String role,
+                                                                    HttpSession session) {
+        MemberDto loginUser = (MemberDto) session.getAttribute("loginMember");
+        if (loginUser == null) {
+            return ResponseEntity.status(401).body(Map.of("success", false, "message", "로그인이 필요합니다."));
+        }
+
+        try {
+            workspaceService.updateMemberRole(workspaceId, memberId, role, loginUser.getMemberId().intValue());
+            return ResponseEntity.ok(Map.of("success", true, "message", "역할을 변경했습니다."));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "message", e.getMessage()));
+        } catch (Exception e) {
+            log.error("역할 변경 중 오류 발생", e);
+            return ResponseEntity.internalServerError().body(Map.of("success", false, "message", "서버 오류가 발생했습니다."));
+        }
+    }
+
+    @GetMapping("/members")
+    public String getTeamMemberList(@RequestParam("workspaceId") int workspaceId, Model model, HttpSession session) {
+        Map<String, Object> pageData = projectService.getProjectPageData(workspaceId);
+        model.addAllAttributes(pageData);
+
+        MemberDto loginUser = (MemberDto) session.getAttribute("loginMember");
+        if (loginUser != null) {
+            List<WorkspaceMemberVo> members = (List<WorkspaceMemberVo>) pageData.get("workspaceMembers");
+            Optional<WorkspaceMemberVo> currentUserMemberInfo = members.stream()
+                    .filter(m -> m.getMemberId() == loginUser.getMemberId().intValue())
+                    .findFirst();
+            String currentUserRole = currentUserMemberInfo.map(WorkspaceMemberVo::getWorkspaceMemberRole).orElse("NONE");
+            model.addAttribute("currentUserRole", currentUserRole);
+        }
+        
+        return "components/_teamMemberList";
     }
 }

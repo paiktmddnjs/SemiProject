@@ -48,6 +48,14 @@
             border-top: 1px solid #f3f4f6;
             text-align: right;
         }
+        .remove-member-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -70,16 +78,20 @@
                         </div>
                     </div>
                     <div class = "header_button_container">
-                        <div class="header_button">
-                            <input type="button" value="+ 새 프로젝트" class="button" 
-                                   data-modal-target="newProjectModal"
-                                   data-modal-url="<c:url value='/project/new?workspaceId=${workspace.workspaceId}'/>">
-                        </div>
-                        <div class="header_button">
-                            <input type="button" value="워크스페이스 설정" class="button"
-                                   data-modal-target="setWorkspaceModal"
-                                   data-modal-url="<c:url value='/workspace/set?workspaceId=${workspace.workspaceId}'/>">
-                        </div>
+                        <c:if test="${currentUserRole != 'VIEWER'}">
+                            <div class="header_button">
+                                <input type="button" value="+ 새 프로젝트" class="button"
+                                       data-modal-target="newProjectModal"
+                                       data-modal-url="<c:url value='/project/new?workspaceId=${workspace.workspaceId}'/>">
+                            </div>
+                        </c:if>
+                        <c:if test="${currentUserRole == 'ADMIN'}">
+                            <div class="header_button">
+                                <input type="button" value="워크스페이스 설정" class="button"
+                                       data-modal-target="setWorkspaceModal"
+                                       data-modal-url="<c:url value='/workspace/set?workspaceId=${workspace.workspaceId}'/>">
+                            </div>
+                        </c:if>
                     </div>
                 </div>
                 <div class="menu">
@@ -96,7 +108,9 @@
                 <div id="projectContent" class="content_box">
                     <c:forEach var="p" items="${projects}">
                         <div class="box">
-                            <button class="delete-btn" onclick="deleteProject(event, '${p.projectId}', '${p.workspaceId}')">X</button>
+                            <c:if test="${currentUserRole != 'VIEWER'}">
+                                <button class="delete-btn" onclick="deleteProject(event, '${p.projectId}', '${p.workspaceId}')">X</button>
+                            </c:if>
                             <a href="<c:url value='/project/detail?projectId=${p.projectId}'/>" class="box-link" style="display: flex; flex-direction: column; height: 100%;">
                                 <div class="box_body">
                                     <div class="title">
@@ -127,9 +141,11 @@
                                 <div>팀원을 초대하고 역할을 관리하세요</div>
                             </div>
                             <div class="team_title_right">
-                                <button class="button"
-                                        data-modal-target="inviteMemberModal"
-                                        data-modal-url="<c:url value='/request/invite?workspaceId=${workspace.workspaceId}'/>">+ 멤버초대</button>
+                                <c:if test="${currentUserRole != 'VIEWER'}">
+                                    <button class="button"
+                                            data-modal-target="inviteMemberModal"
+                                            data-modal-url="<c:url value='/request/invite?workspaceId=${workspace.workspaceId}'/>">+ 멤버초대</button>
+                                </c:if>
                             </div>
                         </div>
                         <div class ="search">
@@ -143,35 +159,11 @@
                                         <th>역할</th>
                                         <th>가입일</th>
                                         <th>상태</th>
+                                        <th>관리</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <c:forEach var="member" items="${workspaceMembers}">
-                                        <tr>
-                                            <td>
-                                                <div class="team_account">
-                                                    <div class="team_account_info">
-                                                        <div class="team_account_name"><c:out value="${member.memberVo.memberName}"/></div>
-                                                        <div class="team_account_email"><c:out value="${member.memberVo.email}"/></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <select name="role" id="role-select-${member.memberId}">
-                                                    <option value="ADMIN" ${member.workspaceMemberRole == 'ADMIN' ? 'selected' : ''}>관리자</option>
-                                                    <option value="EDITOR" ${member.workspaceMemberRole == 'EDITOR' ? 'selected' : ''}>편집자</option>
-                                                    <option value="VIEWER" ${member.workspaceMemberRole == 'VIEWER' ? 'selected' : ''}>뷰어</option>
-                                                </select>
-                                            </td>
-                                            <td><c:out value="${member.memberVo.enrollDate}"/></td>
-                                            <td>활성</td>
-                                        </tr>
-                                    </c:forEach>
-                                    <c:if test="${empty workspaceMembers}">
-                                        <tr>
-                                            <td colspan="4" style="text-align: center; padding: 20px;">이 워크스페이스에는 아직 팀 멤버가 없습니다.</td>
-                                        </tr>
-                                    </c:if>
+                                <tbody id="teamMemberListBody">
+                                    <jsp:include page="/WEB-INF/views/components/_teamMemberList.jsp" />
                                 </tbody>
                             </table>
                         </div>
@@ -195,30 +187,79 @@
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = '${pageContext.request.contextPath}/project/delete';
+                // ... (기존 코드 유지)
+            }
+        }
 
-                const idInput = document.createElement('input');
-                idInput.type = 'hidden';
-                idInput.name = 'projectId';
-                idInput.value = projectId;
-                form.appendChild(idInput);
+        async function reloadTeamList(workspaceId) {
+            try {
+                const response = await fetch(`/workspace/members?workspaceId=${workspaceId}`);
+                if (!response.ok) throw new Error('Failed to reload team list.');
+                const html = await response.text();
+                document.getElementById('teamMemberListBody').innerHTML = html;
+            } catch (error) {
+                console.error('Error reloading team list:', error);
+            }
+        }
 
-                const wsIdInput = document.createElement('input');
-                wsIdInput.type = 'hidden';
-                wsIdInput.name = 'workspaceId';
-                wsIdInput.value = workspaceId;
-                form.appendChild(wsIdInput);
+        async function removeMember(workspaceId, memberId) {
+            if (confirm('정말 이 멤버를 추방하시겠습니까?')) {
+                const formData = new FormData();
+                formData.append('workspaceId', workspaceId);
+                formData.append('memberId', memberId);
 
-                document.body.appendChild(form);
-                form.submit();
+                try {
+                    const response = await fetch('/workspace/member/remove', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    alert(result.message);
+
+                    if (result.success) {
+                        await reloadTeamList(workspaceId);
+                    }
+                } catch (error) {
+                    console.error('Error removing member:', error);
+                    alert('멤버 추방 중 오류가 발생했습니다.');
+                }
+            }
+        }
+
+        async function updateRole(workspaceId, memberId, newRole) {
+            if (confirm('이 멤버의 역할을 ' + newRole + '(으)로 변경하시겠습니까?')) {
+                const formData = new FormData();
+                formData.append('workspaceId', workspaceId);
+                formData.append('memberId', memberId);
+                formData.append('role', newRole);
+
+                try {
+                    const response = await fetch('/workspace/member/updateRole', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    alert(result.message);
+
+                    if (result.success) {
+                        await reloadTeamList(workspaceId);
+                    } else {
+                        // 역할 변경 실패 시, 화면을 다시 로드하여 원래 역할로 되돌림
+                        await reloadTeamList(workspaceId);
+                    }
+                } catch (error) {
+                    console.error('Error updating role:', error);
+                    alert('역할 변경 중 오류가 발생했습니다.');
+                }
+            } else {
+                // 사용자가 '취소'를 누르면 목록을 다시 로드하여 원래 역할로 되돌림
+                await reloadTeamList(workspaceId);
             }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             const successMessage = '<c:out value="${successMessage}" />';
             const errorMessage = '<c:out value="${errorMessage}" />';
-
-            console.log("JSP 렌더링 시점의 successMessage:", successMessage);
-            console.log("JSP 렌더링 시점의 errorMessage:", errorMessage);
 
             if (successMessage) {
                 alert(successMessage);

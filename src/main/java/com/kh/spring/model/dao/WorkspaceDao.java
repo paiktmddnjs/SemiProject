@@ -147,4 +147,30 @@ public class WorkspaceDao {
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, workspaceId, memberId);
         return count != null && count > 0;
     }
+
+    public WorkspaceMemberVo findWorkspaceMember(int workspaceId, int memberId) {
+        String sql = "SELECT * FROM WORKSPACE_MEMBER WHERE WORKSPACE_ID = ? AND MEMBER_ID = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+                WorkspaceMemberVo member = new WorkspaceMemberVo();
+                member.setWorkspaceMemberId(rs.getInt("WORKSPACE_MEMBER_ID"));
+                member.setWorkspaceId(rs.getInt("WORKSPACE_ID"));
+                member.setMemberId(rs.getInt("MEMBER_ID"));
+                member.setWorkspaceMemberRole(rs.getString("WORKSPACE_MEMBER_ROLE"));
+                return member;
+            }, workspaceId, memberId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    public int removeMember(int workspaceId, int memberId) {
+        String sql = "DELETE FROM WORKSPACE_MEMBER WHERE WORKSPACE_ID = ? AND MEMBER_ID = ?";
+        return jdbcTemplate.update(sql, workspaceId, memberId);
+    }
+
+    public int updateMemberRole(int workspaceId, int memberId, String role) {
+        String sql = "UPDATE WORKSPACE_MEMBER SET WORKSPACE_MEMBER_ROLE = ? WHERE WORKSPACE_ID = ? AND MEMBER_ID = ?";
+        return jdbcTemplate.update(sql, role, workspaceId, memberId);
+    }
 }

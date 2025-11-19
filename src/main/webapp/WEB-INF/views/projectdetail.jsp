@@ -33,9 +33,11 @@
                             </div>
                         </div>
                         <div class ="header_button">
-                            <input type="button" value ="프로젝트 설정" class = "button"
-                                   data-modal-target="setProjectModal"
-                                   data-modal-url="<c:url value='/project/settings?projectId=${project.projectId}'/>">
+                            <c:if test="${currentUserRole != 'VIEWER'}">
+                                <input type="button" value ="프로젝트 설정" class = "button"
+                                       data-modal-target="setProjectModal"
+                                       data-modal-url="<c:url value='/project/settings?projectId=${project.projectId}'/>">
+                            </c:if>
                         </div>
                     </div>
                     
@@ -94,9 +96,11 @@
                             </div>
                         </div>
                         <div class ="header_button">
-                            <input type="button" value ="+ 새 작업" class = "button"
-                                   data-modal-target="newTaskModal"
-                                   data-modal-url="<c:url value='/task/new?projectId=${project.projectId}'/>">
+                            <c:if test="${currentUserRole != 'VIEWER'}">
+                                <input type="button" value ="+ 새 작업" class = "button"
+                                       data-modal-target="newTaskModal"
+                                       data-modal-url="<c:url value='/task/new?projectId=${project.projectId}'/>">
+                            </c:if>
                         </div>
                     </div>
                     

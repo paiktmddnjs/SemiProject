@@ -33,6 +33,7 @@
         .button.accept { background-color: #10b981; color: white; }
         .button.reject { background-color: #ef4444; color: white; }
         .no-requests { text-align: center; padding: 40px; color: #6b7280; }
+        .debug-id { font-size: 10px; color: #9ca3af; margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -62,11 +63,15 @@
                             <div class="request-actions">
                                 <form action="<c:url value='/request/accept'/>" method="post" style="display: inline;">
                                     <input type="hidden" name="requestId" value="${req.requestId}">
-                                    <button type="submit" class="button accept">수락</button>
+                                    <button type="submit" class="button accept">
+                                        수락 <span class="debug-id">(ID: ${req.requestId})</span>
+                                    </button>
                                 </form>
                                 <form action="<c:url value='/request/reject'/>" method="post" style="display: inline;">
                                     <input type="hidden" name="requestId" value="${req.requestId}">
-                                    <button type="submit" class="button reject">거절</button>
+                                    <button type="submit" class="button reject">
+                                        거절 <span class="debug-id">(ID: ${req.requestId})</span>
+                                    </button>
                                 </form>
                             </div>
                         </li>

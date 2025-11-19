@@ -40,16 +40,22 @@ public class RequestController {
 
     @PostMapping("/accept")
     public String acceptRequest(@RequestParam("requestId") int requestId, HttpSession session, RedirectAttributes redirectAttributes) {
+        log.info("--- 초대 수락 요청 수신 ---");
+        log.info("요청 ID: {}", requestId);
+
         MemberDto loginUser = (MemberDto) session.getAttribute("loginMember");
         if (loginUser == null) {
+            log.warn("로그인되지 않은 사용자의 접근입니다.");
             return "redirect:/login";
         }
+        log.info("요청 사용자 ID: {}", loginUser.getMemberId());
 
         try {
             requestService.acceptRequest(requestId, loginUser.getMemberId().intValue());
             redirectAttributes.addFlashAttribute("successMessage", "워크스페이스에 참여했습니다.");
+            log.info("초대 수락 성공. requestId: {}", requestId);
         } catch (Exception e) {
-            log.error("초대 수락 중 오류 발생", e);
+            log.error("초대 수락 중 오류 발생. requestId: {}", requestId, e);
             redirectAttributes.addFlashAttribute("errorMessage", "요청 처리 중 오류가 발생했습니다.");
         }
         return "redirect:/request";

@@ -1,7 +1,10 @@
 package com.kh.spring.controller;
 
+import com.kh.spring.dto.MemberDto;
 import com.kh.spring.model.service.ProjectService;
 import com.kh.spring.model.vo.ProjectVo;
+import com.kh.spring.model.vo.WorkspaceMemberVo;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/project")
@@ -29,10 +34,25 @@ public class ProjectController {
     public String getProjectList(@RequestParam("workspaceId") int workspaceId,
                                  @RequestParam(value = "successMessage", required = false) String successMessage,
                                  @RequestParam(value = "errorMessage", required = false) String errorMessage,
-                                 Model model) {
+                                 Model model, HttpSession session) {
         log.info("GET /project - 수신된 workspaceId: {}", workspaceId);
+
+        MemberDto loginUser = (MemberDto) session.getAttribute("loginMember");
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
+
         Map<String, Object> pageData = projectService.getProjectPageData(workspaceId);
         model.addAllAttributes(pageData);
+
+        // 현재 사용자의 역할 찾기
+        List<WorkspaceMemberVo> members = (List<WorkspaceMemberVo>) pageData.get("workspaceMembers");
+        Optional<WorkspaceMemberVo> currentUserMemberInfo = members.stream()
+                .filter(m -> m.getMemberId() == loginUser.getMemberId().intValue())
+                .findFirst();
+        String currentUserRole = currentUserMemberInfo.map(WorkspaceMemberVo::getWorkspaceMemberRole).orElse("NONE");
+        model.addAttribute("currentUserRole", currentUserRole);
+
 
         // URL 파라미터로 받은 메시지를 모델에 추가
         if (successMessage != null) {
@@ -68,14 +88,33 @@ public class ProjectController {
     }
 
     @GetMapping("/detail")
-    public String getProjectDetail(@RequestParam("projectId") int projectId, Model model) {
+    public String getProjectDetail(@RequestParam("projectId") int projectId, Model model, HttpSession session) {
         log.info("GET /project/detail - 수신된 projectId: {}", projectId);
+
+        MemberDto loginUser = (MemberDto) session.getAttribute("loginMember");
+        if (loginUser == null) {
+            log.warn("로그인되지 않은 사용자가 프로젝트 상세 페이지에 접근 시도. projectId: {}", projectId);
+            return "redirect:/login";
+        }
+
         Map<String, Object> projectData = projectService.getProjectDetailData(projectId);
         if (projectData == null) {
             log.warn("projectId {}에 해당하는 프로젝트를 찾을 수 없습니다.", projectId);
             return "redirect:/workspace"; // 워크스페이스 목록으로 리다이렉트
         }
         model.addAllAttributes(projectData);
+
+        // 현재 사용자의 역할 찾기
+        List<WorkspaceMemberVo> members = (List<WorkspaceMemberVo>) projectData.get("workspaceMembers");
+        Optional<WorkspaceMemberVo> currentUserMemberInfo = members.stream()
+                .filter(m -> m.getMemberId() == loginUser.getMemberId().intValue())
+                .findFirst();
+        String currentUserRole = currentUserMemberInfo.map(WorkspaceMemberVo::getWorkspaceMemberRole).orElse("NONE");
+        model.addAttribute("currentUserRole", currentUserRole);
+
+        // 로그 추가: projectId와 currentUserRole 값 확인
+        log.debug("프로젝트 상세 페이지 로드: projectId = {}, currentUserRole = {}", projectId, currentUserRole);
+
         return "projectdetail";
     }
 
