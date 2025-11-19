@@ -70,8 +70,12 @@
 
     <select id="scheduleProjectWholeSelect" resultMap="projectResultMap">
         SELECT PROJECT_NAME, PROJECT_ID
-        FROM PROJECT
-        JOIN WORKSPACE USING(WORKSPACE_ID)
+        FROM (
+            SELECT *
+            FROM PROJECT
+            JOIN WORKSPACE_MEMBER USING(WORKSPACE_ID)
+            WHERE MEMBER_ID = #{memberId}
+        )
     </select>
 
     <select id="statusTodoSelect" resultType="int">

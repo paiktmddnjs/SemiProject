@@ -30,8 +30,8 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public List<Project> scheduleProjectWholeSelect(){
-        return scheduleMapper.scheduleProjectWholeSelect();
+    public List<Project> scheduleProjectWholeSelect(int memberId) {
+        return scheduleMapper.scheduleProjectWholeSelect(memberId);
     }
 
     @Override

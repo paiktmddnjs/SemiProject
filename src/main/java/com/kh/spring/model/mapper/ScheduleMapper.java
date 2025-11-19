@@ -11,7 +11,7 @@ import java.util.List;
 public interface ScheduleMapper {
     List<Workspace> scheduleWorkspaceSelect(@Param("memberId") int memberId);
     List<Project> scheduleProjectSelect(@Param("workspaceId") int workspaceId);
-    List<Project> scheduleProjectWholeSelect();
+    List<Project> scheduleProjectWholeSelect(@Param("memberId") int memberId);
     int statusTodoSelect(@Param("memberId") int memberId, @Param("workspaceId") int workspaceId);
     int statusTodoWholeSelect(@Param("memberId") int memberId);
     int statusProgressSelect(@Param("memberId") int memberId, @Param("workspaceId") int workspaceId);

@@ -8,7 +8,7 @@ import java.util.List;
 public interface ScheduleService {
     List<Workspace> scheduleWorkspaceSelect(int memberId);
     List<Project> scheduleProjectSelect(int projectId);
-    List<Project> scheduleProjectWholeSelect();
+    List<Project> scheduleProjectWholeSelect(int memberId);
     int statusTodoSelect(int memberId, int workspaceId);
     int statusTodoWholeSelect(int memberId);
     int statusProgressSelect(int memberId, int workspaceId);
