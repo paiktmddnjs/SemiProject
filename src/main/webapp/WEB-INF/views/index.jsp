@@ -1,2 +1,2 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:forward page="Content_Management.jsp"/>
+<jsp:forward page="components/layout.jsp"/>

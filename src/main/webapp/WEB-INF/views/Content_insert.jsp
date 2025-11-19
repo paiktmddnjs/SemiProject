@@ -42,7 +42,7 @@
         </div>
 
         <!-- Form -->
-        <form id="contentForm" class="modal-form" onsubmit="handleSubmit(event)">
+        <form id="contentForm" class="modal-form" action="${pageContext.request.contextPath}/insert.c"  onsubmit="handleSubmit(event)">
             <!-- Platform -->
             <div class="form-group">
                 <label class="form-label">플랫폼</label>

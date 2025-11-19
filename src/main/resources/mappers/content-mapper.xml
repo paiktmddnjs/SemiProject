@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.model.mapper.ContentMapper">
+
+    <resultMap id="ContentResultMap" type="com.example.demo.model.vo.Content"  >
+        <id column="CONTENT_ID" property="contentId"/>
+
+        <result column="CHANEL_ID" property="chanelId"/>
+        <result column="PROJECT_ID" property="projectId"/>
+        <result column="TITLE" property="title"/>
+        <result column="UPLOAD_DATE" property="uploadDate"/>
+        <result column="VIEWS" property="views"/>
+        <result column="LIKES" property="likes"/>
+        <result column="COMMENTS" property="comments"/>
+        <result column="CONTENT_STATUS" property="contentStatus"/>
+        <result column="CONTENT_DESC" property="contentDesc"/>
+        <result column="CATEGORY" property="category"/>
+    </resultMap>
+
+
+    <select id="selectCountContent" parameterType="int" resultType="int">
+
+        SELECT COUNT(CONTENT_ID)
+        FROM CONTENT
+        WHERE CHANEL_ID = #{chanelId}
+
+    </select>
+
+
+
+    <select id="selectCountView" parameterType="int" resultType="int">
+        SELECT
+        SUM(VIEWS)
+        FROM
+        CONTENT
+        WHERE CHANEL_ID = #{chanelId}
+    </select>
+
+
+    <select id="selectContentByCategory" parameterType="int" resultType="com.example.demo.model.vo.Categorical">
+        SELECT
+        CATEGORY AS category,
+        COUNT(*) AS ContentByCategroy
+        FROM
+        CONTENT
+        WHERE
+        CHANEL_ID = #{chanelId}
+        GROUP BY
+        CATEGORY
+        ORDER BY
+        CASE CATEGORY
+        WHEN '리뷰' THEN 1
+        WHEN '브이로그' THEN 2
+        WHEN '엔터테인먼트' THEN 3
+        WHEN '소통' THEN 4
+        WHEN '튜토리얼' THEN 5
+        ELSE 6
+        END
+    </select>
+
+    <select id="selectViewByCategory" parameterType="int" resultType="com.example.demo.model.vo.Categorical">
+    SELECT
+    CATEGORY AS category,
+    SUM(TO_NUMBER(VIEWS)) AS ViewByCategroy
+    FROM
+    CONTENT WHERE CHANEL_ID = #{chanelId}
+    GROUP BY
+    CATEGORY
+    ORDER BY ViewByCategroy DESC
+    </select>
+
+
+    <select id="selectDetailByCategory"  parameterType="int" resultType="com.example.demo.model.vo.Categorical">
+
+
+        SELECT
+        CATEGORY AS category,
+        COUNT(CONTENT_ID) AS content_count,
+
+        SUM(TO_NUMBER(VIEWS DEFAULT 0 ON CONVERSION ERROR)) AS total_views,
+
+        SUM(TO_NUMBER(LIKES DEFAULT 0 ON CONVERSION ERROR)) AS total_likes,
+
+        SUM(TO_NUMBER(COMMENTS DEFAULT 0 ON CONVERSION ERROR)) AS total_comments
+        FROM
+        CONTENT
+        WHERE CHANEL_ID = #{chanelId}
+        GROUP BY
+        CATEGORY
+        ORDER BY
+        total_views DESC
+    </select>
+
+    <select id="selectContent" parameterType="int" resultMap="ContentResultMap">
+        SELECT
+        CONTENT_ID,
+        CHANEL_ID,
+        PROJECT_ID,
+        TITLE,
+        UPLOAD_DATE,
+        VIEWS,
+        LIKES,
+        COMMENTS,
+        CONTENT_STATUS,
+        CONTENT_DESC,
+        CATEGORY
+        FROM CONTENT
+        WHERE CHANEL_ID = #{chanelId}
+    </select>
+
+    <insert id="insertContent" parameterType="com.example.demo.model.vo.Content">
+        INSERT INTO CONTENT (
+        CHANEL_ID,
+        TITLE,
+        CATEGORY,
+        UPLOAD_DATE,
+        CONTENT_STATUS,
+        URL,
+        CONTENT_DESC,
+        PLATFORM
+        ) VALUES (
+        #{chanelId},
+        #{title},
+        #{category},
+        #{uploadDate},
+        #{contentStatus},
+        #{url},
+        #{contentDesc},
+        #{platform}
+        )
+    </insert>
+
+
+</mapper>

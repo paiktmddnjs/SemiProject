@@ -12,6 +12,7 @@ public class LoginController {
     public String loginPage() {
         return "Login"; // /WEB-INF/views/Login.jsp 를 찾아서 렌더링
     }
+
     @GetMapping("/signup")
     public String signUpPage() {
         return "Sign_Up"; // /WEB-INF/views/Sign_Up.jsp
