@@ -477,14 +477,36 @@
 
                     tagSpans.forEach(span => {
 
+                        <c:choose>
+                        <c:when test="${FirstExpense.getAmount() < 1000}">
+                        document.querySelector('#item-amount-first').innerText = "-${FirstExpense.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKFirst" value="${FirstExpense.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-first').innerText = "-<fmt:formatNumber value="${amountKFirst}" pattern="0" />K";
+                        document.querySelector('#item-amount-first').innerText = "-<fmt:formatNumber value='${amountKFirst}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
+                        <c:choose>
+                        <c:when test="${SecondExpense.getAmount() < 1000}">
+                        document.querySelector('#item-amount-second').innerText = "-${SecondExpense.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKSecond" value="${SecondExpense.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-second').innerText = "-<fmt:formatNumber value="${amountKSecond}" pattern="0" />K";
+                        document.querySelector('#item-amount-second').innerText = "-<fmt:formatNumber value='${amountKSecond}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
+                        <c:choose>
+                        <c:when test="${ThirdExpense.getAmount() < 1000}">
+                        document.querySelector('#item-amount-third').innerText = "-${ThirdExpense.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKThird" value="${ThirdExpense.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-third').innerText = "-<fmt:formatNumber value="${amountKThird}" pattern="0" />K";
+                        document.querySelector('#item-amount-third').innerText = "-<fmt:formatNumber value='${amountKThird}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
+
 
                         span.textContent = '지출';
 
@@ -507,15 +529,35 @@
 
                     tagSpans.forEach(span => {
 
-
+                        <c:choose>
+                        <c:when test="${FirstProfit.getAmount() < 1000}">
+                        document.querySelector('#item-amount-first').innerText = "+${FirstProfit.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKFirst" value="${FirstProfit.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-first').innerText = "+<fmt:formatNumber value="${amountKFirst}" pattern="0" />K";
+                        document.querySelector('#item-amount-first').innerText = "+<fmt:formatNumber value='${amountKFirst}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
+                        <c:choose>
+                        <c:when test="${SecondProfit.getAmount() < 1000}">
+                        document.querySelector('#item-amount-second').innerText = "+${SecondProfit.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKSecond" value="${SecondProfit.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-second').innerText = "+<fmt:formatNumber value="${amountKSecond}" pattern="0" />K";
+                        document.querySelector('#item-amount-second').innerText = "+<fmt:formatNumber value='${amountKSecond}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
+                        <c:choose>
+                        <c:when test="${ThirdProfit.getAmount() < 1000}">
+                        document.querySelector('#item-amount-third').innerText = "+${ThirdProfit.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKThird" value="${ThirdProfit.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-third').innerText = "+<fmt:formatNumber value="${amountKThird}" pattern="0" />K";
+                        document.querySelector('#item-amount-third').innerText = "+<fmt:formatNumber value='${amountKThird}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
                         span.textContent = '수익';
                         span.style.backgroundColor = '#f55a1d';

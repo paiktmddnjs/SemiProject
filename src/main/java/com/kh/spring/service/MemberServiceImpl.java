@@ -1,9 +1,8 @@
-package com.kh.spring.Service;
+package com.kh.spring.service;
 
 import com.kh.spring.model.mapper.MemberMapper;
 import com.kh.spring.model.vo.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

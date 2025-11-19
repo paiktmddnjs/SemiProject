@@ -1,6 +1,6 @@
 package com.kh.spring.Controller;
 
-import com.kh.spring.Service.RequestService;
+import com.kh.spring.service.RequestService;
 import com.kh.spring.model.vo.Member;
 import com.kh.spring.vo.RequestVo;
 import jakarta.servlet.http.HttpSession;

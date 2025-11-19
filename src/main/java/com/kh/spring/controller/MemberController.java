@@ -1,6 +1,6 @@
 package com.kh.spring.Controller;
 
-import com.kh.spring.Service.MemberService;
+import com.kh.spring.service.MemberService;
 import com.kh.spring.model.vo.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

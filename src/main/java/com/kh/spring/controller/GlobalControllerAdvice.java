@@ -1,6 +1,6 @@
 package com.kh.spring.controller;
 
-import com.kh.spring.Service.RequestService;
+import com.kh.spring.service.RequestService;
 import com.kh.spring.model.vo.Member;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

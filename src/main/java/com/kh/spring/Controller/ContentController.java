@@ -1,7 +1,7 @@
 package com.kh.spring.Controller;
 
 
-import com.kh.spring.Service.ContentService;
+import com.kh.spring.service.ContentService;
 import com.kh.spring.model.vo.Categorical;
 import com.kh.spring.model.vo.Content;
 import jakarta.servlet.http.HttpSession;

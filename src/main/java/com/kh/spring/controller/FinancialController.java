@@ -4,7 +4,7 @@ import com.kh.spring.model.vo.Financial;
 import com.kh.spring.model.vo.Member;
 import com.kh.spring.model.vo.Monthly;
 import com.kh.spring.model.vo.TopThree;
-import com.kh.spring.Service.FinancialService;
+import com.kh.spring.service.FinancialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
