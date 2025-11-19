@@ -18,16 +18,17 @@ body {
     padding: 24px;
 }
 
-.header {
+.hero-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
 }
 
-.header-subtitle {
-    color: #64748B;
-    font-size: 16px;
+.hero-header .header-subtitle {
+    color: #757373;
+    font-size: 19px;
+    font-weight: 500;
 }
 
 .header-buttons {

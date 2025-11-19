@@ -32,7 +32,7 @@
 
 
         <div class="dashboard-body">
-            <div class="page-header">
+            <div class="page-header hero-header">
                 <div class="action-buttons">
 
                     <button class="primary-btn" onclick="openProfitModal()">수익 추가</button>
