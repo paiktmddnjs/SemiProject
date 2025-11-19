@@ -1,7 +1,7 @@
-package com.kh.spring.Controller;
+package com.kh.spring.controller;
 
-import com.kh.spring.Service.ChzzkAuthService;
-import com.kh.spring.Service.ChzzkDataService;
+import com.kh.spring.service.ChzzkAuthService;
+import com.kh.spring.service.ChzzkDataService;
 import com.kh.spring.dto.ChzzkApiResponse;
 import com.kh.spring.dto.ChzzkChanelDto;
 import com.kh.spring.dto.ChzzkChannelDto;

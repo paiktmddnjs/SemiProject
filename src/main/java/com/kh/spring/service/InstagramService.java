@@ -1,4 +1,4 @@
-package com.kh.spring.Service;
+package com.kh.spring.service;
 
 
 import com.kh.spring.dto.InstagramChannelDto;

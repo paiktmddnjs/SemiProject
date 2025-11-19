@@ -1,4 +1,4 @@
-package com.kh.spring.Controller;
+package com.kh.spring.controller;
 
 import com.kh.spring.model.service.TaskService;
 import com.kh.spring.model.vo.TaskVo;

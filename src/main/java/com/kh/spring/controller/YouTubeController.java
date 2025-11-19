@@ -1,7 +1,7 @@
-package com.kh.spring.Controller;
+package com.kh.spring.controller;
 
-import com.kh.spring.Service.ChanelService;
-import com.kh.spring.Service.YouTubeService;
+import com.kh.spring.service.ChanelService;
+import com.kh.spring.service.YouTubeService;
 import com.kh.spring.dto.YoutubeChannelDto;
 import com.kh.spring.model.vo.Member;
 import jakarta.servlet.http.HttpSession;

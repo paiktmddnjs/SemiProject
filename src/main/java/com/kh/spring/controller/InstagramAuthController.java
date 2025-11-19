@@ -1,8 +1,8 @@
-package com.kh.spring.Controller;
+package com.kh.spring.controller;
 
 
-import com.kh.spring.Service.ChanelService;
-import com.kh.spring.Service.InstagramService;
+import com.kh.spring.service.ChanelService;
+import com.kh.spring.service.InstagramService;
 import com.kh.spring.dto.InstagramChannelDto;
 import com.kh.spring.model.vo.Member;
 import jakarta.servlet.http.HttpSession;

@@ -1,7 +1,7 @@
-package com.kh.spring.Controller;
+package com.kh.spring.controller;
 
-import com.kh.spring.Service.InstagramService;
-import com.kh.spring.Service.YouTubeService;
+import com.kh.spring.service.InstagramService;
+import com.kh.spring.service.YouTubeService;
 import com.kh.spring.dto.*;
 import com.kh.spring.mapper.ChzzkChanelMapper;
 import com.kh.spring.mapper.InstagramChannelMapper;
