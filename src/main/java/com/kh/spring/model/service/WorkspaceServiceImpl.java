@@ -145,4 +145,13 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public int updateWorkspaceStatus(int workspaceId) {
         return workspaceDao.updateWorkspaceStatus(workspaceId);
     }
+
+    @Override
+    public List<WorkspaceMemberVo> getWorkspaceMembers(int workspaceId, String searchQuery) {
+        log.debug("WorkspaceService.getWorkspaceMembers - workspaceId: {}, searchQuery: {}", workspaceId, searchQuery); // 로그 추가
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("workspaceId", workspaceId);
+        paramMap.put("searchQuery", searchQuery);
+        return workspaceDao.getWorkspaceMembersWithSearch(paramMap);
+    }
 }

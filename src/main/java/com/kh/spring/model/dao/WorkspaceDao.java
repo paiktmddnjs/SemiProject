@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class WorkspaceDao {
@@ -117,6 +119,44 @@ public class WorkspaceDao {
             workspaceMember.setMemberVo(member);
             return workspaceMember;
         }, workspaceId);
+    }
+
+    public List<WorkspaceMemberVo> getWorkspaceMembersWithSearch(Map<String, Object> paramMap) {
+        int workspaceId = (int) paramMap.get("workspaceId");
+        String searchQuery = (String) paramMap.get("searchQuery");
+
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT wm.WORKSPACE_MEMBER_ID, wm.WORKSPACE_ID, wm.MEMBER_ID, wm.WORKSPACE_MEMBER_ROLE, ");
+        sqlBuilder.append("m.EMAIL, m.MEMBER_NAME, m.ENROLL_DATE ");
+        sqlBuilder.append("FROM WORKSPACE_MEMBER wm ");
+        sqlBuilder.append("JOIN MEMBER m ON wm.MEMBER_ID = m.MEMBER_ID ");
+        sqlBuilder.append("WHERE wm.WORKSPACE_ID = ?");
+
+        List<Object> params = new ArrayList<>();
+        params.add(workspaceId);
+
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            sqlBuilder.append(" AND (m.MEMBER_NAME LIKE ? OR m.EMAIL LIKE ?)");
+            params.add("%" + searchQuery + "%");
+            params.add("%" + searchQuery + "%");
+        }
+
+        return jdbcTemplate.query(sqlBuilder.toString(), (rs, rowNum) -> {
+            WorkspaceMemberVo workspaceMember = new WorkspaceMemberVo();
+            workspaceMember.setWorkspaceMemberId(rs.getInt("WORKSPACE_MEMBER_ID"));
+            workspaceMember.setWorkspaceId(rs.getInt("WORKSPACE_ID"));
+            workspaceMember.setMemberId(rs.getInt("MEMBER_ID"));
+            workspaceMember.setWorkspaceMemberRole(rs.getString("WORKSPACE_MEMBER_ROLE"));
+
+            MemberVo member = new MemberVo();
+            member.setMemberId(rs.getInt("MEMBER_ID"));
+            member.setEmail(rs.getString("EMAIL"));
+            member.setMemberName(rs.getString("MEMBER_NAME"));
+            member.setEnrollDate(rs.getDate("ENROLL_DATE"));
+            
+            workspaceMember.setMemberVo(member);
+            return workspaceMember;
+        }, params.toArray());
     }
 
     public MemberVo getMemberByEmail(String email) {

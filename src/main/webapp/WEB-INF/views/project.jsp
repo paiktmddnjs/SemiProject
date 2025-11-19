@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="<c:url value="/resources/static/css/invite.css"/>">
     <script src="<c:url value="/resources/static/js/project.js"/>" defer></script>
     <script src="<c:url value="/resources/static/js/modal.js"/>" defer></script>
+    
+    <script>
+        // JSP에서 동적으로 생성되는 값들을 JavaScript 전역 변수로 정의
+        const CONTEXT_PATH = '${pageContext.request.contextPath}';
+        const SUCCESS_MESSAGE = '<c:out value="${successMessage}" />';
+        const ERROR_MESSAGE = '<c:out value="${errorMessage}" />';
+    </script>
+    <%-- <script src="<c:url value="/resources/static/js/project_page.js"/>" defer></script> --%> <%-- 제거 --%>
     <style>
         .box {
             position: relative;
@@ -149,7 +157,7 @@
                             </div>
                         </div>
                         <div class ="search">
-                            <input type="text" placeholder="팀원 검색">
+                            <input type="text" id="teamSearchInput" placeholder="팀원 검색">
                         </div>
                         <div class ="team_content">
                             <table class="team_box">
@@ -178,96 +186,6 @@
 
     <jsp:include page="/WEB-INF/views/components/modals.jsp"/>
 
-    <script>
-        function deleteProject(event, projectId, workspaceId) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            if (confirm('정말 이 프로젝트를 삭제하시겠습니까?')) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '${pageContext.request.contextPath}/project/delete';
-                // ... (기존 코드 유지)
-            }
-        }
-
-        async function reloadTeamList(workspaceId) {
-            try {
-                const response = await fetch(`/workspace/members?workspaceId=${workspaceId}`);
-                if (!response.ok) throw new Error('Failed to reload team list.');
-                const html = await response.text();
-                document.getElementById('teamMemberListBody').innerHTML = html;
-            } catch (error) {
-                console.error('Error reloading team list:', error);
-            }
-        }
-
-        async function removeMember(workspaceId, memberId) {
-            if (confirm('정말 이 멤버를 추방하시겠습니까?')) {
-                const formData = new FormData();
-                formData.append('workspaceId', workspaceId);
-                formData.append('memberId', memberId);
-
-                try {
-                    const response = await fetch('/workspace/member/remove', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    const result = await response.json();
-                    alert(result.message);
-
-                    if (result.success) {
-                        await reloadTeamList(workspaceId);
-                    }
-                } catch (error) {
-                    console.error('Error removing member:', error);
-                    alert('멤버 추방 중 오류가 발생했습니다.');
-                }
-            }
-        }
-
-        async function updateRole(workspaceId, memberId, newRole) {
-            if (confirm('이 멤버의 역할을 ' + newRole + '(으)로 변경하시겠습니까?')) {
-                const formData = new FormData();
-                formData.append('workspaceId', workspaceId);
-                formData.append('memberId', memberId);
-                formData.append('role', newRole);
-
-                try {
-                    const response = await fetch('/workspace/member/updateRole', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    const result = await response.json();
-                    alert(result.message);
-
-                    if (result.success) {
-                        await reloadTeamList(workspaceId);
-                    } else {
-                        // 역할 변경 실패 시, 화면을 다시 로드하여 원래 역할로 되돌림
-                        await reloadTeamList(workspaceId);
-                    }
-                } catch (error) {
-                    console.error('Error updating role:', error);
-                    alert('역할 변경 중 오류가 발생했습니다.');
-                }
-            } else {
-                // 사용자가 '취소'를 누르면 목록을 다시 로드하여 원래 역할로 되돌림
-                await reloadTeamList(workspaceId);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const successMessage = '<c:out value="${successMessage}" />';
-            const errorMessage = '<c:out value="${errorMessage}" />';
-
-            if (successMessage) {
-                alert(successMessage);
-            }
-            if (errorMessage) {
-                alert(errorMessage);
-            }
-        });
-    </script>
+    <%-- 기존 스크립트 블록 제거 --%>
 </body>
 </html>

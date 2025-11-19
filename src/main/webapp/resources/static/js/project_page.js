@@ -1,4 +1,3 @@
-// Global functions
 function deleteProject(event, projectId, workspaceId) {
     event.preventDefault();
     event.stopPropagation();
@@ -6,7 +5,7 @@ function deleteProject(event, projectId, workspaceId) {
     if (confirm('정말 이 프로젝트를 삭제하시겠습니까?')) {
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = CONTEXT_PATH + '/project/delete';
+        form.action = CONTEXT_PATH + '/project/delete'; // 수정된 부분
         
         const projectIdInput = document.createElement('input');
         projectIdInput.type = 'hidden';
@@ -108,36 +107,9 @@ async function searchTeamMembers() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // --- 탭 기능 ---
-    const projectTab = document.getElementById('projectTab');
-    const teamManageTab = document.getElementById('teamManageTab');
-    const projectContent = document.getElementById('projectContent');
-    const teamManageContent = document.getElementById('teamManageContent');
-
-    // 탭 관련 요소들이 페이지에 없을 경우를 대비한 null 체크
-    if (projectTab && teamManageTab && projectContent && teamManageContent) {
-        projectTab.addEventListener('click', () => {
-            projectTab.classList.add('choice');
-            teamManageTab.classList.remove('choice');
-            projectContent.style.display = 'flex';
-            teamManageContent.style.display = 'none';
-        });
-
-        teamManageTab.addEventListener('click', () => {
-            teamManageTab.classList.add('choice');
-            projectTab.classList.remove('choice');
-            teamManageContent.style.display = 'block';
-            projectContent.style.display = 'none';
-        });
-        
-        // 기본으로 프로젝트 탭을 선택
-        projectTab.click();
-    }
-
-    // Messages from server
-    const successMessage = SUCCESS_MESSAGE;
-    const errorMessage = ERROR_MESSAGE;
+document.addEventListener('DOMContentLoaded', function() {
+    const successMessage = SUCCESS_MESSAGE; // 수정된 부분
+    const errorMessage = ERROR_MESSAGE;     // 수정된 부분
 
     if (successMessage) {
         alert(successMessage);
@@ -146,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
         alert(errorMessage);
     }
 
-    // Attach search listener
+    // 팀원 검색 input에 이벤트 리스너 추가
     const teamSearchInput = document.getElementById('teamSearchInput');
     if (teamSearchInput) {
         teamSearchInput.addEventListener('keyup', searchTeamMembers);

@@ -29,7 +29,7 @@ public class WorkspaceController {
     private WorkspaceService workspaceService;
 
     @Autowired
-    private ProjectService projectService; // 멤버 목록 조회를 위해 추가
+    private ProjectService projectService; // 멤버 목록 조회를 위해 추가 (기존 코드 유지)
 
     @GetMapping("")
     public String workspaceList(Model model, HttpSession session) {
@@ -136,14 +136,16 @@ public class WorkspaceController {
     }
 
     @GetMapping("/members")
-    public String getTeamMemberList(@RequestParam("workspaceId") int workspaceId, Model model, HttpSession session) {
-        Map<String, Object> pageData = projectService.getProjectPageData(workspaceId);
-        model.addAllAttributes(pageData);
+    public String getTeamMemberList(@RequestParam("workspaceId") int workspaceId,
+                                    @RequestParam(value = "searchQuery", required = false) String searchQuery,
+                                    Model model, HttpSession session) {
+        
+        List<WorkspaceMemberVo> workspaceMembers = workspaceService.getWorkspaceMembers(workspaceId, searchQuery);
+        model.addAttribute("workspaceMembers", workspaceMembers);
 
         MemberDto loginUser = (MemberDto) session.getAttribute("loginMember");
         if (loginUser != null) {
-            List<WorkspaceMemberVo> members = (List<WorkspaceMemberVo>) pageData.get("workspaceMembers");
-            Optional<WorkspaceMemberVo> currentUserMemberInfo = members.stream()
+            Optional<WorkspaceMemberVo> currentUserMemberInfo = workspaceMembers.stream()
                     .filter(m -> m.getMemberId() == loginUser.getMemberId().intValue())
                     .findFirst();
             String currentUserRole = currentUserMemberInfo.map(WorkspaceMemberVo::getWorkspaceMemberRole).orElse("NONE");
