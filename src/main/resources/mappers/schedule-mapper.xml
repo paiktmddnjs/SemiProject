@@ -142,8 +142,8 @@
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
-        WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
-            AND TASK_DEADLINE &gt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+        WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+            AND (TASK_DEADLINE+1) &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
             AND (TASK_STATUS != 'complete')
     </select>
 
@@ -154,8 +154,8 @@
         JOIN WORKSPACE USING(WORKSPACE_ID)
         JOIN WORKSPACE_MEMBER USING(WORKSPACE_ID)
         JOIN MEMBER USING (MEMBER_ID)
-        WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
-            AND TASK_DEADLINE &gt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+        WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+            AND (TASK_DEADLINE+1) &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
             AND (TASK_STATUS != 'complete')
             AND (MEMBER_ID = #{memberId})
     </select>
@@ -165,8 +165,8 @@
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
-        WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
-        AND TASK_DEADLINE &gt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+        WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+        AND (TASK_DEADLINE+1) &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
         AND (TASK_STATUS != 'complete')
         AND (WORKSPACE_ID = #{workspaceId})
     </select>
@@ -176,8 +176,8 @@
         FROM TASK
         JOIN PROJECT USING(PROJECT_ID)
         JOIN WORKSPACE USING(WORKSPACE_ID)
-        WHERE (TASK_START &lt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
-        AND TASK_DEADLINE &gt;= TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
+        WHERE ((TASK_START-1) &lt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+        AND (TASK_DEADLINE+1) &gt; TO_DATE(#{selectedDate}, 'YYYY-MM-DD'))
         AND (TASK_STATUS != 'complete')
         AND (PROJECT_ID = #{projectId})
     </select>
