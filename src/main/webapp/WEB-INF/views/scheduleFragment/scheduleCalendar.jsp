@@ -48,8 +48,12 @@
                     taskList += '<div class="keyword_event">' +  p.projectName + '</div>';
                     taskList += '<div class="keyword_state">진행중</div>';
                     taskList += '</div>';
-                    taskList += '<h3>&nbsp;'+p.taskName+'</h3><p>'+p.taskAssign+'</p></li>';
-
+                    taskList += '<h3>&nbsp;'+p.taskName+'</h3>';
+                    if(typeof(p.taskAssign)=='string'){
+                        taskList +='<p>'+p.taskAssign+'</p></li>';
+                    }else{
+                        taskList +='<p><i>(상세설명이 없습니다.)</i></p></li>';
+                    }
                     num += 1;
                 });
                 eventList.innerHTML = taskList;
