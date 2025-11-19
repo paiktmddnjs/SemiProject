@@ -87,8 +87,27 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
+        .btn .ripple {
+            position: absolute;
+            border-radius: 999px;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            opacity: 0.75;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+        
         .btn-secondary {
             transform: none ;
             box-shadow: none ;

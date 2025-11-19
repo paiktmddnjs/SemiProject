@@ -18,12 +18,9 @@
     <div class="full-container"><%@ include file="/WEB-INF/views/components/header.jsp" %></div>
     <div class="full-container">
         <%@ include file="/WEB-INF/views/components/sidebar.jsp" %>
-    <div class="container">
-        <div class="form-container">
-            <div class="introduce">
-                <h1>일정 관리</h1>
-                <p>워크스페이스와 프로젝트별 제작 일정을 효율적으로 관리하세요</p>
-            </div>
+    <div class="container schedule-page">
+        <div class="hero-header schedule-hero">
+            <p class="intro-subtitle">워크스페이스와 프로젝트별 제작 일정을 효율적으로 관리하세요</p>
         </div>
 
         <div class="form-container">

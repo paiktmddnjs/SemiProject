@@ -45,9 +45,10 @@
         }
 
         .header-subtitle {
-            color: #64748B;
-            font-size: 16px;
-            line-height: 24px;
+            color: #757373;
+            font-size: 19px;
+            font-weight: 500;
+            line-height: 28px;
         }
 
         .btn-primary {
@@ -409,7 +410,7 @@
 
 <div class="container">
     <!-- Header -->
-    <div class="header">
+    <div class="header hero-header">
         <p class="header-subtitle">업로드된 콘텐츠를 관리하고 카테고리별 성과를 추적하세요</p>
         <button class="btn-primary" onclick="openModal()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

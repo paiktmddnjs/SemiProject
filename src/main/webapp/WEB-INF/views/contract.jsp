@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="header">
+    <div class="header hero-header">
         <p class="header-subtitle">브랜드 협찬 및 광고 계약 현황을 관리하세요</p>
         <div class="header-buttons">
             <button type="button" id="addCompanyBtn" class="btn-primary">
@@ -85,9 +85,6 @@
 
     <div class="contract-section">
         <div class="section-header">
-            <h2 class="section-title">
-                전체 회사 현황
-            </h2>
             <p class="section-subtitle">모든 회사 목록 및 담당자 정보</p>
         </div>
 

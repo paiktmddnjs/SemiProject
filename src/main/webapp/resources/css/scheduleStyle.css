@@ -1,3 +1,7 @@
+.schedule-page{
+    padding-top: 24px;
+}
+
 .container{
     width:100%;
 }
@@ -19,20 +23,16 @@
 }
 
 /*introduce*/
-.introduce{
-    margin: 10px;
-    margin-top: 0px;
-    border: 0px solid;
+.hero-header{
+    margin: 0 0 24px;
+    padding: 0;
 }
 
-.introduce h1{
-    margin: 0px;
-    color: #ea580c;
-}
-
-.introduce p{
-    margin: 0px;
-    color: #868e96;
+.intro-subtitle{
+    margin: 0;
+    color: #757373;
+    font-size: 19px;
+    font-weight: 500;
 }
 
 /* 흰색 배경 */
