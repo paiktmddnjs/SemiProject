@@ -353,6 +353,16 @@
         <c:when test="${contentPage == 'content'}">
           <jsp:include page="/WEB-INF/views/Content_Management.jsp"/>
         </c:when>
+        <c:when test="${contentPage == 'workspace'}">
+            <jsp:include page="/WEB-INF/views/workspace.jsp"/>
+        </c:when>
+        <c:when test="${contentPage == 'project'}">
+            <jsp:include page="/WEB-INF/views/project.jsp"/>
+        </c:when>
+        <c:when test="${contentPage == 'projectdetail'}">
+            <jsp:include page="/WEB-INF/views/projectdetail.jsp"/>
+        </c:when>
+
         <c:otherwise>
           <jsp:include page="/WEB-INF/views/contract.jsp"/>
         </c:otherwise>

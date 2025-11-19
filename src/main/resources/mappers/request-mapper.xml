@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.spring.mapper.RequestMapper">
+
+    <resultMap id="requestVoResultMap" type="com.kh.spring.vo.RequestVo">
+        <id property="requestId" column="REQUEST_ID"/>
+        <result property="workspaceId" column="WORKSPACE_ID"/>
+        <result property="sendMember" column="SEND_MEMBER"/>
+        <result property="fromMember" column="FROM_MEMBER"/>
+        <result property="requestStatus" column="REQUEST_STATUS"/>
+        <result property="workspaceName" column="WORKSPACE_NAME"/>
+        <result property="senderName" column="SENDER_NAME"/>
+    </resultMap>
+
+    <insert id="createRequest" parameterType="com.kh.spring.vo.RequestVo">
+        INSERT INTO REQUEST (REQUEST_ID, WORKSPACE_ID, SEND_MEMBER, FROM_MEMBER, REQUEST_STATUS)
+        VALUES (SEQ_REQUEST_ID.NEXTVAL, #{workspaceId}, #{sendMember}, #{fromMember}, 'PENDING')
+    </insert>
+
+    <select id="countPendingRequest" resultType="int">
+        SELECT COUNT(*)
+        FROM REQUEST
+        WHERE WORKSPACE_ID = #{workspaceId}
+          AND SEND_MEMBER = #{senderId}
+          AND FROM_MEMBER = #{receiverId}
+          AND REQUEST_STATUS = 'PENDING'
+    </select>
+
+    <select id="getPendingRequestsByMemberId" resultMap="requestVoResultMap">
+        SELECT r.REQUEST_ID,
+               r.WORKSPACE_ID,
+               w.WORKSPACE_NAME,
+               m.MEMBER_NAME AS SENDER_NAME
+        FROM REQUEST r
+                 JOIN WORKSPACE w ON r.WORKSPACE_ID = w.WORKSPACE_ID
+                 JOIN MEMBER m ON r.SEND_MEMBER = m.MEMBER_ID
+        WHERE r.FROM_MEMBER = #{memberId}
+          AND r.REQUEST_STATUS = 'PENDING'
+    </select>
+
+    <select id="getRequestById" resultMap="requestVoResultMap">
+        SELECT *
+        FROM REQUEST
+        WHERE REQUEST_ID = #{requestId}
+    </select>
+
+    <update id="updateRequestStatus">
+        UPDATE REQUEST
+        SET REQUEST_STATUS = #{status}
+        WHERE REQUEST_ID = #{requestId}
+    </update>
+
+</mapper>

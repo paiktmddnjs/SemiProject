@@ -170,6 +170,10 @@
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/handshake.png'/>" alt=""></span>
                 <span class="nav-link__label">협찬 계약</span>
             </a>
+            <a class="nav-link" href="<c:url value='/workspace'/>" data-key="workspace">
+                <span class="nav-link__icon"><img src="<c:url value='/resources/images/project_icon.png'/>" alt=""></span>
+                <span class="nav-link__label">프로젝트 관리</span>
+            </a>
         </nav>
     </div>
 </aside>

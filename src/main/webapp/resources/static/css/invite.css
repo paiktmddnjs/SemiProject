@@ -1,0 +1,21 @@
+.role_decribe{
+    height:100px;
+    padding:5 10;
+    border-radius: 14px;
+    background-color: rgba(216, 140, 0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+.role_decribe_title{
+    font-size: 16px;
+}
+ul{
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    list-style: none;
+    gap:5px;
+}
+.input_body >button{
+    margin-top:3px;
+}
