@@ -8,19 +8,20 @@
     <resultMap id="InstagramChannelResultMap" type="com.kh.spring.dto.InstagramdashboardDto">
         <id property="chanelId" column="CHANEL_ID"/>
         <result property="memberId" column="MEMBER_ID"/>
-        <result property="name" column="CHANEL_NAME"/>
-        <result property="handle" column="CHANEL_HANDLE"/>
-        <result property="followers" column="CHANEL_FOLLOWER"/>
-        <result property="views" column="CHANEL_VIEWS"/>
-        <result property="mediaCount" column="CHANEL_MEDIA_COUNT"/>
+        <result property="chanelName" column="CHANEL_NAME"/>
         <result property="platformType" column="PLATFORM_TYPE"/>
+        <result property="platfromSubscribe" column="PLATFROM_SUBSCRIBE"/>
         <result property="chanelStatus" column="CHANEL_STATUS"/>
+        <result property="chanelCreate" column="CHANEL_CREATE"/>
+        <result property="chanelUrl" column="CHANEL_URL"/>
+        <result property="chanelCount" column="CHANEL_COUNT"/>
+        <result property="chanelFollower" column="CHANEL_FOLLOWER"/>
     </resultMap>
 
 
 
 
-    <select id="findByPlatformTypeAndStatusInstagram" parameterType="Integer" resultType="com.kh.spring.dto.InstagramdashboardDto">
+    <select id="findByPlatformTypeAndStatusInstagram" parameterType="Integer" resultMap="InstagramChannelResultMap">
         SELECT
         CHANEL_ID,
         MEMBER_ID,
