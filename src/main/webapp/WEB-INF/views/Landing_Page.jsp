@@ -746,7 +746,7 @@
             </p>
 
             <div class="hero-cta">
-                <button class="btn btn-primary btn-large" onclick="location.href='login'" >
+                <button class="btn btn-primary btn-large" onclick="location.href='${pageContext.request.contextPath}/loginForm.me'" >
                     무료로 시작하기
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -1061,7 +1061,7 @@
         </div>
 
         <div class="cta-button">
-            <button class="btn btn-cta btn-large">
+            <button class="btn btn-cta btn-large" onclick="location.href='${pageContext.request.contextPath}/loginForm.me'">
                 무료로 시작하기
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
