@@ -96,6 +96,12 @@
     }
 </style>
 
+<c:if test="${not empty alertMsg}">
+    <script>
+        alert("${alertMsg}");
+    </script>
+</c:if>
+
 <div class="mypage-wrapper py-4">
 
     <!-- Header -->
@@ -115,9 +121,9 @@
             </div>
         </div>
         <div class="mypage-card-body">
-            <%-- 나중에 action="/mypageUpdate.me" method="post" 로 연결 예정 --%>
-            <form>
-                <!-- 아이디 -->
+            <!-- 회원정보 수정 : 이름 / 전화번호 -->
+            <form action="updateProfile.me" method="post">
+                <!-- 아이디 (int, 읽기 전용) -->
                 <div class="mb-3">
                     <label class="form-label">아이디</label>
                     <input type="text"
@@ -159,7 +165,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-3">
-                    <button type="button" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary">
                         프로필 저장
                     </button>
                 </div>
@@ -182,153 +188,84 @@
 
             <!-- 이메일 변경 -->
             <div class="mb-4">
-                <h6 class="mb-1 d-flex align-items-center gap-2">
-                    <i class="bi bi-envelope text-warning"></i>
-                    이메일 변경
-                </h6>
-                <p class="small text-muted mb-2">
-                    현재 이메일:
-                    <strong>${sessionScope.loginMember.email}</strong>
-                </p>
-                <label class="form-label small">새 이메일</label>
-                <input type="email"
-                       class="form-control mb-2"
-                       placeholder="new@example.com">
-                <button type="button"
-                        class="btn btn-sm btn-outline-primary">
-                    이메일 변경
-                </button>
+                <form action="updateEmail.me" method="post">
+                    <h6 class="mb-1 d-flex align-items-center gap-2">
+                        <i class="bi bi-envelope text-warning"></i>
+                        이메일 변경
+                    </h6>
+                    <p class="small text-muted mb-2">
+                        현재 이메일:
+                        <strong>${sessionScope.loginMember.email}</strong>
+                    </p>
+
+                    <!-- 아이디(int) hidden -->
+                    <input type="hidden" name="memberId"
+                           value="${sessionScope.loginMember.memberId}"/>
+
+                    <label class="form-label small">새 이메일</label>
+                    <input type="email"
+                           class="form-control mb-2"
+                           name="newEmail"
+                           placeholder="new@example.com">
+
+                    <label class="form-label small">비밀번호 확인</label>
+                    <input type="password"
+                           class="form-control mb-2"
+                           name="memberPwd"
+                           placeholder="현재 비밀번호를 입력하세요">
+
+                    <button type="submit"
+                            class="btn btn-sm btn-outline-primary mt-1">
+                        이메일 변경
+                    </button>
+                </form>
             </div>
 
             <hr/>
 
             <!-- 비밀번호 변경 -->
             <div class="mt-4">
-                <h6 class="mb-1 d-flex align-items-center gap-2">
-                    <i class="bi bi-lock text-warning"></i>
-                    비밀번호 변경
-                </h6>
-                <p class="small text-muted mb-3">
-                    보안을 위해 주기적으로 비밀번호를 변경하세요
-                </p>
+                <form action="updatePwd.me" method="post">
+                    <!-- 아이디(int) hidden -->
+                    <input type="hidden" name="memberId"
+                           value="${sessionScope.loginMember.memberId}"/>
 
-                <div class="mb-3">
-                    <label class="form-label small">현재 비밀번호</label>
-                    <input type="password" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small">새 비밀번호</label>
-                    <input type="password" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small">새 비밀번호 확인</label>
-                    <input type="password" class="form-control">
-                </div>
+                    <h6 class="mb-1 d-flex align-items-center gap-2">
+                        <i class="bi bi-lock text-warning"></i>
+                        비밀번호 변경
+                    </h6>
+                    <p class="small text-muted mb-3">
+                        보안을 위해 주기적으로 비밀번호를 변경하세요
+                    </p>
 
-                <button type="button" class="btn btn-primary">
-                    비밀번호 변경
-                </button>
+                    <div class="mb-3">
+                        <label class="form-label small">현재 비밀번호</label>
+                        <input type="password"
+                               class="form-control"
+                               name="currentPwd">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small">새 비밀번호</label>
+                        <input type="password"
+                               class="form-control"
+                               name="newPwd">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small">새 비밀번호 확인</label>
+                        <input type="password"
+                               class="form-control"
+                               name="newPwdConfirm">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        비밀번호 변경
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- 플랫폼 연동 -->
-    <div class="card mypage-card mb-4">
-        <div class="mypage-card-header">
-            <div class="mypage-card-title">플랫폼 연동</div>
-            <div class="mypage-card-desc">
-                콘텐츠를 게시하는 플랫폼을 연동하고 관리하세요
-            </div>
-        </div>
-        <div class="mypage-card-body">
-            <%-- 지금은 더미 데이터, 나중에 DB/연동 정보로 교체 예정 --%>
-
-            <div class="platform-item mb-2">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="platform-icon-box text-danger">
-                        <i class="bi bi-youtube"></i>
-                    </div>
-                    <div>
-                        <div class="fw-semibold">
-                            YouTube
-                            <span class="text-success small ms-1">
-                                <i class="bi bi-check-circle-fill"></i>
-                            </span>
-                        </div>
-                        <div class="small text-muted">@creator123</div>
-                    </div>
-                </div>
-                <button type="button"
-                        class="btn btn-sm btn-outline-danger">
-                    연동 해제
-                </button>
-            </div>
-
-            <div class="platform-item mb-2">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="platform-icon-box" style="color:#db2777;">
-                        <i class="bi bi-instagram"></i>
-                    </div>
-                    <div>
-                        <div class="fw-semibold">
-                            Instagram
-                            <span class="text-success small ms-1">
-                                <i class="bi bi-check-circle-fill"></i>
-                            </span>
-                        </div>
-                        <div class="small text-muted">@creator_official</div>
-                    </div>
-                </div>
-                <button type="button"
-                        class="btn btn-sm btn-outline-danger">
-                    연동 해제
-                </button>
-            </div>
-
-            <div class="platform-item mb-2">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="platform-icon-box">
-                        <i class="bi bi-play-btn"></i>
-                    </div>
-                    <div>
-                        <div class="fw-semibold">TikTok</div>
-                        <div class="small text-muted">연동되지 않음</div>
-                    </div>
-                </div>
-                <button type="button"
-                        class="btn btn-sm btn-primary">
-                    연동하기
-                </button>
-            </div>
-
-            <hr class="my-4"/>
-
-            <!-- 연동 통계 -->
-            <h6 class="mb-3">연동 통계</h6>
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <div class="stat-pill">
-                        <div class="stat-pill-label">연동된 플랫폼</div>
-                        <div class="stat-pill-value mt-1">3개</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-pill">
-                        <div class="stat-pill-label">전체 구독자</div>
-                        <div class="stat-pill-value mt-1">125.4K</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-pill">
-                        <div class="stat-pill-label">이번 달 업로드</div>
-                        <div class="stat-pill-value mt-1">24개</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 위험 구역 -->
+    <!-- 위험 구역 (회원 탈퇴) -->
     <div class="card mypage-card danger-card mb-4">
         <div class="mypage-card-header">
             <div class="mypage-card-title danger-title d-flex align-items-center gap-2">
@@ -340,11 +277,27 @@
             </div>
         </div>
         <div class="mypage-card-body">
-            <button type="button"
-                    class="btn btn-danger"
-                    onclick="if(confirm('정말 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')){ alert('계정이 삭제되었습니다. (추후 서버 연동)'); }">
-                계정 삭제
-            </button>
+            <form action="deleteMember.me" method="post"
+                  onsubmit="return confirm('정말 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.');">
+
+                <!-- 아이디(int) hidden -->
+                <input type="hidden" name="memberId"
+                       value="${sessionScope.loginMember.memberId}"/>
+
+                <p class="small text-muted">
+                    보안을 위해 비밀번호를 한 번 더 입력해주세요.
+                </p>
+                <div class="mb-2">
+                    <label class="form-label small">비밀번호 확인</label>
+                    <input type="password" name="memberPwd"
+                           class="form-control" required>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-danger mt-2">
+                    계정 삭제
+                </button>
+            </form>
         </div>
     </div>
 

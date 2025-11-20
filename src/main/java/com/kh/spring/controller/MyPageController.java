@@ -14,12 +14,15 @@ public class MyPageController {
 
         Member loginMember = (Member) session.getAttribute("loginMember");
         if (loginMember == null) {
-            return "loginForm.me";
+            // 로그인 안 되어 있으면 로그인 폼으로 리다이렉트
+            return "redirect:/loginForm.me";
         }
 
         // layout.jsp가 어떤 내용을 include 할지 구분하는 용도
         model.addAttribute("contentPage", "mypage");
 
-        return "components/layout";   // ★ layout.jsp에서 /WEB-INF/views/mypage.jsp를 include
+        // /WEB-INF/views/components/layout.jsp
+        // 내부에서 <jsp:include page="${contentPage}.jsp" /> 같은 구조라고 가정
+        return "components/layout";
     }
 }
