@@ -1,7 +1,12 @@
 
+<br>
+<br>
 
 # 🚀 세미프로젝트명 ( 소규모 크리에이터를 위한 협업관리 툴)
 > 1인이나 소규모 크리에이터를 위해 재무, 조회수, 협업파악 기능을 각 기능으로 나누어 구현하여 크리에이터로써의 상황을 효율적으로 파악할수 있게 위해 기획하였다!!
+
+
+<br><br>
 
 ## 📘 개요 (Overview)
 - 프로젝트 목적과 주요 기능을 간단히 설명
@@ -12,6 +17,9 @@
 	Oracle 데이터베이스와 JDBC를 통해 데이터 연동을 수행하며,  
 	Eclipse + Tomcat 환경에서 실행 가능합니다.
 )
+
+
+<br><br>
 
 ## 🧱 기술 스택 (Tech Stack)
 | 구분 | 사용 기술 |
@@ -42,6 +50,9 @@ git clone https://github.com/paiktmddnjs/SemiProject
 # 5. 웹 애플리케이션 실행
 - 브라우저에서 접속
 http://자신이 정한 포트번호(ex. localhost:8003)
+
+
+<br><br>
 
 ## 📂 프로젝트 구조 (Directory Structure)
 <pre>
@@ -119,6 +130,16 @@ http://자신이 정한 포트번호(ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TaskService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WorkspaceServiceImpl.java
+ 
+</pre>
+
+
+   
+<details>
+<summary>
+    **클릭하여 숨겨진 내용 보기**
+</summary>
+<pre>  
  ┃ ┃ ┃ ┃ ┃ ┗ 📂vo
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Categorical.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelVo.java
@@ -141,16 +162,7 @@ http://자신이 정한 포트번호(ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Workspace.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceMember.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceMemberVo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WorkspaceVo.java
-</pre>
-
-
-   
-<details>
-<summary>
-    **클릭하여 숨겨진 내용 보기**
-</summary>
-<pre>  
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WorkspaceVo.java	
  ┃ ┃ ┃ ┃ ┣ 📂service
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChanelService.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkAuthService.java
@@ -342,12 +354,17 @@ http://자신이 정한 포트번호(ex. localhost:8003)
  ┃ ┗ 📜loader.jsp
 </pre>
 </details>
+
+<br><br>
+
 ## 🌟 주요 기능 (Key Features)
 ✅ 회원가입 / 로그인 / 로그아웃 기능
 ✅ 게시글 등록, 조회, 수정, 삭제 (CRUD)
 ✅ Oracle DB 연동을 통한 데이터 관리
 ✅ MVC 패턴 기반 구조로 모듈화된 개발
 ✅ JSP include를 통한 공통 레이아웃 구성
+
+<br><br>
 
 ## 📸 화면 미리보기 (Preview)
 
@@ -359,6 +376,8 @@ http://자신이 정한 포트번호(ex. localhost:8003)
 | 게시글 작성 | ![Post Write](./assets/post-write.gif) |
 
 
+<br><br>
+
 ## 💡 학습 포인트 (Learning Points)
 
 - JSP & Servlet 기반 MVC 구조 설계 방법 학습
@@ -366,6 +385,8 @@ http://자신이 정한 포트번호(ex. localhost:8003)
 - Tomcat 서버를 활용한 배포 및 실행 환경 이해
 - JSP 내 JSTL / EL 사용으로 동적 페이지 구현
 
+
+<br><br>
 
 ## 팀원 소개(협업시 추가)
 
