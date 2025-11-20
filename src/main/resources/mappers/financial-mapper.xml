@@ -127,7 +127,7 @@
 
     </select>
 
-    <select id="selectTopThree" resultType="com.kh.spring.model.vo.TopThree">
+    <select id="selectTopThree1" resultType="com.kh.spring.model.vo.TopThree">
 
         SELECT  category, financialName , amount
         FROM (
@@ -146,27 +146,29 @@
         )
         WHERE RN &lt;= 3
 
-        UNION ALL
-
-        SELECT  category, financialName , amount
-        FROM (
-        SELECT
-        CATEGORY as category,
-        FINANCIAL_NAME as financialName,
-        SUM(FINANCIAL_AMOUNT) AS amount,
-        ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
-        FROM FINANCIAL_MANAGEMENT
-        WHERE FINANCIAL_STATUS = 'Y'
-        AND MEMBER_ID = #{memberId}
-        AND FINANCIAL_TYPE IN ('지출', 'EXPENSE')
-        AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
-        AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
-        GROUP BY CATEGORY , FINANCIAL_NAME
-        )
-        WHERE RN &lt;= 3
-
     </select>
 
+
+    <select id="selectTopThree2" resultType="com.kh.spring.model.vo.TopThree">
+
+    SELECT  category, financialName , amount
+    FROM (
+    SELECT
+    CATEGORY as category,
+    FINANCIAL_NAME as financialName,
+    SUM(FINANCIAL_AMOUNT) AS amount,
+    ROW_NUMBER() OVER (ORDER BY SUM(FINANCIAL_AMOUNT) DESC) AS RN
+    FROM FINANCIAL_MANAGEMENT
+    WHERE FINANCIAL_STATUS = 'Y'
+    AND MEMBER_ID = #{memberId}
+    AND FINANCIAL_TYPE IN ('지출', 'EXPENSE')
+    AND FINANCIAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -2)
+    AND FINANCIAL_DATE &lt; ADD_MONTHS(TRUNC(SYSDATE, 'MM'), 1)
+    GROUP BY CATEGORY , FINANCIAL_NAME
+    )
+    WHERE RN &lt;= 3
+
+    </select>
 
     <insert id="insertFinancial" parameterType="Financial">
         INSERT INTO FINANCIAL_MANAGEMENT (

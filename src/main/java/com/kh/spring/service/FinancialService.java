@@ -24,7 +24,8 @@ public interface FinancialService {
 
     List<Monthly> calculateMonthly(Long memberId);
     List<Monthly> calculateMonthlyMoney(Long memberId);
-    List<TopThree> selectTopThree(Long memberId);
+    List<TopThree> selectTopThree1(Long memberId);
+    List<TopThree> selectTopThree2(Long memberId);
 
     int insertProfitFinancial(Financial financial);
 

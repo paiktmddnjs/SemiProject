@@ -97,15 +97,17 @@
                     <p style="font-size: 14px; color: #777; margin-bottom: 15px;">수익 금액 TOP 3</p>
 
 
-                    <div class="recent-revenue-item">
-                        <div class="item-source">
-                            <div class="tag-revenue-container">
-                                <span class="tag-revenue">수익</span> <span class="tag-revenue2-1">${FirstProfit.getCategory()}</span>
+                    <c:if test="${not empty FirstProfit}">
+                        <div class="recent-revenue-item">
+                            <div class="item-source">
+                                <div class="tag-revenue-container">
+                                    <span class="tag-revenue">수익</span> <span class="tag-revenue2-1">${FirstProfit.getCategory()}</span>
+                                </div>
+                                <span id="detail-1">${FirstProfit.getFinancialName()}</span>
                             </div>
-                            <span id="detail-1">${FirstProfit.getFinancialName()}</span>
+                            <div class="item-amount" id="item-amount-first">${amountKFirst}</div>
                         </div>
-                        <div class="item-amount" id="item-amount-first">${amountKFirst}</div>
-                    </div>
+
 
                     <div class="recent-revenue-item">
                         <div class="item-source">
@@ -126,7 +128,7 @@
                         </div>
                         <div class="item-amount" id="item-amount-third">${amountKThird}</div>
                     </div>
-
+                    </c:if>
 
                 </div>
             </div>

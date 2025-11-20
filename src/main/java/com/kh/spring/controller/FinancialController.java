@@ -88,16 +88,18 @@ public class FinancialController {
         List<Monthly> monthlyThings = financialService.calculateMonthly(memberId);
         List<Monthly> monthlyTotalMoney = financialService.calculateMonthlyMoney(memberId);
 
-        List<TopThree> topList = financialService.selectTopThree(memberId);
+        List<TopThree> topList1 = financialService.selectTopThree1(memberId);
+        List<TopThree> topList2 = financialService.selectTopThree2(memberId);
         TopThree dummy = TopThree.DUMMY; // 미리 생성된 더미 객체
 
 // 리스트 크기를 확인하여 각 순위에 맞는 객체를 할당
-        TopThree FirstProfit  = topList.size() > 0 ? topList.get(0) : dummy;
-        TopThree SecondProfit = topList.size() > 1 ? topList.get(1) : dummy;
-        TopThree ThirdProfit  = topList.size() > 2 ? topList.get(2) : dummy;
-        TopThree FirstExpense = topList.size() > 3 ? topList.get(3) : dummy;
-        TopThree SecondExpense = topList.size() > 4 ? topList.get(4) : dummy;
-        TopThree ThirdExpense = topList.size() > 5 ? topList.get(5) : dummy;
+        TopThree FirstProfit  = topList1.size() > 0 ? topList1.get(0) : dummy;
+        TopThree SecondProfit = topList1.size() > 1 ? topList1.get(1) : dummy;
+        TopThree ThirdProfit  = topList1.size() > 2 ? topList1.get(2) : dummy;
+
+        TopThree FirstExpense = topList2.size() > 3 ? topList2.get(3) : dummy;
+        TopThree SecondExpense = topList2.size() > 4 ? topList2.get(4) : dummy;
+        TopThree ThirdExpense = topList2.size() > 5 ? topList2.get(5) : dummy;
 
 
         // 총수익, 순수익, 지출 라인 그래프

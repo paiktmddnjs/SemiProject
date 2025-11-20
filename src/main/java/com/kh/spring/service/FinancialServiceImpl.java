@@ -77,9 +77,13 @@ public class FinancialServiceImpl implements FinancialService {
 
 
 
-    public  List<TopThree> selectTopThree(Long memberId) {
+    public  List<TopThree> selectTopThree1(Long memberId) {
 
-        return financialMapper.selectTopThree(memberId);
+        return financialMapper.selectTopThree1(memberId);
+    }
+    public  List<TopThree> selectTopThree2(Long memberId) {
+
+        return financialMapper.selectTopThree2(memberId);
     }
 
 
