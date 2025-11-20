@@ -49,7 +49,7 @@ git clone https://github.com/paiktmddnjs/SemiProject
 
 # 5. 웹 애플리케이션 실행
 - 브라우저에서 접속
-http://(자신이 정한 포트번호)(ex. localhost:8003)
+http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 
 <br><br>
