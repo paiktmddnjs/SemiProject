@@ -70,8 +70,12 @@
 
     <select id="scheduleProjectWholeSelect" resultMap="projectResultMap">
         SELECT PROJECT_NAME, PROJECT_ID
-        FROM PROJECT
-        JOIN WORKSPACE USING(WORKSPACE_ID)
+        FROM (
+            SELECT *
+            FROM PROJECT
+            JOIN WORKSPACE_MEMBER USING(WORKSPACE_ID)
+            WHERE MEMBER_ID = #{memberId}
+        )
     </select>
 
     <select id="statusTodoSelect" resultType="int">
@@ -190,6 +194,7 @@
     <select id="dailyTaskWorkspaceSelect" resultMap="taskResultMap">
         SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
         FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
+        FROM TASK
         JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
         WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
@@ -203,6 +208,7 @@
     <select id="dailyTaskProjectSelect" resultMap="taskResultMap">
         SELECT WORKSPACE_NAME, PROJECT_NAME, TASK_STATUS, TASK_NAME, TASK_ASSIGN
         FROM (SELECT TASK_ID, PROJECT_ID, WORKSPACE_MEMBER_ID, TASK_NAME, TASK_ASSIGN, TASK_STATUS, TASK_START, TASK_DEADLINE
+        FROM TASK
         JOIN WORKSPACE_MEMBER USING(WORKSPACE_MEMBER_ID)
         WHERE MEMBER_ID = #{memberId})
         JOIN PROJECT USING(PROJECT_ID)
@@ -218,6 +224,8 @@
         FROM (
         SELECT WORKSPACE_NAME, WORKSPACE_ID
         FROM WORKSPACE
+        JOIN WORKSPACE_MEMBER USING (WORKSPACE_ID)
+        WHERE MEMBER_ID = #{memberId}
         )
         LEFT JOIN (
         SELECT WORKSPACE_ID, COUNT(*) WORKTODO
@@ -255,6 +263,8 @@
         FROM (
         SELECT PROJECT_NAME, PROJECT_ID
         FROM PROJECT
+        JOIN WORKSPACE_MEMBER USING (WORKSPACE_ID)
+        WHERE MEMBER_ID = #{memberId}
         )
         LEFT JOIN (
         SELECT PROJECT_ID, COUNT(*) WORKTODO

@@ -9,9 +9,9 @@
 <html>
 <head>
     <title>Schedule</title>
-    <script src="/js/fullcalendar/index.global.min.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/script/fullcalendar/index.global.min.js"></script>
     <script src="<%= request.getContextPath() %>/resources/script/scheduleAjax.js"></script>
-    <script> var W_id = ${W_id}; var P_id = ${P_id}; let memberId = ${memberId}</script>
+    <script> var W_id = ${W_id}; var P_id = ${P_id}; let memberId = ${memberId};</script>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/scheduleStyle.css" />
 </head>
 <body>

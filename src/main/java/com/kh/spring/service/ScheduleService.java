@@ -8,7 +8,7 @@ import java.util.List;
 public interface ScheduleService {
     List<Workspace> scheduleWorkspaceSelect(int memberId);
     List<Project> scheduleProjectSelect(int projectId);
-    List<Project> scheduleProjectWholeSelect();
+    List<Project> scheduleProjectWholeSelect(int memberId);
     int statusTodoSelect(int memberId, int workspaceId);
     int statusTodoWholeSelect(int memberId);
     int statusProgressSelect(int memberId, int workspaceId);
@@ -22,6 +22,6 @@ public interface ScheduleService {
     List<Task> dailyTaskMemberNoSelect(int memberId, String selectedDate);
     List<Task> dailyTaskWorkspaceSelect(int memberId, int workspaceId, String selectedDate);
     List<Task> dailyTaskProjectSelect(int memberId, int projectId, String selectedDate);
-    List<StatusContainer> workspaceStatusSelect();
-    List<StatusContainer> projectStatusSelect();
+    List<StatusContainer> workspaceStatusSelect(int memberId);
+    List<StatusContainer> projectStatusSelect(int memberId);
 }

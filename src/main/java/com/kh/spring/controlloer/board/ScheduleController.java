@@ -35,20 +35,20 @@ public class ScheduleController {
     // GET 요청 처리
     @GetMapping("/schedule.bo")
     public String showSchedule(Model model) {
-        int memberId = 1;
+        int memberId = 2;
         LocalDate today = LocalDate.now(); // 오늘 날짜
         String todayStr = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         List<Workspace> workspace = scheduleServiceImpl.scheduleWorkspaceSelect(memberId);
-        List<Project> project = scheduleServiceImpl.scheduleProjectWholeSelect();
+        List<Project> project = scheduleServiceImpl.scheduleProjectWholeSelect(memberId);
         int statusTodo = scheduleServiceImpl.statusTodoWholeSelect(memberId);
         int statusProgress = scheduleServiceImpl.statusProgressWholeSelect(memberId);
         int statusComplete = scheduleServiceImpl.statusCompleteWholeSelect(memberId);
         List<Task> calendar = scheduleServiceImpl.calendarWholeSelect(memberId);
         List<Task> dailyTask = scheduleServiceImpl.dailyTaskMemberNoSelect(memberId, todayStr);
         int taskMany = dailyTask.size();
-        List<StatusContainer> workspaceStatus = scheduleServiceImpl.workspaceStatusSelect();
-        List<StatusContainer> projectStatus = scheduleServiceImpl.projectStatusSelect();
+        List<StatusContainer> workspaceStatus = scheduleServiceImpl.workspaceStatusSelect(memberId);
+        List<StatusContainer> projectStatus = scheduleServiceImpl.projectStatusSelect(memberId);
 
         System.out.println(todayStr);
 
@@ -86,7 +86,7 @@ public class ScheduleController {
         List<Task> calendar;
 
         if(workspaceId==0){
-            project = scheduleServiceImpl.scheduleProjectWholeSelect();
+            project = scheduleServiceImpl.scheduleProjectWholeSelect(memberId);
             statusTodo = scheduleServiceImpl.statusTodoWholeSelect(memberId);
             statusProgress = scheduleServiceImpl.statusProgressWholeSelect(memberId);
             statusComplete = scheduleServiceImpl.statusCompleteWholeSelect(memberId);
