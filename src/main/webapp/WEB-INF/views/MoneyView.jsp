@@ -483,6 +483,7 @@
                     document.querySelector('.tag-revenue2-3').innerText = "${ThirdExpense.getCategory()}";
 
 
+
                     tagSpans.forEach(span => {
 
                         <c:choose>
