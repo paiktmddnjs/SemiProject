@@ -46,7 +46,6 @@ http://자신이 정한 포트번호(ex. localhost:8003)
 ## 📂 프로젝트 구조 (Directory Structure)
 
 <pre>
-<details>
   📦main
  ┣ 📂java
  ┃ ┗ 📂com
@@ -90,6 +89,7 @@ http://자신이 정한 포트번호(ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┣ 📜InstagramdashboardDto.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜YoutubeChannelDto.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📜YoutubedashboardDto.java
+	<details>
 	<summary>
  ┃ ┃ ┃ ┃ ┣ 📂Entity
  ┃ ┃ ┃ ┃ ┃ ┗ 📜Chanel.java
