@@ -18,6 +18,7 @@
         <result column="CONTENT_STATUS" property="contentStatus"/>
         <result column="CONTENT_DESC" property="contentDesc"/>
         <result column="CATEGORY" property="category"/>
+
     </resultMap>
 
 
@@ -41,17 +42,32 @@
 
 
     <select id="selectContentByCategory" parameterType="int" resultType="com.kh.spring.model.vo.Categorical">
+
         SELECT
-        CATEGORY AS category,
-        COUNT(*) AS ContentByCategroy
+        C.category AS category,
+        COALESCE(T.contentByCategory, 0) AS contentByCategory
+        FROM
+        (
+        SELECT '리뷰' AS category FROM DUAL
+        UNION ALL SELECT '브이로그' FROM DUAL
+        UNION ALL SELECT '엔터테인먼트' FROM DUAL
+        UNION ALL SELECT '소통' FROM DUAL
+        UNION ALL SELECT '튜토리얼' FROM DUAL
+        ) C
+        LEFT JOIN
+        (
+        SELECT
+        CATEGORY,
+        COUNT(*) AS contentByCategory
         FROM
         CONTENT
         WHERE
-        CHANEL_ID = #{chanelId}
+        CHANEL_ID = 101
         GROUP BY
         CATEGORY
+        ) T ON C.category = T.CATEGORY
         ORDER BY
-        CASE CATEGORY
+        CASE C.category
         WHEN '리뷰' THEN 1
         WHEN '브이로그' THEN 2
         WHEN '엔터테인먼트' THEN 3

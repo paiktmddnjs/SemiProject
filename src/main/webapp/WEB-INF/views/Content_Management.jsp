@@ -881,11 +881,13 @@
     const chartData = {
         barChart: {
             labels: ['리뷰', '브이로그', '엔터테인먼트', '소통', '튜토리얼'],
-            data: [
-                <c:forEach var="item1" items="${CategoricalContentList}" varStatus="status">
-                ${item1.contentByCategroy}${status.last ? '' : ','}
-                </c:forEach>
-            ],
+           data: [
+                 <c:out value="${CategoricalContentList[0].contentByCategory}" />,
+                 <c:out value="${CategoricalContentList[1].contentByCategory}" />,
+                 <c:out value="${CategoricalContentList[2].contentByCategory}" />,
+                 <c:out value="${CategoricalContentList[3].contentByCategory}" />,
+                 <c:out value="${CategoricalContentList[4].contentByCategory}" />
+           ],
             colors: ['#EA580C', '#FB923C', '#FFEDD5', '#FED7AA', '#FDBA74']
         },
         pieChart: {
