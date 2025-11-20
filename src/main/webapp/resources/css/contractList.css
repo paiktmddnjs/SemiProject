@@ -7,7 +7,7 @@
 body {
     font-family: 'Arimo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #F9FAFB;
-    padding: 24px;
+
     color: #0A0A0A;
     line-height: 1.5;
 }
@@ -15,18 +15,20 @@ body {
 .container {
     max-width: 1850px;
     margin: 0 auto;
+    padding: 24px;
 }
 
-.header {
+.hero-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
 }
 
-.header-subtitle {
-    color: #64748B;
-    font-size: 16px;
+.hero-header .header-subtitle {
+    color: #757373;
+    font-size: 19px;
+    font-weight: 500;
 }
 
 .header-buttons {

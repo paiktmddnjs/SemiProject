@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.model.mapper.ContentMapper">
+
+    <resultMap id="ContentCommentResultMap" type="com.kh.spring.model.vo.Content">
+        <id column="COMMENT_ID" property="commentId"/>
+        <result column="CONTENT_ID" property="contentId"/>
+        <result column="COMMENT_GOOD_COUNT" property="commentGoodCount"/>
+        <result column="COMMENT_BAD_COUNT" property="commentBadCount"/>
+        <result column="COMMENT_WRITE_DATE" property="commentWriteDate"/>
+        <result column="COMMENT_HEART" property="commentHeart"/>
+        <result column="COMMENT_COUNT" property="commentCount"/>
+    </resultMap>
+
+
+    <select id="selectCountAvergeView"  parameterType="int" resultType="int">
+        SELECT
+        NVL(AVG(CC.COMMENT_COUNT), 0) AS avg_comments_per_content
+        FROM
+        CONTENT C
+        JOIN CONTENT_COMMENT CC
+        ON C.CONTENT_ID = CC.CONTENT_ID
+        WHERE
+        C.CHANEL_ID = #{chanelId}
+
+    </select>
+
+
+
+
+
+
+
+</mapper>

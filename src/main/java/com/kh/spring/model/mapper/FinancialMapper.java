@@ -21,10 +21,10 @@ public interface FinancialMapper {
 
     List<Monthly> calculateMonthly(@Param("memberId") Long memberId);
     List<Monthly> calculateMonthlyMoney(@Param("memberId") Long memberId);
-    List<TopThree> selectTopThree(@Param("memberId") Long memberId);
+    List<TopThree> selectTopThree1(@Param("memberId") Long memberId);
+    List<TopThree> selectTopThree2(@Param("memberId") Long memberId);
 
     int insertFinancial(Financial financial);
-    List<Financial> selectAllTransaction();
 
     // 1. 전체 개수 조회
     int selectTransactionCount(@Param("memberId") Long memberId);

@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CREP Dashboard Clone</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="MoneyView.css" />
     <link rel="stylesheet" href="Transaction.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -33,7 +33,7 @@
 
 
         <div class="dashboard-body">
-            <div class="page-header">
+            <div class="page-header hero-header">
                 <div class="action-buttons">
 
                     <button class="primary-btn" onclick="openProfitModal()">수익 추가</button>
@@ -48,7 +48,12 @@
                 <div class="stat-card">
                     <div class="stat-title"><span>순이익</span><i class="fas fa-chart-line"></i></div>
                     <div class="stat-value" >${netProfitAmount}만원</div>
-                    <div class="stat-change" >전월 대비 ${IncreaseRate}% </div>
+                     <div class="stat-change">
+                                           전월 대비 ${IncreaseRate}
+                                           <c:if test="${fn:contains(IncreaseRate, '.')}">
+                                               %
+                                           </c:if>
+                                       </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title"><span>총 수익</span><i class="fas fa-arrow-up"></i></div>
@@ -92,15 +97,17 @@
                     <p style="font-size: 14px; color: #777; margin-bottom: 15px;">수익 금액 TOP 3</p>
 
 
-                    <div class="recent-revenue-item">
-                        <div class="item-source">
-                            <div class="tag-revenue-container">
-                                <span class="tag-revenue">수익</span> <span class="tag-revenue2-1">${FirstProfit.getCategory()}</span>
+                    <c:if test="${not empty FirstProfit or not empty FirstExpense}">
+                        <div class="recent-revenue-item">
+                            <div class="item-source">
+                                <div class="tag-revenue-container">
+                                    <span class="tag-revenue">수익</span> <span class="tag-revenue2-1">${FirstProfit.getCategory()}</span>
+                                </div>
+                                <span id="detail-1">${FirstProfit.getFinancialName()}</span>
                             </div>
-                            <span id="detail-1">${FirstProfit.getFinancialName()}</span>
+                            <div class="item-amount" id="item-amount-first">${amountKFirst}</div>
                         </div>
-                        <div class="item-amount" id="item-amount-first">${amountKFirst}</div>
-                    </div>
+
 
                     <div class="recent-revenue-item">
                         <div class="item-source">
@@ -121,7 +128,7 @@
                         </div>
                         <div class="item-amount" id="item-amount-third">${amountKThird}</div>
                     </div>
-
+                    </c:if>
 
                 </div>
             </div>
@@ -476,16 +483,39 @@
                     document.querySelector('.tag-revenue2-3').innerText = "${ThirdExpense.getCategory()}";
 
 
+
                     tagSpans.forEach(span => {
 
+                        <c:choose>
+                        <c:when test="${FirstExpense.getAmount() < 1000}">
+                        document.querySelector('#item-amount-first').innerText = "-${FirstExpense.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKFirst" value="${FirstExpense.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-first').innerText = "-<fmt:formatNumber value="${amountKFirst}" pattern="0" />K";
+                        document.querySelector('#item-amount-first').innerText = "-<fmt:formatNumber value='${amountKFirst}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
+                        <c:choose>
+                        <c:when test="${SecondExpense.getAmount() < 1000}">
+                        document.querySelector('#item-amount-second').innerText = "-${SecondExpense.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKSecond" value="${SecondExpense.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-second').innerText = "-<fmt:formatNumber value="${amountKSecond}" pattern="0" />K";
+                        document.querySelector('#item-amount-second').innerText = "-<fmt:formatNumber value='${amountKSecond}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
+                        <c:choose>
+                        <c:when test="${ThirdExpense.getAmount() < 1000}">
+                        document.querySelector('#item-amount-third').innerText = "-${ThirdExpense.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKThird" value="${ThirdExpense.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-third').innerText = "-<fmt:formatNumber value="${amountKThird}" pattern="0" />K";
+                        document.querySelector('#item-amount-third').innerText = "-<fmt:formatNumber value='${amountKThird}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
+
 
                         span.textContent = '지출';
 
@@ -508,15 +538,35 @@
 
                     tagSpans.forEach(span => {
 
-
+                        <c:choose>
+                        <c:when test="${FirstProfit.getAmount() < 1000}">
+                        document.querySelector('#item-amount-first').innerText = "+${FirstProfit.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKFirst" value="${FirstProfit.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-first').innerText = "+<fmt:formatNumber value="${amountKFirst}" pattern="0" />K";
+                        document.querySelector('#item-amount-first').innerText = "+<fmt:formatNumber value='${amountKFirst}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
+                        <c:choose>
+                        <c:when test="${SecondProfit.getAmount() < 1000}">
+                        document.querySelector('#item-amount-second').innerText = "+${SecondProfit.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKSecond" value="${SecondProfit.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-second').innerText = "+<fmt:formatNumber value="${amountKSecond}" pattern="0" />K";
+                        document.querySelector('#item-amount-second').innerText = "+<fmt:formatNumber value='${amountKSecond}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
+                        <c:choose>
+                        <c:when test="${ThirdProfit.getAmount() < 1000}">
+                        document.querySelector('#item-amount-third').innerText = "+${ThirdProfit.getAmount()}";
+                        </c:when>
+                        <c:otherwise>
                         <c:set var="amountKThird" value="${ThirdProfit.getAmount() / 1000}" />
-                        document.querySelector('#item-amount-third').innerText = "+<fmt:formatNumber value="${amountKThird}" pattern="0" />K";
+                        document.querySelector('#item-amount-third').innerText = "+<fmt:formatNumber value='${amountKThird}' pattern='0.0' />K";
+                        </c:otherwise>
+                        </c:choose>
 
                         span.textContent = '수익';
                         span.style.backgroundColor = '#f55a1d';

@@ -1,4 +1,4 @@
-package com.kh.spring.Service;
+package com.kh.spring.service;
 
 import com.kh.spring.model.vo.Financial;
 import com.kh.spring.model.vo.Monthly;
@@ -24,7 +24,8 @@ public interface FinancialService {
 
     List<Monthly> calculateMonthly(Long memberId);
     List<Monthly> calculateMonthlyMoney(Long memberId);
-    List<TopThree> selectTopThree(Long memberId);
+    List<TopThree> selectTopThree1(Long memberId);
+    List<TopThree> selectTopThree2(Long memberId);
 
     int insertProfitFinancial(Financial financial);
 

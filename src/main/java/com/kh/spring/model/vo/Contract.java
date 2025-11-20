@@ -1,8 +1,14 @@
 package com.kh.spring.model.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Date;
 
+@Setter
+@Getter
 public class Contract {
+    // Getter and Setter
     private int contractId;
     private String contractName;
     private String contractStatus;
@@ -46,136 +52,7 @@ public class Contract {
         this.companyBusinessCall = companyBusinessCall;
         this.companyRepresentative = companyRepresentative;
     }
-    
-    // Getter and Setter
-    public int getContractId() {
-        return contractId;
-    }
-    
-    public void setContractId(int contractId) {
-        this.contractId = contractId;
-    }
-    
-    public String getContractName() {
-        return contractName;
-    }
-    
-    public void setContractName(String contractName) {
-        this.contractName = contractName;
-    }
-    
-    public String getContractStatus() {
-        return contractStatus;
-    }
-    
-    public void setContractStatus(String contractStatus) {
-        this.contractStatus = contractStatus;
-    }
-    
-    public Date getContractFix() {
-        return contractFix;
-    }
-    
-    public void setContractFix(Date contractFix) {
-        this.contractFix = contractFix;
-    }
-    
-    public Date getContractStart() {
-        return contractStart;
-    }
-    
-    public void setContractStart(Date contractStart) {
-        this.contractStart = contractStart;
-    }
-    
-    public Date getContractEnd() {
-        return contractEnd;
-    }
-    
-    public void setContractEnd(Date contractEnd) {
-        this.contractEnd = contractEnd;
-    }
-    
-    public String getContractDesc() {
-        return contractDesc;
-    }
-    
-    public void setContractDesc(String contractDesc) {
-        this.contractDesc = contractDesc;
-    }
-    
-    public Long getContractAmount() {
-        return contractAmount;
-    }
-    
-    public void setContractAmount(Long contractAmount) {
-        this.contractAmount = contractAmount;
-    }
-    
-    public int getMemberId() {
-        return memberId;
-    }
-    
-    public void setMemberId(int memberId) {
-        this.memberId = memberId;
-    }
-    
-    public int getCompanyId() {
-        return companyId;
-    }
-    
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
-    }
-    
-    public String getCompanyName() {
-        return companyName;
-    }
-    
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-    
-    public String getCompanyCall() {
-        return companyCall;
-    }
-    
-    public void setCompanyCall(String companyCall) {
-        this.companyCall = companyCall;
-    }
-    
-    public String getCompanyManager() {
-        return companyManager;
-    }
-    
-    public void setCompanyManager(String companyManager) {
-        this.companyManager = companyManager;
-    }
-    
-    public String getCompanyManagerCall() {
-        return companyManagerCall;
-    }
-    
-    public void setCompanyManagerCall(String companyManagerCall) {
-        this.companyManagerCall = companyManagerCall;
-    }
-    
-    public String getCompanyBusinessCall() {
-        return companyBusinessCall;
-    }
-    
-    public void setCompanyBusinessCall(String companyBusinessCall) {
-        this.companyBusinessCall = companyBusinessCall;
-    }
-    
-    public String getCompanyRepresentative() {
-        return companyRepresentative;
-    }
-    
-    public void setCompanyRepresentative(String companyRepresentative) {
-        this.companyRepresentative = companyRepresentative;
-    }
-    
+
     // JSP에서 사용할 필드들 (더미 데이터와 호환)
     public String getContractNo() {
         return String.valueOf(contractId);

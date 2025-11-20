@@ -1,7 +1,9 @@
-package com.kh.spring.Controller;
+package com.kh.spring.controller;
 
 import java.sql.Date;
 import java.util.List;
+
+import com.kh.spring.model.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +23,14 @@ public class ContractController {
     private ContractService contractService;
     
     // 계약 목록 페이지
-    @GetMapping("/list")
+    @GetMapping("/list.co")
     public String contractList(Model model, jakarta.servlet.http.HttpSession session) {
         // 세션에서 로그인한 멤버 ID 가져오기
-        Long memberId = (Long) session.getAttribute("memberId");
-        if (memberId == null) {
-            return "redirect:/login";
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
+            return "redirect:/loginForm.me";
         }
+        Long memberId = (long) loginMember.getMemberId();
         
         // 계약 목록 조회 (해당 멤버의 계약만)
         List<Contract> contractList = contractService.selectContractList(memberId);
@@ -71,14 +74,12 @@ public class ContractController {
         contract.setContractDesc(memo);
         
         // 세션에서 로그인한 멤버 ID 가져오기
-        Long memberId = (Long) session.getAttribute("memberId");
-        if (memberId == null) {
-            model.addAttribute("errorMsg", "로그인이 필요합니다.");
-            model.addAttribute("contentPage", "contract");
-            model.addAttribute("pageTitle", "협찬 계약");
-            return "components/layout";
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
+            return "redirect:/loginForm.me";
         }
-        contract.setMemberId(memberId.intValue());
+        int memberId =  loginMember.getMemberId();
+        contract.setMemberId(memberId);
         
         int result = contractService.insertContract(contract);
         

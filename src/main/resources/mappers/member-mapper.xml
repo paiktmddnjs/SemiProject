@@ -4,18 +4,24 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kh.spring.model.mapper.MemberMapper">
+
     <!-- resultMap : 조회된 resultSet의 결과를 특정 객체에 맵핑할 맵핑정보를 기술하는 것 -->
     <resultMap id="memberResultMap" type="Member">
-        <result column="MEMBER_ID" property="memberId"/>
-        <result column="EMAIL" property="email"/>
-        <result column="MEMBER_PWD" property="memberPwd"/>
-        <result column="MEMBER_NAME" property="memberName"/>
-        <result column="PHONE" property="phone"/>
-        <result column="ENROLL_DATE" property="enrollDate"/>
-        <result column="MODIFY_DATE" property="modifyDate"/>
-        <result column="STATUS" property="status"/>
-        <result column="ROLE" property="role"/>
+        <result column="MEMBER_ID"    property="memberId"/>
+        <result column="EMAIL"        property="email"/>
+        <result column="MEMBER_PWD"   property="memberPwd"/>
+        <result column="MEMBER_NAME"  property="memberName"/>
+        <result column="PHONE"        property="phone"/>
+        <result column="ENROLL_DATE"  property="enrollDate"/>
+        <result column="MODIFY_DATE"  property="modifyDate"/>
+        <result column="STATUS"       property="status"/>
+        <result column="ROLE"         property="role"/>
     </resultMap>
+
+    <!-- ===================================================== -->
+    <!-- 회원 가입                                              -->
+    <!-- int addMember(Member member);                         -->
+    <!-- ===================================================== -->
     <insert id="addMember" parameterType="Member">
         INSERT INTO MEMBER
         (
@@ -24,9 +30,8 @@
         MEMBER_PWD,
         MEMBER_NAME,
         PHONE
-
         )
-        VALUES(
+        VALUES (
         SEQ_MEMBER_ID.NEXTVAL,
         #{email},
         #{memberPwd},
@@ -35,24 +40,93 @@
         )
     </insert>
 
-    <select id="getMemberCountByEmail" resultType="_int">
+    <!-- ===================================================== -->
+    <!-- 이메일 중복 체크                                       -->
+    <!-- int getMemberCountByEmail(String email);              -->
+    <!-- ===================================================== -->
+    <select id="getMemberCountByEmail"
+            parameterType="string"
+            resultType="_int">
         SELECT COUNT(*)
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
 
-    <select id="getMemberByEmail" parameterType="string" resultMap="memberResultMap">
+    <!-- ===================================================== -->
+    <!-- 이메일로 회원 조회 (로그인 등)                         -->
+    <!-- Member getMemberByEmail(String email);                -->
+    <!-- ===================================================== -->
+    <select id="getMemberByEmail"
+            parameterType="string"
+            resultMap="memberResultMap">
         SELECT MEMBER_ID,
-                EMAIL,
-                MEMBER_PWD,
-                MEMBER_NAME,
-                PHONE,
-                ENROLL_DATE,
-                MODIFY_DATE,
-                STATUS,
-                ROLE
+        EMAIL,
+        MEMBER_PWD,
+        MEMBER_NAME,
+        PHONE,
+        ENROLL_DATE,
+        MODIFY_DATE,
+        STATUS,
+        ROLE
         FROM MEMBER
         WHERE EMAIL = #{email}
         AND STATUS = 'Y'
     </select>
+
+    <!-- ===================================================== -->
+    <!-- 마이페이지: 회원정보 / 이메일 수정 공통                -->
+    <!-- int updateMember(Member member);                      -->
+    <!--                                                       -->
+    <!-- - 이름, 전화번호, 이메일 모두 여기서 처리             -->
+    <!-- - null/빈값은 <if>로 막아서 기존 값 보존             -->
+    <!-- ===================================================== -->
+    <update id="updateMember" parameterType="Member">
+        UPDATE MEMBER
+        <set>
+            <!-- 이름 변경 -->
+            <if test="memberName != null and memberName != ''">
+                MEMBER_NAME = #{memberName},
+            </if>
+
+            <!-- 전화번호 변경 -->
+            <if test="phone != null and phone != ''">
+                PHONE = #{phone},
+            </if>
+
+            <!-- 이메일 변경 -->
+            <if test="email != null and email != ''">
+                EMAIL = #{email},
+            </if>
+
+            MODIFY_DATE = SYSDATE
+        </set>
+        WHERE MEMBER_ID = #{memberId}
+        AND STATUS = 'Y'
+    </update>
+
+    <!-- ===================================================== -->
+    <!-- 마이페이지: 비밀번호 변경                              -->
+    <!-- int updateMemberPassword(@Param("memberId") int       -->
+    <!--                          @Param("memberPwd") String); -->
+    <!-- ===================================================== -->
+    <!-- @Param 2개 → 내부적으로 Map으로 전달되므로 map 사용 -->
+    <update id="updateMemberPassword" parameterType="map">
+        UPDATE MEMBER
+        SET MEMBER_PWD  = #{memberPwd},
+        MODIFY_DATE = SYSDATE
+        WHERE MEMBER_ID = #{memberId}
+        AND STATUS = 'Y'
+    </update>
+
+    <!-- ===================================================== -->
+    <!-- 마이페이지: 회원 탈퇴 (soft delete)                    -->
+    <!-- int deleteMember(@Param("memberId") int memberId);    -->
+    <!-- ===================================================== -->
+    <update id="deleteMember" parameterType="int">
+        UPDATE MEMBER
+        SET STATUS      = 'N',
+        MODIFY_DATE = SYSDATE
+        WHERE MEMBER_ID = #{memberId}
+    </update>
+
 </mapper>

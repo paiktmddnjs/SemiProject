@@ -87,8 +87,27 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
+        .btn .ripple {
+            position: absolute;
+            border-radius: 999px;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            opacity: 0.75;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+        
         .btn-secondary {
             transform: none ;
             box-shadow: none ;
@@ -727,7 +746,7 @@
             </p>
 
             <div class="hero-cta">
-                <button class="btn btn-primary btn-large" onclick="location.href='login'" >
+                <button class="btn btn-primary btn-large" onclick="location.href='${pageContext.request.contextPath}/loginForm.me'" >
                     무료로 시작하기
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -1042,7 +1061,7 @@
         </div>
 
         <div class="cta-button">
-            <button class="btn btn-cta btn-large">
+            <button class="btn btn-cta btn-large" onclick="location.href='${pageContext.request.contextPath}/loginForm.me'">
                 무료로 시작하기
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="5" y1="12" x2="19" y2="12"></line>

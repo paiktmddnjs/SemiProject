@@ -154,11 +154,11 @@
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/dashboard_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">대시보드</span>
             </a>
-            <a class="nav-link" href="#" data-key="calendar">
+            <a class="nav-link" href="<c:url value='/schedule.bo'/>" data-key="calendar">
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/calendar_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">일정 관리</span>
             </a>
-            <a class="nav-link" href="#" data-key="contents">
+            <a class="nav-link" href="<c:url value='/content'/>" data-key="contents">
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/video_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">콘텐츠 관리</span>
             </a>
@@ -166,9 +166,13 @@
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/report_icon.png'/>" alt=""></span>
                 <span class="nav-link__label">재무 관리</span>
             </a>
-            <a class="nav-link" href="<c:url value='/contract/list'/>" data-key="sponsorship">
+            <a class="nav-link" href="<c:url value='/contract/list.co'/>" data-key="sponsorship">
                 <span class="nav-link__icon"><img src="<c:url value='/resources/images/handshake.png'/>" alt=""></span>
                 <span class="nav-link__label">협찬 계약</span>
+            </a>
+            <a class="nav-link" href="<c:url value='/workspace'/>" data-key="workspace">
+                <span class="nav-link__icon"><img src="<c:url value='/resources/images/project_icon.png'/>" alt=""></span>
+                <span class="nav-link__label">프로젝트 관리</span>
             </a>
         </nav>
     </div>

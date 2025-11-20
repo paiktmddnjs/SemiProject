@@ -1,8 +1,7 @@
-package com.kh.spring.Controller;
+package com.kh.spring.controller;
 
-import com.kh.spring.Service.FinancialService;
+import com.kh.spring.service.FinancialService;
 import com.kh.spring.model.vo.Monthly;
-import com.kh.spring.Service.FinancialService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

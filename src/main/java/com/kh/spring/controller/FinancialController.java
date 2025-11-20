@@ -1,9 +1,10 @@
-package com.kh.spring.Controller;
+package com.kh.spring.controller;
 
 import com.kh.spring.model.vo.Financial;
+import com.kh.spring.model.vo.Member;
 import com.kh.spring.model.vo.Monthly;
 import com.kh.spring.model.vo.TopThree;
-import com.kh.spring.Service.FinancialService;
+import com.kh.spring.service.FinancialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,10 +39,11 @@ public class FinancialController {
                                     jakarta.servlet.http.HttpSession session) {
         
         // 세션에서 로그인한 멤버 ID 가져오기
-        Long memberId = (Long) session.getAttribute("memberId");
-        if (memberId == null) {
-            return "redirect:/login";
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
+            return "redirect:/loginForm.me";
         }
+        Long memberId = (long) loginMember.getMemberId();
 
         // 1. 순이익 계산 (예: 40200000)
         int netProfit = (financialService.calculateNetProfit(memberId) / 10000);
@@ -53,37 +55,72 @@ public class FinancialController {
         // 패턴: 양수일 때 앞에 '+'를 붙임 (0.00; -0.00)
         DecimalFormat df = new DecimalFormat("+#,##0.00;-#,##0.00");
 
-        if(PrevNetProfit != 0 ) {
+        if (PrevNetProfit > 0) {
+            // 1. PrevNetProfit이 양수일 때 (가장 정상적인 비교)
             double IncreaseRateDouble = ((double) netProfit - (double) PrevNetProfit) / (double) PrevNetProfit * 100;
             String IncreaseRate = df.format(IncreaseRateDouble);
-            // (전월 대비 변화율 계산 로직은 생략함)
             model.addAttribute("IncreaseRate", IncreaseRate);
 
-        }else {
+        } else {
+            // 2. PrevNetProfit이 0이거나 음수일 때 (else 블록)
 
-            String IncreaseRate = "0 ";
-            model.addAttribute("IncreaseRate", IncreaseRate);
+            if (PrevNetProfit < 0 && netProfit > 0) {
+                // 손실 -> 이익 전환 (Turnaround)
+                // 백분율 대신 '개선'이나 절대 변화액을 표시하는 것이 명확함
+                model.addAttribute("IncreaseRate", "개선됨");
+                // 또는 "N/M (Not Meaningful)"
+
+            } else if (PrevNetProfit == 0) {
+                // 0으로 나누기 오류 방지
+                model.addAttribute("IncreaseRate", "N/A (비교 불가)");
+
+            } else {
+                // 음수 -> 음수 또는 음수 -> 0 등의 기타 비표준 상황
+                model.addAttribute("IncreaseRate", "N/M (의미 없음)");
+            }
         }
-            double ProfitPercent = Math.round((double) netProfit / (double) Profit * 10000) / 100.0;
 
+        if (Profit != 0) {
+            // 1. 계산의 정확성을 위해 double로 형 변환하여 나눗셈 수행
+            double rawPercent = ((double) netProfit / (double) Profit) * 100.0;
 
+            // 2. Math.round()를 사용하여 소수점 둘째 자리까지 반올림 (셋째 자리에서 반올림)
+            //    * 10000: 네 번째 자리까지 살리기 위함
+            //    / 100.0: 다시 원래 비율로 되돌리기 위함
+            double ProfitPercent = Math.round(rawPercent * 100.0) / 100.0;
+            model.addAttribute("ProfitPercent", ProfitPercent);
+            // 만약 기존 코드를 그대로 사용한다면 (Profit 변수가 totalRevenue를 의미한다고 가정)
+            // double ProfitPercent = Math.round(((double) netProfit / (double) Profit) * 10000) / 100.0;
+
+        } else {
+            double ProfitPercent = 0.0;
+            model.addAttribute("ProfitPercent", ProfitPercent);
+        }
 
 
         // 데이터베이스로부터 카테고리와 수익,지출 에 따른 값을 가져와서 월별 합계로 저장하기
         List<Monthly> monthlyThings = financialService.calculateMonthly(memberId);
         List<Monthly> monthlyTotalMoney = financialService.calculateMonthlyMoney(memberId);
 
-        List<TopThree> topList = financialService.selectTopThree(memberId);
+        List<TopThree> topList1 = financialService.selectTopThree1(memberId);
+        List<TopThree> topList2 = financialService.selectTopThree2(memberId);
         TopThree dummy = TopThree.DUMMY; // 미리 생성된 더미 객체
 
-// 리스트 크기를 확인하여 각 순위에 맞는 객체를 할당
-        TopThree FirstProfit  = topList.size() > 0 ? topList.get(0) : dummy;
-        TopThree SecondProfit = topList.size() > 1 ? topList.get(1) : dummy;
-        TopThree ThirdProfit  = topList.size() > 2 ? topList.get(2) : dummy;
-        TopThree FirstExpense = topList.size() > 3 ? topList.get(3) : dummy;
-        TopThree SecondExpense = topList.size() > 4 ? topList.get(4) : dummy;
-        TopThree ThirdExpense = topList.size() > 5 ? topList.get(5) : dummy;
 
+// 리스트 크기를 확인하여 각 순위에 맞는 객체를 할당
+        TopThree FirstProfit  = topList1.size() > 0 ? topList1.get(0) : dummy;
+        TopThree SecondProfit = topList1.size() > 1 ? topList1.get(1) : dummy;
+        TopThree ThirdProfit  = topList1.size() > 2 ? topList1.get(2) : dummy;
+
+        TopThree FirstExpense = topList2.size() > 0 ? topList2.get(0) : dummy;
+        TopThree SecondExpense = topList2.size() > 1 ? topList2.get(1) : dummy;
+        TopThree ThirdExpense = topList2.size() > 2 ? topList2.get(2) : dummy;
+
+        if (FirstExpense != null) {
+            System.out.println("FirstExpense Amount: " + FirstExpense.getAmount());
+        } else {
+            System.out.println("FirstExpense 객체가 null입니다.");
+        }
 
         // 총수익, 순수익, 지출 라인 그래프
         List<Integer> monthlyNetProfit = new ArrayList<>(Collections.nCopies(12, 0));
@@ -156,7 +193,7 @@ public class FinancialController {
         model.addAttribute("netProfitAmount", netProfit);
         model.addAttribute("ProfitAmount", Profit);
         model.addAttribute("ExpenseAmount", Expense);
-        model.addAttribute("ProfitPercent", ProfitPercent);
+
 
         // 데이터베이스에서 값을 가져와서 수익,지출 그래프 나타내기
         model.addAttribute("monthlyAdProfits", monthlyAdProfits);
@@ -184,11 +221,11 @@ public class FinancialController {
                                        jakarta.servlet.http.HttpSession session) {
 
         // 세션에서 로그인한 멤버 ID 가져오기
-        Long memberId = (Long) session.getAttribute("memberId");
-        if (memberId == null) {
-            ra.addFlashAttribute("msg", "로그인이 필요합니다.");
-            return "redirect:/login";
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
+            return "redirect:/loginForm.me";
         }
+        Long memberId = (long) loginMember.getMemberId();
 
         financial.setFinancialType("수익");
         financial.setMemberId(memberId);
@@ -212,12 +249,11 @@ public class FinancialController {
                                         jakarta.servlet.http.HttpSession session) {
 
         try {
-            // 세션에서 로그인한 멤버 ID 가져오기
-            Long memberId = (Long) session.getAttribute("memberId");
-            if (memberId == null) {
-                ra.addFlashAttribute("msg", "로그인이 필요합니다.");
-                return "redirect:/login";
+            Member loginMember = (Member) session.getAttribute("loginMember");
+            if (loginMember == null) {
+                return "redirect:/loginForm.me";
             }
+            Long memberId = (long) loginMember.getMemberId();
 
             financial.setFinancialType("지출");
             financial.setMemberId(memberId);

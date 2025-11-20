@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.mapper.YoutubeChannelMapper">
+    <resultMap id="YoutubeChannelResultMap" type="com.kh.spring.dto.YoutubedashboardDto">
+        <id property="chanelId" column="CHANEL_ID"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="chanelName" column="CHANEL_NAME"/>
+        <result property="platformType" column="PLATFORM_TYPE"/>
+        <result property="platfromSubscribe" column="PLATFROM_SUBSCRIBE"/>
+        <result property="chanelStatus" column="CHANEL_STATUS"/>
+        <result property="chanelCreate" column="CHANEL_CREATE"/>
+        <result property="chanelUrl" column="CHANEL_URL"/>
+        <result property="chanelCount" column="CHANEL_COUNT"/>
+        <result property="chanelFollower" column="CHANEL_FOLLOWER"/>
+    </resultMap>
+
+    <select id="findByMemberId" parameterType="Integer" resultMap="YoutubeChannelResultMap">
+        SELECT
+            CHANEL_ID,
+            MEMBER_ID,
+            CHANEL_NAME,
+            PLATFORM_TYPE,
+            PLATFROM_SUBSCRIBE,
+            CHANEL_STATUS,
+            CHANEL_CREATE,
+            CHANEL_URL,
+            CHANEL_COUNT,
+            CHANEL_FOLLOWER
+        FROM
+            CHANEL
+        WHERE
+            MEMBER_ID = #{memberId}
+          AND
+            PLATFORM_TYPE = 'YOUTUBE'
+          AND
+            CHANEL_STATUS = 'Y'
+    </select>
+
+
+    <!-- INSERT -->
+    <insert id="insert" parameterType="com.kh.spring.dto.YoutubeChannelDto">
+        <selectKey keyProperty="chanelId" resultType="Long" order="BEFORE">
+            SELECT SEQ_CHANEL_ID.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO CHANEL (
+        CHANEL_ID,
+        MEMBER_ID,
+        CHANEL_NAME,
+        CHANEL_HANDLE,
+        PLATFROM_SUBSCRIBE,
+        CHANEL_VIEWS,
+        CHANEL_VIDEO_COUNT,
+        CHANEL_URL,
+        PLATFORM_TYPE,
+        CHANEL_STATUS,
+        CHANEL_CREATE
+        ) VALUES (
+        #{chanelId},
+        #{memberId},
+        #{name},
+        #{handle},
+        #{subs},
+        #{views},
+        #{videos},
+        #{chanelUrl},
+        #{platformType},
+        #{chanelStatus},
+        SYSDATE
+        )
+    </insert>
+
+    <!-- UPDATE -->
+    <update id="update" parameterType="com.kh.spring.dto.YoutubeChannelDto">
+        UPDATE CHANEL
+        SET
+            MEMBER_ID = #{memberId},
+            CHANEL_NAME = #{name},
+            CHANEL_HANDLE = #{handle},
+            PLATFROM_SUBSCRIBE = #{subs},
+            CHANEL_VIEWS = #{views},
+            CHANEL_VIDEO_COUNT = #{videos},
+            CHANEL_URL = #{chanelUrl},
+            PLATFORM_TYPE = #{platformType},
+            CHANEL_STATUS = #{chanelStatus}
+        WHERE CHANEL_ID = #{chanelId}
+    </update>
+
+    <!-- DELETE -->
+    <delete id="deleteById">
+        DELETE FROM CHANEL
+        WHERE CHANEL_ID = #{chanelId}
+    </delete>
+
+
+    <select id="findByMemberIdAndPlatform" parameterType="map" resultType="com.kh.spring.dto.ChannelDbDto">
+        SELECT
+            CHANEL_ID as chanelId,
+            MEMBER_ID as memberId,
+            CHANEL_NAME as name,
+            PLATFORM_TYPE as platformType,
+            PLATFROM_SUBSCRIBE as subs,
+            CHANEL_URL as chanelUrl,
+            CHANEL_COUNT as views,
+            CHANEL_FOLLOWER as videos,
+            CHANEL_STATUS as status
+        FROM CHANEL
+        WHERE MEMBER_ID = #{memberId} AND PLATFORM_TYPE = #{platformType}
+    </select>
+    <insert id="insertChannel" parameterType="com.kh.spring.dto.ChannelDbDto">
+        INSERT INTO CHANEL (
+        CHANEL_ID,
+        MEMBER_ID,
+        CHANEL_NAME,
+        PLATFORM_TYPE,
+        PLATFROM_SUBSCRIBE,
+        CHANEL_STATUS,
+        CHANEL_CREATE,
+        CHANEL_URL,
+        CHANEL_COUNT,
+        CHANEL_FOLLOWER
+        ) VALUES (
+        SEQ_CHANEL_ID.NEXTVAL,
+        #{memberId},
+        #{name},
+        #{platformType},
+        #{subs},
+        'Y',
+        SYSDATE,  <!-- SYSTEM → SYSDATE -->
+        #{chanelUrl},
+        #{views},
+        #{videos}
+        )
+    </insert>
+
+
+    <update id="updateChannel" parameterType="com.kh.spring.dto.ChannelDbDto">
+        UPDATE CHANEL
+        SET
+            CHANEL_NAME = #{name},
+            PLATFROM_SUBSCRIBE = #{subs},
+            CHANEL_URL = #{chanelUrl},
+            CHANEL_COUNT = #{views},
+            CHANEL_FOLLOWER = #{videos},
+            CHANEL_STATUS = 'Y'
+        WHERE MEMBER_ID = #{memberId}
+          AND PLATFORM_TYPE = #{platformType}
+    </update>
+</mapper>
