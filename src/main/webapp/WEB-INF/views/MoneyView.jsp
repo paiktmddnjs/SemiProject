@@ -97,7 +97,7 @@
                     <p style="font-size: 14px; color: #777; margin-bottom: 15px;">수익 금액 TOP 3</p>
 
 
-                    <c:if test="${not empty FirstProfit}">
+                    <c:if test="${not empty FirstProfit or not empty FirstExpense}">
                         <div class="recent-revenue-item">
                             <div class="item-source">
                                 <div class="tag-revenue-container">
