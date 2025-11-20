@@ -44,6 +44,8 @@ git clone https://github.com/paiktmddnjs/SemiProject
 http://자신이 정한 포트번호(ex. localhost:8003)
 
 ## 📂 프로젝트 구조 (Directory Structure)
+
+<pre>
 <details>
   📦main
  ┣ 📂java
@@ -333,6 +335,8 @@ http://자신이 정한 포트번호(ex. localhost:8003)
  ┃ ┣ 📜down.png
  ┃ ┗ 📜loader.jsp
 </summary>
+</details>
+</pre>
 
 ## 🌟 주요 기능 (Key Features)
 ✅ 회원가입 / 로그인 / 로그아웃 기능
