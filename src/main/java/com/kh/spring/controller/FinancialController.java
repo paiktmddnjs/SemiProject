@@ -55,16 +55,29 @@ public class FinancialController {
         // 패턴: 양수일 때 앞에 '+'를 붙임 (0.00; -0.00)
         DecimalFormat df = new DecimalFormat("+#,##0.00;-#,##0.00");
 
-        if(PrevNetProfit != 0 ) {
+        if (PrevNetProfit > 0) {
+            // 1. PrevNetProfit이 양수일 때 (가장 정상적인 비교)
             double IncreaseRateDouble = ((double) netProfit - (double) PrevNetProfit) / (double) PrevNetProfit * 100;
             String IncreaseRate = df.format(IncreaseRateDouble);
-            // (전월 대비 변화율 계산 로직은 생략함)
             model.addAttribute("IncreaseRate", IncreaseRate);
 
-        }else {
+        } else {
+            // 2. PrevNetProfit이 0이거나 음수일 때 (else 블록)
 
-            String IncreaseRate = "0 ";
-            model.addAttribute("IncreaseRate", IncreaseRate);
+            if (PrevNetProfit < 0 && netProfit > 0) {
+                // 손실 -> 이익 전환 (Turnaround)
+                // 백분율 대신 '개선'이나 절대 변화액을 표시하는 것이 명확함
+                model.addAttribute("IncreaseRate", "개선됨");
+                // 또는 "N/M (Not Meaningful)"
+
+            } else if (PrevNetProfit == 0) {
+                // 0으로 나누기 오류 방지
+                model.addAttribute("IncreaseRate", "N/A (비교 불가)");
+
+            } else {
+                // 음수 -> 음수 또는 음수 -> 0 등의 기타 비표준 상황
+                model.addAttribute("IncreaseRate", "N/M (의미 없음)");
+            }
         }
             double ProfitPercent = Math.round((double) netProfit / (double) Profit * 10000) / 100.0;
 

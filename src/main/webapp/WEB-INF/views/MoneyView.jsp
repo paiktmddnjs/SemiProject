@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="MoneyView.css" />
     <link rel="stylesheet" href="Transaction.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -47,7 +48,12 @@
                 <div class="stat-card">
                     <div class="stat-title"><span>순이익</span><i class="fas fa-chart-line"></i></div>
                     <div class="stat-value" >${netProfitAmount}만원</div>
-                    <div class="stat-change" >전월 대비 ${IncreaseRate}% </div>
+                     <div class="stat-change">
+                                           전월 대비 ${IncreaseRate}
+                                           <c:if test="${fn:contains(IncreaseRate, '.')}">
+                                               %
+                                           </c:if>
+                                       </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-title"><span>총 수익</span><i class="fas fa-arrow-up"></i></div>
