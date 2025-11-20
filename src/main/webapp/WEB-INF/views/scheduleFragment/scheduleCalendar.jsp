@@ -24,18 +24,21 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `memberId=` + memberId + `&projectId=` + P_id + `&dateSelect=` + dateStr
             })
+            console.log("프로젝트 Id 전송")
         } else if(W_id!=0){
             fetchContainer=fetch(`${window.location.origin}/scheduleWorkspaceDate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `memberId=` + memberId + `&workspaceId=` + W_id + `&dateSelect=` + dateStr
             })
+            console.log("워크스페이스 Id 전송");
         } else{
             fetchContainer=fetch(`${window.location.origin}/scheduleMemberNoDate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `memberId=` + memberId + `&dateSelect=` + dateStr
             })
+            console.log("멤버 Date 전송");
         }
         fetchContainer
             .then(response => response.json())

@@ -100,12 +100,12 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public List<StatusContainer> workspaceStatusSelect(){
-        return scheduleMapper.workspaceStatusSelect();
+    public List<StatusContainer> workspaceStatusSelect(int memberId){
+        return scheduleMapper.workspaceStatusSelect(memberId);
     }
 
     @Override
-    public List<StatusContainer> projectStatusSelect(){
-        return scheduleMapper.projectStatusSelect();
+    public List<StatusContainer> projectStatusSelect(int memberId){
+        return scheduleMapper.projectStatusSelect(memberId);
     }
 }

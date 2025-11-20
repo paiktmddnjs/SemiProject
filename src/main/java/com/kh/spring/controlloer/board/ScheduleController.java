@@ -35,7 +35,7 @@ public class ScheduleController {
     // GET 요청 처리
     @GetMapping("/schedule.bo")
     public String showSchedule(Model model) {
-        int memberId = 1;
+        int memberId = 2;
         LocalDate today = LocalDate.now(); // 오늘 날짜
         String todayStr = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
@@ -47,8 +47,8 @@ public class ScheduleController {
         List<Task> calendar = scheduleServiceImpl.calendarWholeSelect(memberId);
         List<Task> dailyTask = scheduleServiceImpl.dailyTaskMemberNoSelect(memberId, todayStr);
         int taskMany = dailyTask.size();
-        List<StatusContainer> workspaceStatus = scheduleServiceImpl.workspaceStatusSelect();
-        List<StatusContainer> projectStatus = scheduleServiceImpl.projectStatusSelect();
+        List<StatusContainer> workspaceStatus = scheduleServiceImpl.workspaceStatusSelect(memberId);
+        List<StatusContainer> projectStatus = scheduleServiceImpl.projectStatusSelect(memberId);
 
         System.out.println(todayStr);
 

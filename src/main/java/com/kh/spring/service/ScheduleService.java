@@ -22,6 +22,6 @@ public interface ScheduleService {
     List<Task> dailyTaskMemberNoSelect(int memberId, String selectedDate);
     List<Task> dailyTaskWorkspaceSelect(int memberId, int workspaceId, String selectedDate);
     List<Task> dailyTaskProjectSelect(int memberId, int projectId, String selectedDate);
-    List<StatusContainer> workspaceStatusSelect();
-    List<StatusContainer> projectStatusSelect();
+    List<StatusContainer> workspaceStatusSelect(int memberId);
+    List<StatusContainer> projectStatusSelect(int memberId);
 }
