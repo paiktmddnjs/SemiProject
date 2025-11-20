@@ -14,7 +14,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
+<c:set var="totalViews" value="0" scope="page" />
 
+<c:forEach var="igAccount" items="${channel.ig}">
+    <c:set var="totalViews" value="${totalViews + igAccount.views}" />
+</c:forEach>
+
+<c:forEach var="ychannel" items="${channel.yt}">
+    <c:set var="totalViews" value="${totalViews + ychannel.views}" />
+</c:forEach>
 <div class="container">
     <div class="dash-grid-row dash-grid-row-3">
 
@@ -243,7 +251,7 @@
         <div class="dash-card dash-stat-card">
             <span class="dash-stat-card-title">주간 조회수</span>
             <div class="dash-stat-card-body">
-                <div class="dash-stat-value">${stats.weeklyViews}K</div>
+                <div class="dash-stat-value">${totalViews}</div>
                 <div class="dash-stat-desc">
                     <span class="highlight">+${stats.viewsGrowth}%</span>
                     <span class="label">지난주 대비</span>
