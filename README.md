@@ -388,7 +388,7 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 <br><br>
 
-## 최종 프로젝트 PPT
+## 🏆 최종 프로젝트 PPT 🏆
 [C.R.E.P 최종프로젝트.pdf](https://github.com/user-attachments/files/23649478/C.R.E.P.pdf)
 
 
