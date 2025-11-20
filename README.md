@@ -44,6 +44,7 @@ git clone https://github.com/paiktmddnjs/SemiProject
 http://자신이 정한 포트번호(ex. localhost:8003)
 
 ## 📂 프로젝트 구조 (Directory Structure)
+<pre>
 📦main
  ┣ 📂java
  ┃ ┗ 📂com
@@ -141,9 +142,15 @@ http://자신이 정한 포트번호(ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceMember.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceMemberVo.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WorkspaceVo.java
+</pre>
 
+
+   
 <details>
 <summary>
+    **클릭하여 숨겨진 내용 보기**
+</summary>
+<pre>  
  ┃ ┃ ┃ ┃ ┣ 📂service
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChanelService.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkAuthService.java
@@ -333,11 +340,8 @@ http://자신이 정한 포트번호(ex. localhost:8003)
  ┃ ┃ ┃ ┗ 📜workspace.jsp
  ┃ ┣ 📜down.png
  ┃ ┗ 📜loader.jsp
-   
-</summary>
-
+</pre>
 </details>
-
 ## 🌟 주요 기능 (Key Features)
 ✅ 회원가입 / 로그인 / 로그아웃 기능
 ✅ 게시글 등록, 조회, 수정, 삭제 (CRUD)
