@@ -12,7 +12,7 @@ public class Categorical {
 
     private String category;
 
-    private int ContentByCategroy;
+    private int contentByCategory;
 
     private int ViewByCategroy;
 
