@@ -79,9 +79,23 @@ public class FinancialController {
                 model.addAttribute("IncreaseRate", "N/M (의미 없음)");
             }
         }
-            double ProfitPercent = Math.round((double) netProfit / (double) Profit * 10000) / 100.0;
 
+        if (Profit != 0) {
+            // 1. 계산의 정확성을 위해 double로 형 변환하여 나눗셈 수행
+            double rawPercent = ((double) netProfit / (double) Profit) * 100.0;
 
+            // 2. Math.round()를 사용하여 소수점 둘째 자리까지 반올림 (셋째 자리에서 반올림)
+            //    * 10000: 네 번째 자리까지 살리기 위함
+            //    / 100.0: 다시 원래 비율로 되돌리기 위함
+            double ProfitPercent = Math.round(rawPercent * 100.0) / 100.0;
+            model.addAttribute("ProfitPercent", ProfitPercent);
+            // 만약 기존 코드를 그대로 사용한다면 (Profit 변수가 totalRevenue를 의미한다고 가정)
+            // double ProfitPercent = Math.round(((double) netProfit / (double) Profit) * 10000) / 100.0;
+
+        } else {
+            double ProfitPercent = 0.0;
+            model.addAttribute("ProfitPercent", ProfitPercent);
+        }
 
 
         // 데이터베이스로부터 카테고리와 수익,지출 에 따른 값을 가져와서 월별 합계로 저장하기
@@ -173,7 +187,7 @@ public class FinancialController {
         model.addAttribute("netProfitAmount", netProfit);
         model.addAttribute("ProfitAmount", Profit);
         model.addAttribute("ExpenseAmount", Expense);
-        model.addAttribute("ProfitPercent", ProfitPercent);
+
 
         // 데이터베이스에서 값을 가져와서 수익,지출 그래프 나타내기
         model.addAttribute("monthlyAdProfits", monthlyAdProfits);
