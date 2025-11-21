@@ -41,10 +41,10 @@ git clone https://github.com/paiktmddnjs/SemiProject
 ## 2. IntelliJ IDEA에서 import
 
 - File 메뉴를 클릭합니다.
-- Open... (열기)를 선택합니다.
-- 로컬 컴퓨터에서 열고자 하는 프로젝트의 최상위 폴더를 찾아서 선택합니다.
+- Open... (열기)를 선택.
+- 로컬 컴퓨터에서 열고자 하는 프로젝트의 최상위 폴더를 찾아서 선택.
 - 선택 후, **Open**을 클릭합니다.
-- IntelliJ IDEA가 해당 폴더를 프로젝트로 인식하고 엽니다. 
+- IntelliJ IDEA가 해당 폴더를 프로젝트로 인식. 
 
 # 3. 데이터베이스(Oracle) 설정
 - Oracle 실행 후 데이터베이스 및 테이블 생성
@@ -362,11 +362,11 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 <br><br>
 
 ## 🌟 주요 기능 (Key Features)
-✅ 회원가입 / 로그인 / 로그아웃 기능
-✅ 게시글 등록, 조회, 수정, 삭제 (CRUD)
-✅ Oracle DB 연동을 통한 데이터 관리
-✅ MVC 패턴 기반 구조로 모듈화된 개발
-✅ JSP include를 통한 공통 레이아웃 구성
+✅ 회원가입 / 로그인 / 로그아웃 / 마이페이지 기능 <br>
+✅ 프로젝트, 일정 , 재무기록 , 콘텐츠, 워크스페이스 --> 등록, 조회, 수정, 삭제 (CRUD) <br>
+✅ Oracle DB 연동을 통한 데이터 관리 <br>
+✅ Spring을 이용한 MVC 패턴 기반 구조로 모듈화된 개발 <br>
+✅ JSP include를 통한 공통 레이아웃 구성 
 
 <br><br>
 
@@ -414,10 +414,11 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 ## 팀원 소개(협업시 추가)
 
-| 이름 | 포지션 | Contact |
+| 이름 | 포지션 | 깃허브 or 메일 Contact |
 | --- | --- | --- |
-| 최지원 | AI | a1@gmail.com |
-| 최지투 | BE | a1@gmail.com |
-| 최지삼 | FE | a1@gmail.com |
-| 최지사 | FE | a1@gmail.com |
-| 최지오 | FE | a1@gmail.com |
+| 유재현 | 조장 | https://github.com/yoo-j-h |
+| 백승원 | 형상관리자 | paiktmddnjs@naver.com |
+| 박준언  | DB 관리자1 | https://github.com/junown |
+| 정진혁 | DB 관리자2 | wjdwlsgur01@gmail.com |
+| 장우빈 | 일정 관리자 | jwb57863@naver.com |
+| 이상명 | 이슈 관리자 | rockhavesoul@gmail.com |
