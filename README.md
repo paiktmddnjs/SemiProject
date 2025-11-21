@@ -2,7 +2,7 @@
 <br>
 <br>
 
-<h1 align="center" style="font-size: 38px; color: #FF4136; font-weight: 900; text-shadow: 2px 2px #FFDC00;"> 
+<h1 align="center" style="font-size: 43px; color: #FF4136; font-weight: 900; text-shadow: 2px 2px #FFDC00;"> 
     🚀 C.R.E.P (Creator Reporting & Efficiency Platform)
 </h1>
 
