@@ -76,14 +76,20 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┃ ┗ 📂kh
  ┃ ┃ ┃ ┗ 📂spring
  ┃ ┃ ┃ ┃ ┣ 📂config
+				<details>
+			<summary>
+			    *내용물 보기*
+			</summary>
  ┃ ┃ ┃ ┃ ┃ ┣ 📜FilterConfig.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityConfig.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📜WebConfig.java
+					</pre>
+				</details>
  ┃ ┃ ┃ ┃ ┣ 📂controller
-<details>
-<summary>
-    *내용물 보기*
-</summary>
+					<details>
+					<summary>
+					    *내용물 보기*
+					</summary>
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelController.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkAuthController.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ContentController.java
@@ -100,14 +106,19 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┣ 📜TaskController.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceController.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📜YouTubeController.java
-	</pre>
-</details>
+						</pre>
+					</details>
+					<pre>
  ┃ ┃ ┃ ┃ ┣ 📂controlloer
  ┃ ┃ ┃ ┃ ┃ ┗ 📂board
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScheduleController.java
  ┃ ┃ ┃ ┃ ┣ 📂dao
  ┃ ┃ ┃ ┃ ┃ ┗ 📜RequestDao.java
  ┃ ┃ ┃ ┃ ┣ 📂dto
+ 				<details>
+					<summary>
+					    *내용물 보기*
+					</summary>
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelDbDto.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelDto.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkApiResponse.java
@@ -119,6 +130,8 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┣ 📜InstagramdashboardDto.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜YoutubeChannelDto.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📜YoutubedashboardDto.java
+ 				</pre>
+				</details>
  ┃ ┃ ┃ ┃ ┣ 📂Entity
  ┃ ┃ ┃ ┃ ┃ ┗ 📜Chanel.java
  ┃ ┃ ┃ ┃ ┣ 📂filter
