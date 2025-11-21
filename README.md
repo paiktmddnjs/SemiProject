@@ -400,18 +400,13 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 <br><br>
 
-## 🏆 최종 프로젝트 PPT 🏆
+## 🏆 최종 프로젝트 PPT 🏆 ##
 
-<a href="https://github.com/user-attachments/files/23649478/C.R.E.P.pdf" 
-   style="display: inline-block; 
-          padding: 10px 20px; 
-          font-size: 16px; 
-          color: white; 
-          background-color: #007bff; /* 파란색 배경 */
-          border-radius: 5px; 
-          text-decoration: none; 
-          font-weight: bold;">
-    ⬇️ C.R.E.P 최종 프로젝트 보고서 (PDF) 다운로드
+<a href="C.R.E.P 최종프로젝트.pdf" 
+   style="font-size: 24px;         /* 글씨 크기 확대 */
+          color: #DC3545;          /* 강렬한 빨간색 */
+          font-weight: 900;        /* 폰트 굵기를 최대로 */
+          text-decoration: underline;"> 🔥 C.R.E.P 최종 프로젝트 보고서 (PDF) 다운로드 🔥
 </a>
 
 
