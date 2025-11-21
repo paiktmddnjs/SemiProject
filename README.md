@@ -77,9 +77,7 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┃ ┃ ┗ 📂spring
  ┃ ┃ ┃ ┃ 
  <details>
- <summary> 
-  📂 **config (설정)**
- </summary>
+ <summary> 📂 **config (설정)** </summary>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜FilterConfig.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜SecurityConfig.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜WebConfig.java
