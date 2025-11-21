@@ -38,9 +38,13 @@
 # 1. 프로젝트 클론
 git clone https://github.com/paiktmddnjs/SemiProject
 
-# 2. IntelliJ IDEA에서 import
-- File > Import > Existing Projects into Workspace
-- 복제한 프로젝트 폴더 선택 후 Import
+## 2. IntelliJ IDEA에서 import
+
+- File 메뉴를 클릭합니다.
+- Open... (열기)를 선택합니다.
+- 로컬 컴퓨터에서 열고자 하는 프로젝트의 최상위 폴더를 찾아서 선택합니다.
+- 선택 후, **Open**을 클릭합니다.
+- IntelliJ IDEA가 해당 폴더를 프로젝트로 인식하고 엽니다. 
 
 # 3. 데이터베이스(Oracle) 설정
 - Oracle 실행 후 데이터베이스 및 테이블 생성
@@ -115,6 +119,12 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┣ 📜InstagramChannelMapper.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜RequestMapper.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📜YoutubeChannelMapper.java
+</pre>
+<details>
+<summary>
+    **클릭하여 숨겨진 내용 보기**
+</summary>
+<pre>  
  ┃ ┃ ┃ ┃ ┣ 📂model
  ┃ ┃ ┃ ┃ ┃ ┣ 📂dao
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelDAO.java
@@ -134,16 +144,6 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TaskService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceService.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WorkspaceServiceImpl.java
- 
-</pre>
-
-
-   
-<details>
-<summary>
-    **클릭하여 숨겨진 내용 보기**
-</summary>
-<pre>  
  ┃ ┃ ┃ ┃ ┃ ┗ 📂vo
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Categorical.java
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelVo.java
