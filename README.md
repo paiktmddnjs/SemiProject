@@ -2,22 +2,18 @@
 <br>
 <br>
 
-<h1 style="font-size: 36px; 
-           color: #FF4136; /* 강렬한 빨간색 */
-           font-weight: 1000; /* 최대 굵기 */
-           text-align: center; /* 중앙 정렬 */
-           text-shadow: 2px 2px #FFDC00;"> 
 <h1 align="center" style="font-size: 38px; color: #FF4136; font-weight: 900; text-shadow: 2px 2px #FFDC00;"> 
     🚀 C.R.E.P (Creator Reporting & Efficiency Platform)
 </h1>
 
 <h3 align="center">
-  **📈 소규모 크리에이터를 위한 올인원협업 & 효율성 극대화 플랫폼**
+  **📈 성장을 디자인하다: 소규모 크리에이터를 위한 올인원 협업 & 효율성 극대화 플랫폼**
 </h3>
-</h1>
-<br>
-<h4 style="font-size: 34px; color: #FF4136; font-weight: 900; text-shadow: 2px 2px #FFDC00;">
-:: 1인이나 소규모 크리에이터를 위해 재무, 조회수, 협업파악 기능 등을 각각 나누어 구현하여 크리에이터로써의 상황을 효율적으로 파악할 수 있게 하기 위하여 기획 ::
+
+---
+
+<h4 align="center" style="font-size: 20px; color: #696969; font-weight: bold;">
+    :: 1인이나 소규모 크리에이터를 위해 재무, 조회수, 협업파악 기능 등을 각각 나누어 구현하여 <br> 크리에이터로써의 상황을 효율적으로 파악할 수 있게 하기 위하여 기획 ::
 </h4>
 
 <br><br>
