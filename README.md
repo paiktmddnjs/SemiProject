@@ -402,7 +402,7 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 ## 🏆 최종 프로젝트 PPT 🏆
 
-<a href="[C.R.E.P 최종프로젝트.pdf](https://github.com/user-attachments/files/23649478/C.R.E.P.pdf)" 
+<a href="https://github.com/user-attachments/files/23649478/C.R.E.P.pdf" 
    style="display: inline-block; 
           padding: 10px 20px; 
           font-size: 16px; 
