@@ -12,7 +12,7 @@
 
 ---
 
-<h4 align="center" style="font-size: 20px; text-color: #A9A9A9; font-weight: bold;">
+<h4 align="center" style="font-size: 20px; font-weight: bold;">
     :: 1인이나 소규모 크리에이터를 위해 재무, 조회수, 협업파악 기능 등을 각각 나누어 구현하여 <br> 크리에이터로써의 상황을 효율적으로 파악할 수 있게 하기 위하여 기획 ::
 </h4>
 
