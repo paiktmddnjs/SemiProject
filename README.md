@@ -38,7 +38,7 @@
 # 1. 프로젝트 클론
 git clone https://github.com/paiktmddnjs/SemiProject
 
-# 2. 이클립스(Eclipse)에서 Import
+# 2. IntelliJ IDEA에서 import
 - File > Import > Existing Projects into Workspace
 - 복제한 프로젝트 폴더 선택 후 Import
 
