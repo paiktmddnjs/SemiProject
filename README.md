@@ -370,9 +370,9 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 | 기능 | 미리보기 |
 | :---: | :---: |
-| **로그인 화면** | <img width="400" alt="로그인 화면" src="https://github.com/user-attachments/assets/55cd5378-d52a-4cef-89a2-4ae030b3427a" /> |
-| **회원가입 화면** | <img width="400" alt="회원가입 화면" src="https://github.com/user-attachments/assets/39506618-e899-44e9-a57c-24de409f5583" /> |
-| **게시판 목록** | <img width="400" alt="게시판 목록 화면" src="https://github.com/user-attachments/assets/185a6cd0-fadc-4182-a117-204eda41da0e" /> |
+| **로그인 화면** | <img width="600" alt="로그인 화면" src="https://github.com/user-attachments/assets/55cd5378-d52a-4cef-89a2-4ae030b3427a" /> |
+| **회원가입 화면** | <img width="600" alt="회원가입 화면" src="https://github.com/user-attachments/assets/39506618-e899-44e9-a57c-24de409f5583" /> |
+| **게시판 목록** | <img width="600" alt="게시판 목록 화면" src="https://github.com/user-attachments/assets/185a6cd0-fadc-4182-a117-204eda41da0e" /> |
 
 <details>
 <summary>
