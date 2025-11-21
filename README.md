@@ -2,7 +2,7 @@
 <br>
 <br>
 
-<h1 align="center" style="font-size: 36px; 
+<h1 style="font-size: 36px; 
            color: #FF4136; /* 강렬한 빨간색 */
            font-weight: 1000; /* 최대 굵기 */
            text-align: center; /* 중앙 정렬 */
