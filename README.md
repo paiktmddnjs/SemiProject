@@ -233,10 +233,6 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  </summary>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜RequestVo.java
  </details>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜Application.java
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkApplication.java
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜RestConfig.java
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜ServletInitializer.java
  ┣ 📂resources
   <details>
   <summary> 
@@ -280,8 +276,6 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜랜딩페이지초기.png
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜크리에이터.png
   </details>
-  &nbsp;&nbsp;┣ 📜application.properties
-  &nbsp;&nbsp;┗ 📜logback-spring.xml
  ┗ 📂webapp
   <details>
   <summary>
