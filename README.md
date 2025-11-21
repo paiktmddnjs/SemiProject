@@ -7,7 +7,7 @@
            font-weight: 1000; /* 최대 굵기 */
            text-align: center; /* 중앙 정렬 */
            text-shadow: 2px 2px #FFDC00;"> 
-<h1 style="font-size: 38px; color: #FF4136; font-weight: 900; text-shadow: 2px 2px #FFDC00;"> 
+<h1 align="center" style="font-size: 38px; color: #FF4136; font-weight: 900; text-shadow: 2px 2px #FFDC00;"> 
     🚀 C.R.E.P (Creator Reporting & Efficiency Platform)
 </h1>
 
