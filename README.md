@@ -233,7 +233,7 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  </summary>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜RequestVo.java
  </details>
- ┣ 📂resources
+ 	┗ 📂resources
   <details>
   <summary> 
    📂 **mappers (MyBatis XML)**
