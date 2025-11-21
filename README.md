@@ -412,14 +412,14 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 <br><br>
 
-## 팀원 소개(협업시 추가)
+## 🤝 프로젝트 팀 구성 및 역할 분담
 
 | 이름 | 포지션 | 담당 역할 | GitHub / Contact |
 | :---: | :---: | :---: | :--- |
-| **유재현** | **조장 (Team Lead)** | 프로젝트 총괄 및 의사 결정 | **[GitHub: yoo-j-h](https://github.com/yoo-j-h)** |
-| **백승원** | **형상 관리자 (SCM)** | Git 브랜치 전략 및 버전 관리 | paiktmddnjs@naver.com |
-| **박준언** | **DB 관리자 1** | 데이터베이스 설계 및 초기 구축 | **[GitHub: junown](https://github.com/junown)** |
-| **정진혁** | **DB 관리자 2** | 데이터베이스 유지보수 및 최적화 | wjdwlsgur01@gmail.com |
-| **장우빈** | **일정 관리자** | Sprint 및 마일스톤 관리 | jwb57863@naver.com |
-| **이상명** | **이슈 관리자** | 이슈 트래킹 및 피드백 통합 관리 | rockhavesoul@gmail.com |
+| 👑 **유재현** | **조장 (Team Lead)** | 프로젝트 총괄 및 의사 결정 | **[GitHub: yoo-j-h](https://github.com/yoo-j-h)** |
+| ⚙️ **백승원** | **형상 관리자 (SCM)** | Git 브랜치 전략 및 버전 관리 | paiktmddnjs@naver.com |
+| 🗄️ **박준언** | **DB 관리자 1** | 데이터베이스 설계 및 초기 구축 | **[GitHub: junown](https://github.com/junown)** |
+| 🗄️ **정진혁** | **DB 관리자 2** | 데이터베이스 유지보수 및 최적화 | wjdwlsgur01@gmail.com |
+| 🗓️ **장우빈** | **일정 관리자** | Sprint 및 마일스톤 관리 | jwb57863@naver.com |
+| 🐞 **이상명** | **이슈 관리자** | 이슈 트래킹 및 피드백 통합 관리 | rockhavesoul@gmail.com |
 
