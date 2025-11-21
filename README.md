@@ -34,7 +34,7 @@
 | Backend | Java (Servlet, JDBC , Spring)|
 | Server| Apache Tomcat |
 | Database | Oracle |
-| Tools | Eclipse, Git, GitHub |
+| Tools | Intellij, Sqldeveloper, Git, GitHub |
 
 
 <br><br>
@@ -80,6 +80,10 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityConfig.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📜WebConfig.java
  ┃ ┃ ┃ ┃ ┣ 📂controller
+<details>
+<summary>
+    *내용물 보기*
+</summary>
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelController.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkAuthController.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜ContentController.java
@@ -96,6 +100,8 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┃ ┃ ┃ ┃ ┣ 📜TaskController.java
  ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceController.java
  ┃ ┃ ┃ ┃ ┃ ┗ 📜YouTubeController.java
+	</pre>
+</details>
  ┃ ┃ ┃ ┃ ┣ 📂controlloer
  ┃ ┃ ┃ ┃ ┃ ┗ 📂board
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScheduleController.java
