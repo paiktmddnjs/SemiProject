@@ -80,17 +80,14 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  <summary> 
   📂 **config (설정)**
  </summary>
- 
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜FilterConfig.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜SecurityConfig.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜WebConfig.java
  </details>
-
  <details>
  <summary> 
   📂 **controller**
  </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChannelController.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkAuthController.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ContentController.java
@@ -108,28 +105,22 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜WorkspaceController.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YouTubeController.java
  </details>
-
  <details>
  <summary> 
   📂 **controlloer/board**
  </summary>
-  
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜ScheduleController.java
  </details>
-
  <details>
  <summary> 
   📂 **dao**
  </summary>
- 
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜RequestDao.java
  </details>
-
  <details>
  <summary> 
   📂 **dto**
  </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChannelDbDto.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChannelDto.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkApiResponse.java
@@ -142,48 +133,38 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜YoutubeChannelDto.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YoutubedashboardDto.javas
  </details>
-
  <details>
  <summary> 
   📂 **Entity**
  </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜Chanel.java
  </details>
-
  <details>
  <summary> 
   📂 **filter**
  </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜RequestTimeFilter.java
  </details>
-
  <details>
  <summary> 
   📂 **interceptor**
  </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜LoginCheckInterceptor.java
  </details>
-
  <details>
  <summary> 
   📂 **mapper**
  </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkChanelMapper.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkMemberMapper.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜InstagramChannelMapper.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜RequestMapper.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YoutubeChannelMapper.java
  </details>
-
  <details>
  <summary> 
   📂 **model (DAO, Mapper, Service, VO)**
  </summary>
- 
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂dao
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ChannelDAO.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ContractMapper.java
@@ -226,7 +207,6 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜WorkspaceMemberVo.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┗ 📜WorkspaceVo.java	
  </details>
- 
  <details>
  <summary> 
   📂 **service**
@@ -247,26 +227,21 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ScheduleServiceImpl.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YouTubeService.java
  </details>
-  
  <details>
  <summary> 
   📂 **vo**
  </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜RequestVo.java
  </details>
- 
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜Application.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkApplication.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜RestConfig.java
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜ServletInitializer.java
-
  ┣ 📂resources
   <details>
   <summary> 
    📂 **mappers (MyBatis XML)**
   </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkChanelMapper.xml
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkMemberMapper.xml
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜content-mapper.xml
@@ -280,12 +255,10 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜schedule-mapper.xml
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YoutubeChannelMapper.xml
   </details>
-
   <details>
   <summary> 
    📂 **static (정적 자원)**
   </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂images (이미지 파일)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜aleart.PNG
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜checke.PNG
@@ -307,16 +280,13 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜랜딩페이지초기.png
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜크리에이터.png
   </details>
-  
   &nbsp;&nbsp;┣ 📜application.properties
   &nbsp;&nbsp;┗ 📜logback-spring.xml
-
  ┗ 📂webapp
   <details>
   <summary>
   📂 **resources** (JSP가 사용하는 CSS/JS/Image)
   </summary>
-
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂css
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜contractList.css
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜dashboard.css
@@ -345,7 +315,6 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜taskCard.js
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┗ 📜workspace.js
   </details>
-  
   <details>
   <summary>
   📁 **WEB-INF/views** (모든 JSP View 파일)
