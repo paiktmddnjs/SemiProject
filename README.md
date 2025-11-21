@@ -374,7 +374,7 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 | 기능 | 미리보기 |
 |------|-----------|
-| 로그인 화면 | ![Login Page](./assets/login.gif) |
+| 로그인 화면 | ![Login Page](./assets/로그인.png) |
 | 회원가입 화면 | ![Register Page](./assets/register.png) |
 | 게시판 목록 | ![Board List](./assets/board-list.jpg) |
 | 게시글 작성 | ![Post Write](./assets/post-write.gif) |
