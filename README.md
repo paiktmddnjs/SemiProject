@@ -75,315 +75,354 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
  ┃ ┗ 📂com
  ┃ ┃ ┗ 📂kh
  ┃ ┃ ┃ ┗ 📂spring
- ┃ ┃ ┃ ┃ ┣ 📂config
-				<details>
-			<summary>
-			    *내용물 보기*
-			</summary>
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FilterConfig.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityConfig.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📜WebConfig.java
-					</pre>
-				</details>
- ┃ ┃ ┃ ┃ ┣ 📂controller
-					<details>
-					<summary>
-					    *내용물 보기*
-					</summary>
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkAuthController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ContentController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ContractController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DashboardController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FinancialController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜GlobalControllerAdvice.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜HomeController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InstagramAuthController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜MyPageController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ProjectController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜RequestController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜TaskController.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceController.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📜YouTubeController.java
-						</pre>
-					</details>
-					<pre>
- ┃ ┃ ┃ ┃ ┣ 📂controlloer
- ┃ ┃ ┃ ┃ ┃ ┗ 📂board
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScheduleController.java
- ┃ ┃ ┃ ┃ ┣ 📂dao
- ┃ ┃ ┃ ┃ ┃ ┗ 📜RequestDao.java
- ┃ ┃ ┃ ┃ ┣ 📂dto
- 				<details>
-					<summary>
-					    *내용물 보기*
-					</summary>
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelDbDto.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelDto.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkApiResponse.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkChanelDto.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkChannelDto.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkChannelListContentDto.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkUserInfoDto.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InstagramChannelDto.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InstagramdashboardDto.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜YoutubeChannelDto.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📜YoutubedashboardDto.java
- 				</pre>
-				</details>
- ┃ ┃ ┃ ┃ ┣ 📂Entity
- ┃ ┃ ┃ ┃ ┃ ┗ 📜Chanel.java
- ┃ ┃ ┃ ┃ ┣ 📂filter
- ┃ ┃ ┃ ┃ ┃ ┗ 📜RequestTimeFilter.java
- ┃ ┃ ┃ ┃ ┣ 📂interceptor
- ┃ ┃ ┃ ┃ ┃ ┗ 📜LoginCheckInterceptor.java
- ┃ ┃ ┃ ┃ ┣ 📂mapper
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkChanelMapper.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkMemberMapper.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InstagramChannelMapper.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜RequestMapper.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📜YoutubeChannelMapper.java
-</pre>
-<details>
-<summary>
-    **클릭하여 숨겨진 내용 보기**
-</summary>
-<pre>  
- ┃ ┃ ┃ ┃ ┣ 📂model
- ┃ ┃ ┃ ┃ ┃ ┣ 📂dao
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelDAO.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ContractMapper.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProjectDao.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TaskDao.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WorkspaceDao.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂mapper
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ContentMapper.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FinancialMapper.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberMapper.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScheduleMapper.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ContractService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ContractServiceImpl.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProjectService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TaskService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WorkspaceServiceImpl.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📂vo
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Categorical.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChannelVo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Company.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Content.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Contract.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ContractSummary.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Financial.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Member.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberVo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Monthly.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PageInfo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Project.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProjectVo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StatusContainer.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Task.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TaskVo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TopThree.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Views.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Workspace.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceMember.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WorkspaceMemberVo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WorkspaceVo.java	
- ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChanelService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkAuthService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ChzzkDataService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ContentService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ContentServiceImpl.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FinancialService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FinancialServiceImpl.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InstagramService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberServiceImpl.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜RequestService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ScheduleServiceImpl.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📜YouTubeService.java
- ┃ ┃ ┃ ┃ ┣ 📂vo
- ┃ ┃ ┃ ┃ ┃ ┗ 📜RequestVo.java
- ┃ ┃ ┃ ┃ ┣ 📜Application.java
- ┃ ┃ ┃ ┃ ┣ 📜ChzzkApplication.java
- ┃ ┃ ┃ ┃ ┣ 📜RestConfig.java
- ┃ ┃ ┃ ┃ ┗ 📜ServletInitializer.java
- ┣ 📂resources
- ┃ ┣ 📂mappers
- ┃ ┃ ┣ 📜ChzzkChanelMapper.xml
- ┃ ┃ ┣ 📜ChzzkMemberMapper.xml
- ┃ ┃ ┣ 📜content-mapper.xml
- ┃ ┃ ┣ 📜contentAn-mapper.xml
- ┃ ┃ ┣ 📜contentCom-mapper.xml
- ┃ ┃ ┣ 📜contractMapper.xml
- ┃ ┃ ┣ 📜financial-mapper.xml
- ┃ ┃ ┣ 📜InstagramChannelMapper.xml
- ┃ ┃ ┣ 📜member-mapper.xml
- ┃ ┃ ┣ 📜request-mapper.xml
- ┃ ┃ ┣ 📜schedule-mapper.xml
- ┃ ┃ ┗ 📜YoutubeChannelMapper.xml
- ┃ ┣ 📂static
- ┃ ┃ ┣ 📂images
- ┃ ┃ ┃ ┣ 📜aleart.PNG
- ┃ ┃ ┃ ┣ 📜checke.PNG
- ┃ ┃ ┃ ┣ 📜circle.PNG
- ┃ ┃ ┃ ┣ 📜project.PNG
- ┃ ┃ ┃ ┗ 📜workspace.PNG
- ┃ ┃ ┣ 📂js
- ┃ ┃ ┃ ┗ 📂fullcalendar
- ┃ ┃ ┃ ┃ ┗ 📜index.global.min.js
- ┃ ┃ ┣ 📜ExpenseEnroll.js
- ┃ ┃ ┣ 📜ExpenseImg.png
- ┃ ┃ ┣ 📜Landing_Page.html
- ┃ ┃ ┣ 📜Login.html
- ┃ ┃ ┣ 📜logo.PNG.png
- ┃ ┃ ┣ 📜MoneyEnroll.js
- ┃ ┃ ┣ 📜MoneyView.css
- ┃ ┃ ┣ 📜ProfitImg.png
- ┃ ┃ ┣ 📜Transaction.css
- ┃ ┃ ┣ 📜랜딩페이지초기.png
- ┃ ┃ ┗ 📜크리에이터.png
- ┃ ┣ 📜application.properties
- ┃ ┗ 📜logback-spring.xml
- ┗ 📂webapp
- ┃ ┣ 📂resources
- ┃ ┃ ┣ 📂css
- ┃ ┃ ┃ ┣ 📜contractList.css
- ┃ ┃ ┃ ┣ 📜dashboard.css
- ┃ ┃ ┃ ┣ 📜insert.css
- ┃ ┃ ┃ ┣ 📜mypage.css
- ┃ ┃ ┃ ┣ 📜scheduleStyle.css
- ┃ ┃ ┃ ┗ 📜theme.css
- ┃ ┃ ┣ 📂images
- ┃ ┃ ┃ ┣ 📜avatar_image.png
- ┃ ┃ ┃ ┣ 📜bell.png
- ┃ ┃ ┃ ┣ 📜bell_icon.png
- ┃ ┃ ┃ ┣ 📜calendar_icon.png
- ┃ ┃ ┃ ┣ 📜contract_icon.png
- ┃ ┃ ┃ ┣ 📜dashboard_icon.png
- ┃ ┃ ┃ ┣ 📜handshake.png
- ┃ ┃ ┃ ┣ 📜handshake_icon.png
- ┃ ┃ ┃ ┣ 📜icon-folder.png
- ┃ ┃ ┃ ┣ 📜logo.png
- ┃ ┃ ┃ ┣ 📜moon_icon.png
- ┃ ┃ ┃ ┣ 📜project_icon.png
- ┃ ┃ ┃ ┣ 📜report_icon.png
- ┃ ┃ ┃ ┣ 📜search_icon.png
- ┃ ┃ ┃ ┣ 📜sidebar_icon.png
- ┃ ┃ ┃ ┣ 📜sun_icon.png
- ┃ ┃ ┃ ┗ 📜video_icon.png
- ┃ ┃ ┣ 📂script
- ┃ ┃ ┃ ┣ 📜scheduleAjax.js
- ┃ ┃ ┃ ┗ 📜scheduleScript.js
- ┃ ┃ ┗ 📂static
- ┃ ┃ ┃ ┣ 📂css
- ┃ ┃ ┃ ┃ ┣ 📜default.css
- ┃ ┃ ┃ ┃ ┣ 📜invite.css
- ┃ ┃ ┃ ┃ ┣ 📜project.css
- ┃ ┃ ┃ ┃ ┣ 📜projectdetail.css
- ┃ ┃ ┃ ┃ ┗ 📜theme.css
- ┃ ┃ ┃ ┣ 📂images
- ┃ ┃ ┃ ┃ ┣ 📜avatar_image.png
- ┃ ┃ ┃ ┃ ┣ 📜bell.png
- ┃ ┃ ┃ ┃ ┣ 📜bell_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜calendar_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜contract_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜dashboard_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜handshake.png
- ┃ ┃ ┃ ┃ ┣ 📜handshake_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜logo.png
- ┃ ┃ ┃ ┃ ┣ 📜moon_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜report_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜search_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜sidebar_icon.png
- ┃ ┃ ┃ ┃ ┣ 📜sun_icon.png
- ┃ ┃ ┃ ┃ ┗ 📜video_icon.png
- ┃ ┃ ┃ ┗ 📂js
- ┃ ┃ ┃ ┃ ┣ 📜modal.js
- ┃ ┃ ┃ ┃ ┣ 📜project.js
- ┃ ┃ ┃ ┃ ┣ 📜project_page.js
- ┃ ┃ ┃ ┃ ┣ 📜taskCard.js
- ┃ ┃ ┃ ┃ ┗ 📜workspace.js
- ┃ ┣ 📂WEB-INF
- ┃ ┃ ┗ 📂views
- ┃ ┃ ┃ ┣ 📂board
- ┃ ┃ ┃ ┃ ┗ 📜schedule.jsp
- ┃ ┃ ┃ ┣ 📂common
- ┃ ┃ ┃ ┃ ┣ 📂icons
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_back_arrow.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_calendar.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_chzzk.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_clock.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_comments.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_delete.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_document.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_folder.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_home.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_instagram.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_like.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_money.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_more_menu.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_plus.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_sponsorships.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_user.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_user_simple.jsp
- ┃ ┃ ┃ ┃ ┃ ┣ 📜icon_view.jsp
- ┃ ┃ ┃ ┃ ┃ ┗ 📜icon_youtube.jsp
- ┃ ┃ ┃ ┃ ┗ 📜error.jsp
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜footer.jsp
- ┃ ┃ ┃ ┃ ┣ 📜header.jsp
- ┃ ┃ ┃ ┃ ┣ 📜layout.jsp
- ┃ ┃ ┃ ┃ ┣ 📜modals.jsp
- ┃ ┃ ┃ ┃ ┣ 📜sidebar.jsp
- ┃ ┃ ┃ ┃ ┣ 📜task_card.jsp
- ┃ ┃ ┃ ┃ ┗ 📜_teamMemberList.jsp
- ┃ ┃ ┃ ┣ 📂scheduleFragment
- ┃ ┃ ┃ ┃ ┣ 📜scheduleCalendar.jsp
- ┃ ┃ ┃ ┃ ┣ 📜scheduleEventlist.jsp
- ┃ ┃ ┃ ┃ ┣ 📜scheduleProject.jsp
- ┃ ┃ ┃ ┃ ┣ 📜scheduleSemiProject.jsp
- ┃ ┃ ┃ ┃ ┣ 📜scheduleSemiWorkspace.jsp
- ┃ ┃ ┃ ┃ ┣ 📜scheduleStatus.jsp
- ┃ ┃ ┃ ┃ ┗ 📜scheduleWorkspace.jsp
- ┃ ┃ ┃ ┣ 📜channel_list.jsp
- ┃ ┃ ┃ ┣ 📜Chzzk_Login.jsp
- ┃ ┃ ┃ ┣ 📜Content_Management.jsp
- ┃ ┃ ┃ ┣ 📜Content_Management_Detail.jsp
- ┃ ┃ ┃ ┣ 📜contract.jsp
- ┃ ┃ ┃ ┣ 📜dashboard.jsp
- ┃ ┃ ┃ ┣ 📜ExpenseEnroll.jsp
- ┃ ┃ ┃ ┣ 📜index.jsp
- ┃ ┃ ┃ ┣ 📜invite_member.jsp
- ┃ ┃ ┃ ┣ 📜Landing_Page.jsp
- ┃ ┃ ┃ ┣ 📜Login.jsp
- ┃ ┃ ┃ ┣ 📜login2.jsp
- ┃ ┃ ┃ ┣ 📜MoneyView.jsp
- ┃ ┃ ┃ ┣ 📜mypage.jsp
- ┃ ┃ ┃ ┣ 📜new_project.jsp
- ┃ ┃ ┃ ┣ 📜new_task.jsp
- ┃ ┃ ┃ ┣ 📜new_workspace.jsp
- ┃ ┃ ┃ ┣ 📜ProfitEnroll.jsp
- ┃ ┃ ┃ ┣ 📜project.jsp
- ┃ ┃ ┃ ┣ 📜projectdetail.jsp
- ┃ ┃ ┃ ┣ 📜requests.jsp
- ┃ ┃ ┃ ┣ 📜result.jsp
- ┃ ┃ ┃ ┣ 📜set_project.jsp
- ┃ ┃ ┃ ┣ 📜set_workspace.jsp
- ┃ ┃ ┃ ┣ 📜SignUp.jsp
- ┃ ┃ ┃ ┣ 📜Sign_Up.jsp
- ┃ ┃ ┃ ┣ 📜Transaction.jsp
- ┃ ┃ ┃ ┗ 📜workspace.jsp
- ┃ ┣ 📜down.png
- ┃ ┗ 📜loader.jsp
-</pre>
-</details>
+ ┃ ┃ ┃ ┃ 
+ <details>
+ <summary> 
+  📂 **config (설정)**
+ </summary>
+ 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜FilterConfig.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜SecurityConfig.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜WebConfig.java
+ </details>
 
+ <details>
+ <summary> 
+  📂 **controller**
+ </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChannelController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkAuthController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ContentController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ContractController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜DashboardController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜FinancialController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜GlobalControllerAdvice.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜HomeController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜InstagramAuthController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜MemberController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜MyPageController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ProjectController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜RequestController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜TaskController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜WorkspaceController.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YouTubeController.java
+ </details>
+
+ <details>
+ <summary> 
+  📂 **controlloer/board**
+ </summary>
+  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜ScheduleController.java
+ </details>
+
+ <details>
+ <summary> 
+  📂 **dao**
+ </summary>
+ 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜RequestDao.java
+ </details>
+
+ <details>
+ <summary> 
+  📂 **dto**
+ </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChannelDbDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChannelDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkApiResponse.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkChanelDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkChannelDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkChannelListContentDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkUserInfoDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜InstagramChannelDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜InstagramdashboardDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜YoutubeChannelDto.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YoutubedashboardDto.javas
+ </details>
+
+ <details>
+ <summary> 
+  📂 **Entity**
+ </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜Chanel.java
+ </details>
+
+ <details>
+ <summary> 
+  📂 **filter**
+ </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜RequestTimeFilter.java
+ </details>
+
+ <details>
+ <summary> 
+  📂 **interceptor**
+ </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜LoginCheckInterceptor.java
+ </details>
+
+ <details>
+ <summary> 
+  📂 **mapper**
+ </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkChanelMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkMemberMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜InstagramChannelMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜RequestMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YoutubeChannelMapper.java
+ </details>
+
+ <details>
+ <summary> 
+  📂 **model (DAO, Mapper, Service, VO)**
+ </summary>
+ 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂dao
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ChannelDAO.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ContractMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ProjectDao.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜TaskDao.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┗ 📜WorkspaceDao.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂mapper
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ContentMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜FinancialMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜MemberMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┗ 📜ScheduleMapper.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂service
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ContractService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ContractServiceImpl.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ProjectService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜TaskService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜WorkspaceService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┗ 📜WorkspaceServiceImpl.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📂vo
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Categorical.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜ChannelVo.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Company.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Content.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Contract.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜ContractSummary.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Financial.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Member.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜MemberVo.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Monthly.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜PageInfo.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Project.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜ProjectVo.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜StatusContainer.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Task.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜TaskVo.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜TopThree.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Views.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜Workspace.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜WorkspaceMember.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📜WorkspaceMemberVo.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┗ 📜WorkspaceVo.java	
+ </details>
+ 
+ <details>
+ <summary> 
+  📂 **service**
+ </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChanelService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkAuthService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkDataService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ContentService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ContentServiceImpl.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜FinancialService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜FinancialServiceImpl.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜InstagramService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜MemberService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜MemberServiceImpl.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜RequestService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ScheduleService.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ScheduleServiceImpl.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YouTubeService.java
+ </details>
+  
+ <details>
+ <summary> 
+  📂 **vo**
+ </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜RequestVo.java
+ </details>
+ 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜Application.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkApplication.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜RestConfig.java
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜ServletInitializer.java
+
+ ┣ 📂resources
+  <details>
+  <summary> 
+   📂 **mappers (MyBatis XML)**
+  </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkChanelMapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ChzzkMemberMapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜content-mapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜contentAn-mapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜contentCom-mapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜contractMapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜financial-mapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜InstagramChannelMapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜member-mapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜request-mapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜schedule-mapper.xml
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜YoutubeChannelMapper.xml
+  </details>
+
+  <details>
+  <summary> 
+   📂 **static (정적 자원)**
+  </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂images (이미지 파일)
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜aleart.PNG
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜checke.PNG
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜circle.PNG
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜project.PNG
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┗ 📜workspace.PNG
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂js (JavaScript)
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┗ 📂fullcalendar
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┗ 📜index.global.min.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ExpenseEnroll.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ExpenseImg.png
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜Landing_Page.html
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜Login.html
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜logo.PNG.png
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜MoneyEnroll.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜MoneyView.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜ProfitImg.png
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜Transaction.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📜랜딩페이지초기.png
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📜크리에이터.png
+  </details>
+  
+  &nbsp;&nbsp;┣ 📜application.properties
+  &nbsp;&nbsp;┗ 📜logback-spring.xml
+
+ ┗ 📂webapp
+  <details>
+  <summary>
+  📂 **resources** (JSP가 사용하는 CSS/JS/Image)
+  </summary>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜contractList.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜dashboard.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜insert.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜mypage.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜scheduleStyle.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┗ 📜theme.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂images (아이콘 및 UI 이미지)
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ ... (이미지 파일 생략)
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┣ 📂script (개별 스크립트)
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜scheduleAjax.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┃ ┗ 📜scheduleScript.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗ 📂static (정적 자원)
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📂css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜default.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜invite.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜project.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜projectdetail.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┗ 📜theme.css
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┣ 📂images
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ ... (이미지 파일 생략)
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┗ 📂js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜modal.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜project.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜project_page.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┣ 📜taskCard.js
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ┃ ┗ 📜workspace.js
+  </details>
+  
+  <details>
+  <summary>
+  📁 **WEB-INF/views** (모든 JSP View 파일)
+  </summary>
+  <pre>
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📂board
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┗ 📜schedule.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📂common
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📂icons
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_back_arrow.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_calendar.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_chzzk.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_clock.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_comments.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_delete.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_document.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_folder.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_home.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_instagram.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_like.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_money.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_more_menu.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_plus.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_sponsorships.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_user.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_user_simple.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┣ 📜icon_view.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┃ ┗ 📜icon_youtube.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┗ 📜error.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📂components
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜footer.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜header.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜layout.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜modals.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜sidebar.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜task_card.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┗ 📜_teamMemberList.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📂scheduleFragment
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜scheduleCalendar.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜scheduleEventlist.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜scheduleProject.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜scheduleSemiProject.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜scheduleSemiWorkspace.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┣ 📜scheduleStatus.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┃ ┗ 📜scheduleWorkspace.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜channel_list.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜Chzzk_Login.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜Content_Management.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜Content_Management_Detail.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜contract.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜dashboard.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ExpenseEnroll.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜index.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜invite_member.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜Landing_Page.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜Login.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜login2.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜MoneyView.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜mypage.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜new_project.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜new_task.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜new_workspace.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜ProfitEnroll.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜project.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜projectdetail.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜requests.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜result.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜set_project.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜set_workspace.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜SignUp.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜Sign_Up.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┣ 📜Transaction.jsp
+  &nbsp;&nbsp;&nbsp;&nbsp;┃ ┗ 📜workspace.jsp
+  &nbsp;&nbsp;┗ 📜loader.jsp
+  </pre>
+  </details>
+</pre>
 <br><br>
 
 ## 🌟 주요 기능 (Key Features)
