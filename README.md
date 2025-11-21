@@ -375,9 +375,17 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 | 기능 | 미리보기 |
 |------|-----------|
 | 로그인 화면 | <img width="1124" height="698" alt="Image" src="https://github.com/user-attachments/assets/55cd5378-d52a-4cef-89a2-4ae030b3427a" /> |
-| 회원가입 화면 | ![Register Page](./assets/register.png) |
-| 게시판 목록 | ![Board List](./assets/board-list.jpg) |
-| 게시글 작성 | ![Post Write](./assets/post-write.gif) |
+| 회원가입 화면 | <img width="1219" height="663" alt="Image" src="https://github.com/user-attachments/assets/39506618-e899-44e9-a57c-24de409f5583" /> |
+| 게시판 목록 | <img width="986" height="642" alt="Image" src="https://github.com/user-attachments/assets/185a6cd0-fadc-4182-a117-204eda41da0e" /> |
+| 게시글 작성 | <img width="1909" height="954" alt="Image" src="https://github.com/user-attachments/assets/534a9ba5-873c-40b1-88c7-a9b976100b46" /> |
+| 게시글 작성 | <img width="1906" height="953" alt="Image" src="https://github.com/user-attachments/assets/254644bb-313c-4670-886f-3911390f01dc" /> |
+| 게시글 작성 | <img width="1908" height="954" alt="Image" src="https://github.com/user-attachments/assets/422d24c6-831e-4cee-8209-b33d9a110a01" /> |
+| 게시글 작성 | <img width="994" height="827" alt="Image" src="https://github.com/user-attachments/assets/0c887890-d971-4820-9a90-53b709b1d2d3" />  |
+| 게시글 작성 | <img width="1908" height="956" alt="Image" src="https://github.com/user-attachments/assets/b84edc22-b89b-4ba6-b2b7-77aa1f0af856" /> |
+| 게시글 작성 | <img width="1902" height="930" alt="Image" src="https://github.com/user-attachments/assets/93199bab-527d-49da-b0a5-20179236ee16" /> |
+| 게시글 작성 | <img width="1302" height="698" alt="Image" src="https://github.com/user-attachments/assets/c4372317-4ea7-4bc8-b624-b7c93eff1618" /> |
+| 게시글 작성 | <img width="1191" height="822" alt="Image" src="https://github.com/user-attachments/assets/eff670e5-e8df-47aa-ad36-18c566d61af1" /> |
+| 게시글 작성 | <img width="1208" height="639" alt="Image" src="https://github.com/user-attachments/assets/ba710384-ac88-4cef-b24b-41cb5cec25a0" /> |
 
 
 <br><br>
