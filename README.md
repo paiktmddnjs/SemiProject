@@ -3,7 +3,7 @@
 <br>
 
 <h1 align="center" style="font-size: 50px; color: #FF4136; font-weight: 900; text-shadow: 2px 2px #FFDC00;"> 
-    🚀 C.R.E.P (Creator Reporting & Efficiency Platform)
+    🚀세미프로젝트명 : C.R.E.P (Creator Reporting & Efficiency Platform)
 </h1>
 
 <h3 align="center">
