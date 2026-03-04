@@ -410,11 +410,11 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 ## 🏆 최종 프로젝트 PPT 🏆 ##
 
-<a href="C.R.E.P 최종프로젝트.pdf" 
+<a href="https://file.notion.so/f/f/b57435fc-bd9d-8113-8fa8-00031ce9b39d/743cfebb-3d56-4b8c-92dd-795e381cd8db/C.R.E.P_%EC%B5%9C%EC%A2%85%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.pdf?table=block&id=2b1435fc-bd9d-8053-a7fd-ede520a595d8&spaceId=b57435fc-bd9d-8113-8fa8-00031ce9b39d&expirationTimestamp=1772611200000&signature=Hhh5Swl5QVUlys4-iC_4Y-ykYVvIreCBwbsxp4IA3yc&downloadName=C.R.E.P+%EC%B5%9C%EC%A2%85%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.pdf" 
    style="font-size: 24px;         /* 글씨 크기 확대 */
           color: #DC3545;          /* 강렬한 빨간색 */
           font-weight: 900;        /* 폰트 굵기를 최대로 */
-          text-decoration: underline;"> 🔥 C.R.E.P 최종 프로젝트 보고서 (PDF) 다운로드 🔥
+          text-decoration: underline;"> 🔥 C.R.E.P 최종 프로젝트 보고서 🔥
 </a>
 
 
