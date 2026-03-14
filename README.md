@@ -373,7 +373,7 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 | :---: | :---: |
 | **로그인 화면** | <img width="600" alt="로그인 화면" src="https://github.com/user-attachments/assets/55cd5378-d52a-4cef-89a2-4ae030b3427a" /> |
 | **회원가입 화면** | <img width="600" alt="회원가입 화면" src="https://github.com/user-attachments/assets/39506618-e899-44e9-a57c-24de409f5583" /> |
-| **게시판 목록** | <img width="600" alt="게시판 목록 화면" src="https://github.com/user-attachments/assets/185a6cd0-fadc-4182-a117-204eda41da0e" /> |
+| **랜딩 페이지** | <img width="600" alt="게시판 목록 화면" src="https://github.com/user-attachments/assets/185a6cd0-fadc-4182-a117-204eda41da0e" /> |
 
 <details>
 <summary>
@@ -383,15 +383,15 @@ http://(자신이 정한 포트번호) (ex. localhost:8003)
 
 | 기능 | 미리보기 |
 | :---: | :---: |
-| 게시글 작성 1 | <img width="600" alt="게시글 작성 1" src="https://github.com/user-attachments/assets/534a9ba5-873c-40b1-88c7-a9b976100b46" /> |
-| 게시글 작성 2 | <img width="600" alt="게시글 작성 2" src="https://github.com/user-attachments/assets/254644bb-313c-4670-886f-3911390f01dc" /> |
-| 게시글 작성 3 | <img width="600" alt="게시글 작성 3" src="https://github.com/user-attachments/assets/422d24c6-831e-4cee-8209-b33d9a110a01" /> |
-| 게시글 작성 4 | <img width="600" alt="게시글 작성 4" src="https://github.com/user-attachments/assets/0c887890-d971-4820-9a90-53b709b1d2d3" /> |
-| 게시글 작성 5 | <img width="600" alt="게시글 작성 5" src="https://github.com/user-attachments/assets/b84edc22-b89b-4ba6-b2b7-77aa1f0af856" /> |
-| 게시글 작성 6 | <img width="600" alt="게시글 작성 6" src="https://github.com/user-attachments/assets/93199bab-527d-49da-b0a5-20179236ee16" /> |
-| 게시글 작성 7 | <img width="600" alt="게시글 작성 7" src="https://github.com/user-attachments/assets/c4372317-4ea7-4bc8-b624-b7c93eff1618" /> |
-| 게시글 작성 8 | <img width="600" alt="게시글 작성 8" src="https://github.com/user-attachments/assets/eff670e5-e8df-47aa-ad36-18c566d61af1" /> |
-| 게시글 작성 9 | <img width="600" alt="게시글 작성 9" src="https://github.com/user-attachments/assets/ba710384-ac88-4cef-b24b-41cb5cec25a0" /> |
+| 마이페이지 | <img width="600" alt="게시글 작성 1" src="https://github.com/user-attachments/assets/534a9ba5-873c-40b1-88c7-a9b976100b46" /> |
+| 대시보드 | <img width="600" alt="게시글 작성 2" src="https://github.com/user-attachments/assets/254644bb-313c-4670-886f-3911390f01dc" /> |
+| 일정관리 | <img width="600" alt="게시글 작성 3" src="https://github.com/user-attachments/assets/422d24c6-831e-4cee-8209-b33d9a110a01" /> |
+| 콘텐츠 관리 | <img width="600" alt="게시글 작성 4" src="https://github.com/user-attachments/assets/0c887890-d971-4820-9a90-53b709b1d2d3" /> |
+| 재무 관리 | <img width="600" alt="게시글 작성 5" src="https://github.com/user-attachments/assets/b84edc22-b89b-4ba6-b2b7-77aa1f0af856" /> |
+| 협찬 계약 | <img width="600" alt="게시글 작성 6" src="https://github.com/user-attachments/assets/93199bab-527d-49da-b0a5-20179236ee16" /> |
+| 프로젝트 관리 | <img width="600" alt="게시글 작성 7" src="https://github.com/user-attachments/assets/c4372317-4ea7-4bc8-b624-b7c93eff1618" /> |
+| 프로젝트 관리 - 프로젝트 선택 | <img width="600" alt="게시글 작성 8" src="https://github.com/user-attachments/assets/eff670e5-e8df-47aa-ad36-18c566d61af1" /> |
+| 프로젝트 관리 - 팀 관리 | <img width="600" alt="게시글 작성 9" src="https://github.com/user-attachments/assets/ba710384-ac88-4cef-b24b-41cb5cec25a0" /> |
 
 </details>
 
